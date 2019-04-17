@@ -20,25 +20,21 @@
   "license": "Apache-2.0",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "watson-developer-cloud": "^3.18.1"
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "watson-developer-cloud": "^3.18.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "engines": {
-    "node": ">=8.15.0"
-  },
-  "engineStrict": true,
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^8.2.6",
     "casperjs": "^1.1.4",
-    "codecov": "^3.2.0",
-    "eslint": "^5.14.0",
-    "jest": "^24.1.0",
+    "codecov": "^3.3.0",
+    "eslint": "^5.16.0",
+    "jest": "^23.6.0",
     "phantomjs-prebuilt": "^2.1.16",
-    "supertest": "^3.4.2"
+    "supertest": "^3.3.0"
   }
 }

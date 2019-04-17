@@ -27,9 +27,7 @@ var ConversationPanel = (function () {
   // Initialize the module
   function init() {
     chatUpdateSetup();
-    Api.getSessionId(function() {
-      Api.sendRequest('', null);
-    });
+    Api.sendRequest('', null);
     setupInputBox();
   }
   // Set up callbacks on payload setters in Api module
@@ -45,10 +43,6 @@ var ConversationPanel = (function () {
     Api.setResponsePayload = function (newPayloadStr) {
       currentResponsePayloadSetter.call(Api, newPayloadStr);
       displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.watson);
-    };
-
-    Api.setErrorPayload = function (newPayload) {
-      displayMessage(newPayload, settings.authorTypes.watson);
     };
   }
 
@@ -123,8 +117,9 @@ var ConversationPanel = (function () {
   // Display a user or Watson message that has just been sent/received
   function displayMessage(newPayload, typeValue) {
     var isUser = isUserMessage(typeValue);
-    //var textExists = newPayload.generic;
-    if ((newPayload.output && newPayload.output.generic) ||  newPayload.input){
+    var textExists = (newPayload.input && newPayload.input.text) ||
+      (newPayload.output && newPayload.output.text);
+    if (isUser !== null && textExists) {
       // Create new message generic elements
       var responses = buildMessageDomElements(newPayload, isUser);
       var chatBoxElement = document.querySelector(settings.selectors.chatBox);
@@ -150,10 +145,7 @@ var ConversationPanel = (function () {
         // Class to start fade in animation
         currentDiv.classList.add('load');
         // Move chat to the most recent messages when new messages are added
-        setTimeout(function () {
-          // wait a sec before scrolling
-          scrollToChatBottom();
-        }, 1000);
+        scrollToChatBottom();
         setResponse(responses, isUser, chatBoxElement, index + 1, false);
       } else {
         var userTypringField = document.getElementById('user-typing-field');
@@ -234,18 +226,15 @@ var ConversationPanel = (function () {
   }
 
   function getResponse(responses, gen) {
-    var title = '', description = '';
+    var title = '';
     if (gen.hasOwnProperty('title')) {
       title = gen.title;
-    }
-    if (gen.hasOwnProperty('description')) {
-      description = '<div>' + gen.description + '</div>';
     }
     if (gen.response_type === 'image') {
       var img = '<div><img src="' + gen.source + '" width="300"></div>';
       responses.push({
         type: gen.response_type,
-        innerhtml: title + description + img
+        innerhtml: title + img
       });
     } else if (gen.response_type === 'text') {
       responses.push({
@@ -267,7 +256,7 @@ var ConversationPanel = (function () {
       var list = getOptions(gen.options, preference);
       responses.push({
         type: gen.response_type,
-        innerhtml: title + description + list
+        innerhtml: title + list
       });
     }
   }
