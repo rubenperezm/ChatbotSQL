@@ -22,6 +22,11 @@ var AssistantV1 = require('watson-developer-cloud/assistant/v1'); // watson sdk
 
 var app = express();
 
+app.use(function(req, res, next) {
+    res.setHeader("Content-Security-Policy", "frame-ancestors  http://localhost ");
+    return next();
+});
+
 // Bootstrap application settings
 app.use(express.static('./public')); // load UI from public folder
 app.use(bodyParser.json());

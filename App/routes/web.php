@@ -19,9 +19,7 @@ Route::prefix('home')->group(function () {
 });
 
 Route::prefix('ejercicio')->group(function () {
-  Route::get('/', 'EjercicioController@index');
+  Route::get('/{id}', 'EjercicioController@index', function ($id) {});
   Route::Post('ajaxFormularioQuery', 'EjercicioController@ajaxFormularioQuery');
-
-
 });
 Auth::routes();

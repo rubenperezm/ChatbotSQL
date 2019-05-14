@@ -77,7 +77,7 @@ div {
   padding: 0.9375rem 0 0.625rem 0;
   margin: auto;
   text-align: left;
-  max-width: 25rem;
+  width: 90%;
   min-width: 9.375rem;
 }
 
@@ -170,7 +170,7 @@ div {
   border-top-right-radius: 1.25rem;
 }
 
-.from-watson, 
+.from-watson,
 .message-inner {
   position: relative;
   border-radius: 1.5625rem;

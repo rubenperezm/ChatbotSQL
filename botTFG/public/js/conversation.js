@@ -3,6 +3,24 @@
 /* eslint no-unused-vars: "off" */
 /* global Api: true, Common: true*/
 
+var ejercicio;
+
+
+function displayMessage (evt) {
+    ejercicio  = evt.data;
+    ConversationPanel.init();
+   }
+
+   if (window.addEventListener) {
+     window.addEventListener("message", displayMessage, false);
+   }
+   else {
+     window.attachEvent("onmessage", displayMessage);
+   }
+
+
+
+
 var ConversationPanel = (function () {
   var settings = {
     selectors: {
@@ -26,8 +44,11 @@ var ConversationPanel = (function () {
 
   // Initialize the module
   function init() {
+    console.log(ejercicio)
     chatUpdateSetup();
-    Api.sendRequest('', null);
+    var context = {};
+    context.Enunciado = "holaaaaa";
+    Api.sendRequest(ejercicio, context);
     setupInputBox();
   }
   // Set up callbacks on payload setters in Api module
