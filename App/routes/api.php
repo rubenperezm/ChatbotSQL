@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::resource('ejercicio', 'EjercicioController');
+Route::get('/apiEjercicio/store','apiEjercicioController@store')->name('store');
+Route::get('/apiEjercicio/show/{id}','apiEjercicioController@show')->name('show');
