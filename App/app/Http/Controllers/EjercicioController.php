@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Debugbar;
 use App\Ejercicio;
+use Session;
 use Response;
 use DB;
 
 class EjercicioController extends Controller
 {
+
+    public $conversacion;
+
     /**
      * Create a new controller instance.
      *
@@ -18,9 +22,7 @@ class EjercicioController extends Controller
     public function __construct()
     {
          $this->middleware('auth');
-         $lugarConversación = 0;
-         $conversacion = array("show", "describe", "select", "where");
-
+         $this->conversacion = array("show", "describe", "select", "where");
     }
 
     /**
@@ -30,55 +32,96 @@ class EjercicioController extends Controller
      */
     public function index($id)
     {
+        Session::put('lugarConversacion',0);
         return view('ejercicio',['id' => $id]);
     }
 
     public function ajaxFormularioQuery(Request $request)
     {
-
+        $respuestaQuery  = array();
         Debugbar::info($request['query']);
         try {
          $users = DB::select($request['query']);
-         Debugbar::info($users);
-         if(stripos($request['query'], 'where') === false && stripos($request['query'], 'select') !== false && $lugarConversación = 2){//error porque lugar Conversacion no esta definido
-           $lugarConversación = 2;
-           if(compruebaTabla($request['query'],"select * from prueba where id=1", "from") && compruebaCampos($request['query'], "select * from prueba where id=1")){//Comprueba que este totalmente correcto, es este caso solo miramos tabla y campos
-             $lugarConversación++;
-             return Response::json($users);
-           }else{
+         if(strnatcasecmp($request['query'],"select * from prueba where id=1")== 0){
 
-           }
-         }elseif (stripos($request['query'], 'show') !== false && $lugarConversación = 0) {
-           $lugarConversación = 0;
-           return Response::json($users);
-         }elseif (stripos($request['query'], 'describe') !== false && $lugarConversación = 1) {
-           $lugarConversación = 1;
-           if(compruebaTabla($request['query'],"select * from prueba where id=1", "describe")){//Comprueba con la query respuesta
-             $lugarConversación++;
-             return Response::json($users);
+           array_push($respuestaQuery ,array("query" => "lo has terminado","conversacionBot" => "finalConversacionCorrectolaravel"));
+         }else{
+           if(stripos($request['query'], $this->conversacion[Session::get('lugarConversacion')]) !== false){
+             if(comprueba($request['query'],"select * from prueba where id=1",$this->conversacion[Session::get('lugarConversacion')])){
+               Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
+               array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "pasaSiguiente  laravel","lugarConversacion" => Session::get('lugarConversacion')+1)); //el +1 en el lugarConversacion es porque en la base de datos el 0 es el enunciado
+             }else{
+               array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "Regular  laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
+             }
            }else{
-
+             if(stripos($request['query'], 'where') === false && stripos($request['query'], 'select') !== false && Session::get('lugarConversacion') < 2){
+               Session::put('lugarConversacion',2);
+               if(comprueba($request['query'],"select * from prueba where id=1","select")){
+                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_select_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
+               }else{
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_select_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+               }
+             }elseif (stripos($request['query'], 'show') !== false && Session::get('lugarConversacion') < 0) {
+               Session::put('lugarConversacion',0);
+               array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_show_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+               Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
+             }elseif (stripos($request['query'], 'describe') !== false && Session::get('lugarConversacion') < 1) {
+               Session::put('lugarConversacion',1);
+               if(comprueba($request['query'],"select * from prueba where id=1","describe")){
+                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+               }else{
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+               }
+             }elseif (stripos($request['query'], 'select') !== false && stripos($request['query'], 'where') !== false && Session::get('lugarConversacion') < 3) {
+               Session::put('lugarConversacion',3);
+               if(comprueba($request['query'],"select * from prueba where id=1","where")){
+                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+               }else{
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+               }
+             }
            }
-         }elseif (stripos($request['query'], 'select') !== false && stripos($request['query'], 'where') !== false && $lugarConversación < 3) {
-           $lugarConversación = 3;
-           if(compruebaCampos($request['query'],"select * from prueba where id=1","from")
-             && compruebaTabla($request['query'], "select * from prueba where id=1")
-              && compruebaFiltro($request['query'], "select * from prueba where id=1")){//Comprueba que este totalmente correcto, es este caso solo miramos tabla y campos
-             $lugarConversación++;
-             return Response::json($users);
-           }else{
 
-           }
+           if(empty($respuestaQuery))array_push($respuestaQuery ,array("query" => $users));
          }
-        } catch(\Illuminate\Database\QueryException $ex){
-          return Response::json($ex->getMessage());
-        }
 
-        return Response::json($users);
+        } catch(\Illuminate\Database\QueryException $ex){
+          $respuestaQuery = array();
+          array_push($respuestaQuery ,array("query" => $ex->getMessage(),"conversacionBot" => "ErrorVialaravel"));
+          return Response::json($respuestaQuery);
+        }
+        Debugbar::info($respuestaQuery);
+        return Response::json($respuestaQuery);
     }
 
 }
 
+
+function comprueba($miString,$solucion,$tipoConsulta){
+    switch ($tipoConsulta) {
+      case 'select':
+        if(compruebaTabla($miString,$solucion,"from") && compruebaCampos($miString,$solucion)) return true;
+        else return false;
+        break;
+      case 'show':
+        return true;
+        break;
+      case 'where':
+      if(compruebaCampos($miString,$solucion)&& compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion))return true;
+      else return false;
+        break;
+      case 'describe':
+        if(compruebaTabla($miString,$solucion,"describe")) return true;
+        else return false;
+        break;
+      default:
+        return false;
+        break;
+    }
+}
 
 function compruebaTabla($miString,$solucion,$tipoConsulta){
 

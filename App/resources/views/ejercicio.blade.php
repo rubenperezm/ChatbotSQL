@@ -32,7 +32,7 @@
 
     window.onload=function() {
       var EjercicioBot = document.getElementById("iframe").contentWindow;
-      EjercicioBot.postMessage("ejercicio "+<?php echo $id;?>, "http://localhost:3000");
+      EjercicioBot.postMessage("ejercicio "+<?php echo $id;?>+" laravel", "http://localhost:3000");
     }
 
 
@@ -51,20 +51,32 @@
           success:function(data){
             $("#queryContainer").html("");
             $("#elementos").html("");
-            if(typeof data === 'string'){
-              $("#queryContainer").append(data);
+            console.log(data)
+            if(typeof data[0]['query'] === 'string'){
+              console.log(data[0]['conversacionBot']);
+              var EjercicioBot = document.getElementById("iframe").contentWindow;
+              EjercicioBot.postMessage(data[0]['conversacionBot'], "http://localhost:3000");
+              $("#queryContainer").append(data[0]['query']);
             }
             else{
-              var keys = Object.keys(data[0]);
+              console.log(data[0]);
+              var keys = Object.keys(data[0]['query'][0]);
               $.each(keys, function (index, value) {
                 $("#queryContainer").append("<th>"+value+"</th>");
               });
-              $.each(data, function (i, fila) {
+              $.each(data[0]['query'], function (i, fila) {
                 $("#elementos").append("<tr>");
                 $.each(fila, function (j, campo) {
                   $("#elementos").append("<td>"+campo+"</td>");
                 });
               });
+              var arrayBot = new Array();
+              arrayBot[0] = data[0]['lugarConversacion'];
+              arrayBot[1] = data[0]['conversacionBot'];
+              console.log(arrayBot)
+              var EjercicioBot = document.getElementById("iframe").contentWindow;
+              EjercicioBot.postMessage(arrayBot, "http://localhost:3000");
+
             }
           }
       });
