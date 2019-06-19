@@ -4,19 +4,59 @@
 /* global Api: true, Common: true*/
 
 var ejercicio;
-
+var empiezo = 0;
 
 function displayMessage (evt) {
-    ejercicio  = evt.data;
+  ejercicio  = evt.data;
+  console.log(evt.data);
+  if(empiezo === 0){
     ConversationPanel.init();
-   }
+    empiezo++;
+  }else{
+    if(evt.data.indexOf("ErrorVialaravel") > -1){
+      console.log("entre donde tengo que entrar");
+      ConversationPanel.sendMessage(evt.data);
+    }
+    else{
+      if(evt.data.indexOf("finalConversacionCorrectolaravel") > -1){
+        ConversationPanel.sendMessage(evt.data);
+      }else{
+        var XHTTP  = new XMLHttpRequest();
+        const usandoPromesas = (ruta) => {
+          let promise = new Promise( (resolve, reject) => {
+            XHTTP.onreadystatechange = (() => {
+              if (XHTTP.readyState === 4)
+              {
+                (XHTTP.status === 200)
+                ? resolve(JSON.parse(XHTTP.responseText))
+                : reject(`Error al consultar => ${ruta}`);
+              }
+            });
+            XHTTP.open("GET", ruta);
+            XHTTP.send();
+          });
 
-   if (window.addEventListener) {
-     window.addEventListener("message", displayMessage, false);
-   }
-   else {
-     window.attachEvent("onmessage", displayMessage);
-   }
+          return promise;
+        }
+        usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/1")
+        .then( data =>{
+          var enunciado = JSON.parse(data[0]['enunciado']);
+          var ayuda = JSON.parse(data[0]['ayuda']);
+          //console.log(ayuda[evt.data[0]-1]['texto']);
+          ConversationPanel.sendMessage(evt.data[1],enunciado[evt.data[0]]['texto'],ayuda[evt.data[0]-1]['texto']);
+        })
+        .catch(error => console.error(error));
+      }
+    }
+  }
+}
+
+if (window.addEventListener) {
+  window.addEventListener("message", displayMessage, false);
+}
+else {
+  window.attachEvent("onmessage", displayMessage);
+}
 
 
 
@@ -44,17 +84,42 @@ var ConversationPanel = (function () {
 
   // Initialize the module
   function init() {
-    console.log(ejercicio)
-    chatUpdateSetup();
-    var context = {};
-    context.Enunciado = "holaaaaa";
-    Api.sendRequest(ejercicio, context);
-    setupInputBox();
+    var XHTTP  = new XMLHttpRequest();
+    const usandoPromesas = (ruta) => {
+      let promise = new Promise( (resolve, reject) => {
+        XHTTP.onreadystatechange = (() => {
+          if (XHTTP.readyState === 4)
+          {
+            (XHTTP.status === 200)
+            ? resolve(JSON.parse(XHTTP.responseText))
+            : reject(`Error al consultar => ${ruta}`);
+          }
+        });
+        XHTTP.open("GET", ruta);
+        XHTTP.send();
+      });
+
+      return promise;
+    }
+    usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/1")
+    .then( data =>{
+      var enunciado = JSON.parse(data[0]['enunciado']);
+      var ayuda = JSON.parse(data[0]['ayuda']);
+      chatUpdateSetup();
+      var context = {};
+      context.enunciadoEjercicio = enunciado[0]['texto'];
+      context.enunciadoClausula = enunciado[1]['texto'];
+      context.ayudaClausula = ayuda[0]['texto'][0];
+      Api.sendRequest(ejercicio, context);
+      setupInputBox();
+    })
+    .catch(error => console.error(error));
   }
   // Set up callbacks on payload setters in Api module
   // This causes the displayMessage function to be called when messages are sent / received
   function chatUpdateSetup() {
     var currentRequestPayloadSetter = Api.setRequestPayload;
+    console.log(currentRequestPayloadSetter);
     Api.setRequestPayload = function (newPayloadStr) {
       currentRequestPayloadSetter.call(Api, newPayloadStr);
       displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.user);
@@ -105,59 +170,61 @@ var ConversationPanel = (function () {
         input.classList.add('underline');
         var txtNode = document.createTextNode(input.value);
         ['font-size', 'font-style', 'font-weight', 'font-family', 'line-height',
-          'text-transform', 'letter-spacing'
-        ].forEach(function (index) {
-          dummy.style[index] = window.getComputedStyle(input, null).getPropertyValue(index);
-        });
-        dummy.textContent = txtNode.textContent;
+        'text-transform', 'letter-spacing'
+      ].forEach(function (index) {
+        dummy.style[index] = window.getComputedStyle(input, null).getPropertyValue(index);
+      });
+      dummy.textContent = txtNode.textContent;
 
-        var padding = 0;
-        var htmlElem = document.getElementsByTagName('html')[0];
-        var currentFontSize = parseInt(window.getComputedStyle(htmlElem, null).getPropertyValue('font-size'), 10);
-        if (currentFontSize) {
-          padding = Math.floor((currentFontSize - minFontSize) / (maxFontSize - minFontSize) *
-            (maxPadding - minPadding) + minPadding);
-        } else {
-          padding = maxPadding;
-        }
-
-        var widthValue = (dummy.offsetWidth + padding) + 'px';
-        input.setAttribute('style', 'width:' + widthValue);
-        input.style.width = widthValue;
+      var padding = 0;
+      var htmlElem = document.getElementsByTagName('html')[0];
+      var currentFontSize = parseInt(window.getComputedStyle(htmlElem, null).getPropertyValue('font-size'), 10);
+      if (currentFontSize) {
+        padding = Math.floor((currentFontSize - minFontSize) / (maxFontSize - minFontSize) *
+        (maxPadding - minPadding) + minPadding);
+      } else {
+        padding = maxPadding;
       }
-    }
 
-    // Any time the input changes, or the window resizes, adjust the size of the input box
-    input.addEventListener('input', adjustInput);
-    window.addEventListener('resize', adjustInput);
-
-    // Trigger the input event once to set up the input box and dummy element
-    Common.fireEvent(input, 'input');
-  }
-
-  // Display a user or Watson message that has just been sent/received
-  function displayMessage(newPayload, typeValue) {
-    var isUser = isUserMessage(typeValue);
-    var textExists = (newPayload.input && newPayload.input.text) ||
-      (newPayload.output && newPayload.output.text);
-    if (isUser !== null && textExists) {
-      // Create new message generic elements
-      var responses = buildMessageDomElements(newPayload, isUser);
-      var chatBoxElement = document.querySelector(settings.selectors.chatBox);
-      var previousLatest = chatBoxElement.querySelectorAll((isUser ? settings.selectors.fromUser : settings.selectors.fromWatson) +
-        settings.selectors.latest);
-      // Previous "latest" message is no longer the most recent
-      if (previousLatest) {
-        Common.listForEach(previousLatest, function (element) {
-          element.classList.remove('latest');
-        });
-      }
-      setResponse(responses, isUser, chatBoxElement, 0, true);
+      var widthValue = (dummy.offsetWidth + padding) + 'px';
+      input.setAttribute('style', 'width:' + widthValue);
+      input.style.width = widthValue;
     }
   }
 
-  // Recurisive function to add responses to the chat area
-  function setResponse(responses, isUser, chatBoxElement, index, isTop) {
+  // Any time the input changes, or the window resizes, adjust the size of the input box
+  input.addEventListener('input', adjustInput);
+  window.addEventListener('resize', adjustInput);
+
+  // Trigger the input event once to set up the input box and dummy element
+  Common.fireEvent(input, 'input');
+}
+
+// Display a user or Watson message that has just been sent/received
+function displayMessage(newPayload, typeValue) {
+  var isLaravel = true
+  var isUser = isUserMessage(typeValue);
+  var textExists = (newPayload.input && newPayload.input.text) ||
+  (newPayload.output && newPayload.output.text);
+  if (isUser !== null && textExists) {
+    // Create new message generic elements
+    if(newPayload.input.text.indexOf("laravel") > -1 && typeValue == settings.authorTypes.user) isLaravel = false;
+    else var responses = buildMessageDomElements(newPayload, isUser,isLaravel);
+    var chatBoxElement = document.querySelector(settings.selectors.chatBox);
+    var previousLatest = chatBoxElement.querySelectorAll((isUser ? settings.selectors.fromUser : settings.selectors.fromWatson) +
+    settings.selectors.latest);
+    // Previous "latest" message is no longer the most recent
+    if (previousLatest) {
+      Common.listForEach(previousLatest, function (element) {
+        element.classList.remove('latest');
+      });
+    }
+    setResponse(responses, isUser, chatBoxElement, 0, true, isLaravel);
+  }
+}
+// Recurisive function to add responses to the chat area
+function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel) {
+  if(isLaravel){
     if (index < responses.length) {
       var res = responses[index];
       if (res.type !== 'pause') {
@@ -167,7 +234,7 @@ var ConversationPanel = (function () {
         currentDiv.classList.add('load');
         // Move chat to the most recent messages when new messages are added
         scrollToChatBottom();
-        setResponse(responses, isUser, chatBoxElement, index + 1, false);
+        setResponse(responses, isUser, chatBoxElement, index + 1, false, isLaravel);
       } else {
         var userTypringField = document.getElementById('user-typing-field');
         if (res.typing) {
@@ -175,115 +242,117 @@ var ConversationPanel = (function () {
         }
         setTimeout(function () {
           userTypringField.innerHTML = '';
-          setResponse(responses, isUser, chatBoxElement, index + 1, isTop);
+          setResponse(responses, isUser, chatBoxElement, index + 1, isTop, isLaravel);
         }, res.time);
       }
     }
   }
+}
 
-  // Constructs new DOM element from a message
-  function getDivObject(res, isUser, isTop) {
-    var classes = [(isUser ? 'from-user' : 'from-watson'), 'latest', (isTop ? 'top' : 'sub')];
-    var messageJson = {
-      // <div class='segments'>
+// Constructs new DOM element from a message
+function getDivObject(res, isUser, isTop) {
+  var classes = [(isUser ? 'from-user' : 'from-watson'), 'latest', (isTop ? 'top' : 'sub')];
+  var messageJson = {
+    // <div class='segments'>
+    'tagName': 'div',
+    'classNames': ['segments'],
+    'children': [{
+      // <div class='from-user/from-watson latest'>
       'tagName': 'div',
-      'classNames': ['segments'],
+      'classNames': classes,
       'children': [{
-        // <div class='from-user/from-watson latest'>
+        // <div class='message-inner'>
         'tagName': 'div',
-        'classNames': classes,
+        'classNames': ['message-inner'],
         'children': [{
-          // <div class='message-inner'>
-          'tagName': 'div',
-          'classNames': ['message-inner'],
-          'children': [{
-            // <p>{messageText}</p>
-            'tagName': 'p',
-            'text': res.innerhtml
-          }]
+          // <p>{messageText}</p>
+          'tagName': 'p',
+          'text': res.innerhtml
         }]
       }]
-    };
-    return Common.buildDomElement(messageJson);
-  }
+    }]
+  };
+  return Common.buildDomElement(messageJson);
+}
 
-  // Checks if the given typeValue matches with the user "name", the Watson "name", or neither
-  // Returns true if user, false if Watson, and null if neither
-  // Used to keep track of whether a message was from the user or Watson
-  function isUserMessage(typeValue) {
-    if (typeValue === settings.authorTypes.user) {
-      return true;
-    } else if (typeValue === settings.authorTypes.watson) {
-      return false;
-    }
-    return null;
+// Checks if the given typeValue matches with the user "name", the Watson "name", or neither
+// Returns true if user, false if Watson, and null if neither
+// Used to keep track of whether a message was from the user or Watson
+function isUserMessage(typeValue) {
+  if (typeValue === settings.authorTypes.user) {
+    return true;
+  } else if (typeValue === settings.authorTypes.watson) {
+    return false;
   }
+  return null;
+}
 
-  function getOptions(optionsList, preference) {
-    var list = '';
-    var i = 0;
-    if (optionsList !== null) {
-      if (preference === 'text') {
-        list = '<ul>';
-        for (i = 0; i < optionsList.length; i++) {
-          if (optionsList[i].value) {
-            list += '<li><div class="options-list" onclick="ConversationPanel.sendMessage(\'' +
-            optionsList[i].value.input.text + '\');" >' + optionsList[i].label + '</div></li>';
-          }
+function getOptions(optionsList, preference) {
+  var list = '';
+  var i = 0;
+  if (optionsList !== null) {
+    if (preference === 'text') {
+      list = '<ul>';
+      for (i = 0; i < optionsList.length; i++) {
+        if (optionsList[i].value) {
+          list += '<li><div class="options-list" onclick="ConversationPanel.sendMessage(\'' +
+          optionsList[i].value.input.text + '\');" >' + optionsList[i].label + '</div></li>';
         }
-        list += '</ul>';
-      } else if (preference === 'button') {
-        list = '<br>';
-        for (i = 0; i < optionsList.length; i++) {
-          if (optionsList[i].value) {
-            var item = '<div class="options-button" onclick="ConversationPanel.sendMessage(\'' +
-              optionsList[i].value.input.text + '\');" >' + optionsList[i].label + '</div>';
-            list += item;
-          }
+      }
+      list += '</ul>';
+    } else if (preference === 'button') {
+      list = '<br>';
+      for (i = 0; i < optionsList.length; i++) {
+        if (optionsList[i].value) {
+          var item = '<div class="options-button" onclick="ConversationPanel.sendMessage(\'' +
+          optionsList[i].value.input.text + '\');" >' + optionsList[i].label + '</div>';
+          list += item;
         }
       }
     }
-    return list;
   }
+  return list;
+}
 
-  function getResponse(responses, gen) {
-    var title = '';
-    if (gen.hasOwnProperty('title')) {
-      title = gen.title;
-    }
-    if (gen.response_type === 'image') {
-      var img = '<div><img src="' + gen.source + '" width="300"></div>';
-      responses.push({
-        type: gen.response_type,
-        innerhtml: title + img
-      });
-    } else if (gen.response_type === 'text') {
-      responses.push({
-        type: gen.response_type,
-        innerhtml: gen.text
-      });
-    } else if (gen.response_type === 'pause') {
-      responses.push({
-        type: gen.response_type,
-        time: gen.time,
-        typing: gen.typing
-      });
-    } else if (gen.response_type === 'option') {
-      var preference = 'text';
-      if (gen.hasOwnProperty('preference')) {
-        preference = gen.preference;
-      }
-
-      var list = getOptions(gen.options, preference);
-      responses.push({
-        type: gen.response_type,
-        innerhtml: title + list
-      });
-    }
+function getResponse(responses, gen) {
+  var title = '';
+  if (gen.hasOwnProperty('title')) {
+    title = gen.title;
   }
+  if (gen.response_type === 'image') {
+    var img = '<div><img src="' + gen.source + '" width="300"></div>';
+    responses.push({
+      type: gen.response_type,
+      innerhtml: title + img
+    });
+  } else if (gen.response_type === 'text') {
+    responses.push({
+      type: gen.response_type,
+      innerhtml: gen.text
+    });
+  } else if (gen.response_type === 'pause') {
+    responses.push({
+      type: gen.response_type,
+      time: gen.time,
+      typing: gen.typing
+    });
+  } else if (gen.response_type === 'option') {
+    var preference = 'text';
+    if (gen.hasOwnProperty('preference')) {
+      preference = gen.preference;
+    }
 
-  // Constructs new generic elements from a message payload
-  function buildMessageDomElements(newPayload, isUser) {
+    var list = getOptions(gen.options, preference);
+    responses.push({
+      type: gen.response_type,
+      innerhtml: title + list
+    });
+  }
+}
+
+// Constructs new generic elements from a message payload
+function buildMessageDomElements(newPayload, isUser, isLaravel) {
+  if(isLaravel){
     var textArray = isUser ? newPayload.input.text : newPayload.output.text;
     if (Object.prototype.toString.call(textArray) !== '[object Array]') {
       textArray = [textArray];
@@ -306,9 +375,9 @@ var ConversationPanel = (function () {
         input += msg + ' ';
       });
       input = input.trim()
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
 
       if (input.length !== 0) {
         responses.push({
@@ -320,32 +389,37 @@ var ConversationPanel = (function () {
     return responses;
   }
 
-  // Scroll to the bottom of the chat window
-  function scrollToChatBottom() {
-    var scrollingChat = document.querySelector('#scrollingChat');
-    scrollingChat.scrollTop = scrollingChat.scrollHeight;
-  }
+}
 
-  function sendMessage(text) {
-    // Retrieve the context from the previous server response
-    var context;
-    var latestResponse = Api.getResponsePayload();
-    if (latestResponse) {
-      context = latestResponse.context;
-    }
+// Scroll to the bottom of the chat window
+function scrollToChatBottom() {
+  var scrollingChat = document.querySelector('#scrollingChat');
+  scrollingChat.scrollTop = scrollingChat.scrollHeight;
+}
 
-    // Send the user message
-    Api.sendRequest(text, context);
+function sendMessage(text, fromLaravelEnunciado = "", fromLaravelAyuda = "") {
+  // Retrieve the context from the previous server response
+  var context;
+  var latestResponse = Api.getResponsePayload();
+  if (latestResponse) {
+    context = latestResponse.context;
   }
+  if(fromLaravelEnunciado !== ""){
+    context.enunciadoClausula = fromLaravelEnunciado;
+    context.ayudaClausula = fromLaravelAyuda;
+  }
+  // Send the user message
+  Api.sendRequest(text, context);
+}
 
-  // Handles the submission of input
-  function inputKeyDown(event, inputBox) {
-    // Submit on enter key, dis-allowing blank messages
-    if (event.keyCode === 13 && inputBox.value) {
-      sendMessage(inputBox.value);
-      // Clear input box for further messages
-      inputBox.value = '';
-      Common.fireEvent(inputBox, 'input');
-    }
+// Handles the submission of input
+function inputKeyDown(event, inputBox) {
+  // Submit on enter key, dis-allowing blank messages
+  if (event.keyCode === 13 && inputBox.value) {
+    sendMessage(inputBox.value);
+    // Clear input box for further messages
+    inputBox.value = '';
+    Common.fireEvent(inputBox, 'input');
   }
+}
 }());
