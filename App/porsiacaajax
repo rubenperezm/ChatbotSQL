@@ -1,0 +1,10 @@
+public function ajaxPuedoCrearChatbot(Request $request){
+  $numeroChatbot = Chatbot::Empresa_id(session('empresaSelect'))
+    ->count();
+  $empresa = Plan::find(session('empresaSelect'));
+    if($numeroChatbot < $plan->ChatbotPermitidos && $empresa->activo != 0){
+      return Response::json($listaBots);
+    }else{
+      return Response::json($listaBots);
+    }
+}

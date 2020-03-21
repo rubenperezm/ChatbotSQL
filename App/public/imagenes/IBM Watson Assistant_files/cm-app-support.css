@@ -1,0 +1,120 @@
+/* A simplified version of www.css with necessary attributes needed for non ibm pages */
+
+@font-face {
+    font-family: "icons-ibm-v12";
+    src: url("https://1.www.s81c.com/common/fonts/icons-ibm-v12.eot");
+    src: url("https://1.www.s81c.com/common/fonts/icons-ibm-v12.woff") format("woff"),url("https://1.www.s81c.com/common/fonts/icons-ibm-v12.ttf") format("truetype"),url("https://1.www.s81c.com/common/fonts/icons-ibm-v12.svg#icons-ibm-v12") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    @font-face {
+        font-family:"icons-ibm-v12";
+        src: url("https://1.www.s81c.com/common/fonts/icons-ibm-v12.svg#icons-ibm-v12") format("svg")
+    }
+}
+
+#cm-app .ibm-wiki-link::before {
+    content: "\f1f6";
+}
+
+#cm-app .ibm-forward-link::before {
+    content: "\f1b3";
+}
+
+#cm-app .ibm-download-link::before {
+    content: "\f124";
+}
+
+#cm-app .ibm-star-full-link::before {
+    content: "\f1e4";
+}
+
+#cm-app .ibm-star-half-link::before {
+    content: "\f1e5";
+}
+
+#cm-app .ibm-star-none-link::before {
+    content: "\f1e6";
+}
+
+#cm-app [data-icon]::before,
+#cm-app [class*='-link']::before,
+#cm-app .select2-container--default .select2-selection--single .select2-selection__arrow b:before,
+#cm-app .ibm-icon-after::after,
+#cm-app #ibm-parent-link a::before,
+#cm-app #ibm-navigation-trail li::after,
+#cm-app .ibm-bullet::before,
+#cm-app .ibm-close::before,
+#cm-app #ibm-home a:before,
+#cm-app .ibm-show-hide>h2 a::before,
+#cm-app .ibm-sitenav-menu-list>ul>li.ibm-haschildlist>button::before,
+#cm-app .ibm-sitenav-menu-list>ul>li.ibm-haschildlist>span::before,
+#cm-app .ibm-sitenav-menu-list>ul>li.ibm-haschildlist>a::before,
+#cm-app .ibm-step-indicator .ibm-tabs li::after,
+#cm-app ul.ibm-twisty>li a.ibm-twisty-trigger::before {
+    display: inline-block;
+    font-family: "icons-ibm-v12";
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    left: 0;
+    position: absolute;
+    text-decoration: none;
+    speak: none;
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+
+#cm-app [class*='ibm-'][class*='-link']{
+    padding-left: 0 !important;
+    background-image: none !important;
+}
+
+
+.cm-popup .ibm-btn-blue-50.ibm-btn-pri,
+.cm-popup .ibm-btn-blue-50.ibm-btn-sec:hover,
+.cm-popup .ibm-btn-blue-50.ibm-btn-sec:focus {
+    background: #4178be;
+    border-color: #4178be;
+    color: #fff
+}
+
+.cm-popup .ibm-btn-pri.ibm-btn-blue-50:hover,
+.cm-popup .ibm-btn-pri.ibm-btn-blue-50:focus {
+    background: #325c80;
+    border-color: #325c80;
+    color: #fff
+}
+
+.cm-popup .ibm-btn-pri,
+.cm-popup .ibm-btn-sec {
+    border: 2px solid #323232;
+    background-color: #323232;
+    color: #fff;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 20px;
+    max-width: 100%;
+    min-width: 120px;
+    min-width: 90px\9;
+    min-height: 20px;
+    padding: 11px 18px;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: border .3s,color .3s,background-color .3s;
+    -moz-transition: border .3s,color .3s,background-color .3s;
+    -o-transition: border .3s,color .3s,background-color .3s;
+    -ms-transition: border .3s,color .3s,background-color .3s;
+    transition: border .3s,color .3s,background-color .3s;
+    white-space: normal
+}

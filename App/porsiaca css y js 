@@ -1,0 +1,392 @@
+porsiaca css y js
+js
+
+function ActivarAlma(){
+  if(despliegaAutoPermit) despliegaAutoPermit = false;
+  var element = document.getElementById("iframeAlma");
+  var style = document.defaultView.getComputedStyle(element, '');
+  if(style.display != 'none'){
+    document.getElementById("iframeAlma").style.display = 'none';
+    document.getElementById("buttonContainer").style.display = 'block';
+  }else{
+    if(!existeDespligue){
+      existeDespligue = true;
+      var element = document.getElementById('notificacionAlma');
+      element.parentNode.removeChild(element);
+    }
+    document.getElementById("iframeAlma").style.display = 'block';
+    document.getElementById("buttonContainer").style.display = 'none';
+  }
+}
+var despliegaAuto = -1;
+var existeDespligue = false;
+var permitirDespligue = false;
+var cambiarNotificacion =  false;
+var despliegaAutoPermit = true;
+function readCookie(name) {
+
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+
+  for(var i=0;i < ca.length;i++) {
+
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    if (c.indexOf(nameEQ) == 0) {
+      return decodeURIComponent( c.substring(nameEQ.length,c.length) );
+    }
+
+  }
+  return null;
+}
+
+// Leemos la cookie
+var miCookie = readCookie( "id" );
+if(miCookie === null){
+  var cadena = Math.floor(Math.random() * 900000000) + 100000000;
+  document.cookie = "id="+cadena;
+}
+
+window.addEventListener("load", loadScript, false);
+//window.onload=function() {
+function loadScript(){
+  if(miCookie === null) miCookie = cadena;
+  var infoCliente = new Array();
+  infoCliente[0] = miCookie;
+  infoCliente[1] = location.href;
+  var EjercicioBot = document.getElementById("iframeContainerAlma").contentWindow;
+  EjercicioBot.postMessage(infoCliente, "https://assistant.almaintelligence.com:7777");
+  var XHTTP  = new XMLHttpRequest();
+  const usandoPromesas = (ruta) => {
+    let promise = new Promise( (resolve, reject) => {
+      XHTTP.onreadystatechange = (() => {
+        if (XHTTP.readyState === 4)
+        {
+          (XHTTP.status === 200)
+          ? resolve(JSON.parse(XHTTP.responseText))
+          : reject(`Error al consultar => ${ruta}`);
+        }
+      });
+      XHTTP.open("GET", ruta);
+      XHTTP.send();
+    });
+
+    return promise;
+  }
+  usandoPromesas('https://board.almaintelligence.com/api/apiAlma/configuracionBot?idChatbot=' + document.getElementById("helper").getAttribute("data-idChatbot") + '&sesion=' + miCookie + '&idEmpresa=' + document.getElementById("helper").getAttribute("data-idEmpresa") )
+  .then( data =>{
+    if(data.nombreAsistente != null) document.getElementById("nombreAsistente").innerHTML = data.nombreAsistente;
+    if(data.abrirAuto != null) despliegaAuto = data.abrirAuto * 1000 ;
+    if(data.imagenAlma != null)  document.getElementById("fotoAvatar").src= "https://board.almaintelligence.com/images/configuracion/" + data.imagenAlma;
+    if(data.tema != null){
+      var elemento = document.getElementById("inferiorIframe");
+      elemento.className += " " + data.tema;
+
+      var notificacion = document.getElementById("notificacionAlma");
+      notificacion.className += " " + data.tema;
+    }
+    if(data.existeConversacion){
+      existeDespligue = true;
+      var element = document.getElementById('notificacionAlma');
+      element.parentNode.removeChild(element);
+    }
+    if(data.empresaActiva) permitirDespligue = true;
+    if(data.posicionBoton != null){
+      var elemento = document.getElementById("buttonContainer");
+      elemento.className += " " + data.posicionBoton;
+      if(data.posicionBoton == "botonCentrado"){
+        document.getElementById("imgAlma").src= "https://assistant.almaintelligence.com:7777/stylesAndScripts/version2/img/botonIframeCentrado.png";
+        var imgAlmaResize = document.getElementById("imgAlma");
+        imgAlmaResize.className += " " + "imgAlmaCentrado";
+
+        cambiarNotificacion = true;
+      }
+      if(data.posicionBoton == "botonIzquierda"){
+        var elemento = document.getElementById("iframeAlma");
+        elemento.className += " " + data.posicionBoton;
+      }
+    }
+
+    var anchoWeb = window.matchMedia("(min-width: 500px)");
+    if (anchoWeb.matches) {
+      if(despliegaAuto != -1){
+        setTimeout(abrirAuto, despliegaAuto);
+      }
+    }
+  })
+  .catch(error => console.error(error));
+
+  setTimeout(function(){
+    if(!permitirDespligue){
+      document.getElementById('contenedorChatbot').removeChild(document.getElementById('iframeAlma'));
+      document.getElementById('contenedorChatbot').removeChild(document.getElementById('buttonContainer'));
+    }else{
+      document.getElementById("buttonContainer").style.display = 'block';
+    }
+  }, 1000);
+
+  if(cambiarNotificacion) document.getElementById("notificacionAlma").style.right = '27px';
+
+  function abrirAuto(){
+    if (despliegaAutoPermit) {
+      var element = document.getElementById("iframeAlma");
+      var style = document.defaultView.getComputedStyle(element, '');
+      if(style.display == 'none'){
+        if(!existeDespligue){
+          existeDespligue = true;
+          var element = document.getElementById('notificacionAlma');
+          element.parentNode.removeChild(element);
+        }
+        document.getElementById("iframeAlma").style.display = 'block';
+        document.getElementById("buttonContainer").style.display = 'none';
+
+      }
+    }
+  }
+}
+/*
+function displayMessage (evt) {
+  if (evt.origin === "https://assistant.almaintelligence.com:7777") {
+    var EjercicioBot = document.getElementById("iframeContainerAlma").contentWindow;
+    EjercicioBot.postMessage(miCookie, "https://assistant.almaintelligence.com:7777");
+  }
+}
+
+window.addEventListener("message", displayMessage, false);
+*/
+
+///////////////////////////////////////////////////////////////////////////////
+css
+.iframeAlma {
+  display: none;
+  z-index: 9999;
+  height: 70%;
+  max-width: 350px;
+  position: fixed;
+  bottom: 15px;
+  border-radius: 9px;
+  left: auto;
+  right: 10px;
+  overflow: hidden;
+  border: 1px solid #8080803d;
+  transition:visibility 0.4s linear,opacity 0.4s linear;
+
+}
+
+.buttonContainer:focus {
+  outline: none;
+}
+.buttonContainer {
+  display: none;
+  padding: unset;
+  position: fixed;
+  cursor: pointer;
+  height: 76px !important;
+  width: 82px !important;
+  min-width: unset !important;
+  bottom: 25px;
+  border: none;
+  left: auto;
+  right: 20px;
+  outline: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background-color: inherit;
+}
+.buttonContainer:hover {
+  min-width: unset !important;
+  background-color: unset !important;
+
+}
+/*
+.buttonContainer {
+  display: none;
+  position: fixed;
+  cursor: pointer;
+  bottom: 25px;
+  border: none;
+  left: auto;
+  right: 20px;
+  outline: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background-color: inherit;
+}*/
+
+.botonCentrado{
+    background-size: 104px 107px;
+    bottom: 9px;
+    left: auto;
+    height: 87px;
+    width: auto;
+    top: 40%;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 9999;
+    display: block;
+    position: fixed;
+    right: 0;
+    padding: 0;
+}
+
+.notificacionAlma{
+  border-radius: 50%;
+  font-size: 11px;
+  height: 15px;
+  width: 15px;
+  line-height: 15px;
+  right: 11px;
+  color: #fff;
+  top: 0;
+  background-color: black;
+  position: absolute;
+}
+
+.imgAlma {
+  border-radius: 35px;
+  width: 73px;
+  height: 73px;
+}
+
+.contentIframe {
+  height: calc(100% - 56px);
+  background-color:white;
+}
+
+.superiorIframe {
+  width:100%;
+  height: 48px;
+  background-color:white;
+}
+
+.inferiorIframe{
+  height:8px;
+  background-color: rgba(104, 152, 253, 1);
+}
+
+.flow {
+  background-color: green;
+}
+
+.actual{
+  background-color: blue;
+}
+
+#iframeContainerAlma{
+  border:0px;
+}
+
+#fotoAvatar{
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin-left: auto;
+  margin-top: 0.3rem;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+.fotoIframe {
+  width: 25%;
+  height: 44.5px;
+  justify-content: center;
+  float: left;
+  display: inline-block;
+}
+.nombreIframe {
+  width: 40%;
+  float: left;
+  height: 43.4px;
+  display: inline-block;
+}
+
+.labelNombreBot {
+  color: black;
+  line-height: 1.2;
+  font-size: 12px;
+  margin: 0px;
+  font-weight: bold;
+  padding-top: 11.5px;
+  letter-spacing: 0;
+}
+.labelDisponibilidadBot {
+  font-size: 10px;
+  margin: 0px;
+  margin-bottom: 0px;
+  font-weight: normal;
+}
+
+.cerrarIframe {
+  padding-top: 19px;
+  padding-right: 13px;
+  padding-bottom: 6px;
+  width: 30%;
+  float: right;
+  display: inline-block;
+}
+
+#imgCerrar {
+  height: 11px !important;
+  display: block;
+  float: right;
+  cursor: pointer;
+  margin: auto;
+}
+
+.fuentePunto {
+  font-size: 11px;
+  color: #12c112;
+}
+
+.neutro{
+  background: rgba(38, 38, 38, 1);
+}
+
+.business{
+  background: rgba(28, 64, 151, 1);
+}
+
+.sand{
+  background: rgba(165, 158, 90, 1);
+}
+
+.showy{
+  background: rgba(251, 0, 120, 1);
+}
+
+
+.botonIzquierda{
+  right: auto;
+  left: 10px;
+}
+
+.imgAlmaCentrado {
+  width: 38px;
+  height: 73px;
+  border-radius: 0px;
+}
+
+@media (max-width: 500px) {
+  #iframeAlma {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    right: 0;
+    bottom: 0px;
+    border-radius: 0px;
+    left: 0px;
+
+  }
+    .imageBlock {
+      height: 93%;
+      width: 38%;
+      padding-top: 1.6rem;
+    }
+
+    .imageCerrar {
+      width: 9%;
+      float: right;
+      padding-top: 18px;
+    }
+}

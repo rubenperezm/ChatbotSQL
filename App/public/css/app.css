@@ -10673,12 +10673,48 @@ body {
 }
 
 #home {
-  padding-bottom: 10rem;
   width: 100%;
-  position: absolute;
-  display: flex;
+  display: inline-grid;
   justify-content: center;
   align-items: center;
+}
+
+.botonSugerencia {
+  border-radius: 10px;
+  color: white;
+  background-color: #2dbb00;
+}
+
+#bg-home {
+  background-image: url("http://localhost/TFG/App/public/imagenes/bg.png");
+  background-size: 146% 100%;
+}
+
+.cajaOpciones {
+  margin: 4.5px;
+  display: inline-grid;
+  height: 6rem;
+  border-radius: 3px;
+  background-color: #3288a5;
+  box-shadow: 0px 0px 56px -18px black;
+  color: white;
+}
+
+.iconoHome {
+  color: white;
+  font-size: 2em;
+}
+
+.textoPresentacion {
+  padding-right: 50%;
+  padding-left: 5%;
+  color: white;
+}
+
+.opcionesUsuario {
+  padding-left: 55%;
+  padding-bottom: 5%;
+  padding-right: 2%;
 }
 
 .navbar-laravel {
@@ -10694,5 +10730,16 @@ body {
 #app {
   margin-top: 54px;
   padding-top: 1rem;
+}
+
+.table th,
+.table td {
+  vertical-align: top;
+  border-top: 1px solid #00B4A0;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 3px solid #00B4A0;
 }
 

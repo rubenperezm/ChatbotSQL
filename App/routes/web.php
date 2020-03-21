@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\esProfesor;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +25,11 @@ Route::prefix('ejercicio')->group(function () {
   Route::get('/{id}', 'EjercicioController@index', function ($id) {});
   Route::Post('ajaxFormularioQuery', 'EjercicioController@ajaxFormularioQuery');
 });
+
+//Url para profesores
+Route::get('/editarEjercicio', 'editarEjercicioController@index')->middleware(esProfesor::class);
+Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
+Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);
+Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);
+//
 Auth::routes();

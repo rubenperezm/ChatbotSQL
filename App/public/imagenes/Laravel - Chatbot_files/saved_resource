@@ -1,0 +1,162 @@
+<html>
+<head>
+  <base href="/">
+  <title>ALMA Chatbot</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="shortcut icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="cargando" style="display:none;">
+      <div id="cargandoCss">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+  </div>
+  <div style="display:none;justify-content:center;align-items:center;" id="startPanel"><button type="button" id="start" onclick="startConversation()">Comenzar conversación</button></div>
+  <div id="contentParent" class="responsive-columns-wrapper">
+    <div id="chat-column-holder" class="responsive-column content-column">
+      <div class="chat-column">
+        <div id="scrollingChat"></div>
+        <div id="backButtonLine">
+          <button id="back" type="button" disabled="true" onclick="backButton()">
+            <i class="fa fa-reply tooltip" aria-hidden="true"><span class="tooltiptext">Atrás</span></i>
+          </button>
+          <i id="LikeButton" onclick="FeedBack('Like')"class="far fa-thumbs-up FeedBack" aria-hidden="true"></i>
+          <i onclick="FeedBack('Dislike')" id="DislikeButton" class="far fa-thumbs-down FeedBack" aria-hidden="true"></i>
+          </div>
+        <p class="user-typing" id="user-typing-field"></p>
+        <label for="textInput" class="inputOutline">
+          <input id="textInput" class="input responsive-column" disabled="true" placeholder="Escribe tu consulta...      (140 caracteres max)" type="text" maxlength="140" onkeydown="ConversationPanel.inputKeyDown(event, this)" autofocus>
+        </label>
+      </div>
+    </div>
+  </div>
+
+<script src="js/api.js"></script>
+<script src="js/common.js"></script>
+<script src="js/payload.js"></script>
+  <script>
+    var repeticion;
+    var ContBack = 1;
+    var i = 0;
+    var TengoPermisoPadre = window.parent;
+    TengoPermisoPadre.postMessage("permiso", '*');
+
+
+    function backButton(){
+      if(typeof LastText[LastText.length - 1] != "undefined"){
+          var respuestas = document.getElementsByClassName("segments load");
+          while(!respuestas[respuestas.length - 1].childNodes[0].classList.contains("from-user")){
+            respuestas[respuestas.length - 1].remove();
+          }
+          respuestas[respuestas.length - 1].remove();
+
+          if(respuestas[respuestas.length - 1].childNodes[0].classList.contains("top")){
+            respuestas[respuestas.length - 1].childNodes[0].classList.add("latest")
+          }else{
+            contResp = respuestas.length - 1;
+            while(!respuestas[contResp].childNodes[0].classList.contains("top")){
+              respuestas[contResp].childNodes[0].classList.add("latest")
+              var links = respuestas[contResp].getElementsByClassName("options-list");
+              if(links.length > 0){
+               var links2 = respuestas[contResp].getElementsByClassName("options-list");
+                 for (var i=0; i < links2.length; i++){
+                  links2[i].classList.remove("disabled");
+               }
+              }
+              contResp--;
+            }
+            respuestas[contResp].childNodes[0].classList.add("latest")
+          }
+
+          LastText[LastText.length - 1].context.volverAtras = ContBack; //insert volverAtras in the log context
+          lastContextBackButton = LastText[LastText.length - 1].context;
+          lastLog = LastText[LastText.length - 1];
+          isPressed = true;
+          LastText.pop();
+          if(LastText.length === 0) document.getElementById("back").disabled = true;
+          ContBack++;
+      }
+    }
+
+    function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    if(getParameterByName('plataforma') == 'selfconta'){
+      document.getElementById("startPanel").style.display = "flex";
+    }
+    else{
+      startConversation();
+    }
+
+    function esSeguro(){
+      if (typeof ConversationPanel == "undefined" || typeof ConversationPanel == "null"){
+        i++;
+        if(i>10){
+          location.href = 'error.html';
+        }
+      }else {
+        ConversationPanel.init();
+        window.clearInterval(repeticion);
+        document.getElementById("cargando").style.display = "none";
+        document.getElementById("contentParent").style.display = "block";
+      }
+    }
+
+    function startConversation() {
+      document.getElementById("startPanel").style.display = "none";
+      document.getElementById("cargando").style.display = "flex";
+      repeticion = window.setInterval("esSeguro()",1000);
+    }
+
+  //Funcion que desactiva los enlaces una vez haces click en ellos
+
+  function desactivarEnlaces(){
+    var enlaces = document.getElementsByClassName("options-list");
+    for (var i = 0; i<enlaces.length; i++) {
+      enlaces[i].onclick = null;
+    }
+  }
+
+  function FeedBack(valoracion){
+    if(valoracion == 'Like'){
+      document.getElementById("LikeButton").className = "fas fa-thumbs-up FeedBack";
+      document.getElementById("DislikeButton").className = "far fa-thumbs-down FeedBack";
+    }else{
+      document.getElementById("DislikeButton").className = "fas fa-thumbs-down FeedBack";
+      document.getElementById("LikeButton").className = "far fa-thumbs-up FeedBack";
+    }
+    var latestResponse = Api.getResponsePayload();
+    var xhttp = new XMLHttpRequest();
+    switch(valoracion){
+      case 'Like':{
+        valoracion = 1;
+      }
+      break;
+      case 'Dislike':{
+        valoracion = 0;
+      }
+      break;
+      default:{
+        valoracion = 0;
+      }
+      break;
+    }
+    xhttp.open("GET", apiUrl + "api/apifeedback/index?id_conversacion="+latestResponse.context.conversation_id+"&valoracion="+valoracion, true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send();
+  }
+
+  </script>
+</body>
+</html>

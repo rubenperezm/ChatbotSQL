@@ -7,9 +7,9 @@ var ejercicio;
 var empiezo = 0;
 
 function displayMessage (evt) {
-  ejercicio  = evt.data;
   console.log(evt.data);
   if(empiezo === 0){
+    ejercicio  = evt.data;
     ConversationPanel.init();
     empiezo++;
   }else{
@@ -38,12 +38,16 @@ function displayMessage (evt) {
 
           return promise;
         }
-        usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/1")
+        usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
+          console.log(evt.data[2]);
           var enunciado = JSON.parse(data[0]['enunciado']);
           var ayuda = JSON.parse(data[0]['ayuda']);
-          //console.log(ayuda[evt.data[0]-1]['texto']);
-          ConversationPanel.sendMessage(evt.data[1],enunciado[evt.data[0]]['texto'],ayuda[evt.data[0]-1]['texto']);
+          if(typeof(enunciado[evt.data[0]]) !== "undefined" && typeof(ayuda[evt.data[0]-1]) !== "undefined"){
+            ConversationPanel.sendMessage(evt.data[1],enunciado[evt.data[0]]['texto'],ayuda[evt.data[0]-1]['texto'],evt.data[2]);
+          }else{
+            console.log("no existe");
+          }
         })
         .catch(error => console.error(error));
       }
@@ -101,16 +105,18 @@ var ConversationPanel = (function () {
 
       return promise;
     }
-    usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/1")
+    usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
+      console.log(data)
       var enunciado = JSON.parse(data[0]['enunciado']);
       var ayuda = JSON.parse(data[0]['ayuda']);
       chatUpdateSetup();
       var context = {};
       context.enunciadoEjercicio = enunciado[0]['texto'];
       context.enunciadoClausula = enunciado[1]['texto'];
-      context.ayudaClausula = ayuda[0]['texto'][0];
-      Api.sendRequest(ejercicio, context);
+      context.ayudaClausula = ayuda[0]['texto'];
+      console.log(context.ayudaClausula);
+      Api.sendRequest(ejercicio[0], context);
       setupInputBox();
     })
     .catch(error => console.error(error));
@@ -397,7 +403,7 @@ function scrollToChatBottom() {
   scrollingChat.scrollTop = scrollingChat.scrollHeight;
 }
 
-function sendMessage(text, fromLaravelEnunciado = "", fromLaravelAyuda = "") {
+function sendMessage(text, fromLaravelEnunciado = "", fromLaravelAyuda = "",fromLaravelComprobar = new Array()) {
   // Retrieve the context from the previous server response
   var context;
   var latestResponse = Api.getResponsePayload();
@@ -407,6 +413,17 @@ function sendMessage(text, fromLaravelEnunciado = "", fromLaravelAyuda = "") {
   if(fromLaravelEnunciado !== ""){
     context.enunciadoClausula = fromLaravelEnunciado;
     context.ayudaClausula = fromLaravelAyuda;
+  }
+  if(fromLaravelComprobar.length > 0){
+    context.comprobarClausula = "";
+    for (var i = 0; i < fromLaravelComprobar.length; i++) {
+      if(i == 0){
+        context.comprobarClausula = fromLaravelComprobar[i];
+      }else{
+        if(i+1 !== fromLaravelComprobar.length)  context.comprobarClausula = context.comprobarClausula + ", " + fromLaravelComprobar[i];
+        else  context.comprobarClausula = context.comprobarClausula + " y " + fromLaravelComprobar[i];
+      }
+    }
   }
   // Send the user message
   Api.sendRequest(text, context);

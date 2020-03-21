@@ -181,7 +181,7 @@ div {
 }
 
 .from-watson.latest .message-inner {
-  color: #323232;
+  color: white;
 }
 
 .from-watson p {
@@ -207,7 +207,7 @@ div {
   outline: none;
   background: transparent;
   font-size: 1rem;
-  color: #323232;
+  color: white;
   letter-spacing: 0.015rem;
   line-height: 1.3125rem;
   height: 2.5rem;
