@@ -32,7 +32,7 @@
                   <span class="spanSugerencia">{{json_decode($ejercicio->enunciado,true)[0]["texto"]}}</span>
                 </div>
                 <div class="col-md-12 text-right">
-                  <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Resolver</a>
+                  <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Resolver</a>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
               </div>
@@ -40,21 +40,21 @@
             </div>
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" style="width: 90%;
-    margin: auto;">
-            <div  style="    background-color: #e4e4e4;
-                padding-top: 12px;
-    color: black;
-    max-height: 602px;
-    font-weight: bold;
-    margin-top: 1.6rem;
-    overflow-y: scroll;">
+    margin: auto;   background-color: #e4e4e4;
+
+color: black;
+max-height: 450px;
+font-weight: bold;
+margin-top: 1.6rem;
+overflow-y: scroll;">
+            <div  id="bloqueTablas" style="padding-top: 12px;">
               <div class="col-md-12">
                 <div class="row">
                   <div class="col-8">
                     <span class="spanSugerencia" style="padding-left: 7px;">Artículos</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from articulos" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -65,7 +65,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">Clientes</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from clientes" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -76,7 +76,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">Pesos</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from pesos" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -87,7 +87,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">Proveedores</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from proveedores" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -98,7 +98,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">Suministro</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from suministro" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -109,7 +109,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">TblUsuarios</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from tblUsuarios" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -120,7 +120,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">Tiendas</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from tiendas" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -131,7 +131,7 @@
                     <span class="spanSugerencia" style="padding-left: 7px;">Ventas</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #006f1d;">Ver</a>
+                    <a href="#" data-id="select * from ventas" class="verTabla" style="color: #006f1d;">Ver</a>
                   </div>
                 </div>
                 <div class="col-md-12 m-0 p-0"><hr class="separacionSugerencia m-2" style="    border-top: 2px solid rgb(255, 255, 255);"></div>
@@ -243,6 +243,42 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
 		autofocus: true
 });
 
+$('#pills-profile').on('click', '#volverATabla',function() {
+  $("#bloqueTablas").removeClass("d-none");
+  $("#bloqueTablaRespuesta").remove();
+});
+
+$('.verTabla').click(function(e) {
+  var consulta = $(this).data('id');
+  console.log(consulta);
+  $.ajax({
+    type:'get',
+    url:'http://localhost/TFG/App/public/ajaxVerTabla',
+    data:{consulta:consulta},
+    dataType: 'json',
+    success:function(data){
+      console.log(data);
+      var keys = Object.keys(data[0]);
+      $("#bloqueTablas").addClass("d-none");
+      $("#bloqueTablaRespuesta").html("");
+      string ="<div id='bloqueTablaRespuesta'><div style='position: absolute;right: 5%;text-align: center;background-color: #5aaf70;color: white;z-index: 10;width: 30px;'><i id='volverATabla' style='cursor:pointer;'class='fas fa-undo'></i></div><table class='table table-sm table-striped table-principal'style='text-align:center; color:black;'<thead><tr>"
+      //$("#pills-profile").append()
+      $.each(keys, function (index, value) {
+      string = string +"<th>"+value+"</th>" ;
+      });
+      string = string + "</tr></thead><tbody>";
+      $.each(data, function (i, fila) {
+        string = string + "<tr>";
+        $.each(fila, function (j, campo) {
+          string = string + "<td>"+campo+"</td>";
+        });
+      });
+      $("#pills-profile").append(string + "</tbody></table></div>");
+
+    }
+  });
+});
+
 
     window.onload=function() {
       var arrayInicio = new Array();
@@ -258,6 +294,7 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+
     function formularioQuery(){
       var query = myCodeMirror.getValue();
       var id =  <?php echo $id ?>;

@@ -40,6 +40,16 @@ class EjercicioController extends Controller
         return view('ejercicio.vistaEjercicio2',['id' => $id,'enunciado' => $enun, "ejercicios" => $ejercicios]);
     }
 
+    public function ajaxVerTabla(Request $request)
+    {
+      try {
+       $verTabla = DB::connection('mysql2')->select($request->consulta);
+      } catch(\Illuminate\Database\QueryException $ex){
+        return Response::json($ex->getMessage());
+      }
+      return $verTabla;
+    }
+
     public function ajaxFormularioQuery(Request $request)
     {
         $solucion = Ejercicio::find($request['id']);

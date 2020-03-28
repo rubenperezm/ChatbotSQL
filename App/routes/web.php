@@ -26,7 +26,11 @@ Route::prefix('ejercicio')->group(function () {
   Route::Post('ajaxFormularioQuery', 'EjercicioController@ajaxFormularioQuery');
 });
 
+Route::get('ajaxVerTabla', 'EjercicioController@ajaxVerTabla');
+
 //Url para profesores
+Route::get('/editarEjercicio/eliminarEjercicio', 'editarEjercicioController@eliminarEjercicio', function ($id) {});
+Route::get('/editarEjercicio/editar/{id}', 'editarEjercicioController@editar', function ($id) {});
 Route::get('/editarEjercicio', 'editarEjercicioController@index')->middleware(esProfesor::class);
 Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);

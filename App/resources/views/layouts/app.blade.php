@@ -14,6 +14,8 @@
     <script src="{{ asset('js/app.js') }}" ></script>
 
     <script src="{{ asset('codemirror/lib/codemirror.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
     <link rel="stylesheet" href="{{asset('codemirror/lib/codemirror.css')}}">
     <script src="{{asset('codemirror/mode/sql/sql.js')}}"></script>
 
@@ -41,7 +43,7 @@
   </div>
 </div>
 </nav>
-<div class="row" style="height: 94% !important; margin:0;">
+<div class="row" style="height: 94% !important; margin:0">
     @yield('content')
 </div>
 @yield('scripts')

@@ -1,102 +1,203 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid">
-  <div class="col-12">
-    <iframe class="w-100" src="http://localhost/phpMyAdmin" style="height:700px;"></iframe>
-    <form action="{{action('editarEjercicioController@crearJsonEjercicio')}}" method="get" class="mt-3 mb-3 text-center">
-      <div class="row" style="padding-bottom: 2rem;">
-        <div class="col-5">
-          <div class="form-group">
-            <label>Enunciado del ejercicio</label>
-            <input type="text" name="enunciado" class="form-control" required>
-            {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group">
-            <label>Query de la solución</label>
-            <div class="row">
-              <div class="col-9"><input id="query" type="text" name="query" class="form-control" required>
-              {!!$errors->first('query','<small class="errores">:message</small>')!!}
+<div class="container-fluid" style="background-color: #ece8e8;">
+  <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
+    <div class="card-body">
+      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Tablas</h5>
+      <div class="col-12" style="display:inline-flex;">
+        <div class="col-4" id="tablas" role="tablist" aria-orientation="vertical">
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from clientes">Clientes</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from articulos">Artículos</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from pesos">Pesos</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from proveedores">Proveedores</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from suministro">Suministro</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tblUsuarios">TblUsuarios</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tiendas">Tiendas</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from ventas">Ventas</div>
+        </div>
+        <div class="col-8" id="bloqueTablaRespuesta" style="max-height:400px;overflow-y:scroll;">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
+    <div class="card-body">
+      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Formulario</h5>
+      <form action="{{action('editarEjercicioController@crearJsonEjercicio')}}" method="get" class="mt-3 mb-3">
+        <div class="col-12 " style="display: inline-flex;padding-bottom: 2rem;">
+          <div class="col-5" style="background-color: #f3f3f3;
+    border-radius: 5px;">
+              <div class="col-12 mb-4 form__group field">
+                <input type="input" class="form__field" placeholder="enunciado" name="enunciado" id='enunciado' required />
+                {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
+                <label for="enunciado" class="form__label">Enunciado del ejercicio</label>
               </div>
-              <div class="col-3"><input class="form-control bg-dark btn-outline-secondary text-white" type="button" value="query" id="botonQuery" onclick="formularioQuery();"></div>
+            <div class="form-group">
+              <label class="mb-1"style="font-weight:bold;">Query de la solución</label>
+              <textarea name="queryForm" class="form-control" id="formularioQuery"></textarea>
+              <div class="col-12 mt-3 px-0 text-right">
+                <button type="button" style="    background-color: #5aaf70;
+        border-color: white;
+        border-radius: 7%;font-weight: bold;" class="btn-outline-secondary text-white" name="button" value="query" id="botonQuery" onclick="formularioQueryCrear();"><i class="fas fa-code"></i> EJECUTAR</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-7" id="container" style="max-height:400px;overflow-y:scroll;">
+            <table class="table table-sm table-striped table-principal"style="text-align:center; color:black;">
+              <thead>
+                <tr id="queryContainer">
+                </tr>
+              </thead>
+              <tbody id="elementos">
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row d-none" id="cuerpoEnvio"style="padding-top: 2rem;">
+          <div class="col-sm-6">
+            <div class="col-12 mb-4 form__group field d-none" id="showEnun">
+              <input type="input" class="form__field" placeholder="showEnunciado" name="showEnunciado" id='showEnunciado'  />
+              {!!$errors->first('showEnunciado','<small class="errores">:message</small>')!!}
+              <label for="showEnunciado" class="form__label">Enunciado de la cláusula show</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="describeEnun">
+              <input type="input" class="form__field" placeholder="describeEnunciado" name="describeEnunciado" id='describeEnunciado'  />
+              {!!$errors->first('describeEnunciado','<small class="errores">:message</small>')!!}
+              <label for="describeEnunciado" class="form__label">Enunciado de la cláusula desribe</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="selectEnun">
+              <input type="input" class="form__field" placeholder="selectEnunciado" name="selectEnunciado" id='selectEnunciado'  />
+              {!!$errors->first('describeEnunciado','<small class="errores">:message</small>')!!}
+              <label for="selectEnunciado" class="form__label">Enunciado de la cláusula select</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="whereEnun">
+              <input type="input" class="form__field" placeholder="whereEnunciado" name="whereEnunciado" id='whereEnunciado'  />
+              {!!$errors->first('whereEnunciado','<small class="errores">:message</small>')!!}
+              <label for="whereEnunciado" class="form__label">Enunciado de la cláusula where</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="groupEnun">
+              <input type="input" class="form__field" placeholder="groupEnunciado" name="groupEnunciado" id='groupEnunciado' />
+              {!!$errors->first('groupEnunciado','<small class="errores">:message</small>')!!}
+              <label for="groupEnunciado" class="form__label">Enunciado de la cláusula group</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="havingEnun">
+              <input type="input" class="form__field" placeholder="havingEnunciado" name="havingEnunciado" id='havingEnunciado' />
+              {!!$errors->first('havingEnunciado','<small class="errores">:message</small>')!!}
+              <label for="havingEnunciado" class="form__label">Enunciado de la cláusula having</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="orderEnun">
+              <input type="input" class="form__field" placeholder="orderEnunciado" name="orderEnunciado" id='orderEnunciado' />
+              {!!$errors->first('orderEnunciado','<small class="errores">:message</small>')!!}
+              <label for="orderEnunciado" class="form__label">Enunciado de la cláusula order by</label>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="col-12 mb-4 form__group field d-none" id="showPistas">
+              <input type="input" class="form__field" placeholder="showPista" name="showPista" id='showPista' />
+              {!!$errors->first('showPista','<small class="errores">:message</small>')!!}
+              <label for="showPista" class="form__label">Pista de la cláusula show</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="describePistas">
+              <input type="input" class="form__field" placeholder="describePista" name="describePista" id='describePista' />
+              {!!$errors->first('describePista','<small class="errores">:message</small>')!!}
+              <label for="describePista" class="form__label">Pista de la cláusula show</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="selectPistas">
+              <input type="input" class="form__field" placeholder="selectPista" name="selectPista" id='selectPista' />
+              {!!$errors->first('selectPista','<small class="errores">:message</small>')!!}
+              <label for="selectPista" class="form__label">Pista de la cláusula select</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="wherePistas">
+              <input type="input" class="form__field" placeholder="wherePista" name="wherePista" id='wherePista' />
+              {!!$errors->first('wherePista','<small class="errores">:message</small>')!!}
+              <label for="wherePista" class="form__label">Pista de la cláusula where</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="groupPistas">
+              <input type="input" class="form__field" placeholder="groupPista" name="groupPista" id='groupPista' />
+              {!!$errors->first('groupPista','<small class="errores">:message</small>')!!}
+              <label for="groupPista" class="form__label">Pista de la cláusula group by</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="havingPistas">
+              <input type="input" class="form__field" placeholder="havingPista" name="havingPista" id='havingPista' />
+              {!!$errors->first('havingPista','<small class="errores">:message</small>')!!}
+              <label for="havingPista" class="form__label">Pista de la cláusula having</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="orderPistas">
+              <input type="input" class="form__field" placeholder="orderPista" name="orderPista" id='orderPista' />
+              {!!$errors->first('orderPista','<small class="errores">:message</small>')!!}
+              <label for="orderPista" class="form__label">Pista de la cláusula order by</label>
             </div>
           </div>
         </div>
-        <div class="col-6 offset-sm-1 mt-4 h-100" style=" border: 3px solid black;" id="container">
-          <table class="table table-sm table-striped table-principal"style="text-align:center;">
-            <thead class="thead-dark">
-              <tr id="queryContainer">
-              </tr>
-            </thead>
-            <tbody id="elementos">
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="row d-none" id="cuerpoEnvio"style="padding-top: 2rem;">
-        <div class="col-sm-6">
-          <div class="form-group d-none" id="showEnun">
-            <label>Enunciado de la cláusula show</label>
-            <input type="text" id="showEnunciado" name="showEnunciado" class="form-control" >
-            {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group d-none" id="describeEnun">
-            <label>Enunciado de la cláusula desribe</label>
-            <input type="text" id="describeEnunciado" name="describeEnunciado" class="form-control" >
-            {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group d-none" id="selectEnun">
-            <label>Enunciado de la cláusula select</label>
-            <input type="text" id="selectEnunciado" name="selectEnunciado" class="form-control" >
-            {!!$errors->first('query','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group d-none" id="whereEnun">
-            <label>Enunciado de la cláusula where</label>
-            <input type="text" id="whereEnunciado" name="whereEnunciado" class="form-control" >
-            {!!$errors->first('query','<small class="errores">:message</small>')!!}
+        <div class="row d-none" id="formEnvio">
+          <div class="col-12">
+            <div class="form-group">
+              <input type="submit" class="btn btn-dark col-2 mt-3">
+            </div>
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="form-group d-none" id="showPistas">
-            <label>Pista de la cláusula show</label>
-            <input type="text" id="showPista" name="showPista" class="form-control" >
-            {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group d-none" id="describePistas">
-            <label>Pista de la cláusula desribe</label>
-            <input type="text" id="describePista" name="describePista" class="form-control" >
-            {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group d-none" id="selectPistas">
-            <label>Pista de la cláusula select</label>
-            <input type="text" id="selectPista" name="selectPista" class="form-control" >
-            {!!$errors->first('query','<small class="errores">:message</small>')!!}
-          </div>
-          <div class="form-group d-none" id="wherePistas">
-            <label>Pista de la cláusula where</label>
-            <input type="text" id="wherePista" name="wherePista" class="form-control" >
-            {!!$errors->first('query','<small class="errores">:message</small>')!!}
-          </div>
-        </div>
-      </div>
-      <div class="row d-none" id="formEnvio">
-        <div class="col-12">
-          <div class="form-group">
-            <input type="submit" class="btn btn-dark col-2 mt-3">
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
+  </div>
+  <div class="col-12">
+
   </div>
 </div>
 @section('scripts')
 <script>
+
+var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQuery'),{
+    mode: "text/x-mysql",
+		indentWithTabs: true,
+		smartIndent: true,
+		lineNumbers: true,
+    tabSize:2,
+		matchBrackets : true,
+		autofocus: true
+});
+
 $.ajaxSetup({
   headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
-function formularioQuery(){
-  var query = $('#query').val();
+
+$('.botonVerTabla').click(function(e) {
+  $( ".botonVerTablaSelected" ).each(function( i ) {
+    $(this).removeClass("botonVerTablaSelected");
+  });
+  $(this).addClass("botonVerTablaSelected");
+  var consulta = $(this).data('id');
+  $.ajax({
+    type:'get',
+    url:'http://localhost/TFG/App/public/ajaxVerTabla',
+    data:{consulta:consulta},
+    dataType: 'json',
+    success:function(data){
+      var keys = Object.keys(data[0]);
+      $("#bloqueTablaRespuesta").html("");
+      string ="<table class='table table-sm table-striped table-principal'style='text-align:center; color:black;'<thead><tr>"
+      //$("#pills-profile").append()
+      $.each(keys, function (index, value) {
+      string = string +"<th>"+value+"</th>" ;
+      });
+      string = string + "</tr></thead><tbody>";
+      $.each(data, function (i, fila) {
+        string = string + "<tr>";
+        $.each(fila, function (j, campo) {
+          string = string + "<td>"+campo+"</td>";
+        });
+      });
+      $("#bloqueTablaRespuesta").append(string + "</tbody></table>");
+
+    }
+  });
+});
+
+
+function formularioQueryCrear(){
+  var query = myCodeMirror.getValue();
   $.ajax({
       type:'POST',
       url:'./ajaxValidaQuery',
@@ -138,6 +239,27 @@ function formularioQuery(){
         $('#wherePista').val("");
         $('#wherePista').prop('required',false);
 
+        $('#groupEnun').addClass("d-none");
+        $('#groupEnunciado').val("");
+        $('#groupEnunciado').prop('required',false);
+        $('#groupPistas').addClass("d-none");
+        $('#groupPista').val("");
+        $('#groupPista').prop('required',false);
+
+        $('#havingEnun').addClass("d-none");
+        $('#havingEnunciado').val("");
+        $('#havingEnunciado').prop('required',false);
+        $('#havingPistas').addClass("d-none");
+        $('#havingPista').val("");
+        $('#havingPista').prop('required',false);
+
+        $('#orderEnun').addClass("d-none");
+        $('#orderEnunciado').val("");
+        $('#orderEnunciado').prop('required',false);
+        $('#orderPistas').addClass("d-none");
+        $('#orderPista').val("");
+        $('#orderPista').prop('required',false);
+
         console.log(data)
         if(typeof data[0]['query'] === 'string'){
           $("#queryContainer").append(data[0]['query']);
@@ -158,23 +280,23 @@ function formularioQuery(){
           $('#formEnvio').removeClass("d-none");
           $('#cuerpoEnvio').removeClass("d-none");
 
-          switch (data[0]['clausula']) {
-            case 'show':
-              $('#showEnun').removeClass("d-none");
-              $('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
-              $('#showEnunciado').prop('required',true);
-              $('#showPistas').removeClass("d-none");
-              $('#showPista').prop('required',true);
-              $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
-              break;
-            case 'describe':
-              $('#showEnun').removeClass("d-none");
-              $('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
-              $('#showEnunciado').prop('required',true);
-              $('#showPistas').removeClass("d-none");
-              $('#showPista').prop('required',true);
-              $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
+          var existeShow = false;
+          var existeDescribe = false;
 
+          //show siempre se muestra
+          $('#showEnun').removeClass("d-none");
+          $('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
+          $('#showEnunciado').prop('required',true);
+          $('#showPistas').removeClass("d-none");
+          $('#showPista').prop('required',true);
+          $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
+          $.each(data[0]['clausula'], function (index, value) {
+            switch (value) {
+              case "show":
+              existeShow = true;
+              break;
+              case "describe":
+              existeDescribe = true;
               $('#describeEnun').removeClass("d-none");
               $('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
               $('#describeEnunciado').prop('required',true);
@@ -182,22 +304,7 @@ function formularioQuery(){
               $('#describePista').prop('required',true);
               $('#describePista').val("debes usar la clausula describe para conocer los campos de la tabla que buscas");
               break;
-
-            case 'select':
-              $('#showEnun').removeClass("d-none");
-              $('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
-              $('#showEnunciado').prop('required',true);
-              $('#showPistas').removeClass("d-none");
-              $('#showPista').prop('required',true);
-              $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
-
-              $('#describeEnun').removeClass("d-none");
-              $('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
-              $('#describeEnunciado').prop('required',true);
-              $('#describePistas').removeClass("d-none");
-              $('#describePista').prop('required',true);
-              $('#describePista').val("debes usar la clausula describe para conocer los campos de la tabla que buscas");
-
+              case "select":
               $('#selectEnun').removeClass("d-none");
               $('#selectEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
               $('#selectEnunciado').prop('required',true);
@@ -205,28 +312,7 @@ function formularioQuery(){
               $('#selectPista').prop('required',true);
               $('#selectPista').val("con la consulta select busca solo aquellos campos que necesites");
               break;
-            case 'where':
-              $('#showEnun').removeClass("d-none");
-              $('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
-              $('#showEnunciado').prop('required',true);
-              $('#showPistas').removeClass("d-none");
-              $('#showPista').prop('required',true);
-              $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
-
-              $('#describeEnun').removeClass("d-none");
-              $('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
-              $('#describeEnunciado').prop('required',true);
-              $('#describePistas').removeClass("d-none");
-              $('#describePista').prop('required',true);
-              $('#describePista').val("debes usar la clausula describe para conocer los campos de la tabla que buscas");
-
-              $('#selectEnun').removeClass("d-none");
-              $('#selectEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
-              $('#selectEnunciado').prop('required',true);
-              $('#selectPistas').removeClass("d-none");
-              $('#selectPista').prop('required',true);
-              $('#selectPista').val("con la consulta select busca solo aquellos campos que necesites");
-
+              case "where":
               $('#whereEnun').removeClass("d-none");
               $('#whereEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
               $('#whereEnunciado').prop('required',true);
@@ -234,10 +320,43 @@ function formularioQuery(){
               $('#wherePista').prop('required',true);
               $('#wherePista').val("con la consulta select busca solo aquellos campos que necesites");
               break;
-            default:
+              case "group by":
+              $('#groupEnun').removeClass("d-none");
+              $('#groupEnunciado').val("group by");
+              $('#groupEnunciado').prop('required',true);
+              $('#groupPistas').removeClass("d-none");
+              $('#groupPista').prop('required',true);
+              $('#groupPista').val("pista group by");
+              break;
+              case "having":
+              $('#havingEnun').removeClass("d-none");
+              $('#havingEnunciado').val("having");
+              $('#havingEnunciado').prop('required',true);
+              $('#havingPistas').removeClass("d-none");
+              $('#havingPista').prop('required',true);
+              $('#havingPista').val("pista having");
+              break;
+              case "order by":
+              $('#orderEnun').removeClass("d-none");
+              $('#orderEnunciado').val("order by");
+              $('#orderEnunciado').prop('required',true);
+              $('#orderPistas').removeClass("d-none");
+              $('#orderPista').prop('required',true);
+              $('#orderPista').val("pista order by");
+              break;
+              default:
               console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
-          }
+            }
+          });
 
+          if(!existeShow  && !existeDescribe){
+            $('#describeEnun').removeClass("d-none");
+            $('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
+            $('#describeEnunciado').prop('required',true);
+            $('#describePistas').removeClass("d-none");
+            $('#describePista').prop('required',true);
+            $('#describePista').val("debes usar la clausula describe para conocer los campos de la tabla que buscas");
+          }
         }
       }
   });
