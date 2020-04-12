@@ -32,8 +32,8 @@ class editarEjercicioController extends Controller
      */
     public function index(Request $request)
     {
-        $ApiController = new refrescarLogsController;
-        $api = $ApiController->index();
+      /*  $ApiController = new refrescarLogsController;
+        $api = $ApiController->index();*/
         $todosEjercicios = Ejercicio::all();
         return view('ejercicio.mostrarEjercicio', ['todosEjercicios' => $todosEjercicios]);
     }
@@ -166,10 +166,16 @@ class editarEjercicioController extends Controller
          if(stripos($request['query'], 'group by') !== false){
           array_push($clausulaArray ,"group by");
          }
-         if(stripos($request['query'], 'having by') !== false){
-          array_push($clausulaArray ,"having by");
+         if(stripos($request['query'], 'having') !== false){
+          array_push($clausulaArray ,"having");
          }
-         if(!$esShow) $tabla = compruebaTabla($request['query'],"from");
+         if(!$esShow){
+           if(stripos($request['query'], 'describe') !== false){
+            $tabla = compruebaTabla($request['query'],"describe");
+          }else{
+            $tabla = compruebaTabla($request['query'],"from");
+          }
+         }
          array_push($respuestaQuery ,array("query" => $users,"clausula" => $clausulaArray ,"tabla" => $tabla));
         } catch(\Illuminate\Database\QueryException $ex){
           array_push($respuestaQuery ,array("query" => $ex->getMessage()));

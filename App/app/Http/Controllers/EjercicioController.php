@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Debugbar;
 use App\Ejercicio;
+use App\User;
 use Session;
 use Response;
 use DB;
@@ -36,8 +37,36 @@ class EjercicioController extends Controller
         $solucion = Ejercicio::find($id);
         $json = json_decode($solucion->enunciado);
         $enun = $json[0]->texto;
-        $ejercicios = Ejercicio::all();
-        return view('ejercicio.vistaEjercicio2',['id' => $id,'enunciado' => $enun, "ejercicios" => $ejercicios]);
+        $ejercicios = Ejercicio::select("*")->orderBy('dificultad')->get();
+        $principiante = Ejercicio::where("dificultad",1)->get();
+        $intermedios = Ejercicio::where("dificultad",2)->get();
+        $todosPrincipiantes = false;
+        $todosIntermedios = false;
+        $flag = false;
+        $ejerciciosResuelto = json_decode(auth()->user()->ejerciciosResueltos,true);
+        Debugbar::info($ejerciciosResuelto);
+        if($ejerciciosResuelto != null){
+          foreach ($principiante as $key => $ejercicio) {
+            if (!in_array($ejercicio->id, $ejerciciosResuelto)) {
+              $flag = true;
+            }
+          }
+          if(!$flag){
+            $todosPrincipiantes = true;
+            $flag = false;
+            foreach ($intermedios as $key => $ejercicio) {
+              if (!in_array($ejercicio->id, $ejerciciosResuelto)) {
+                $flag = true;
+              }
+            }
+            if(!$flag)  $todosIntermedios = true;
+          }
+        }
+        Debugbar::info($ejerciciosResuelto);
+        Debugbar::info($todosPrincipiantes);
+        Debugbar::info($todosIntermedios);
+
+        return view('ejercicio.vistaEjercicio2',['id' => $id,'enunciado' => $enun, "ejercicios" => $ejercicios,'esPrincipiante' => $todosPrincipiantes,'esIntermedio' => $todosIntermedios,'ejerciciosResuelto' => $ejerciciosResuelto]);
     }
 
     public function ajaxVerTabla(Request $request)
@@ -48,6 +77,31 @@ class EjercicioController extends Controller
         return Response::json($ex->getMessage());
       }
       return $verTabla;
+    }
+
+    public function comprobarTutorial(Request $request)
+    {
+      $tutorial = User::select("id","tutorial")->find(auth()->user()->id);
+      if($tutorial->tutorial === 0 ){
+        $tutorial->tutorial = 1;
+        $tutorial->save();
+        return Response::json(true);
+      }
+      else return Response::json(false);
+
+    }
+
+    public function ejercicioTerminado(Request $request)
+    {
+      $ejerciciosResuelto =  User::select("id","ejerciciosResueltos")->find(auth()->user()->id);
+      $ejercicioRe =  json_decode($ejerciciosResuelto->ejerciciosResueltos,true);
+      if($ejercicioRe == null) $ejercicioRe = array();
+      if (!in_array($request->idEjercicio, $ejercicioRe)) {
+        array_push($ejercicioRe,$request->id);
+        $ejerciciosResuelto->ejerciciosResueltos = json_encode($ejercicioRe);
+        $ejerciciosResuelto->save();
+      }
+      return Response::json("success");
     }
 
     public function ajaxFormularioQuery(Request $request)
@@ -173,7 +227,37 @@ class EjercicioController extends Controller
 
         } catch(\Illuminate\Database\QueryException $ex){
           $respuestaQuery = array();
-          array_push($respuestaQuery ,array("query" => $ex->getMessage(),"conversacionBot" => "ErrorVialaravel"));
+          $msg = "ErrorVialaravel";
+          switch ($ex) {
+            case stripos($ex, '1054') !== false:
+              $msg = $msg." 1054";
+              if(stripos($ex, 'where clause') !== false) $msg = $msg."where";
+              else{
+                if(stripos($ex, 'field') !== false) $msg = $msg."select";
+                else if(stripos($ex, 'order clause') !== false) $msg = $msg."order";
+              }
+              break;
+            case stripos($ex, '1064') !== false:
+              $msg = $msg." 1064";
+              break;
+            case stripos($ex, '1146') !== false:
+              $msg = $msg." 1146";
+              break;
+            case stripos($ex, '1055') !== false:
+              $msg = $msg." 1055";
+              break;
+            case stripos($ex, '1140') !== false:
+              $msg = $msg." 1140";
+              break;
+            case stripos($ex, '1054') !== false:
+              $msg = $msg." 1054";
+              break;
+
+            default:
+              break;
+          }
+          Debugbar::info();
+          array_push($respuestaQuery ,array("query" => $ex->getMessage(),"conversacionBot" => $msg));
           return Response::json($respuestaQuery);
         }
         array_push($respuestaQuery,$mejoraConsulta);
@@ -276,6 +360,7 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
         if (!compruebaFiltro($miString,$solucion)) {
           array_push($mejoraConsulta,"Al parecer no has hecho un buen filtro en el where, revisa esos filtro si son los que necesitas para llegar a la solución");
         }
+        Debugbar::info($mejoraConsulta);
         return false;
       }
         break;
@@ -674,20 +759,39 @@ function lugarSolucion($solucion){
 
 
 function compruebaCampos($miString,$solucion){
+  Debugbar::info("campos");
+  $solucion = strtolower($solucion);
+  $miString = strtolower($miString);
+  if(stripos($miString, 'where') !== false){
+    $miString = explode("where", $miString);
+    $miString = trim($miString[0]);
+  }else{
+    if(stripos($miString, 'group by') !== false){
+      $miString = explode("group by", $miString);
+      $miString = trim($miString[0]);
+    }else{
+      if(stripos($miString, 'order by') !== false){
+        $miString = explode("order by", $miString);
+        $miString = trim($miString[0]);
+      }
+    }
+  }
+Debugbar::info($miString);
+
 
   $campos1 = DB::connection('mysql2')->select($miString);
   $campos2 = DB::connection('mysql2')->select($solucion);
 
+
+  if(empty((array)$campos1)) return false;
+  Debugbar::info($campos1);
   if(isset($campos1[0])){
     $nCamposConsulta = (array)$campos1[0];
     $NCamposConsulta = sizeof($nCamposConsulta);
   }
-
   if(isset($campos2[0])){
-
     $nCamposSolucion = (array)$campos2[0];
     $NCamposSolucion = sizeof($nCamposSolucion);
-
   }
   $diferentesCampos = array_diff_key($nCamposSolucion, $nCamposConsulta);
   if($NCamposConsulta == $NCamposSolucion && empty($diferentesCampos)) return true;

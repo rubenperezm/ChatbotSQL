@@ -35,6 +35,7 @@
               </div>
             <div class="form-group">
               <label class="mb-1"style="font-weight:bold;">Query de la solución</label>
+              <input type="hidden" name="query" id="query" value="">
               <textarea name="queryForm" class="form-control" id="formularioQuery"></textarea>
               <div class="col-12 mt-3 px-0 text-right">
                 <button type="button" style="    background-color: #5aaf70;
@@ -198,6 +199,7 @@ $('.botonVerTabla').click(function(e) {
 
 function formularioQueryCrear(){
   var query = myCodeMirror.getValue();
+  $("#query").val(query);
   $.ajax({
       type:'POST',
       url:'./ajaxValidaQuery',
