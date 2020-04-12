@@ -209,3 +209,149 @@ $gray: #9b9b9b;
 .form__field{
   &:required,&:invalid { box-shadow:none; }
 }
+
+.cabeceraEnunciado{
+  height: 64px;
+  background: linear-gradient(-90deg, #717575, #9c9c9c);
+}
+
+.cabeceraAdministracion{
+  height: 39px;
+  background: linear-gradient(-90deg, #0f1313, #53714f);
+}
+
+
+
+.cardBodyEnun{
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.cardBodyEnun:hover{
+  box-shadow: 1px 1px 20px #d2d2d2;
+}
+.selectedEjercicio{
+background-color: #3eab3e75;
+}
+
+.filaTabla{
+border-bottom: 2px #3a3a3a;
+    padding-top: 4px;
+    padding-bottom: 14px;
+    border-bottom-style: solid;
+}
+
+
+.navSide{
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 37%;
+  background: #0c4408d9;
+  height: 100%;
+  transform: skewX(0deg) translate(100%,0);
+  transform-origin: top right;
+  transition: all .2s ease-in;
+}
+
+.activeNav {
+  transform: skewX(0deg) translate(100%,0);
+  transform-origin: top right;
+  transition: all .2s ease-in;
+  z-index: 5;
+  transform: skewX(8deg) translate(0,0);
+}
+
+.removeActiveNav {
+  transform: skewX(0deg) translate(100%,0);
+  transform-origin: top right;
+  transition: all .2s ease-in;
+}
+
+.navSideSelected{
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50%;
+  background: #2ec765e0;
+  height: 100%;
+  transform: skewX(0deg) translate(100%,0);
+  transform-origin: top right;
+  transition: all .2s ease-in;
+  z-index: 5;
+  transform: skewX(8deg) translate(0,0);
+}
+
+.listaNav{
+  transform: skewX(-8deg);
+    transform-origin: top left;
+    position: fixed;
+    right: 120px;
+    top: 32%;
+    width: 400px;
+    text-align: right;
+}
+
+.liNav{
+  position: relative;
+  z-index: 999;
+  font-size: 32px;
+  line-height: 64px;
+  color: white;
+  list-style: none;
+  font-family: impact;
+  font-weight: 300;
+}
+
+a{
+  color: white;
+}
+
+.adminBlock{
+    height: 100%;
+    width: 100%;
+    background-color: #000000d4;
+    transform: skewX(0deg) translate(0, 100%);
+    display: inline-flex;
+}
+
+.activeAdminBlock{
+  transform-origin: right;
+  transition: all .5s ease-in;
+  z-index: 5;
+  transform: skewX(0deg) translate(0,0);
+
+}
+
+.botonDegradao{
+  border-radius: 5%;
+  font-weight: bold;
+  background: linear-gradient(-90deg, #0f1313, #53714f);
+  width: 108px;
+}
+
+
+.bloqueSideTutorial{
+    position: absolute;
+    z-index: 100000;
+    top: 10%;
+    width: 50%;
+    right: 5rem;
+    background-color: #3b3b3b;
+}
+
+.bloqueCenterTutorial{
+    left: unset;
+    top: unset;
+    right: 1rem;
+    bottom: 6rem;
+}
+
+.bloqueIframeTutorial{
+  left: 5rem;
+}
+
+.opacityTutorial{
+  opacity: 0.2;
+}

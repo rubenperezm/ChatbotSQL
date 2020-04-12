@@ -29,10 +29,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-
-<div class="row" id="main" style="height: 100% !important; margin:0">
-    @yield('content')
-</div>
+@yield('content')
 @yield('scripts')
 </body>
 

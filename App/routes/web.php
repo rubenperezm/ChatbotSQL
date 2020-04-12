@@ -26,7 +26,18 @@ Route::prefix('ejercicio')->group(function () {
   Route::Post('ajaxFormularioQuery', 'EjercicioController@ajaxFormularioQuery');
 });
 
+
+Route::prefix('admin')->group(function () {
+  Route::get('/administracion', 'adminController@administracion');
+  Route::get('/contacto', 'adminController@contacto');
+  Route::post('/editarPerfil', 'adminController@editarPerfil');
+});
+
+
+
 Route::get('ajaxVerTabla', 'EjercicioController@ajaxVerTabla');
+Route::get('comprobarTutorial', 'EjercicioController@comprobarTutorial');
+Route::get('ejercicioTerminado', 'EjercicioController@ejercicioTerminado');
 
 //Url para profesores
 Route::get('/editarEjercicio/eliminarEjercicio', 'editarEjercicioController@eliminarEjercicio', function ($id) {});
