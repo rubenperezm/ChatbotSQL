@@ -345,7 +345,7 @@ ComprobarTutorial();
 function ComprobarTutorial() {
   $.ajax({
     type:'get',
-    url:"{{ env('APP_URLP') }}/comprobarTutorial",
+    url:"../comprobarTutorial",
     dataType: 'json',
     success:function(data){
       if(data == true){
@@ -461,7 +461,7 @@ $('.verTabla').click(function(e) {
   console.log(consulta);
   $.ajax({
     type:'get',
-    url:"{{ env('APP_URLP') }}/ajaxVerTabla",
+    url:"../ajaxVerTabla",
     data:{consulta:consulta},
     dataType: 'json',
     success:function(data){
