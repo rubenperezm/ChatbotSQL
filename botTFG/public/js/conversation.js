@@ -32,7 +32,7 @@ function displayMessage (evt) {
                 : reject(`Error al consultar => ${ruta}`);
               }
             });
-            XHTTP.setRequestHeader('Access-Control-Allow-Headers', '*');
+            XHTTP.setRequestHeader('Access-Control-Allow-Origin', '*');
             XHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             XHTTP.open("GET", ruta);
             XHTTP.send();
