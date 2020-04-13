@@ -38,7 +38,7 @@ function displayMessage (evt) {
 
           return promise;
         }
-        usandoPromesas("http://ec2-3-93-81-138.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
+        usandoPromesas("http://ec2-34-207-194-105.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
           console.log(evt.data[2]);
           var enunciado = JSON.parse(data[0]['enunciado']);
@@ -105,7 +105,7 @@ var ConversationPanel = (function () {
 
       return promise;
     }
-    usandoPromesas("http://ec2-3-93-81-138.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
+    usandoPromesas("http://ec2-34-207-194-105.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
       console.log(data)
       var enunciado = JSON.parse(data[0]['enunciado']);
