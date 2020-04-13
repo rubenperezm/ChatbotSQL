@@ -49,7 +49,7 @@
           <div class="col-md-12 text-right" style="background-color: #eaeaea;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;">
-              <a href="http://localhost/TFG/App/public/editarEjercicio/{{$ejercicio->id}}"><i style="color: green;"class="fas fa-edit"></i></a>
+              <a href="{{ env('APP_URLP') }}/editarEjercicio/{{$ejercicio->id}}"><i style="color: green;"class="fas fa-edit"></i></a>
               <i  class="fas fa-trash-alt borrarEsteEjercicio" style="cursor: pointer;color: #9a0000;"data-id="{{$ejercicio->id}}"></i>
           </div>
         </div>

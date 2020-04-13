@@ -86,13 +86,13 @@
                 <div class="col-md-2 m-auto">
                   @switch($ejercicio->dificultad)
                       @case(1)
-                        <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
                         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                         @break
 
                       @case(2)
                           @if($esPrincipiante)
-                            <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
                             font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                           @else
                             <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -101,7 +101,7 @@
 
                       @case(3)
                           @if($esIntermedio)
-                            <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
                             font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                           @else
                             <a href="#" class="añadirSugerencia avanzadoNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -288,8 +288,8 @@ overflow-y: scroll;">
        justify-content: center;
        float: left;
        display: inline-block;">
-           <img  id="fotoAvatar" src="http://localhost/TFG/App/public/imagenes/18.jpg" alt="" style="width: 43px;
-    height: 43px;
+           <img  id="fotoAvatar" src="{{ env('APP_URLP') }}/imagenes/botTfg.png" alt="" style="width: 49px;
+    height: 47px;
            display: block;
            margin-left: auto;
            margin-top: 0.3rem;
@@ -345,7 +345,7 @@ ComprobarTutorial();
 function ComprobarTutorial() {
   $.ajax({
     type:'get',
-    url:'http://localhost/TFG/App/public/comprobarTutorial',
+    url:"{{ env('APP_URLP') }}/comprobarTutorial",
     dataType: 'json',
     success:function(data){
       if(data == true){
@@ -364,7 +364,7 @@ function ComprobarTutorial() {
         var bodybloqueTutorial = document.createElement("div");
         bodybloqueTutorial.setAttribute("id", "bodybloqueTutorial");
         bodybloqueTutorial.className = "card-body text-center mb-2"
-        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación en el maravilloso mundo de mysql. Realmente no quiero ser pesao porque para ello ya está mi amigo bot de seguimiento, asi que de una forma rapida esta panel alojado en la parte izquierda de la pantalla nos recordará siempre cual es el enunciado del ejercio que estamos haciendo y nos dará también una visión goblal tanto de las tablas que disponemos como de los ejercicios disponibles en la plataforma.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
+        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación al maravilloso mundo de mysql. Realmente no quiero ser pesao porque para ello ya está mi amigo el bot de seguimiento, asi que de una forma rápida, este panel alojado en la parte izquierda de la pantalla nos recordará siempre cual es el enunciado del ejercio que estamos haciendo y nos dará también una visión goblal tanto de las tablas que disponemos como de los ejercicios disponibles en la plataforma.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
         document.getElementById("bloqueTutorial").appendChild(bodybloqueTutorial);
 
         $('#tutorialEjercicio').click(function(e) {
@@ -372,7 +372,7 @@ function ComprobarTutorial() {
           $("#bloqueEjercicio").removeClass("opacityTutorial");
           $("#bloqueSideBar").addClass("opacityTutorial");
           $("#bloqueTutorial").addClass("bloqueCenterTutorial");
-          $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Esta parte central de la herramienta es la más importante ya que es donde escribiremos las soluciones y veremos que nos devulve<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="tutorialIframe();">Avanzar</button></div></p>');
+          $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Esta parte central de la herramienta es la más importante, ya que será donde escribiremos las soluciones de nuestros ejercicios y comprobaremos lo que nos devuelve. Casi todas las consultas mysql siguen un orden para formarse asi que para todos los ejercicios nuestro amigo el Bot nos acompañará en cada paso para formar la consulta, aunque también si ya vamos controlando un poco más, puedes saltarte los pasos que quieras e intentar resolverlo.</p><div class="col-12 mt-2 px-0"><img src="{{ env("APP_URLP") }}/imagenes/fucionamiento.png" alt="" style="width: 450px;"></div><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="tutorialIframe();">Avanzar</button></div>');
         });
       }
     }
@@ -461,7 +461,7 @@ $('.verTabla').click(function(e) {
   console.log(consulta);
   $.ajax({
     type:'get',
-    url:'http://localhost/TFG/App/public/ajaxVerTabla',
+    url:"{{ env('APP_URLP') }}/ajaxVerTabla",
     data:{consulta:consulta},
     dataType: 'json',
     success:function(data){
@@ -493,7 +493,7 @@ $('.verTabla').click(function(e) {
       arrayInicio[0] = "ejercicio basico laravel";
       arrayInicio[1] = <?php echo $id;?>;
       var EjercicioBot = document.getElementById("iframe").contentWindow;
-      EjercicioBot.postMessage(arrayInicio , "http://localhost:3000");
+      EjercicioBot.postMessage(arrayInicio , "{{ env('APP_BOT') }}");
     }
 
 
@@ -507,12 +507,12 @@ $('.verTabla').click(function(e) {
       var id =  <?php echo $id ?>;
       $.ajax({
           type:'get',
-          url:'http://localhost/TFG/App/public/ejercicioTerminado',
+          url:"{{ env('APP_URLP') }}/ejercicioTerminado",
           data:{id:id},
           dataType: 'json',
           success:function(data){
             console.log(data);
-            window.location.href = "http://localhost/TFG/App/public/admin/administracion";
+            window.location.href = "{{ env('APP_URLP') }}/admin/administracion";
           }
       });
     }

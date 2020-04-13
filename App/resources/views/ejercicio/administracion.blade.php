@@ -112,7 +112,7 @@ max-height: 180px;">
              </div>
           </div>
           <div class="col-md-2 m-auto">
-            <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
 font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
           </div>
         </div>
@@ -175,7 +175,7 @@ max-height: 180px;">
           </div>
           <div class="col-md-2 m-auto">
             @if($esPrincipiante)
-              <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @else
               <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -240,7 +240,7 @@ max-height: 180px;">
           </div>
           <div class="col-md-2 m-auto">
             @if($esIntermedio)
-              <a href="http://localhost/TFG/App/public/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @else
               <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>

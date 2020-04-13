@@ -172,7 +172,7 @@ $('.botonVerTabla').click(function(e) {
   var consulta = $(this).data('id');
   $.ajax({
     type:'get',
-    url:'http://localhost/TFG/App/public/ajaxVerTabla',
+    url:"{{ env('APP_URLP') }}/ajaxVerTabla",
     data:{consulta:consulta},
     dataType: 'json',
     success:function(data){
