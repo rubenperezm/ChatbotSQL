@@ -121,7 +121,7 @@ class EjercicioController extends Controller
              Debugbar::info("pasaAsolucionFaltaOder");
              //salto correcto having
              Session::put('lugarConversacion',6);
-             array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+             array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
            }else{
              array_push($respuestaQuery ,array("query" => "lo has terminado","conversacionBot" => "finalConversacionCorrectolaravel"));
            }
@@ -135,7 +135,7 @@ class EjercicioController extends Controller
                  Debugbar::info("group sin where");
                  //lugar que ocupa tras ser un salto correcto de where
                  Session::put('lugarConversacion',4);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }else{
                  Debugbar::info("group con where");
                  Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
@@ -150,7 +150,7 @@ class EjercicioController extends Controller
                if(comprueba($request['query'],$solucionQuery,"order by",$mejoraConsulta)){
                  array_push($respuestaQuery ,array("query" => "lo has terminado","conversacionBot" => "finalConversacionCorrectolaravel"));
                }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_order_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_order_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }
              }elseif(stripos($request['query'], 'where') === false && stripos($request['query'], 'select') !== false
              && stripos($request['query'], 'group by') === false && stripos($request['query'], 'having') === false && Session::get('lugarConversacion') < 2 && 2 <= $this->solucionLugar){
@@ -169,7 +169,7 @@ class EjercicioController extends Controller
                    }
                  }
                }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_select_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_select_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }
              }elseif (stripos($request['query'], 'show') !== false && Session::get('lugarConversacion') < 0 &&  0 <= $this->solucionLugar) {
                Session::put('lugarConversacion',0);
@@ -179,18 +179,18 @@ class EjercicioController extends Controller
                Session::put('lugarConversacion',1);
                if(comprueba($request['query'],$solucionQuery,"describe",$mejoraConsulta)){
                  Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }
              }elseif (stripos($request['query'], 'select') !== false && stripos($request['query'], 'where') !== false && stripos($request['query'], 'group by') === false && stripos($request['query'], 'having') === false
              && Session::get('lugarConversacion') < 3 && 3 <= $this->solucionLugar) {
                Session::put('lugarConversacion',3);
                if(comprueba($request['query'],$solucionQuery,"where",$mejoraConsulta)){
                  Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }
              }elseif (stripos($request['query'], 'group by') !== false && stripos($request['query'], 'having') === false && Session::get('lugarConversacion') < 4 && 4 <= $this->solucionLugar) {
                Session::put('lugarConversacion',4);
@@ -199,14 +199,14 @@ class EjercicioController extends Controller
                if(comprueba($request['query'],$solucionQuery,$whereCase,$mejoraConsulta)){
                  if(stripos($request['query'], 'having') !== false){
                    Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                  }else{
                    //si no existe ira directo al order by
                    Session::put('lugarConversacion',Session::get('lugarConversacion')+2);
-                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                  }
                }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }
              }
              elseif (stripos($request['query'], 'group by') !== false && stripos($request['query'], 'having') !== false && Session::get('lugarConversacion') < 5 && 5 <= $this->solucionLugar) {
@@ -215,9 +215,9 @@ class EjercicioController extends Controller
                if(stripos($request['query'], 'where') !== false) $whereCase = "havingConWhere";
                if(comprueba($request['query'],$solucionQuery,$whereCase,$mejoraConsulta)){
                  Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_parcial","lugarConversacion" => Session::get('lugarConversacion')+1));
+                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }
              }
            }
