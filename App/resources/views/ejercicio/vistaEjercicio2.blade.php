@@ -333,7 +333,7 @@ overflow-y: scroll;">
         <div class="cotainer-fluid  w-100" style=" height: 92%;
         background: linear-gradient(45deg, rgb(78, 78, 78) 0%, #abaaaa 50%, rgb(255, 255, 255) 100%);
     ">
-          <iframe style="border: none;"class="botEjercicio"id="iframe" src="http://localhost:3000"></iframe>
+          <iframe style="border: none;"class="botEjercicio"id="iframe" src="{{ env('APP_BOT') }}"></iframe>
         </div>
     </div>
 
@@ -533,7 +533,7 @@ $('.verTabla').click(function(e) {
               console.log(data[0]['conversacionBot']);
               if(data[0]['query'] == "lo has terminado") ejercicioTerminado();
               var EjercicioBot = document.getElementById("iframe").contentWindow;
-              EjercicioBot.postMessage(data[0]['conversacionBot'], "http://localhost:3000");
+              EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
               $("#queryContainer").append(data[0]['query']);
             }
             else{
@@ -559,7 +559,7 @@ $('.verTabla').click(function(e) {
               arrayBot[3] = <?php echo $id;?>;
               console.log(arrayBot)
               var EjercicioBot = document.getElementById("iframe").contentWindow;
-              EjercicioBot.postMessage(arrayBot, "http://localhost:3000");
+              EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
 
             }
           }
