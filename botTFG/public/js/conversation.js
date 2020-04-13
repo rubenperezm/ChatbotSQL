@@ -32,6 +32,7 @@ function displayMessage (evt) {
                 : reject(`Error al consultar => ${ruta}`);
               }
             });
+            XHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             XHTTP.open("GET", ruta);
             XHTTP.send();
           });
@@ -100,6 +101,7 @@ var ConversationPanel = (function () {
           }
         });
         XHTTP.open("GET", ruta);
+
         XHTTP.send();
       });
 
