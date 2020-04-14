@@ -1,8 +1,3 @@
-// The ConversationPanel module is designed to handle
-// all display and behaviors of the conversation column of the app.
-/* eslint no-unused-vars: "off" */
-/* global Api: true, Common: true*/
-
 var ejercicio;
 var empiezo = 0;
 
@@ -32,8 +27,6 @@ function displayMessage (evt) {
                 : reject(`Error al consultar => ${ruta}`);
               }
             });
-            XHTTP.setRequestHeader('Access-Control-Allow-Origin', '*');
-            XHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             XHTTP.open("GET", ruta);
             XHTTP.send();
           });
