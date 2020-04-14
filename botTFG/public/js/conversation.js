@@ -37,9 +37,10 @@ function displayMessage (evt) {
             XHTTP.open("GET", ruta);
             XHTTP.send();
           });
+
           return promise;
         }
-        usandoPromesas("http://ec2-52-207-88-40.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
+        usandoPromesas("http://ec2-52-90-113-78.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
           console.log(evt.data[2]);
           var enunciado = JSON.parse(data[0]['enunciado']);
@@ -107,7 +108,7 @@ var ConversationPanel = (function () {
 
       return promise;
     }
-    usandoPromesas("http://ec2-52-207-88-40.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
+    usandoPromesas("http://ec2-52-90-113-78.compute-1.amazonaws.com/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
       console.log(data)
       var enunciado = JSON.parse(data[0]['enunciado']);
