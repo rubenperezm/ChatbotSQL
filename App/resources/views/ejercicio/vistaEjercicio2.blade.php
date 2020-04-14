@@ -52,10 +52,16 @@
                       {{json_decode($ejercicio->enunciado,true)[0]["texto"]}}
                     </span>
                   </div>
-                  @if (in_array($ejercicio->id, $ejerciciosResuelto))
-                  <div class="col-12  text-left">
-                    <span style="font-size: 12px;color: #13c100;">Completado - {{$ejercicio->solucionQuery}}</span>
-                  </div>
+                  @if($ejerciciosResuelto != null)
+                    @if (in_array($ejercicio->id, $ejerciciosResuelto))
+                    <div class="col-12  text-left">
+                      <span style="font-size: 12px;color: #13c100;">Completado - {{$ejercicio->solucionQuery}}</span>
+                    </div>
+                    @else
+                    <div class="col-12  text-left">
+                        <span style="font-size: 12px;color: #928888;">Sin completar</span>
+                    </div>
+                    @endif
                   @else
                   <div class="col-12  text-left">
                       <span style="font-size: 12px;color: #928888;">Sin completar</span>
