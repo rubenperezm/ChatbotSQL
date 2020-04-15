@@ -132,7 +132,7 @@ class editarEjercicioController extends Controller
       }
 
       $nuevoEjercicio = new Ejercicio;
-      $nuevoEjercicio->solucionQuery = $request->get('query');
+      $nuevoEjercicio->solucionQuery = strtolower($request->get('query'));
       $nuevoEjercicio->enunciado = json_encode($enunciados);
       $nuevoEjercicio->ayuda = json_encode($pistas);
       $nuevoEjercicio->save();

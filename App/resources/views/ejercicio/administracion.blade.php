@@ -14,6 +14,13 @@ background: url('../imagenes/p2.jpg');
 "></div>
 <div class="adminBlock">
   <div class="col-md-5 m-auto">
+    <div style="
+    margin: auto;
+    width: 90%;
+    margin-bottom: 8rem;
+    color: white;
+"><h1 class="mb-3" style="font-size: 3.5rem;">Bienvenido {{auth()->user()->name}}!</h1>
+           <h4 class="mb-4">Aquí encontrarás tu datos, los cuales podrás volver a editar a tu gusto, y la lista de ejercicios disponible con los que irás aprendiendo de manera controlada como resolver una consulta <strong>MySQL</strong></h4></div>
     <div class="mt-4 mb-4 cardBodyEnun cardEnunciado rounded" style="width: 90%;
     margin: auto;
     background-color: #1d1d1d;
@@ -38,19 +45,19 @@ background: url('../imagenes/p2.jpg');
       <div class="card-body text-center mb-2">
         <form id="editarPerfil" action="{{asset('admin/editarPerfil')}}" method="post">
           @csrf
-          <div class="col-12 mb-4 form__group field">
+          <div class="col-12 mb-4 form__group field text-left">
             <input type="input" class="text-white form__field" value="{{$usuario->email}}"placeholder="email" name="email" id='email' required />
-            {!!$errors->first('email','<small class="errores">:message</small>')!!}
+            {!!$errors->first('email','<small class="errores" style="color:red;">:message</small>')!!}
             <label for="email" class="form__label">Email</label>
           </div>
-          <div class="col-12 mb-4 form__group field">
+          <div class="col-12 mb-4 form__group field text-left">
             <input type="input" class="text-white form__field" value="{{$usuario->name}}"placeholder="nombre" name="nombre" id='nombre' required />
-            {!!$errors->first('nombre','<small class="errores">:message</small>')!!}
+            {!!$errors->first('nombre','<small class="errores"  style="color:red;">:message</small>')!!}
             <label for="nombre" class="form__label">Nombre del usuario</label>
           </div>
           <div class="col-12 mt-2 px-0 text-right">
             <button type="button" onclick="
-                document.getElementById('editarPerfil').submit();" class="btn-outline-secondary text-white botonDegradao" name="button"><i class="fas fa-edit"></i> Editar</button>
+                document.getElementById('editarPerfil').submit();" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="btn-outline-secondary text-white botonDegradao" name="button"><i class="fas fa-edit"></i> Editar</button>
           </div>
         </form>
       </div>
@@ -112,7 +119,7 @@ max-height: 180px;">
              </div>
           </div>
           <div class="col-md-2 m-auto">
-            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" class="añadirSugerencia" style="color: #6ead7f;
 font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
           </div>
         </div>
@@ -175,7 +182,7 @@ max-height: 180px;">
           </div>
           <div class="col-md-2 m-auto">
             @if($esPrincipiante)
-              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @else
               <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -240,7 +247,7 @@ max-height: 180px;">
           </div>
           <div class="col-md-2 m-auto">
             @if($esIntermedio)
-              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @else
               <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -254,6 +261,11 @@ max-height: 180px;">
 </div>
 @section('scripts')
 <script>
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 
 $('.intermedioNoPermitir').click(function(e) {
   Swal.fire({

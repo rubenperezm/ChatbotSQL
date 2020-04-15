@@ -3,7 +3,7 @@
     <div class="navigation-wrapper">
       <div class="navigation-menu navSide" id="navSide">
           <ul class="listaNav">
-            <li class="liNav"><a href="{{ url('admin/administracion')}}">Administración</a></li>
+            <li class="liNav"><a href="{{ url('admin/administracion')}}">Menu Principal</a></li>
             <li class="liNav"><a href="{{ url('admin/contacto')}}">Contacto</a></li>
         </ul>
       </div>
@@ -92,13 +92,13 @@
                 <div class="col-md-2 m-auto">
                   @switch($ejercicio->dificultad)
                       @case(1)
-                        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
                         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                         @break
 
                       @case(2)
                           @if($esPrincipiante)
-                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
                             font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                           @else
                             <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -107,7 +107,7 @@
 
                       @case(3)
                           @if($esIntermedio)
-                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
                             font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                           @else
                             <a href="#" class="añadirSugerencia avanzadoNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -185,7 +185,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Suministro</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from suministro" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from suministros" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -346,6 +346,11 @@ overflow-y: scroll;">
 @section('scripts')
 <script>
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+
 ComprobarTutorial();
 
 function ComprobarTutorial() {
@@ -502,6 +507,9 @@ $('.verTabla').click(function(e) {
       EjercicioBot.postMessage(arrayInicio , "{{ env('APP_BOT') }}");
     }
 
+    function vueltaMenu() {
+      window.location.href = "{{ env('APP_URLP') }}/admin/administracion";
+    }
 
     $.ajaxSetup({
       headers: {
@@ -517,14 +525,35 @@ $('.verTabla').click(function(e) {
           data:{id:id},
           dataType: 'json',
           success:function(data){
-            console.log(data);
-            window.location.href = "{{ env('APP_URLP') }}/admin/administracion";
+            $("#bloqueIframe").addClass("opacityTutorial");
+            $("#bloqueSideBar").addClass("opacityTutorial");
+            var BloqueSolucion = document.createElement("div");
+            BloqueSolucion.className = "cardBodyEnun cardEnunciado rounded BloqueSolucion"
+            BloqueSolucion.setAttribute("id", "BloqueSolucion");
+            document.getElementById("main").appendChild(BloqueSolucion);
+
+            var headerBloqueSolucion = document.createElement("div");
+            headerBloqueSolucion.className = "card-header cabeceraAdministracion rounded"
+            headerBloqueSolucion.innerHTML = '<h5 class="card-header-title mb-3 text-white">Has resuelto el ejercicio</h5>';
+            document.getElementById("BloqueSolucion").appendChild(headerBloqueSolucion);
+
+            var bodyBloqueSolucion = document.createElement("div");
+            bodyBloqueSolucion.setAttribute("id", "bodyBloqueSolucion");
+            bodyBloqueSolucion.className = "card-body pb-0 text-center mb-2"
+            bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">Enhorabuena has resuelto el ejercicio, vas por buen camino!!</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Volver al menu</button></div>';
+            document.getElementById("BloqueSolucion").appendChild(bodyBloqueSolucion);
+
           }
       });
     }
 
     function formularioQuery(){
       var query = myCodeMirror.getValue();
+      query = query.split("\n").join(" ");
+      query = query.split("\t").join(" ");
+      query = query.trim()
+      query = query.replace(/\s+/g, " ");
+      console.log(query)
       var id =  <?php echo $id ?>;
       $.ajax({
           type:'POST',
@@ -537,7 +566,6 @@ $('.verTabla').click(function(e) {
             console.log(data)
             if(typeof data[0]['query'] === 'string'){
               console.log(data[0]['conversacionBot']);
-              if(data[0]['query'] == "lo has terminado") ejercicioTerminado();
               var EjercicioBot = document.getElementById("iframe").contentWindow;
               EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
               $("#queryContainer").append(data[0]['query']);
@@ -558,6 +586,12 @@ $('.verTabla').click(function(e) {
             }else{
               $("#queryContainer").append("No se ha encontrado ningun registro con estas condiciones");
             }
+
+            if(data[0]['conversacionBot'] == "finalConversacionCorrectolaravel"){
+              ejercicioTerminado();
+              var EjercicioBot = document.getElementById("iframe").contentWindow;
+              EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
+            }else{
               var arrayBot = new Array();
               arrayBot[0] = data[0]['lugarConversacion'];
               arrayBot[1] = data[0]['conversacionBot'];
@@ -566,7 +600,7 @@ $('.verTabla').click(function(e) {
               console.log(arrayBot)
               var EjercicioBot = document.getElementById("iframe").contentWindow;
               EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
-
+            }
             }
           }
       });

@@ -11029,6 +11029,15 @@ a {
   background-color: #3b3b3b;
 }
 
+.BloqueSolucion {
+  position: absolute;
+  z-index: 100000;
+  top: 10%;
+  width: 35%;
+  right: 5rem;
+  background-color: #3b3b3b;
+}
+
 .bloqueCenterTutorial {
   left: unset;
   top: unset;
@@ -11042,5 +11051,39 @@ a {
 
 .opacityTutorial {
   opacity: 0.2;
+  animation-name: opacityTut;
+  animation-duration: 0.7s;
+  animation-timing-function: linear;
+  -webkit-animation-name: opacityTut;
+  -webkit-animation-duration: 0.7s;
+  -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes opacityTut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes opacityTut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
 }
 
