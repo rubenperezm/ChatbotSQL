@@ -48,8 +48,8 @@ z-index: 0;
        <div class="col-12 my-auto">
          <div class="masthead-content text-white py-5 py-md-0" style="padding-left: 3rem;
     padding-right: 10rem;">
-           <h1 class="mb-3" style="font-size: 3.5rem;">Accede a nuestra plataforma!</h1>
-           <h4 class="mb-4">Si estás buscando aprender el lenguaje de gestión de Bases de Datos más conocido esta es tu plataforma.Ademas va ser totalmente <strong>gratis</strong> solo necesitas ganas de aprender y echarle un ratos</h4>
+           <h1 class="mb-3" style="font-size: 3.4rem;">¡Accede a nuestra plataforma!</h1>
+           <h4 class="mb-4">Si estás buscando aprender el lenguaje de gestión de Bases de Datos más conocido, esta es tu plataforma. Además, es totalmente <strong>gratuito</strong>. ¡Solo necesitas ganas de aprender y de dedicarle un rato!</h4>
              <form method="POST" action="{{ route('login') }}">
                  @csrf
                  <div class="form-group row">

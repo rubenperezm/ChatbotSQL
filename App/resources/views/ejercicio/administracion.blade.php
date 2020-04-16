@@ -17,10 +17,10 @@ background: url('../imagenes/p2.jpg');
     <div style="
     margin: auto;
     width: 90%;
-    margin-bottom: 8rem;
+    margin-bottom: 4rem;
     color: white;
-"><h1 class="mb-3" style="font-size: 3.5rem;">Bienvenido {{auth()->user()->name}}!</h1>
-           <h4 class="mb-4">Aquí encontrarás tu datos, los cuales podrás volver a editar a tu gusto, y la lista de ejercicios disponible con los que irás aprendiendo de manera controlada como resolver una consulta <strong>MySQL</strong></h4></div>
+"><h1 class="mb-3" style="font-size: 3.5rem;">¡Bienvenido {{auth()->user()->name}}!</h1>
+           <h4 class="mb-4">Aquí encontrarás tus datos de perfil y la lista de ejercicios disponibles con los que podrás ir aprendiendo ómo resolver una consulta <strong>MySQL</strong>, siempre con mi ayuda</h4></div>
     <div class="mt-4 mb-4 cardBodyEnun cardEnunciado rounded" style="width: 90%;
     margin: auto;
     background-color: #1d1d1d;

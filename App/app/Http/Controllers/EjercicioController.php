@@ -111,7 +111,7 @@ class EjercicioController extends Controller
         Debugbar::info($request['query']);
         $solucionQuery = $solucion->solucionQuery;
         $stringUsuario = strtolower($request['query']);
-        $stringUsuario   = trim($stringUsuario); //<--------OKAY
+        $stringUsuario   = trim($stringUsuario);
         $this->solucionLugar = lugarSolucion($solucionQuery);
         Debugbar::info(Session::get('lugarConversacion'));
         $respuestaQuery = array();
