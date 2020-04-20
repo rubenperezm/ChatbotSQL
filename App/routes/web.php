@@ -43,6 +43,7 @@ Route::get('ejercicioTerminado', 'EjercicioController@ejercicioTerminado');
 Route::get('/editarEjercicio/eliminarEjercicio', 'editarEjercicioController@eliminarEjercicio', function ($id) {});
 Route::get('/editarEjercicio/editar/{id}', 'editarEjercicioController@editar', function ($id) {});
 Route::get('/editarEjercicio', 'editarEjercicioController@index')->middleware(esProfesor::class);
+Route::get('/editarEjercicio/estadistica', 'editarEjercicioController@estadistica')->middleware(esProfesor::class);
 Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);

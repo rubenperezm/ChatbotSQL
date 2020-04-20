@@ -65,7 +65,7 @@ class adminController extends Controller
         'avanzao' => $avanzao, "usuario" => $usuario, "esPrincipiante" => $todosPrincipiantes, "esIntermedio" => $todosIntermedios,'ejerciciosResuelto' => $ejerciciosResuelto]);
     }
 
-    public function contac(Request $request)
+    public function contacto(Request $request)
     {
         return view('ejercicio.contacto');
     }

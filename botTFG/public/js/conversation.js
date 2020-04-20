@@ -1,9 +1,11 @@
 var ejercicio;
+var uuidIntento;
 var empiezo = 0;
 
 function displayMessage (evt) {
   console.log(evt.data);
   if(empiezo === 0){
+    uuidIntento = evt.data[2];
     ejercicio  = evt.data;
     ConversationPanel.init();
     empiezo++;
@@ -32,7 +34,7 @@ function displayMessage (evt) {
           });
           return promise;
         }
-        usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
+        usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
           console.log(evt.data[2]);
           var enunciado = JSON.parse(data[0]['enunciado']);
@@ -100,7 +102,7 @@ var ConversationPanel = (function () {
 
       return promise;
     }
-    usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
+    usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
       console.log(data)
       var enunciado = JSON.parse(data[0]['enunciado']);
@@ -247,6 +249,24 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
         }, res.time);
       }
     }
+    var respuestas = document.getElementsByClassName("mensajesConver");
+    var conversacion = new Object();
+    for (var i = 0; i < respuestas.length; i++) {
+      var conver = new Object();
+      if(respuestas[i].classList.contains("mensajeUsuario")){
+        conver['mensajeUsuario']= respuestas[i].innerHTML;
+      }
+      if(respuestas[i].classList.contains("mensajeWatson")){
+        conver['mensajeWatson']= respuestas[i].innerHTML;
+      }
+      conversacion[i] = conver;
+    }
+    console.log(conversacion);
+    var xmlhttp = new XMLHttpRequest();
+    var theUrl = "http://localhost/TFG/App/public/api/apiEjercicio/storeConversacion";
+    xmlhttp.open("POST", theUrl, true);
+    xmlhttp.setRequestHeader("Content-Type", "text/plain");
+    xmlhttp.send(JSON.stringify({'conversacion': JSON.stringify(conversacion), 'mensajes': respuestas.length, 'uuidIntento': uuidIntento}));
   }
 }
 
@@ -268,6 +288,7 @@ function getDivObject(res, isUser, isTop) {
         'children': [{
           // <p>{messageText}</p>
           'tagName': 'p',
+          'classNames': ['mensajesConver',(isUser ? 'mensajeUsuario' : 'mensajeWatson')],
           'text': res.innerhtml
         }]
       }]

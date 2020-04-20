@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Debugbar;
 use App\Ejercicio;
+use App\Logs;
 use Response;
 use DB;
 
@@ -36,6 +37,17 @@ class apiEjercicioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function storeConversacion(Request $request)
+    {
+      $infoConversacion = request()->json()->all();
+      $exiteIntento = Logs::where("uuidIntento",$infoConversacion['uuidIntento'])->first();
+      if($exiteIntento !== null){
+        $exiteIntento->conversacion = $infoConversacion['conversacion'];
+        $exiteIntento->mensajes = $infoConversacion['mensajes'];
+        $exiteIntento->save();
+      }
+    }
+
     public function store(Request $request)
     {
         //

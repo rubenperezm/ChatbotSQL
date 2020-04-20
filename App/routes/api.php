@@ -19,5 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['cors']], function () {
   //Route::resource('ejercicio', 'EjercicioController');
   Route::get('/apiEjercicio/store','apiEjercicioController@store')->name('store');
+  Route::post('/apiEjercicio/storeConversacion/','apiEjercicioController@storeConversacion')->name('storeConversacion');
+
   Route::get('/apiEjercicio/show/{id}','apiEjercicioController@show')->name('show');
 });

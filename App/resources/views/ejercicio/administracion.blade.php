@@ -181,12 +181,18 @@ max-height: 180px;">
              </div>
           </div>
           <div class="col-md-2 m-auto">
-            @if($esPrincipiante)
-              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" class="añadirSugerencia" style="color: #6ead7f;
-              font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+            @if(auth()->user()->esProfesor ==  0)
+              @if($esPrincipiante)
+                <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" class="añadirSugerencia" style="color: #6ead7f;
+                font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+              @else
+                <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
+              @endif
             @else
-              <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
+              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
+              font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @endif
+
           </div>
         </div>
         @endforeach
@@ -246,12 +252,17 @@ max-height: 180px;">
              </div>
           </div>
           <div class="col-md-2 m-auto">
+          @if(auth()->user()->esProfesor ==  0)
             @if($esIntermedio)
               <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @else
               <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
             @endif
+          @else
+            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
+            font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+          @endif
           </div>
         </div>
         @endforeach

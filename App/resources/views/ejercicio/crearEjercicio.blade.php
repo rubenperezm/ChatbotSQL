@@ -29,7 +29,7 @@
           <div class="col-5" style="background-color: #f3f3f3;
     border-radius: 5px;">
               <div class="col-12 mb-4 form__group field">
-                <input type="input" class="form__field" placeholder="enunciado" name="enunciado" id='enunciado' required />
+                <input type="input" class="form__field" placeholder="enunciado" name="enunciado" value="<?php if(isset($enunciado[0]["texto"])){echo($enunciado[0]["texto"]);}?>" id='enunciado' required />
                 {!!$errors->first('enunciado','<small class="errores">:message</small>')!!}
                 <label for="enunciado" class="form__label">Enunciado del ejercicio</label>
               </div>
@@ -37,12 +37,28 @@
               <label class="mb-1"style="font-weight:bold;">Query de la solución</label>
               <input type="hidden" name="query" id="query" value="">
               <textarea name="queryForm" class="form-control" id="formularioQuery"></textarea>
+              <div class="col-12 mb-4 form__group field">
+                @if(isset($Ejercicio->dificultad))
+                  <select name="dificultad" class="form-control" id="dificultad">
+                    <option value="1" {{$Ejercicio->dificultad == 1 ? 'selected' : ''}}>Principiante</option>
+                    <option value="2" {{$Ejercicio->dificultad == 2 ? 'selected' : ''}}>Intermedio</option>
+                    <option value="3" {{$Ejercicio->dificultad == 3 ? 'selected' : ''}}>Avanzado</option>
+                  </select>
+                @else
+                  <select name="dificultad" class="form-control" id="dificultad">
+                    <option value="1">Principiante</option>
+                    <option value="2">Intermedio</option>
+                    <option value="3">Avanzado</option>
+                  </select>
+                @endif
+              </div>
               <div class="col-12 mt-3 px-0 text-right">
                 <button type="button" style="    background-color: #5aaf70;
         border-color: white;
         border-radius: 7%;font-weight: bold;" class="btn-outline-secondary text-white" name="button" value="query" id="botonQuery" onclick="formularioQueryCrear();"><i class="fas fa-code"></i> EJECUTAR</button>
               </div>
             </div>
+
           </div>
           <div class="col-7" id="container" style="max-height:400px;overflow-y:scroll;">
             <table class="table table-sm table-striped table-principal"style="text-align:center; color:black;">
@@ -56,6 +72,18 @@
           </div>
         </div>
         <div class="row d-none" id="cuerpoEnvio"style="padding-top: 2rem;">
+          <div class="col-md-12">
+            <h5>Elemento de diseño de de respuesta</h5>
+            <span><em>Texto en cursiva</em> :  &lt;em&gt; texto/palalbra_en_cursiva &lt;/em&gt;</span>
+            <br>
+            <span><strong>Texto en negrita</strong> :  &lt;strong&gt; texto/palalbra_en_negrita &lt;/strong&gt;</span>
+            <br>
+            <span><u>Texto subrayado</u> :  &lt;u&gt; texto/palalbra_subrayada &lt;/u&gt;</span>
+            <br>
+            <span><span style="color:green;">Texto con un color específico</span> :  &lt;span sytle="color:color_en_hexadecimal"&gt; texto/palalbra_coloreada &lt;/span&gt;</span>
+            <br>
+            <span>Añadir hiperenlace : &lt;a href="dirección_url"&gt; palabra_hipervínculo &lt;/a&gt; </span>
+          </div>
           <div class="col-sm-6">
             <div class="col-12 mb-4 form__group field d-none" id="showEnun">
               <input type="input" class="form__field" placeholder="showEnunciado" name="showEnunciado" id='showEnunciado'  />
@@ -157,6 +185,108 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
 		matchBrackets : true,
 		autofocus: true
 });
+
+
+var value="<?php if(isset($enunciado[0]["texto"])){echo($enunciado[0]["texto"]);}?>"
+if (value != ""){
+  query = <?php if(isset($query)){echo json_encode($query);} ?>;
+
+
+  var keys = Object.keys(query[0]);
+  $.each(keys, function (index, value) {
+    $("#queryContainer").append("<th>"+value+"</th>");
+  });
+  $.each(query, function (i, fila) {
+    $("#elementos").append("<tr>");
+    $.each(fila, function (j, campo) {
+      $("#elementos").append("<td>"+campo+"</td>");
+    });
+  });
+  $('#formEnvio').removeClass("d-none");
+  $('#cuerpoEnvio').removeClass("d-none");
+
+  var existeShow = false;
+  var existeDescribe = false;
+
+  clausulas = <?php if(isset($clausulas)){echo json_encode($clausulas);} ?>
+
+  $('#showEnun').removeClass("d-none");
+  $('#showEnunciado').val("<?php if(isset($enunciado[1]["texto"])){echo($enunciado[1]["texto"]);} ?>");
+  $('#showEnunciado').prop('required',true);
+  $('#showPistas').removeClass("d-none");
+  $('#showPista').prop('required',true);
+  $('#showPista').val("<?php if(isset($ayuda[0]["texto"])){echo($ayuda[0]["texto"]);} ?>");
+  $.each(clausulas, function (index, value) {
+    switch (value) {
+      case "show":
+      existeShow = true;
+      break;
+      case "describe":
+      existeDescribe = true;
+      $('#describeEnun').removeClass("d-none");
+      $('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
+      $('#describeEnunciado').prop('required',true);
+      $('#describePistas').removeClass("d-none");
+      $('#describePista').prop('required',true);
+      $('#describePista').val("<?php if(isset($ayuda[1]["texto"])){echo($ayuda[1]["texto"]);} ?>");
+      break;
+      case "select":
+      $('#selectEnun').removeClass("d-none");
+      $('#selectEnunciado').val("<?php if(isset($enunciado[3]["texto"])){echo($enunciado[3]["texto"]);} ?>");
+      $('#selectEnunciado').prop('required',true);
+      $('#selectPistas').removeClass("d-none");
+      $('#selectPista').prop('required',true);
+      $('#selectPista').val("<?php if(isset($ayuda[2]["texto"])){echo($ayuda[2]["texto"]);} ?>");
+      break;
+      case "where":
+      $('#whereEnun').removeClass("d-none");
+      $('#whereEnunciado').val("<?php if(isset($enunciado[4]["texto"])){echo($enunciado[4]["texto"]);} ?>");
+      $('#whereEnunciado').prop('required',true);
+      $('#wherePistas').removeClass("d-none");
+      $('#wherePista').prop('required',true);
+      $('#wherePista').val("<?php if(isset($ayuda[3]["texto"])){echo($ayuda[3]["texto"]);} ?>");
+      break;
+      case "group by":
+      $('#groupEnun').removeClass("d-none");
+      $('#groupEnunciado').val("<?php if(isset($enunciado[5]["texto"])){echo($enunciado[5]["texto"]);} ?>");
+      $('#groupEnunciado').prop('required',true);
+      $('#groupPistas').removeClass("d-none");
+      $('#groupPista').prop('required',true);
+      $('#groupPista').val("<?php if(isset($ayuda[4]["texto"])){echo($ayuda[4]["texto"]);} ?>");
+      break;
+      case "having":
+      $('#havingEnun').removeClass("d-none");
+      $('#havingEnunciado').val("<?php if(isset($enunciado[6]["texto"])){echo($enunciado[6]["texto"]);} ?>");
+      $('#havingEnunciado').prop('required',true);
+      $('#havingPistas').removeClass("d-none");
+      $('#havingPista').prop('required',true);
+      $('#havingPista').val("<?php if(isset($ayuda[5]["texto"])){echo($ayuda[5]["texto"]);} ?>");
+      break;
+      case "order by":
+      $('#orderEnun').removeClass("d-none");
+      $('#orderEnunciado').val("<?php if(isset($enunciado[7]["texto"])){echo($enunciado[7]["texto"]);} ?>");
+      $('#orderEnunciado').prop('required',true);
+      $('#orderPistas').removeClass("d-none");
+      $('#orderPista').prop('required',true);
+      $('#orderPista').val("<?php if(isset($ayuda[6]["texto"])){echo($ayuda[6]["texto"]);} ?>");
+      break;
+      default:
+    }
+  });
+
+  if(!existeShow  && !existeDescribe){
+    $('#describeEnun').removeClass("d-none");
+    $('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
+    $('#describeEnunciado').prop('required',true);
+    $('#describePistas').removeClass("d-none");
+    $('#describePista').prop('required',true);
+    $('#describePista').val("<?php if(isset($ayuda[1]["texto"])){echo($ayuda[1]["texto"]);} ?>");
+  }
+
+  myCodeMirror.setValue("<?php if(isset($Ejercicio->solucionQuery)){echo($Ejercicio->solucionQuery);} ?>");
+
+}
+
 
 $.ajaxSetup({
   headers: {

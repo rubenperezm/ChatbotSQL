@@ -24,7 +24,7 @@
           <li class="nav-item">
             <a class="nav-link active" style="font-weight: bold; "id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Ejercicios</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {{!$mostrarTabla ? 'd-none' : ''}}">
             <a class="nav-link" id="pills-profile-tab" style="font-weight: bold;" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tablas</a>
           </li>
         </ul>
@@ -90,36 +90,38 @@
                    </div>
                 </div>
                 <div class="col-md-2 m-auto">
-                  @switch($ejercicio->dificultad)
-                      @case(1)
-                        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
-                        font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
-                        @break
-
-                      @case(2)
-                          @if($esPrincipiante)
-                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
-                            font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
-                          @else
-                            <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
-                          @endif
+                  @if(auth()->user()->esProfesor ==  0)
+                    @switch($ejercicio->dificultad)
+                        @case(1)
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
+                          font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
                           @break
 
-                      @case(3)
-                          @if($esIntermedio)
-                            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
-                            font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
-                          @else
-                            <a href="#" class="añadirSugerencia avanzadoNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
-                          @endif
-                          @break
+                        @case(2)
+                            @if($esPrincipiante)
+                              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                              font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+                            @else
+                              <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
+                            @endif
+                            @break
 
-                      @default
-                          No tiene dificultad
-                  @endswitch
+                        @case(3)
+                            @if($esIntermedio)
+                              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+                              font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+                            @else
+                              <a href="#" class="añadirSugerencia avanzadoNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
+                            @endif
+                            @break
 
-
-
+                        @default
+                            No tiene dificultad
+                    @endswitch
+                  @else
+                    <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
+                    font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+                  @endif
                 </div>
               </div>
               @endforeach
@@ -145,7 +147,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Artículos</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from articulos" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from articulos" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -155,7 +157,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Clientes</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from clientes" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from clientes" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -165,7 +167,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Pesos</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from pesos" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from pesos" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -175,7 +177,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Proveedores</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from proveedores" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from proveedores" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -185,7 +187,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Suministro</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from suministros" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from suministros" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -195,7 +197,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">TblUsuarios</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from tblUsuarios" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from tblUsuarios" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -205,7 +207,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Tiendas</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from tiendas" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from tiendas" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -215,7 +217,7 @@ overflow-y: scroll;">
                     <span class="spanSugerencia" style="padding-left: 7px;">Ventas</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from ventas" class="verTabla" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
+                    <a href="#" data-id="select * from ventas" class="verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}" style="color: #6ead7f;font-size: 17px;"><i class="fas fa-code"></i></a>
                   </div>
                 </div>
               </div>
@@ -324,20 +326,17 @@ overflow-y: scroll;">
          font-weight: normal;">Disponible ahora </span><span class="fuentePunto" style="font-size: 11px;
          color: #12c112;">●</span></label>
        </div>
-       <div class="cerrarIframe" style="padding-top: 11px;
-       padding-right: 8px;
-       width: 10%;
-       float: right;
-       display: inline-block;">
-                   <img id="imgCerrar" style="height: 24px !important;
-                   display: block;
-                   float: right;
-                   cursor: pointer;
-                   margin: auto;"   src="http://dev.almaintelligence.com:8888/stylesAndScripts/version2/img/cruz.png">
-                 </div>
+       <div class="cerrarIframe" style="
+       padding-top: 18px;
+       display: inline-block;
+       cursor: pointer;
+       ">
+                   <i id="imgCerrar" class="fas fa-bars" style="font-size: 19px;"></i>
+      </div>
+
         </div>
         <div class="cotainer-fluid  w-100" style=" height: 92%;
-        background: linear-gradient(45deg, rgb(78, 78, 78) 0%, #abaaaa 50%, rgb(255, 255, 255) 100%);
+        background: linear-gradient(45deg, rgb(113, 112, 112) 0%, #abaaaa 50%, rgb(255, 255, 255) 100%);
     ">
           <iframe style="border: none;"class="botEjercicio"id="iframe" src="{{ env('APP_BOT') }}"></iframe>
         </div>
@@ -345,6 +344,12 @@ overflow-y: scroll;">
 
 @section('scripts')
 <script>
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+var uuidIntento = uuidv4();
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
@@ -503,6 +508,7 @@ $('.verTabla').click(function(e) {
       var arrayInicio = new Array();
       arrayInicio[0] = "ejercicio basico laravel";
       arrayInicio[1] = <?php echo $id;?>;
+      arrayInicio[2] = uuidIntento;
       var EjercicioBot = document.getElementById("iframe").contentWindow;
       EjercicioBot.postMessage(arrayInicio , "{{ env('APP_BOT') }}");
     }
@@ -522,7 +528,7 @@ $('.verTabla').click(function(e) {
       $.ajax({
           type:'get',
           url:"{{ env('APP_URLP') }}/ejercicioTerminado",
-          data:{id:id},
+          data:{id:id,uuid:uuidIntento},
           dataType: 'json',
           success:function(data){
             $("#bloqueIframe").addClass("opacityTutorial");
@@ -558,7 +564,7 @@ $('.verTabla').click(function(e) {
       $.ajax({
           type:'POST',
           url:'./ajaxFormularioQuery',
-          data:{query:query,id:id},
+          data:{query:query,id:id,uuid:uuidIntento},
           dataType: 'json',
           success:function(data){
             $("#queryContainer").html("");
