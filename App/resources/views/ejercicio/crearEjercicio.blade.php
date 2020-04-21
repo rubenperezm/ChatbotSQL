@@ -1,9 +1,26 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid" style="background-color: #ece8e8;">
+<div class="container-fluid temaApp">
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Tablas</h5>
+      <div class="col-12 mb-1 float-right">
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Crear ejercicio">
+            <i class="fas fa-edit"></i> Ejercicios
+          </a>
+        </button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="menu">
+            <i class="fas fa-chart-line"></i> Estadísticas
+          </a>
+        </button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
+            <i class="fas fa-bars"></i> Menu principipal
+          </a>
+        </button>
+      </div>
       <div class="col-12" style="display:inline-flex;">
         <div class="col-4" id="tablas" role="tablist" aria-orientation="vertical">
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from clientes">Clientes</div>
@@ -35,7 +52,8 @@
               </div>
             <div class="form-group">
               <label class="mb-1"style="font-weight:bold;">Query de la solución</label>
-              <input type="hidden" name="query" id="query" value="">
+              <input type="hidden" name="idEjercicio" id="idEjercicio" value="<?php if(isset($id)){echo($id);}?>">
+              <input type="hidden" name="query" id="query" value="<?php if(isset($Ejercicio->solucionQuery)){echo($Ejercicio->solucionQuery);}?>">
               <textarea name="queryForm" class="form-control" id="formularioQuery"></textarea>
               <div class="col-12 mb-4 form__group field">
                 @if(isset($Ejercicio->dificultad))
@@ -82,7 +100,7 @@
             <br>
             <span><span style="color:green;">Texto con un color específico</span> :  &lt;span sytle="color:color_en_hexadecimal"&gt; texto/palalbra_coloreada &lt;/span&gt;</span>
             <br>
-            <span>Añadir hiperenlace : &lt;a href="dirección_url"&gt; palabra_hipervínculo &lt;/a&gt; </span>
+            <span>Añadir hiperenlace : &lt;a href='dirección_url' target='_blank'&gt; palabra_hipervínculo &lt;/a&gt; </span>
           </div>
           <div class="col-sm-6">
             <div class="col-12 mb-4 form__group field d-none" id="showEnun">
@@ -329,10 +347,23 @@ $('.botonVerTabla').click(function(e) {
 
 function formularioQueryCrear(){
   var query = myCodeMirror.getValue();
+  query = query.split("\n").join(" ");
+  query = query.split("\t").join(" ");
+  query = query.trim()
+  query = query.replace(/\s+/g, " ");
   $("#query").val(query);
+
+  var id = {{$id}};
+
+  if(id != -1){
+    url = '../ajaxValidaQuery'
+  }else{
+    url = './ajaxValidaQuery'
+  }
+
   $.ajax({
       type:'POST',
-      url:'./ajaxValidaQuery',
+      url: url,
       data:{query:query},
       dataType: 'json',
       success:function(data){

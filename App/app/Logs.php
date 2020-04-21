@@ -22,4 +22,24 @@ class Logs extends Model
     }
   }
 
+  public function scopeJoinName($query,$user){
+    if(isset($user))
+       return $query->where('users.name','like',"%".$user."%");
+  }
+
+  public function scopeJoinEmail($query,$email){
+    if(isset($email))
+       return $query->where('users.email','like',"%".$email."%");
+  }
+
+  public function scopeJoinSolucion($query,$solucion){
+    if(isset($solucion))
+      return $query->where('ejercicio.solucionQuery','like',"%".$solucion."%");
+  }
+
+  public function scopeCompletado($query,$completado){
+    if($completado)
+      return $query->where('completado','=',$completado);
+  }
+
 }

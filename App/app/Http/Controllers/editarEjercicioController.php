@@ -42,8 +42,55 @@ class editarEjercicioController extends Controller
 
   public function crear(Request $request)
   {
-    return view('ejercicio.crearEjercicio', ["query" => "",
-    "clausulas" => ""]);
+    return view('ejercicio.crearEjercicio', [
+      "query" => "",
+      "id" => -1,
+      "clausulas" => ""]);
+  }
+  public function editar($id)
+  {
+    $Ejercicio = Ejercicio::find($id);
+    $esShow = false;
+    $clausulaArray = array();
+    Debugbar::info($Ejercicio);
+    $users = DB::connection('mysql2')->select($Ejercicio->solucionQuery);
+    Debugbar::info($users);
+    if(stripos($Ejercicio->solucionQuery, 'where') !== false){
+      array_push($clausulaArray ,"where");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'show') !== false){
+      array_push($clausulaArray ,"show");
+      $esShow =  true;
+    }
+    if(stripos($Ejercicio->solucionQuery, 'describe') !== false){
+      array_push($clausulaArray ,"describe");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'select') !== false){
+      array_push($clausulaArray ,"select");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'order by') !== false){
+      array_push($clausulaArray ,"order by");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'group by') !== false){
+      array_push($clausulaArray ,"group by");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'having') !== false){
+      array_push($clausulaArray ,"having");
+    }
+    if(!$esShow){
+      if(stripos($Ejercicio->solucionQuery, 'describe') !== false){
+        $tabla = compruebaTabla($Ejercicio->solucionQuery,"describe");
+      }else{
+        $tabla = compruebaTabla($Ejercicio->solucionQuery,"from");
+      }
+    }
+    return view('ejercicio.crearEjercicio', [
+    'Ejercicio' => $Ejercicio,
+    "id" => $Ejercicio->id,
+    "query" => $users,
+    "clausulas" => $clausulaArray,
+    "enunciado" => json_decode($Ejercicio->enunciado,true),
+    "ayuda" => json_decode($Ejercicio->ayuda,true)]);
   }
 
   public function estadistica(Request $request)
@@ -169,14 +216,21 @@ class editarEjercicioController extends Controller
       array_push($tasaAbandono,$err);
     }
 
+    $nombre = $request->get('nombre');
+    $correo = $request->get('correo');
+    $solucion = $request->get('solucion');
+    $completado =  $request->get('completado');
 
-    $intentos = Logs::select("ejercicio_id","user_id","enunciado","solucionQuery","consultas","logs.created_at","logs.updated_at","mensajes","errores","conversacion","completado","name","email")
+    $intentos = Logs::select("logs.id","ejercicio_id","user_id","enunciado","solucionQuery","logs.created_at","logs.updated_at","mensajes","errores","completado","name","email")
           ->leftJoin('users','user_id', '=','users.id')
           ->leftJoin('ejercicio','ejercicio_id', '=','ejercicio.id')
+          ->JoinSolucion($solucion)
+          ->JoinName($nombre)
+          ->JoinEmail($correo)
+          ->Completado($completado)
           ->orderBy('logs.created_at','desc')
           ->paginate(10);
 
-    Debugbar::info($intentos);
     $datos = array(
         'intentos'          => $intentos,
         'tasaAbandono'      => $tasaAbandono,
@@ -188,51 +242,39 @@ class editarEjercicioController extends Controller
     return view('ejercicio.estadistica', $datos);
   }
 
+  public function ajaxMostrarIntento(Request $request){
+    $conversacion = Logs::select("consultas","errores","conversacion")->find($request->id);
 
-  public function editar($id)
-  {
-    $Ejercicio = Ejercicio::find($id);
-    $esShow = false;
-    $clausulaArray = array();
-    Debugbar::info($Ejercicio);
-    $users = DB::connection('mysql2')->select($Ejercicio->solucionQuery);
-    Debugbar::info($users);
-    if(stripos($Ejercicio->solucionQuery, 'where') !== false){
-      array_push($clausulaArray ,"where");
+    if($conversacion->conversacion != null){
+      //Evitar etiquetas indeseadas
+      $parseo = array("script", "<?php", "?>", "php", "@php");
+      $intentoConversacion = str_replace($parseo, "", $conversacion->conversacion);
+      $intentoConversacion = json_decode($intentoConversacion,true);
+    }else{
+      $intentoConversacion = "No ha tenido conversación";
     }
-    if(stripos($Ejercicio->solucionQuery, 'show') !== false){
-      array_push($clausulaArray ,"show");
-      $esShow =  true;
+    if($conversacion->consultas != null){
+      $consultas = json_decode($conversacion->consultas,true);
+    }else{
+      $consultas = "No ha tenido consultas";
     }
-    if(stripos($Ejercicio->solucionQuery, 'describe') !== false){
-      array_push($clausulaArray ,"describe");
+    if($conversacion->errores != null){
+      $errores = json_decode($conversacion->errores,true);
+    }else{
+      $errores = "No ha tenido errores";
     }
-    if(stripos($Ejercicio->solucionQuery, 'select') !== false){
-      array_push($clausulaArray ,"select");
-    }
-    if(stripos($Ejercicio->solucionQuery, 'order by') !== false){
-      array_push($clausulaArray ,"order by");
-    }
-    if(stripos($Ejercicio->solucionQuery, 'group by') !== false){
-      array_push($clausulaArray ,"group by");
-    }
-    if(stripos($Ejercicio->solucionQuery, 'having') !== false){
-      array_push($clausulaArray ,"having");
-    }
-    if(!$esShow){
-      if(stripos($Ejercicio->solucionQuery, 'describe') !== false){
-        $tabla = compruebaTabla($Ejercicio->solucionQuery,"describe");
-      }else{
-        $tabla = compruebaTabla($Ejercicio->solucionQuery,"from");
-      }
-    }
-    return view('ejercicio.crearEjercicio', [
-    'Ejercicio' => $Ejercicio,
-    "query" => $users,
-    "clausulas" => $clausulaArray,
-    "enunciado" => json_decode($Ejercicio->enunciado,true),
-    "ayuda" => json_decode($Ejercicio->ayuda,true)]);
+
+
+
+    $datos =  array(
+      "conversacion" => $intentoConversacion,
+      "consultas" => $consultas,
+      "errores" => $errores
+    );
+
+    return Response::json($datos);
   }
+
 
   public function eliminarEjercicio(Request $request){
     $listaBots = Ejercicio::find($request->id)->delete();
@@ -241,82 +283,86 @@ class editarEjercicioController extends Controller
 
   public function crearJsonEjercicio(Request $request)
   {
+    Debugbar::info($request->get('idEjercicio'));
     $enunciados = array();
-    array_push($enunciados ,array("parte" => "enunciado","texto" => $request->get('enunciado')));
+    array_push($enunciados ,array("parte" => "enunciado","texto" => str_replace("\"", '\'', $request->get('enunciado'))));
     if($request->get('showEnunciado') != null){
-      array_push($enunciados ,array("parte" => "show","texto" => $request->get('showEnunciado')));
+      array_push($enunciados ,array("parte" => "show","texto" => str_replace("\"", '\'', $request->get('showEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "show","texto" => ""));
     }
     if($request->get('describeEnunciado') != null){
-      array_push($enunciados ,array("parte" => "describe","texto" => $request->get('describeEnunciado')));
+      array_push($enunciados ,array("parte" => "describe","texto" => str_replace("\"", '\'', $request->get('describeEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "describe","texto" => ""));
     }
     if($request->get('selectEnunciado') != null){
-      array_push($enunciados ,array("parte" => "select","texto" => $request->get('selectEnunciado')));
+      array_push($enunciados ,array("parte" => "select","texto" => str_replace("\"", '\'', $request->get('selectEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "select","texto" => ""));
     }
     if($request->get('whereEnunciado') != null){
-      array_push($enunciados ,array("parte" => "where","texto" => $request->get('whereEnunciado')));
+      array_push($enunciados ,array("parte" => "where","texto" => str_replace("\"", '\'', $request->get('whereEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "where","texto" => ""));
     }
     if($request->get('groupEnunciado') != null){
-      array_push($enunciados ,array("parte" => "group","texto" => $request->get('groupEnunciado')));
+      array_push($enunciados ,array("parte" => "group","texto" => str_replace("\"", '\'', $request->get('groupEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "group","texto" => ""));
     }
     if($request->get('havingEnunciado') != null){
-      array_push($enunciados ,array("parte" => "having","texto" => $request->get('havingEnunciado')));
+      array_push($enunciados ,array("parte" => "having","texto" => str_replace("\"", '\'', $request->get('havingEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "having","texto" => ""));
     }
     if($request->get('orderEnunciado') != null){
-      array_push($enunciados ,array("parte" => "order","texto" => $request->get('orderEnunciado')));
+      array_push($enunciados ,array("parte" => "order","texto" => str_replace("\"", '\'', $request->get('orderEnunciado'))));
     }else{
       array_push($enunciados ,array("parte" => "order","texto" => ""));
     }
 
     $pistas = array();
     if($request->get('showPista') != null){
-      array_push($pistas ,array("parte" => "ayuda show","texto" => $request->get('showPista')));
+      array_push($pistas ,array("parte" => "ayuda show","texto" => str_replace("\"", '\'', $request->get('showPista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda show","texto" => ""));
     }
     if($request->get('describePista') != null){
-      array_push($pistas ,array("parte" => "ayuda describe","texto" => $request->get('describePista')));
+      array_push($pistas ,array("parte" => "ayuda describe","texto" => str_replace("\"", '\'', $request->get('describePista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda describe","texto" => ""));
     }
     if($request->get('selectPista') != null){
-      array_push($pistas ,array("parte" => "ayuda select","texto" => $request->get('selectPista')));
+      array_push($pistas ,array("parte" => "ayuda select","texto" => str_replace("\"", '\'', $request->get('selectPista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda select","texto" => ""));
     }
     if($request->get('wherePista') != null){
-      array_push($pistas ,array("parte" => "ayuda where","texto" => $request->get('wherePista')));
+      array_push($pistas ,array("parte" => "ayuda where","texto" => str_replace("\"", '\'', $request->get('wherePista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda where","texto" => ""));
     }
     if($request->get('groupPista') != null){
-      array_push($pistas ,array("parte" => "ayuda group by","texto" => $request->get('groupPista')));
+      array_push($pistas ,array("parte" => "ayuda group by","texto" => str_replace("\"", '\'', $request->get('groupPista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda group by","texto" => ""));
     }
     if($request->get('havingPista') != null){
-      array_push($pistas ,array("parte" => "ayuda having","texto" => $request->get('havingPista')));
+      array_push($pistas ,array("parte" => "ayuda having","texto" => str_replace("\"", '\'', $request->get('havingPista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda having","texto" => ""));
     }
     if($request->get('orderPista') != null){
-      array_push($pistas ,array("parte" => "ayuda order by","texto" => $request->get('orderPista')));
+      array_push($pistas ,array("parte" => "ayuda order by","texto" => str_replace("\"", '\'', $request->get('orderPista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda order by","texto" => ""));
     }
-
-    $nuevoEjercicio = new Ejercicio;
+    if($request->get('idEjercicio') != -1){
+      $nuevoEjercicio = Ejercicio::find($request->get('idEjercicio'));
+    }else{
+      $nuevoEjercicio = new Ejercicio;
+    }
     $nuevoEjercicio->solucionQuery = strtolower($request->get('query'));
     $nuevoEjercicio->dificultad = $request->get('dificultad');
     $nuevoEjercicio->enunciado = json_encode($enunciados);

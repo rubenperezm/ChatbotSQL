@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="container-fluid" style="background-color: #ece8e8;">
+<div class="container-fluid temaApp">
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Ejercicios</h5>
@@ -8,21 +8,76 @@
         <li class="nav-item">
           <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Intentos</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item mr-4">
           <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estádisticas-ejercicios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" style="color:black;"  href="{{ env('APP_URLP') }}/editarEjercicio" role="tab" aria-selected="false">Volver a ver los ejercicios</a>
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="menu">
+              <i class="fas fa-th-list"></i> Crear ejercicios
+            </a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="menu">
+              <i class="fas fa-bars"></i> Menu ejercicios
+            </a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
+              <i class="fas fa-bars"></i> Menu principipal
+            </a>
+          </button>
         </li>
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="estadistica" role="tabpanel" aria-labelledby="estadistica-tab">
-          <div class="card" style="width:90%;max-height: 700px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          <div class="card temaAppTarjeta mb-4" style="width:90%;max-height: 300px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
           <div class="card-body">
-            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Media de los errores por intento</h5>
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
+            <form class="form-usuario form-horizontal" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
+              <div class="row form-group col-md-12">
+                <div class="col-md-3">
+                  <label for="nombre" class='font-weight-bold'>Nombre</label>
+                  <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="">
+                </div>
+                <div class="col-md-3">
+                  <label for="correo" class='font-weight-bold'>Correo</label>
+                  <input type="text" class="form-control" name="correo" placeholder="Correo" value="">
+                </div>
+                <div class="col-md-3">
+                  <label for="solucion" class='font-weight-bold mayuscula'>Solución</label>
+                  <input type="text" class="form-control redondeado" name="solucion" placeholder="Solución" value="">
+                </div>
+                <div class="col-md-3">
+                  <label for="completado" class='font-weight-bold'>Completado</label>
+                  <select name="completado" class="form-control mb-2 ">
+                    <option value="0" selected></option>
+                    <option value="1">Abandonado</option>
+                    <option value="2">Completado</option>
+                  </select>
+                </div>
+              </div>
+              <div class='col-md-12'>
+                <button class='btn botonDegradao float-right' style="color:white;">
+                  <i class='fas fa-search'></i> Filtrar
+                </button>
+              </div>
+            </form>
+          </div>
+          </div>
+          <div class="card temaAppTarjeta" style="width:90%;max-height: 600px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+          border-radius: 4px;">
+          <div class="card-body">
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Intentos</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
               <table class="table table-sm table-striped table-principal"style="color:black;">
                 <thead class="thead-dark">
@@ -57,7 +112,9 @@
                       <br>
                       Última Acción: {{$intento['updated_at']}}
                     </td>
-                    <td><a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$intentos['ejercicio_id']}}"><i style="color: green;"class="fas fa-edit"></i></a></td>
+                    <td>
+                      <a class="verIntento" data-id="{{$intento['id']}}" href="#"><i class="fas fa-comments" style="color: green;"></i></a>
+                      <a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$intento['ejercicio_id']}}"><i style="color: green;"class="fas fa-edit"></i></a></td>
                   </tr>
                 </tbody>
                 @endforeach
@@ -75,7 +132,7 @@
             <canvas id="chartIntentos" style='height: 210px'></canvas>
           </div>
           <div class="col-md-6 m-auto">
-            <div class="card" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+            <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
             -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
             box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
             border-radius: 4px;">
@@ -109,7 +166,7 @@
       </div>
       <div class="row mt-4">
         <div class="col-md-6 m-auto">
-          <div class="card" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
@@ -131,7 +188,8 @@
                     <td>{{$ejercicio['enunciado']}}</td>
                     <td>{{$ejercicio['query']}}</td>
                     <td>{{$ejercicio['media']}}</td>
-                    <td><a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$ejercicio['id']}}"><i style="color: green;"class="fas fa-edit"></i></a></td>
+                    <td>
+                      <a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$ejercicio['id']}}"><i style="color: green;"class="fas fa-edit"></i></a></td>
                   </tr>
                 </tbody>
                 @endforeach
@@ -141,7 +199,7 @@
         </div>
       </div>
       <div class="col-md-6 m-auto">
-        <div class="card" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+        <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
         box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
         border-radius: 4px;">
@@ -181,6 +239,41 @@
 </div>
 </div>
 
+</div>
+<!-- Pop Up para mostrar DATOS del INTENTO-->
+<div class="modal fade" id="modalConversacion" tabindex="-1" role="dialog" aria-labelledby="modalConversacionLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Datos del intento</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" id="modalConversacionBody" style="display:inline-flex;">
+      <div class="col-md-6">
+        <div class="col-12 mb-4">
+          <h5 class="card-title boderTitle colorGreen">Consultas</h5>
+          <div class="col-12" id="bloqueConsulta">
+
+          </div>
+        </div>
+        <div class="col-12 mt-2">
+          <h5 class="card-title boderTitle colorGreen">Errores</h5>
+          <div class="col-12" id="bloqueErrores">
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h5 class="card-title boderTitle colorGreen">Conversación</h5>
+        <div class="col-12" id="bloqueConversacion">
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -266,6 +359,59 @@ $(document).ready(function(){
   var ctx = document.getElementById("chartIntentos").getContext("2d");
   new Chart(ctx, config);
 });
+
+
+
+$('.verIntento').click(function(){
+  var id= $(this).data("id");
+  $.ajax({
+      type:'get',
+      url:'./ajaxMostrarIntento',
+      data:{id:id},
+      dataType: 'json',
+      success:function(data){
+        console.log(data);
+        $("#bloqueErrores").html("");
+        $("#bloqueConsulta").html("");
+        $("#bloqueConversacion").html("");
+        console.log(typeof data.conversacion);
+
+        if(typeof data.conversacion === 'string'){
+            $("#bloqueConversacion").html("<span>"+data.conversacion+"</span>");
+        }else{
+          $.each(data.conversacion, function (index, value) {
+            if(typeof value['mensajeUsuario'] === 'undefined'){
+              $("#bloqueConversacion").append("<div align='left' style='color:#46646E;padding: 0.3rem;'>"+value['mensajeWatson']+"</div>");
+            }
+            else{
+              $("#bloqueConversacion").append("<div align='right' style='color:#0096A2;padding: 0.3rem;'>"+value['mensajeUsuario']+"</div>");
+            }
+          });
+        }
+        console.log(typeof data.consultas);
+
+        if(typeof data.consultas === 'string'){
+              $("#bloqueConsulta").html("<span>"+data.consultas+"</span>");
+        }else{
+          $.each(data.consultas, function (index, value) {
+              $("#bloqueConsulta").append("<div class='boderTitle'>"+value+"</div>");
+          });
+        }
+        console.log(typeof data.errores);
+        if(typeof data.errores === 'string'){
+              $("#bloqueErrores").html("<span>"+data.errores+"</span>");
+        }else{
+          $.each(data.errores, function (index, value) {
+              $("#bloqueErrores").append("<div class='boderTitle'>"+value+"</div>");
+          });
+        }
+
+       $("#modalConversacion").modal();
+      }
+  });
+});
+$('.pagination').addClass("justify-content-center");
+
 </script>
 @endsection
 @endsection

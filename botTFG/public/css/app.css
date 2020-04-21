@@ -131,7 +131,7 @@ div {
   color: #fff;
   letter-spacing: 0.015rem;
   line-height: 1.3125rem;
-  background: #00B4A0;
+  background: #32750a;
   border-radius: 1.25rem;
   border-bottom-right-radius: 0;
   text-align: left;
@@ -157,7 +157,7 @@ div {
   right: 0;
   height: 0.375rem;
   width: 0.5rem;
-  background: #1cb3a0;
+  background: #317508;
 }
 
 .from-user .message-inner:after {
@@ -166,7 +166,7 @@ div {
   right: 0;
   height: 0.5rem;
   width: 0.5rem;
-  background: #fff;
+  background: #dadada;
   border-top-right-radius: 1.25rem;
 }
 

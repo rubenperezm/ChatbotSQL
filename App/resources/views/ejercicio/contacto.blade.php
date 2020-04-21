@@ -12,12 +12,15 @@ transform: translateX(-50%) translateY(-50%);
 z-index: 0;
 background: url('../imagenes/p2.jpg');
 "></div>
-<div class="adminBlock" style="background: linear-gradient(-90deg,#6c7b6ade , #0f1313f2);">
+<div class="adminBlock" style="background: linear-gradient(-90deg,#86d27ced , #265037f2);">
   <div class="col-md-5" style="margin-top:16%;text-align:center;">
-    <h1 class="mb-3" style="font-size: 3.5rem;color:white;">¡Bienvenido {{auth()->user()->name}}!</h1>
-    <h3 class="mb-4" style="color:white;">Aquí encontrarás tus datos de perfil y la lista de ejercicios disponibles con los que podrás ir aprendiendo ómo resolver una consulta <strong>MySQL</strong>, siempre con mi ayuda</h3>
-    <button type="button" onclick="
-        document.getElementById('editarPerfil').submit();" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="btn-outline-secondary text-white botonDegradao" name="button"><i class="fas fa-edit"></i> Editar</button>
+    <h1 class="mb-3" style="font-size: 3.5rem;color:white;">¡Sugerencias!</h1>
+    <h3 class="mb-4" style="color:white;">Si has tenido alguna incidencia, o crees que podemos mejorar en algún apartado, no dudes en enviarnos el formulario</h3>
+    <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+      <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
+      <i class="fas fa-bars"></i> Menu principipal
+      </a>
+    </button>
   </div>
   <div class="col-md-7"  style="justify-content:center;">
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf7B7dUL544R0Xlg5snaf3Rr-MbPuqKYRxrbPmp528Qmz9qKA/viewform?embedded=true" style="height: 90%; width: 100%;

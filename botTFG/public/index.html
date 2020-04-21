@@ -18,8 +18,7 @@
         <div id="scrollingChat"></div>
         <p class="user-typing" id="user-typing-field"></p>
         <label for="textInput" class="inputOutline">
-          <input id="textInput" class="input responsive-column" placeholder="Type something" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)"
-            autofocus>
+          <input id="textInput" class="input responsive-column" placeholder="Type something" type="text" onkeydown="ConversationPanel.inputKeyDown(event, this)">
         </label>
       </div>
     </div>
@@ -29,10 +28,12 @@
   <script src="js/api.js"></script>
   <script src="js/conversation.js"></script>
   <script src="js/payload.js"></script>
-</body>
 
 <script>
-
-
+var parentWindow = window.parent;
+function agrandarFoto(img){
+  parentWindow.postMessage(img.src, plataforma);
+}
 </script>
+</body>
 </html>

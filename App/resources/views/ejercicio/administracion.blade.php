@@ -19,8 +19,16 @@ background: url('../imagenes/p2.jpg');
     width: 90%;
     margin-bottom: 4rem;
     color: white;
-"><h1 class="mb-3" style="font-size: 3.5rem;">¡Bienvenido {{auth()->user()->name}}!</h1>
-           <h4 class="mb-4">Aquí encontrarás tus datos de perfil y la lista de ejercicios disponibles con los que podrás ir aprendiendo ómo resolver una consulta <strong>MySQL</strong>, siempre con mi ayuda</h4></div>
+"><h1 class="mb-3" style="font-size: 2.5rem;">¡Bienvenido @if(auth()->user()->esProfesor ==  1) profesor @endif {{auth()->user()->name}}!</h1>
+           <h4 class="mb-4">Aquí encontrarás tus datos de perfil y la lista de ejercicios disponibles con los que podrás ir aprendiendo ómo resolver una consulta <strong>MySQL</strong>, siempre con mi ayuda</h4>
+           @if(auth()->user()->esProfesor ==  1)
+           <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Estadística"><i class="fas fa-chart-line"></i></a>
+           <a href="{{ env('APP_URLP') }}/editarEjercicio" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Menu ejercicios"><i class="fas fa-th-list"></i></a>
+           @endif
+           <a href="{{ env('APP_URLP') }}/admin/contacto" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Contactos"><i class="fas fa-envelope"></i></a>
+           <a href="#" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir a twitter"><i style="font-size: 20px;" class="fab fa-twitter"></i></a>
+           <a href="#" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir a instagram"><i style="font-size: 20px;"class="fab fa-instagram"></i></a>
+    </div>
     <div class="mt-4 mb-4 cardBodyEnun cardEnunciado rounded" style="width: 90%;
     margin: auto;
     background-color: #1d1d1d;

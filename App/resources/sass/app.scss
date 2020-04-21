@@ -89,7 +89,7 @@ body{
 
 .table thead th{
   vertical-align: bottom;
-  border-bottom: 3px solid #00B4A0;
+  border-bottom: 3px solid  #000000;
 }
 
 .nav-pills .nav-link.active,
@@ -388,4 +388,39 @@ a{
   0% { opacity: 1.0;}
   50% { opacity: 0.5; }
   100% { opacity: 0.2;  }
+}
+
+
+.boderTitle{
+   border-bottom: 1px solid #e9ecef !important;
+   padding-bottom: 5px;
+}
+
+.colorGreen{
+  color:green;
+}
+
+.enlaceIcon{
+  transition: all .2s ease-in-out;
+  font-size: 2rem;
+  line-height: 4rem;
+  height: 4rem;
+  width: 4rem;
+  margin: 0.5rem;
+  color: white;
+}
+
+
+.botonMenuContacto{
+  width: 182px;
+  font-size: 16px;
+  height: 39px;
+  font-weight: bold;
+}
+.temaApp{
+  background: linear-gradient(-90deg, #0f1313, #53714f);
+}
+
+.temaAppTarjeta{
+  background: linear-gradient(-90deg, #adbbbb, #94b590);
 }

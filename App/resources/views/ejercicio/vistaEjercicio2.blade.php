@@ -225,7 +225,7 @@ overflow-y: scroll;">
           </div>
         </div>
     </div>
-    <div class="col-md-6 h-100 p-0" id="bloqueEjercicio"style="background-color: #ece8e8;">
+    <div class="col-md-6 h-100 p-0 temaApp" id="bloqueEjercicio"style="background-color: #ece8e8;">
       <span class="fa-stack fa-2x" id="sideBar"style="
       position: absolute;
       top: 0;
@@ -246,7 +246,7 @@ overflow-y: scroll;">
 "></i>
       </span>
       <div class=" mt-4" style="height:35%;">
-        <div class="card" style="width:90%;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+        <div class="card temaAppTarjeta" style="width:90%;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
     border-radius: 4px;">
@@ -259,14 +259,14 @@ overflow-y: scroll;">
         </div>
       </div>
       <div class="mt-3" style="height:50%;">
-        <div class="card" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+        <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
     border-radius: 4px;">
           <div class="card-body">
             <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Resultado Query</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
-              <table class="table table-sm table-striped table-principal"style="text-align:center; color:black;">
+              <table class="table table-sm table-striped table-principal"style="text-align:center; color:black;font-weight:bold">
                 <thead>
                   <tr id="queryContainer">
                   </tr>
@@ -335,15 +335,37 @@ overflow-y: scroll;">
       </div>
 
         </div>
-        <div class="cotainer-fluid  w-100" style=" height: 92%;
-        background: linear-gradient(45deg, rgb(113, 112, 112) 0%, #abaaaa 50%, rgb(255, 255, 255) 100%);
-    ">
+        <div class="cotainer-fluid  w-100" style=" height: 92%;background-color: #dadada;">
           <iframe style="border: none;"class="botEjercicio"id="iframe" src="{{ env('APP_BOT') }}"></iframe>
         </div>
     </div>
 
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>
+
 @section('scripts')
 <script>
+
+function displayMessage (evt) {
+  $('.imagepreview').attr('src', evt.data);
+	$('#imagemodal').modal('show');
+}
+
+if (window.addEventListener) {
+  window.addEventListener("message", displayMessage, false);
+}
+else {
+  window.attachEvent("onmessage", displayMessage);
+}
+
 function uuidv4() {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)

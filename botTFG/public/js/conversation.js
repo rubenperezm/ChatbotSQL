@@ -1,9 +1,11 @@
 var ejercicio;
 var uuidIntento;
+var plataforma;
 var empiezo = 0;
 
 function displayMessage (evt) {
   console.log(evt.data);
+  plataforma = evt.origin;
   if(empiezo === 0){
     uuidIntento = evt.data[2];
     ejercicio  = evt.data;
@@ -34,7 +36,7 @@ function displayMessage (evt) {
           });
           return promise;
         }
-        usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
+        usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
           console.log(evt.data[2]);
           var enunciado = JSON.parse(data[0]['enunciado']);
@@ -102,7 +104,7 @@ var ConversationPanel = (function () {
 
       return promise;
     }
-    usandoPromesas("http://localhost/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
+    usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
       console.log(data)
       var enunciado = JSON.parse(data[0]['enunciado']);
@@ -263,7 +265,7 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
     }
     console.log(conversacion);
     var xmlhttp = new XMLHttpRequest();
-    var theUrl = "http://localhost/TFG/App/public/api/apiEjercicio/storeConversacion";
+    var theUrl = "http://52.207.88.40/TFG/App/public/api/apiEjercicio/storeConversacion";
     xmlhttp.open("POST", theUrl, true);
     xmlhttp.setRequestHeader("Content-Type", "text/plain");
     xmlhttp.send(JSON.stringify({'conversacion': JSON.stringify(conversacion), 'mensajes': respuestas.length, 'uuidIntento': uuidIntento}));
@@ -342,7 +344,7 @@ function getResponse(responses, gen) {
     title = gen.title;
   }
   if (gen.response_type === 'image') {
-    var img = '<div><img src="' + gen.source + '" width="300"></div>';
+    var img = '<div><img style="cursor:pointer;" onclick="agrandarFoto(this);" src="' + gen.source + '" width="300"></div>';
     responses.push({
       type: gen.response_type,
       innerhtml: title + img
