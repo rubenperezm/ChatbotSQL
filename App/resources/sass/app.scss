@@ -412,10 +412,10 @@ a{
 
 
 .botonMenuContacto{
-  width: 182px;
-  font-size: 16px;
-  height: 39px;
-  font-weight: bold;
+    width: 154px;
+    font-size: 14px;
+    height: 34px;
+    font-weight: bold;
 }
 .temaApp{
   background: linear-gradient(-90deg, #0f1313, #53714f);
@@ -423,4 +423,9 @@ a{
 
 .temaAppTarjeta{
   background: linear-gradient(-90deg, #adbbbb, #94b590);
+}
+
+a:hover {
+    text-decoration: unset !important;
+    color: unset !important;
 }

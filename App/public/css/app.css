@@ -11107,9 +11107,9 @@ a {
 }
 
 .botonMenuContacto {
-  width: 182px;
-  font-size: 16px;
-  height: 39px;
+  width: 154px;
+  font-size: 14px;
+  height: 34px;
   font-weight: bold;
 }
 
@@ -11119,5 +11119,10 @@ a {
 
 .temaAppTarjeta {
   background: linear-gradient(-90deg, #adbbbb, #94b590);
+}
+
+a:hover {
+  text-decoration: unset !important;
+  color: unset !important;
 }
 

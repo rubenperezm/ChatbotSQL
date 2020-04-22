@@ -13,22 +13,22 @@
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-th-list"></i> Crear ejercicios
+            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
+              <i class="fas fa-bars"></i> Menu principipal
             </a>
           </button>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
             <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-bars"></i> Menu ejercicios
+              <i class="fas fa-th-list"></i> Menu ejercicios
             </a>
           </button>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-bars"></i> Menu principipal
+            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="menu">
+              <i class="fas fa-edit"></i> Crear ejercicios
             </a>
           </button>
         </li>
