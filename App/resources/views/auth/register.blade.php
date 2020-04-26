@@ -113,7 +113,7 @@ z-index: 0;
                  <div class="form-group row mb-0">
                      <div class="col-md-11">
                          <button type="submit" class="btn btn-primary">
-                             {{ __('Register') }}
+                             Regístrate
                          </button>
                      </div>
                  </div>

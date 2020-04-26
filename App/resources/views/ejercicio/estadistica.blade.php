@@ -3,7 +3,7 @@
 <div class="container-fluid temaApp">
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
-      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Ejercicios</h5>
+      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Estadística</h5>
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Intentos</a>
@@ -15,6 +15,13 @@
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
             <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
               <i class="fas fa-bars"></i> Menu principipal
+            </a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="menu">
+              <i class="fas fa-chart-line"></i> Estadísticas
             </a>
           </button>
         </li>

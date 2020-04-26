@@ -11,6 +11,11 @@
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Crear ejercicio">
+            <i class="fas fa-th-list"></i> Menu ejercicios
+          </a>
+        </button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
           <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="menu">
             <i class="fas fa-chart-line"></i> Estadísticas
           </a>

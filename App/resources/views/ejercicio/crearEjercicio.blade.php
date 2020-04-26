@@ -6,6 +6,11 @@
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Tablas</h5>
       <div class="col-12 mb-1 float-right">
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Crear ejercicio">
+            <i class="fas fa-edit"></i> Crear Ejercicio
+          </a>
+        </button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
           <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Crear ejercicio">
             <i class="fas fa-th-list"></i> Menu ejercicios
           </a>
@@ -481,31 +486,31 @@ function formularioQueryCrear(){
               $('#whereEnunciado').prop('required',true);
               $('#wherePistas').removeClass("d-none");
               $('#wherePista').prop('required',true);
-              $('#wherePista').val("con la consulta select busca solo aquellos campos que necesites");
+              $('#wherePista').val("Deberías usar la cláusula where para poder filtrar");
               break;
               case "group by":
               $('#groupEnun').removeClass("d-none");
-              $('#groupEnunciado').val("group by");
+              $('#groupEnunciado').val("Ahora necesitas agrupar el resultado");
               $('#groupEnunciado').prop('required',true);
               $('#groupPistas').removeClass("d-none");
               $('#groupPista').prop('required',true);
-              $('#groupPista').val("pista group by");
+              $('#groupPista').val("Deberías usar la cláusula group by para poder agruparlos");
               break;
               case "having":
               $('#havingEnun').removeClass("d-none");
-              $('#havingEnunciado').val("having");
+              $('#havingEnunciado').val("Ya lo tienes agrupados ahora necesitas aplicarle un filtro a esas agrupaciones");
               $('#havingEnunciado').prop('required',true);
               $('#havingPistas').removeClass("d-none");
               $('#havingPista').prop('required',true);
-              $('#havingPista').val("pista having");
+              $('#havingPista').val("Deberías usar la cláusula having para poder filtrar dentro de los grupos");
               break;
               case "order by":
               $('#orderEnun').removeClass("d-none");
-              $('#orderEnunciado').val("order by");
+              $('#orderEnunciado').val("Ahora tienes que ordenar el resultado obtenido");
               $('#orderEnunciado').prop('required',true);
               $('#orderPistas').removeClass("d-none");
               $('#orderPista').prop('required',true);
-              $('#orderPista').val("pista order by");
+              $('#orderPista').val("Deberías usar la cláusula order by para poder ordenar el resultado");
               break;
               default:
               console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
