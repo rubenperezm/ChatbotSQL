@@ -20,7 +20,7 @@ background: url('../imagenes/p2.jpg');
     margin-bottom: 4rem;
     color: white;
 "><h1 class="mb-3" style="font-size: 2.5rem;">¡Bienvenido @if(auth()->user()->esProfesor ==  1) profesor @endif {{auth()->user()->name}}!</h1>
-           <h4 class="mb-4">Aquí encontrarás tus datos de perfil y la lista de ejercicios disponibles con los que podrás ir aprendiendo ómo resolver una consulta <strong>MySQL</strong>, siempre con mi ayuda</h4>
+           <h4 class="mb-4">Aquí encontrarás tus datos de perfil y la lista de ejercicios disponibles con los que podrás ir aprendiendo cómo resolver una consulta <strong>SQL</strong>, siempre con mi ayuda.</h4>
            @if(auth()->user()->esProfesor ==  1)
            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Estadística"><i class="fas fa-chart-line"></i></a>
            <a href="{{ env('APP_URLP') }}/editarEjercicio" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Menu ejercicios"><i class="fas fa-th-list"></i></a>

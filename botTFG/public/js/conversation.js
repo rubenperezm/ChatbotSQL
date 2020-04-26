@@ -4,7 +4,6 @@ var plataforma;
 var empiezo = 0;
 
 function displayMessage (evt) {
-  console.log(evt.data);
   plataforma = evt.origin;
   if(empiezo === 0){
     uuidIntento = evt.data[2];
@@ -13,7 +12,6 @@ function displayMessage (evt) {
     empiezo++;
   }else{
     if(evt.data.indexOf("ErrorVialaravel") > -1){
-      console.log("entre donde tengo que entrar");
       ConversationPanel.sendMessage(evt.data);
     }
     else{
@@ -38,7 +36,6 @@ function displayMessage (evt) {
         }
         usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
-          console.log(evt.data[2]);
           var enunciado = JSON.parse(data[0]['enunciado']);
           var ayuda = JSON.parse(data[0]['ayuda']);
           if(typeof(enunciado[evt.data[0]]) !== "undefined" && typeof(ayuda[evt.data[0]-1]) !== "undefined"){
@@ -106,7 +103,6 @@ var ConversationPanel = (function () {
     }
     usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
-      console.log(data)
       var enunciado = JSON.parse(data[0]['enunciado']);
       var ayuda = JSON.parse(data[0]['ayuda']);
       chatUpdateSetup();
@@ -114,7 +110,6 @@ var ConversationPanel = (function () {
       context.enunciadoEjercicio = enunciado[0]['texto'];
       context.enunciadoClausula = enunciado[1]['texto'];
       context.ayudaClausula = ayuda[0]['texto'];
-      console.log(context.ayudaClausula);
       Api.sendRequest(ejercicio[0], context);
       setupInputBox();
     })
@@ -124,7 +119,6 @@ var ConversationPanel = (function () {
   // This causes the displayMessage function to be called when messages are sent / received
   function chatUpdateSetup() {
     var currentRequestPayloadSetter = Api.setRequestPayload;
-    console.log(currentRequestPayloadSetter);
     Api.setRequestPayload = function (newPayloadStr) {
       currentRequestPayloadSetter.call(Api, newPayloadStr);
       displayMessage(JSON.parse(newPayloadStr), settings.authorTypes.user);
@@ -263,7 +257,6 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
       }
       conversacion[i] = conver;
     }
-    console.log(conversacion);
     var xmlhttp = new XMLHttpRequest();
     var theUrl = "http://52.207.88.40/TFG/App/public/api/apiEjercicio/storeConversacion";
     xmlhttp.open("POST", theUrl, true);

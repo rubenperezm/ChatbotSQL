@@ -377,11 +377,9 @@ $('.verIntento').click(function(){
       data:{id:id},
       dataType: 'json',
       success:function(data){
-        console.log(data);
         $("#bloqueErrores").html("");
         $("#bloqueConsulta").html("");
         $("#bloqueConversacion").html("");
-        console.log(typeof data.conversacion);
 
         if(typeof data.conversacion === 'string'){
             $("#bloqueConversacion").html("<span>"+data.conversacion+"</span>");
@@ -395,7 +393,6 @@ $('.verIntento').click(function(){
             }
           });
         }
-        console.log(typeof data.consultas);
 
         if(typeof data.consultas === 'string'){
               $("#bloqueConsulta").html("<span>"+data.consultas+"</span>");
@@ -404,7 +401,6 @@ $('.verIntento').click(function(){
               $("#bloqueConsulta").append("<div class='boderTitle'>"+value+"</div>");
           });
         }
-        console.log(typeof data.errores);
         if(typeof data.errores === 'string'){
               $("#bloqueErrores").html("<span>"+data.errores+"</span>");
         }else{

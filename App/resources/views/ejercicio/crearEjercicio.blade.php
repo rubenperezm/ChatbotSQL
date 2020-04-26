@@ -428,12 +428,10 @@ function formularioQueryCrear(){
         $('#orderPista').val("");
         $('#orderPista').prop('required',false);
 
-        console.log(data)
         if(typeof data[0]['query'] === 'string'){
           $("#queryContainer").append(data[0]['query']);
         }
         else{
-          console.log(data[0]);
           var keys = Object.keys(data[0]['query'][0]);
           $.each(keys, function (index, value) {
             $("#queryContainer").append("<th>"+value+"</th>");

@@ -15,7 +15,7 @@ background: url('../imagenes/p2.jpg');
 <div class="adminBlock" style="background: linear-gradient(-90deg,#86d27ced , #265037f2);">
   <div class="col-md-5" style="margin-top:16%;text-align:center;">
     <h1 class="mb-3" style="font-size: 2.5rem;color:white;">¡Sugerencias!</h1>
-    <h5 class="mb-4" style="color:white;">Si has tenido alguna incidencia, o crees que podemos mejorar en algún apartado, no dudes en enviarnos tu opinión</h5>
+    <h5 class="mb-4" style="color:white;">Si has tenido alguna incidencia o crees que podemos mejorar en algún apartado, no dudes rellenar el formulario.</h5>
     <button type="button" class="btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
       <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
       <i class="fas fa-bars"></i> Menu principipal

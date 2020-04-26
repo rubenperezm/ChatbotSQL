@@ -496,14 +496,12 @@ $('#pills-profile').on('click', '#volverATabla',function() {
 
 $('.verTabla').click(function(e) {
   var consulta = $(this).data('id');
-  console.log(consulta);
   $.ajax({
     type:'get',
     url:"../ajaxVerTabla",
     data:{consulta:consulta},
     dataType: 'json',
     success:function(data){
-      console.log(data);
       var keys = Object.keys(data[0]);
       $("#bloqueTablas").addClass("d-none");
       $("#bloqueTablaRespuesta").html("");
@@ -554,7 +552,6 @@ $('.verTabla').click(function(e) {
           dataType: 'json',
           success:function(data){
             $("#bloqueIframe").addClass("opacityTutorial");
-            $("#bloqueSideBar").addClass("opacityTutorial");
             var BloqueSolucion = document.createElement("div");
             BloqueSolucion.className = "cardBodyEnun cardEnunciado rounded BloqueSolucion"
             BloqueSolucion.setAttribute("id", "BloqueSolucion");
@@ -568,7 +565,7 @@ $('.verTabla').click(function(e) {
             var bodyBloqueSolucion = document.createElement("div");
             bodyBloqueSolucion.setAttribute("id", "bodyBloqueSolucion");
             bodyBloqueSolucion.className = "card-body pb-0 text-center mb-2"
-            bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">Enhorabuena has resuelto el ejercicio, vas por buen camino!!</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Volver al menu</button></div>';
+            bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">¡Enhorabuena! Has resuelto el ejercicio, ¡vas por buen camino!</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Volver al menu</button></div>';
             document.getElementById("BloqueSolucion").appendChild(bodyBloqueSolucion);
 
           }
@@ -581,7 +578,6 @@ $('.verTabla').click(function(e) {
       query = query.split("\t").join(" ");
       query = query.trim()
       query = query.replace(/\s+/g, " ");
-      console.log(query)
       var id =  <?php echo $id ?>;
       $.ajax({
           type:'POST',
@@ -591,15 +587,12 @@ $('.verTabla').click(function(e) {
           success:function(data){
             $("#queryContainer").html("");
             $("#elementos").html("");
-            console.log(data)
             if(typeof data[0]['query'] === 'string'){
-              console.log(data[0]['conversacionBot']);
               var EjercicioBot = document.getElementById("iframe").contentWindow;
               EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
               $("#queryContainer").append(data[0]['query']);
             }
             else{
-              console.log(data[0]);
               if(Object.entries(data[0]['query']).length !== 0){
               var keys = Object.keys(data[0]['query'][0]);
               $.each(keys, function (index, value) {
@@ -625,7 +618,6 @@ $('.verTabla').click(function(e) {
               arrayBot[1] = data[0]['conversacionBot'];
               arrayBot[2] = data[1];
               arrayBot[3] = <?php echo $id;?>;
-              console.log(arrayBot)
               var EjercicioBot = document.getElementById("iframe").contentWindow;
               EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
             }
