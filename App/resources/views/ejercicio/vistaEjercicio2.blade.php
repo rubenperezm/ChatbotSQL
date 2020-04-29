@@ -8,8 +8,8 @@
     </ul>
   </div>
 </div>
-<div class="col-md-3 p-0" id="bloqueSideBar" style="       background: #232323;webkit-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);-moz-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);box-shadow: 4px 0px 15px -9px rgba(0,0,0,0.75);z-index: 4;">
-  <div  style="width: 90%;
+<div class="col-md-3 p-0" id="bloqueSideBar" style="background: #232323;webkit-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);-moz-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);box-shadow: 4px 0px 15px -9px rgba(0,0,0,0.75);z-index: 4;">
+  <div id="bloqueTablass" style="width: 90%;
   margin: auto;   background-color: #5a5a5a;
   -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
@@ -312,7 +312,7 @@ margin-top: 1.6rem;
 overflow-y: scroll;">
 <div class="card-header col-12 cabeceraAdministracion rounded" style="display:inline-flex;">
   <div class="col-12">
-    <h5 class="card-header-title mb-3 text-white">Resueltos por : </h5>
+    <h5 class="card-header-title mb-3 text-white">Resueltos por</h5>
   </div>
 </div>
 <div class="card-body text-left mb-2" style="margin-top: 0;
@@ -612,7 +612,7 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
   autofocus: true
 });
 
-$('#pills-profile').on('click', '#volverATabla',function() {
+$('#bloqueTablass').on('click', '#volverATabla',function() {
   $("#bloqueTablas").removeClass("d-none");
   $("#bloqueTablaRespuesta").remove();
 });
@@ -640,7 +640,7 @@ $('.verTabla').click(function(e) {
           string = string + "<td>"+campo+"</td>";
         });
       });
-      $("#pills-profile").append(string + "</tbody></table></div>");
+      $("#bloqueTablass").append(string + "</tbody></table></div>");
 
     }
   });
