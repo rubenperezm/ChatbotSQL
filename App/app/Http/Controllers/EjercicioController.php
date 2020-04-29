@@ -46,7 +46,7 @@ class EjercicioController extends Controller
         $flag = false;
         $ejerciciosResuelto = json_decode(auth()->user()->ejerciciosResueltos,true);
         //ranking de finalización de los ejercicios
-        $completados = Logs::select("user_id","email","logs.created_at")
+        $completados = Logs::select("user_id","name","logs.created_at")
           ->leftJoin('users','user_id', '=','users.id')
           ->where("completado",2)
           ->where("ejercicio_id",$id)

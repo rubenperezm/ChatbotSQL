@@ -321,7 +321,7 @@ padding: 2.1px;">
 <div class="col-md-12 filaTabla">
   <div class="row">
     <div class="col-12">
-      <span class="spanSugerencia" style="padding-left: 7px;"><span style="color: #10b93c;font-size: 15px;">{{$i + 1}}</span>  {{$completado->email}}</span>
+      <span class="spanSugerencia" style="padding-left: 7px;"><span style="color: #10b93c;font-size: 15px;">{{$i + 1}}</span>  {{$completado->name}}</span>
     </div>
   </div>
 </div>
