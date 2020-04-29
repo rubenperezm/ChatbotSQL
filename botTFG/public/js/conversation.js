@@ -34,7 +34,7 @@ function displayMessage (evt) {
           });
           return promise;
         }
-        usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + evt.data[3])
+        usandoPromesas("http://52.207.88.40/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
           var enunciado = JSON.parse(data[0]['enunciado']);
           var ayuda = JSON.parse(data[0]['ayuda']);
@@ -101,7 +101,7 @@ var ConversationPanel = (function () {
 
       return promise;
     }
-    usandoPromesas("http://52.207.88.40/TFG/App/public/api/apiEjercicio/show/" + ejercicio[1])
+    usandoPromesas("http://52.207.88.40/api/apiEjercicio/show/" + ejercicio[1])
     .then( data =>{
       var enunciado = JSON.parse(data[0]['enunciado']);
       var ayuda = JSON.parse(data[0]['ayuda']);
@@ -258,7 +258,7 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
       conversacion[i] = conver;
     }
     var xmlhttp = new XMLHttpRequest();
-    var theUrl = "http://52.207.88.40/TFG/App/public/api/apiEjercicio/storeConversacion";
+    var theUrl = "http://52.207.88.40/api/apiEjercicio/storeConversacion";
     xmlhttp.open("POST", theUrl, true);
     xmlhttp.setRequestHeader("Content-Type", "text/plain");
     xmlhttp.send(JSON.stringify({'conversacion': JSON.stringify(conversacion), 'mensajes': respuestas.length, 'uuidIntento': uuidIntento}));
