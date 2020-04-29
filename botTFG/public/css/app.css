@@ -203,6 +203,7 @@ div {
 }
 
 #textInput {
+  width: 85% !important;
   border: none;
   outline: none;
   background: transparent;
@@ -460,4 +461,34 @@ html{
   margin: 3px;
   cursor: pointer;
   display: inline-block;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #4c4c4c;
+  opacity: 0.8;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #4c4c4c;
+  opacity: 0.8;
+
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #4c4c4c;
+  opacity: 0.8;
+
+}
+
+.ayuda{
+  float: right;
+  padding-top: 3px;
+}
+
+.inputBoton{
+  background-color: #5aaf70;
+  color: white;
+  font-size: 14px;
+  border-radius: 11px;
+  cursor: pointer;
 }

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Aprende SQL</title>
 
     <!-- Scripts -->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="{{asset('codemirror/lib/codemirror.css')}}">
     <script src="{{asset('codemirror/mode/sql/sql.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

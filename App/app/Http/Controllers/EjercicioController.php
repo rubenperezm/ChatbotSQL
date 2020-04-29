@@ -45,7 +45,16 @@ class EjercicioController extends Controller
         $todosIntermedios = false;
         $flag = false;
         $ejerciciosResuelto = json_decode(auth()->user()->ejerciciosResueltos,true);
-        Debugbar::info($ejerciciosResuelto);
+        //ranking de finalización de los ejercicios
+        $completados = Logs::select("user_id","email","logs.created_at")
+          ->leftJoin('users','user_id', '=','users.id')
+          ->where("completado",2)
+          ->where("ejercicio_id",$id)
+          ->orderBy("logs.created_at")
+          ->get();
+       $unique = $completados->unique('user_id');
+       Debugbar::info($unique->all());
+
         if($ejerciciosResuelto != null){
           foreach ($principiante as $key => $ejercicio) {
             if (!in_array($ejercicio->id, $ejerciciosResuelto)) {
@@ -93,6 +102,7 @@ class EjercicioController extends Controller
         }
 
         return view('ejercicio.vistaEjercicio2',[
+           'completados' => $unique->all(),
            'id' => $id,
            'enunciado' => $enun,
            'mostrarTabla' => $mostrarTabla,
@@ -169,7 +179,6 @@ class EjercicioController extends Controller
            }
          }else{
            if(compruebaPasoSiguiente($stringUsuario,$this->conversacion[Session::get('lugarConversacion')])){
-             Debugbar::info("paso por aqui PasoSiguiente");
              if(comprueba($stringUsuario,$solucionQuery,$this->conversacion[Session::get('lugarConversacion')],$mejoraConsulta)){
                Debugbar::info("paso por aqui2 comprueba 2");
                //si avazamos a la siguiente pos de un select teniendo un groupby sin where tenemos que saltarnos el where
