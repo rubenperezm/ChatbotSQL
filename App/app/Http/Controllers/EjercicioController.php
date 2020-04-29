@@ -721,6 +721,7 @@ function compruebaFiltro($miString,$solucion){
 
     $miStringCollect = DB::connection('mysql2')->select($miString);
     $solucionCollect = DB::connection('mysql2')->select($solucion);
+    $miStringCollect = DB::connection('mysql2')->select($miString);
     Debugbar::info("compruebaFiltro");
     Debugbar::info($miStringCollect);
     Debugbar::info($solucionCollect);
@@ -763,15 +764,21 @@ function compruebaCamposOrderby($miString,$solucion){
     $miStringSegmentado = explode("order by", $miString);
     $consultaMiStringSeg = trim($miStringSegmentado[1]);
     $consultaMiStringSeg = explode(' ', $consultaMiStringSeg);
-    Debugbar::info($consultaSolucionSeg);
-    Debugbar::info($consultaMiStringSeg);
-
     foreach ($consultaSolucionSeg as $key => $value) {
       if($consultaSolucionSeg[$key] !== $consultaMiStringSeg[$key]) $esIgual =  false;
     }
-    Debugbar::info($esIgual);
 
-    if($esIgual) return true;
+    if($esIgual){
+      $solucionCollect = DB::connection('mysql2')->select($solucion);
+      $miStringCollect = DB::connection('mysql2')->select($miString);
+      foreach ($solucionCollect as $i => $solu) {
+        $resultado = array_diff((array)$solu, (array)$miStringCollect[$i]);
+        if(!empty($resultado)){
+          return false;
+        }
+      }
+      return true;
+    }
     else return false;
 
   }else{

@@ -321,7 +321,7 @@ padding: 2.1px;">
 <div class="col-md-12 filaTabla">
   <div class="row">
     <div class="col-12">
-      <span class="spanSugerencia" style="padding-left: 7px;"><span style="color: #10b93c;font-size: 15px;">{{$i + 1}}</span>  {{$completado->name}}</span>
+      <span class="spanSugerencia" style="padding-left: 7px;"><span class="pr-4"style="color: #10b93c;font-size: 15px;">{{$i + 1}}</span>  {{$completado->name}}</span>
     </div>
   </div>
 </div>
@@ -525,7 +525,7 @@ function ComprobarTutorial() {
         var bodybloqueTutorial = document.createElement("div");
         bodybloqueTutorial.setAttribute("id", "bodybloqueTutorial");
         bodybloqueTutorial.className = "card-body text-center mb-2"
-        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación al maravilloso mundo de SQL. Voy a proceder a explicarte de forma rápida el funcionamiento de la plataforma aunque para cualquier duda que te surja, siempre puedes recurrir a nuestro bot de seguimiento disponible. En el panel alojado en la parte izquierda de la pantalla, podrás encontrar el enunciado del ejercicio que estés haciendo y te aportará de igual forma una visión global, tanto de las tablas de las que disponemos como de los ejercicios disponibles en la plataforma.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
+        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación al maravilloso mundo de SQL. Voy a proceder a explicarte de forma rápida el funcionamiento de la plataforma aunque para cualquier duda que te surja, siempre puedes recurrir a nuestro bot de seguimiento disponible. En el panel alojado en la parte izquierda de la pantalla, podrás encontrar los ejercicios disponibles en la plataforma y el un ranking sobre los compañero que ya han resuelto este ejercicio.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
         document.getElementById("bloqueTutorial").appendChild(bodybloqueTutorial);
 
         $('#tutorialEjercicio').click(function(e) {
@@ -695,12 +695,6 @@ function ejercicioTerminado(){
   });
 }
 
-$("#bloqueConsulta").keypress(function(e) {
-  console.log("hola");
-  if(e.which == 13) {
-    formularioQuery();
-  }
-});
 
 function formularioQuery(){
   var query = myCodeMirror.getValue();
