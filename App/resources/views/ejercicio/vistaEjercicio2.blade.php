@@ -378,7 +378,7 @@ border-radius: 4px;">
 </div>
 </div>
 <div class="mt-1" style="height:50%;">
-  <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  <div class="card temaAppTarjeta" style="width:90%;max-height: 370px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
   box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
   border-radius: 4px;">
