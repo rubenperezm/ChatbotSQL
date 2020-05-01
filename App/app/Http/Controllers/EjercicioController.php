@@ -541,6 +541,28 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
           return false;
         }
         break;
+    case 'having':
+    if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
+    else{
+      if (!compruebaTabla($miString,$solucion,"from")) {
+        array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
+      }
+      if (!compruebaCampos($miString,$solucion)) {
+        array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
+      }
+      if (!compruebaFiltro($miString,$solucion)) {
+        array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
+      }
+      if (!compruebaCamposGroup($miString,$solucion)) {
+        array_push($mejoraConsulta,"Deberías repasar la tabla has decidido usar para agrupar");
+      }
+      if (!compruebaFiltroHaving($miString,$solucion)) {
+        array_push($mejoraConsulta,"Upps veo que tiene un fallo en el filtro de grupos(having)");
+      }
+
+      return false;
+      }
+      break;
       case 'havingConWhere':
       if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
       else{
