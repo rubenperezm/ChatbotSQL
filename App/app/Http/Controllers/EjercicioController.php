@@ -250,7 +250,7 @@ class EjercicioController extends Controller
                $whereCase = "groupBySinWhere";
                if(stripos($stringUsuario, 'where') !== false) $whereCase = "groupByConWhere";
                if(comprueba($stringUsuario,$solucionQuery,$whereCase,$mejoraConsulta)){
-                 if(stripos($stringUsuario, 'having') !== false){
+                 if(stripos($solucionQuery, 'having') !== false){
                    Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
                    array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                  }else{
@@ -564,7 +564,7 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
         }
         break;
       case 'havingSinWhere':
-      if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaFiltroGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
+      if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
       else{
         if (!compruebaTabla($miString,$solucion,"from")) {
           array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
@@ -572,7 +572,7 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
         if (!compruebaCampos($miString,$solucion)) {
           array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
         }
-        if (!compruebaFiltroGroup($miString,$solucion)) {
+        if (!compruebaCamposGroup($miString,$solucion)) {
           array_push($mejoraConsulta,"Parece ser que tienes que repasar que tablas estás usando para agrupar");
         }
         if (!compruebaFiltroHaving($miString,$solucion)) {
