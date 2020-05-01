@@ -63,6 +63,11 @@ background: url('../imagenes/p2.jpg');
             {!!$errors->first('nombre','<small class="errores"  style="color:red;">:message</small>')!!}
             <label for="nombre" class="form__label">Nombre del usuario</label>
           </div>
+          <div class="col-12 mb-4 form__group field text-left">
+            <input type="input" class="text-white form__field" value="{{$usuario->alias}}"placeholder="alias" name="alias" id='alias' />
+            {!!$errors->first('alias','<small class="errores"  style="color:red;">:message</small>')!!}
+            <label for="alias" class="form__label">Alias público con el que aparecerás en el ranking</label>
+          </div>
           <div class="col-12 mt-2 px-0 text-right">
             <button type="button" onclick="
                 document.getElementById('editarPerfil').submit();" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="btn-outline-secondary text-white botonDegradao" name="button"><i class="fas fa-edit"></i> Editar</button>

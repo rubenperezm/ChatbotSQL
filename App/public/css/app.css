@@ -11126,3 +11126,13 @@ a:hover {
   color: white !important;
 }
 
+.completado {
+  font-size: 12px;
+  color: #13c100;
+}
+
+.sinCompletar {
+  font-size: 12px;
+  color: #928888;
+}
+

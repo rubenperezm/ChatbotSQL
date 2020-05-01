@@ -73,13 +73,21 @@ class adminController extends Controller
     public function editarPerfil(Request $request)
     {
         $request->validate([
+          'alias'     => ['required','string', 'max:255'],
           'nombre'          => ['required', 'string', 'max:255'],
-          'email'         => ['required', 'string', 'email', 'max:255', 'unique:users']
+          'email'         => ['required', 'string', 'email', 'max:255']
         ]);
+
+        if($request->alias == ""){
+          $alias = "Usuario anónimo";
+        }else{
+          $alias = $request->alias;
+        }
 
         $usuario = User::find(auth()->user()->id);
         $usuario->name = $request->nombre;
         $usuario->email = $request->email;
+        $usuario->alias = $alias;
         $usuario->update();
 
         return redirect('admin/administracion');

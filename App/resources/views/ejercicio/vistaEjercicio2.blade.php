@@ -9,7 +9,7 @@
   </div>
 </div>
 <div class="col-md-3 p-0" id="bloqueSideBar" style="background: #232323;webkit-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);-moz-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);box-shadow: 4px 0px 15px -9px rgba(0,0,0,0.75);z-index: 4;">
-  <div id="bloqueTablass" style="width: 90%;
+  <div id="bloqueTablass" class="{{!$mostrarTabla ? 'd-none' : ''}}" style="width: 90%;
   margin: auto;   background-color: #5a5a5a;
   -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
@@ -108,7 +108,7 @@
   <li class="nav-item">
     <a class="nav-link active" style="font-weight: bold; "id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Ejercicios</a>
   </li>
-  <li class="nav-item {{!$mostrarTabla ? 'd-none' : ''}}">
+  <li class="nav-item">
     <a class="nav-link" id="pills-profile-tab" style="font-weight: bold;" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Ranking</a>
   </li>
 </ul>
@@ -128,32 +128,30 @@
     </div>
     <div class="card-body px-0 text-center mb-2 pt-0" style="overflow-y: scroll;
     max-height: 379px;">
-    @foreach ($ejercicios as $i => $ejercicio)
-    @if($ejercicio->id == $id)
     <div class="col-md-12 px-0 selectedEjercicio" style="display:inline-flex;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
       <div class="col-md-10  px-0">
         <div class="col-12  text-left">
           <span class="spanSugerencia">
-            {{json_decode($ejercicio->enunciado,true)[0]["texto"]}}
+            {{json_decode($solucion->enunciado,true)[0]["texto"]}}
           </span>
         </div>
         @if($ejerciciosResuelto != null)
-        @if (in_array($ejercicio->id, $ejerciciosResuelto))
+        @if (in_array($solucion->id, $ejerciciosResuelto))
         <div class="col-12  text-left">
-          <span style="font-size: 12px;color: #13c100;">Completado - {{$ejercicio->solucionQuery}}</span>
+          <span  id="solucionBloque" class="completado">Completado - {{$solucion->solucionQuery}}</span>
         </div>
         @else
         <div class="col-12  text-left">
-          <span style="font-size: 12px;color: #928888;">Sin completar</span>
+          <span id="solucionBloque" class="sinCompletar">Sin completar</span>
         </div>
         @endif
         @else
         <div class="col-12  text-left">
-          <span style="font-size: 12px;color: #928888;">Sin completar</span>
+          <span id="solucionBloque" class="sinCompletar">Sin completar</span>
         </div>
         @endif
         <div class="col-12 text-left">
-          @switch($ejercicio->dificultad)
+          @switch($solucion->dificultad)
           @case(1)
           <span style="color:#00b900;">●</span>
           <span style="font-size: 12px;color: #928888;"> Principiante</span>
@@ -176,15 +174,15 @@
       </div>
       <div class="col-md-2 m-auto">
         @if(auth()->user()->esProfesor ==  0)
-        @switch($ejercicio->dificultad)
+        @switch($solucion->dificultad)
         @case(1)
-        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
+        <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
         @break
 
         @case(2)
         @if($esPrincipiante)
-        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+        <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$solucion->id}}" class="añadirSugerencia" style="color: #6ead7f;
         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
         @else
         <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -193,7 +191,7 @@
 
         @case(3)
         @if($esIntermedio)
-        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+        <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$solucion->id}}" class="añadirSugerencia" style="color: #6ead7f;
         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
         @else
         <a href="#" class="añadirSugerencia avanzadoNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
@@ -204,16 +202,14 @@
         No tiene dificultad
         @endswitch
         @else
-        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
+        <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia" style="color: #6ead7f;
         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
         @endif
       </div>
     </div>
-    @endif
-    @endforeach
 
     @foreach ($ejercicios as $i => $ejercicio)
-    @if($ejercicio->id !== $id)
+    @if($ejercicio->id != $id)
     <div class="col-md-12 px-0" style="display:inline-flex;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
       <div class="col-md-10  px-0">
         <div class="col-12  text-left">
@@ -321,7 +317,7 @@ padding: 2.1px;">
 <div class="col-md-12 filaTabla">
   <div class="row">
     <div class="col-12">
-      <span class="spanSugerencia" style="padding-left: 7px;"><span class="pr-4"style="color: #10b93c;font-size: 15px;">{{$i + 1}}</span>  {{$completado->name}}</span>
+      <span class="spanSugerencia" style="padding-left: 7px;"><span class="pr-4"style="color: #10b93c;font-size: 15px;">{{$i + 1}}</span>  {{$completado->alias}}</span>
     </div>
   </div>
 </div>
@@ -609,7 +605,13 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
   lineNumbers: true,
   tabSize:2,
   matchBrackets : true,
-  autofocus: true
+  autofocus: true,
+  extraKeys: {
+    "Enter": function(instance) {
+      if(instance.getValue().indexOf(";") > -1)
+      formularioQuery();
+    }
+  }
 });
 
 $('#bloqueTablass').on('click', '#volverATabla',function() {
@@ -690,12 +692,16 @@ function ejercicioTerminado(){
       bodyBloqueSolucion.className = "card-body pb-0 text-center mb-2"
       bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">¡Enhorabuena! Has resuelto el ejercicio, ¡vas por buen camino!</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Volver al menu</button></div>';
       document.getElementById("BloqueSolucion").appendChild(bodyBloqueSolucion);
+      $('#solucionBloque').html("completado - " + data);
+      if($("#solucionBloque").hasClass("sinCompletar")) $('#solucionBloque').removeClass("sinCompletar");
+      $('#solucionBloque').addClass("completado");
 
     }
   });
 }
 
-
+//variable para no permitir dos query con la misma consulta
+var queryAnterior = "";
 function formularioQuery(){
   var query = myCodeMirror.getValue();
   query = query.split("\n").join(" ");
@@ -703,124 +709,114 @@ function formularioQuery(){
   query = query.trim()
   query = query.replace(/\s+/g, " ");
   var id =  <?php echo $id ?>;
-  $.ajax({
-    type:'POST',
-    url:'./ajaxFormularioQuery',
-    data:{query:query,id:id,uuid:uuidIntento},
-    dataType: 'json',
-    success:function(data){
-      $("#queryContainer").html("");
-      $("#elementos").html("");
-      if(typeof data[0]['query'] === 'string'){
-        $.toast({
-          text: "Parece que tu consulta no es correcta", // Text that is to be shown in the toast
-          heading: 'Error', // Optional heading to be shown on the toast
-          icon: 'error', // Type of toast icon
-          showHideTransition: 'plain', // fade, slide or plain
-          allowToastClose: true, // Boolean value true or false
-          hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-          stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-          position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-
-
-
-          textAlign: 'left',  // Text alignment i.e. left, right or center
-          loader: true,  // Whether to show loader or not. True by default
-          loaderBg: '#a20101'  // Background color of the toast loader
-        });
-
-        var EjercicioBot = document.getElementById("iframe").contentWindow;
-        EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
-        $("#queryContainer").append(data[0]['query']);
-      }
-      else{
-        if (data[0]['conversacionBot'] === "pasaSiguiente  laravel") {
+  if(queryAnterior != query){
+    queryAnterior = query;
+    $.ajax({
+      type:'POST',
+      url:'./ajaxFormularioQuery',
+      data:{query:query,id:id,uuid:uuidIntento},
+      dataType: 'json',
+      success:function(data){
+        $("#queryContainer").html("");
+        $("#elementos").html("");
+        if(typeof data[0]['query'] === 'string'){
           $.toast({
-            text: "¡Enhorabuena, a por el siguiente paso!", // Text that is to be shown in the toast
-            heading: 'Correcto', // Optional heading to be shown on the toast
-            icon: 'success', // Type of toast icon
-            showHideTransition: 'slide', // fade, slide or plain
+            text: "Parece que tu consulta no es correcta", // Text that is to be shown in the toast
+            heading: 'Error', // Optional heading to be shown on the toast
+            icon: 'error', // Type of toast icon
+            showHideTransition: 'plain', // fade, slide or plain
             allowToastClose: true, // Boolean value true or false
             hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
             stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
             position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-            textAlign: 'left',  // Text alignment i.e. left, right or center
-            loader: true,  // Whether to show loader or not. True by default
-            loaderBg: '#25b516'  // Background color of the toast loader
-          });
-        }
-        if (data[0]['conversacionBot'] === "comprobacion_query  laravel") {
-          $.toast({
-            text: "Es una consulta válida pero no es ni la solución al ejercicio ni a esta etapa", // Text that is to be shown in the toast
-            heading: '¡Casi lo tienes!', // Optional heading to be shown on the toast
-            icon: 'warning', // Type of toast icon
-            showHideTransition: 'slide', // fade, slide or plain
-            allowToastClose: true, // Boolean value true or false
-            hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-            stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-            position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-            textAlign: 'left',  // Text alignment i.e. left, right or center
-            loader: true,  // Whether to show loader or not. True by default
-            loaderBg: '#b1611c'  // Background color of the toast loader
-          });
-        }
-        if(Object.entries(data[0]['query']).length !== 0){
-          var keys = Object.keys(data[0]['query'][0]);
-          $.each(keys, function (index, value) {
-            $("#queryContainer").append("<th>"+value+"</th>");
-          });
-          $.each(data[0]['query'], function (i, fila) {
-            $("#elementos").append("<tr>");
-            $.each(fila, function (j, campo) {
-              $("#elementos").append("<td>"+campo+"</td>");
-            });
-          });
-        }else{
-          $.toast({
-            text: "Es correcto", // Text that is to be shown in the toast
-            heading: 'Correcto', // Optional heading to be shown on the toast
-            icon: 'success', // Type of toast icon
-            showHideTransition: 'slide', // fade, slide or plain
-            allowToastClose: true, // Boolean value true or false
-            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-            stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-            position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-            textAlign: 'left',  // Text alignment i.e. left, right or center
-            loader: true,  // Whether to show loader or not. True by default
-            loaderBg: '#b1611c'  // Background color of the toast loader
-          });
-          $("#queryContainer").append("No se ha encontrado ningun registro con estas condiciones");
-        }
 
-        if(data[0]['conversacionBot'] == "finalConversacionCorrectolaravel"){
-          $.toast({
-            text: "¡Enhorabuena, has completado el ejercicio!", // Text that is to be shown in the toast
-            heading: 'Correcto', // Optional heading to be shown on the toast
-            icon: 'correcto', // Type of toast icon
-            showHideTransition: 'slide', // fade, slide or plain
-            allowToastClose: true, // Boolean value true or false
-            hideAfter: 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-            stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-            position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+
+
             textAlign: 'left',  // Text alignment i.e. left, right or center
             loader: true,  // Whether to show loader or not. True by default
-            loaderBg: '#14c701'  // Background color of the toast loader
+            loaderBg: '#a20101'  // Background color of the toast loader
           });
-          ejercicioTerminado();
+
           var EjercicioBot = document.getElementById("iframe").contentWindow;
           EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
-        }else{
-          var arrayBot = new Array();
-          arrayBot[0] = data[0]['lugarConversacion'];
-          arrayBot[1] = data[0]['conversacionBot'];
-          arrayBot[2] = data[1];
-          arrayBot[3] = <?php echo $id;?>;
-          var EjercicioBot = document.getElementById("iframe").contentWindow;
-          EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
+          $("#queryContainer").append(data[0]['query']);
+        }
+        else{
+          if (data[0]['conversacionBot'] === "pasaSiguiente  laravel") {
+            $.toast({
+              text: "¡Enhorabuena, a por el siguiente paso!", // Text that is to be shown in the toast
+              heading: 'Correcto', // Optional heading to be shown on the toast
+              icon: 'success', // Type of toast icon
+              showHideTransition: 'slide', // fade, slide or plain
+              allowToastClose: true, // Boolean value true or false
+              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+              textAlign: 'left',  // Text alignment i.e. left, right or center
+              loader: true,  // Whether to show loader or not. True by default
+              loaderBg: '#25b516'  // Background color of the toast loader
+            });
+          }
+          if (data[0]['conversacionBot'] === "comprobacion_query  laravel") {
+            $.toast({
+              text: "Es una consulta válida pero no es ni la solución al ejercicio ni a esta etapa", // Text that is to be shown in the toast
+              heading: '¡Casi lo tienes!', // Optional heading to be shown on the toast
+              icon: 'warning', // Type of toast icon
+              showHideTransition: 'slide', // fade, slide or plain
+              allowToastClose: true, // Boolean value true or false
+              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+              textAlign: 'left',  // Text alignment i.e. left, right or center
+              loader: true,  // Whether to show loader or not. True by default
+              loaderBg: '#b1611c'  // Background color of the toast loader
+            });
+          }
+          if(Object.entries(data[0]['query']).length !== 0){
+            var keys = Object.keys(data[0]['query'][0]);
+            $.each(keys, function (index, value) {
+              $("#queryContainer").append("<th>"+value+"</th>");
+            });
+            $.each(data[0]['query'], function (i, fila) {
+              $("#elementos").append("<tr>");
+              $.each(fila, function (j, campo) {
+                $("#elementos").append("<td>"+campo+"</td>");
+              });
+            });
+          }else{
+            $("#queryContainer").append("No se ha encontrado ningun registro con estas condiciones");
+          }
+
+          if(data[0]['conversacionBot'] == "finalConversacionCorrectolaravel"){
+            $.toast({
+              text: "¡Enhorabuena, has completado el ejercicio!", // Text that is to be shown in the toast
+              heading: 'Correcto', // Optional heading to be shown on the toast
+              icon: 'success', // Type of toast icon
+              showHideTransition: 'slide', // fade, slide or plain
+              allowToastClose: true, // Boolean value true or false
+              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+              textAlign: 'left',  // Text alignment i.e. left, right or center
+              loader: true,  // Whether to show loader or not. True by default
+              loaderBg: '#25b516'  // Background color of the toast loader
+            });
+            ejercicioTerminado();
+            var EjercicioBot = document.getElementById("iframe").contentWindow;
+            EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
+          }else{
+            var arrayBot = new Array();
+            arrayBot[0] = data[0]['lugarConversacion'];
+            arrayBot[1] = data[0]['conversacionBot'];
+            arrayBot[2] = data[1];
+            arrayBot[3] = <?php echo $id;?>;
+            var EjercicioBot = document.getElementById("iframe").contentWindow;
+            EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
+          }
         }
       }
-    }
-  });
+    });
+  }
 }
 </script>
 @endsection

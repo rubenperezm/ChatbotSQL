@@ -46,7 +46,7 @@ class EjercicioController extends Controller
         $flag = false;
         $ejerciciosResuelto = json_decode(auth()->user()->ejerciciosResueltos,true);
         //ranking de finalización de los ejercicios
-        $completados = Logs::select("user_id","name","logs.created_at")
+        $completados = Logs::select("user_id","alias","logs.created_at")
           ->leftJoin('users','user_id', '=','users.id')
           ->where("completado",2)
           ->where("ejercicio_id",$id)
@@ -103,6 +103,7 @@ class EjercicioController extends Controller
 
         return view('ejercicio.vistaEjercicio2',[
            'completados' => $unique->all(),
+           'solucion' => $solucion,
            'id' => $id,
            'enunciado' => $enun,
            'mostrarTabla' => $mostrarTabla,
@@ -148,7 +149,8 @@ class EjercicioController extends Controller
         $ejerciciosResuelto->ejerciciosResueltos = json_encode($ejercicioRe);
         $ejerciciosResuelto->save();
       }
-      return Response::json("success");
+      $solucion = Ejercicio::select("solucionQuery")->find($request->id);
+      return Response::json($solucion->solucionQuery);
     }
 
     public function ajaxFormularioQuery(Request $request)
