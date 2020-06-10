@@ -103,7 +103,7 @@ z-index: 0;
                              Acceder
                          </button>
 
-                             <a class="btn btn-link" href="http://52.207.88.40/register" style="color:white;">
+                             <a class="btn btn-link" href="http://aprendesql.duckdns.org/register" style="color:white;">
                                  ¿Quieres registrarte?
                              </a>
                      </div>
