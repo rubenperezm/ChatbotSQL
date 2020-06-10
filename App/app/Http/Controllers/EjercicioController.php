@@ -101,7 +101,7 @@ class EjercicioController extends Controller
           }
         }
 
-        return view('ejercicio.vistaEjercicio2',[
+        return view('ejercicio.vistaEjercicio',[
            'completados' => $unique->all(),
            'solucion' => $solucion,
            'id' => $id,
@@ -156,23 +156,17 @@ class EjercicioController extends Controller
     public function ajaxFormularioQuery(Request $request)
     {
         $solucion = Ejercicio::find($request['id']);
-        Debugbar::info($solucion);
-        Debugbar::info($request['query']);
         $solucionQuery = $solucion->solucionQuery;
         $stringUsuario = strtolower($request['query']);
         $stringUsuario   = trim($stringUsuario);
         $this->solucionLugar = lugarSolucion($solucionQuery);
-        Debugbar::info(Session::get('lugarConversacion'));
         $respuestaQuery = array();
         $mejoraConsulta = array();
         $logIntento = Logs::where("uuidIntento",$request['uuid'])->first();
         try {
          $users = DB::connection('mysql2')->select($stringUsuario);
-         Debugbar::info("entrotry");
          if(esSolucionString($solucionQuery,$stringUsuario) || (soloFaltaOrderBy($solucionQuery,$stringUsuario) && Session::get('lugarConversacion') < 6)){
-            Debugbar::info("pasaAsolucion");
            if(soloFaltaOrderBy($solucionQuery,$stringUsuario)){
-             Debugbar::info("pasaAsolucionFaltaOder");
              //salto correcto having
              Session::put('lugarConversacion',6);
              array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
@@ -182,15 +176,12 @@ class EjercicioController extends Controller
          }else{
            if(compruebaPasoSiguiente($stringUsuario,$this->conversacion[Session::get('lugarConversacion')])){
              if(comprueba($stringUsuario,$solucionQuery,$this->conversacion[Session::get('lugarConversacion')],$mejoraConsulta)){
-               Debugbar::info("paso por aqui2 comprueba 2");
                //si avazamos a la siguiente pos de un select teniendo un groupby sin where tenemos que saltarnos el where
                if(groupBySinWhere($solucionQuery) && $this->conversacion[Session::get('lugarConversacion')] == "select"){
-                 Debugbar::info("group sin where");
                  //lugar que ocupa tras ser un salto correcto de where
                  Session::put('lugarConversacion',4);
                  array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
                }else{
-                 Debugbar::info("group con where");
                  Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
                  array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "pasaSiguiente  laravel","lugarConversacion" => Session::get('lugarConversacion')+1)); //el +1 en el lugarConversacion es porque en la base de datos el 0 es el enunciado
                }
@@ -278,7 +269,6 @@ class EjercicioController extends Controller
            if(empty($respuestaQuery))array_push($respuestaQuery ,array("query" => $users));
          }
         } catch(\Illuminate\Database\QueryException $ex){
-          Debugbar::info("entre tambien");
           $respuestaQuery = array();
           $msg = "ErrorVialaravel";
           switch ($ex) {
@@ -349,7 +339,6 @@ class EjercicioController extends Controller
             $logIntento->save();
           }
           array_push($respuestaQuery ,array("query" => $ex->getMessage(),"conversacionBot" => $msg));
-          Debugbar::info($respuestaQuery);
           return Response::json($respuestaQuery);
         }
         if($logIntento !== null){
@@ -377,7 +366,6 @@ class EjercicioController extends Controller
           $logIntento->save();
         }
         array_push($respuestaQuery,$mejoraConsulta);
-        Debugbar::info($respuestaQuery);
         return Response::json($respuestaQuery);
     }
 
@@ -414,8 +402,6 @@ function esSolucionString($solucion,$miString){
 }
 
 function esSolucion($solucion,$miString){
-  Debugbar::info(count($solucion));
-  Debugbar::info(count($miString));
   if(count($solucion) == count($miString)){
     $esIgual = true;
     foreach ($miString as $key => $value) {
@@ -443,8 +429,6 @@ function compruebaRegistro($registroAComparar,$solucion){
 
 
 function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
-  Debugbar::info("comprueba");
-  Debugbar::info($tipoConsulta);
     switch ($tipoConsulta) {
       case 'select':
         if(compruebaTabla($miString,$solucion,"from") && compruebaCampos($miString,$solucion)) return true;
@@ -455,8 +439,6 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
           if (!compruebaCampos($miString,$solucion)) {
             array_push($mejoraConsulta,"Debes repasar los campos introducido. Recuerda buscar solo en los campos que se piden, para no consumir recursos innecesarios");
           }
-          Debugbar::info("select mejora");
-          Debugbar::info($mejoraConsulta);
           return false;
         }
         break;
@@ -464,8 +446,6 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
         return true;
         break;
       case 'where':
-      Debugbar::info("compurebaWhere");
-      Debugbar::info(compruebaFiltro($miString, $solucion));
       if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion)) return true;
       else{
         if (!compruebaTabla($miString,$solucion,"from")) {
@@ -477,7 +457,6 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
         if (!compruebaFiltro($miString,$solucion)) {
           array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
         }
-        Debugbar::info($mejoraConsulta);
         return false;
       }
         break;
@@ -637,10 +616,7 @@ function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
 }
 
 function compruebaPasoSiguiente($miString,$clausula){
-  Debugbar::info($clausula);
   if($clausula === "select"){
-    Debugbar::info($clausula);
-    Debugbar::info(stripos($miString, 'where') === false && stripos($miString, 'select') !== false);
     if(stripos($miString, 'where') === false && stripos($miString, 'select') !== false) return true;
     else return false;
   }else{
@@ -650,17 +626,12 @@ function compruebaPasoSiguiente($miString,$clausula){
 }
 
 function compruebaTabla($miString,$solucion,$tipoConsulta){
-
-Debugbar::info("compruebaTabla");
-
   $solucion = strtolower($solucion);
   $miString = strtolower($miString);
-  Debugbar::info($miString);
 
   $consultaSegmentada = explode($tipoConsulta, $miString);
   $consultaSeg = trim($consultaSegmentada[1]);
   $tablaConsulta = explode(' ', $consultaSeg);
-  Debugbar::info($tablaConsulta);
 
 
   switch ($solucion) {
@@ -678,7 +649,6 @@ Debugbar::info("compruebaTabla");
       return 99;
       break;
   }
-  Debugbar::info($tablaSolucion);
 
   if($tablaConsulta[0] == $tablaSolucion[0]) return true;
   else return false;
@@ -700,9 +670,6 @@ function compruebaFiltroHaving($miString,$solucion){
 
     $miStringCollect = DB::connection('mysql2')->select($miString);
     $solucionCollect = DB::connection('mysql2')->select($solucion);
-    Debugbar::info("compruebaFiltrohaving");
-    Debugbar::info($miStringCollect);
-    Debugbar::info($solucionCollect);
 
     if(count($solucionCollect) == count($miStringCollect)){
       $esIgual = true;
@@ -715,7 +682,6 @@ function compruebaFiltroHaving($miString,$solucion){
       return false;
     }
 
-    Debugbar::info($esIgual);
 
     if($esIgual) return true;
     else return false;
@@ -746,9 +712,6 @@ function compruebaFiltro($miString,$solucion){
     $miStringCollect = DB::connection('mysql2')->select($miString);
     $solucionCollect = DB::connection('mysql2')->select($solucion);
     $miStringCollect = DB::connection('mysql2')->select($miString);
-    Debugbar::info("compruebaFiltro");
-    Debugbar::info($miStringCollect);
-    Debugbar::info($solucionCollect);
 
     if(count($solucionCollect) == count($miStringCollect)){
       $esIgual = true;
@@ -760,8 +723,6 @@ function compruebaFiltro($miString,$solucion){
     }else{
       return false;
     }
-
-    Debugbar::info($esIgual);
 
     if($esIgual) return true;
     else return false;
@@ -855,16 +816,12 @@ function compruebaCamposGroup($miString,$solucion){
       }
     }
 
-    Debugbar::info($consultaSolucionSeg);
-    Debugbar::info($consultaMiStringSeg);
-
     if(sizeof($consultaSolucionSeg) == sizeof($consultaMiStringSeg)){
       foreach ($consultaSolucionSeg as $key => $value) {
         if($consultaSolucionSeg[$key] !== $consultaMiStringSeg[$key]) $esIgual =  false;
       }
     }
 
-    Debugbar::info($esIgual);
 
     if($esIgual) return true;
     else return false;
@@ -909,15 +866,14 @@ function lugarSolucion($solucion){
 
 
 function compruebaCampos($miString,$solucion){
-  Debugbar::info("campos");
   $solucion = strtolower($solucion);
   $miString = strtolower($miString);
   if(stripos($miString, 'where') !== false){
     $miString = explode("where", $miString);
     $miString = trim($miString[0]);
   }else{
-    if(stripos($miString, 'group by') !== false){
-      $miString = explode("group by", $miString);
+    if(stripos($miString, 'having') !== false){
+      $miString = explode("having", $miString);
       $miString = trim($miString[0]);
     }else{
       if(stripos($miString, 'order by') !== false){
@@ -926,15 +882,12 @@ function compruebaCampos($miString,$solucion){
       }
     }
   }
-Debugbar::info($miString);
 
 
   $campos1 = DB::connection('mysql2')->select($miString);
   $campos2 = DB::connection('mysql2')->select($solucion);
 
-
   if(empty((array)$campos1)) return false;
-  Debugbar::info($campos1);
   if(isset($campos1[0])){
     $nCamposConsulta = (array)$campos1[0];
     $NCamposConsulta = sizeof($nCamposConsulta);

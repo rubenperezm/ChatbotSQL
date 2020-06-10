@@ -226,9 +226,7 @@ $gray: #9b9b9b;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 }
 
-.cardBodyEnun:hover{
-  box-shadow: 1px 1px 20px #d2d2d2;
-}
+
 .selectedEjercicio{
 background-color: #3eab3e75;
 }
@@ -437,4 +435,288 @@ a:hover {
 .sinCompletar{
   font-size: 12px;
   color: #928888;
+}
+
+#bloqueSideBar{
+  background: #232323;
+  webkit-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 0px 15px -9px rgba(0,0,0,0.75);
+  box-shadow: 4px 0px 15px -9px rgba(0,0,0,0.75);
+  z-index: 4;
+}
+
+#bloqueTablass{
+  width: 90%;
+  margin: auto;   background-color: #5a5a5a;
+  -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+  border-radius: 4px;
+  color: white;
+  max-height: 243px;
+  font-weight: bold;
+  margin-top: 1.6rem;
+  overflow-y: scroll;
+}
+.pt-15{
+  padding-top: 15px;
+}
+
+.pl-7{
+  padding-left: 7px;
+}
+
+.tituloCardEjercicio{
+  border-bottom: 1px solid #4fe2ac !important;
+  padding-left: 20px;
+  padding-bottom: 7px;
+}
+
+.filaTablaBd{
+  color: #6ead7f;
+  font-size: 17px;
+}
+
+.justifyCenterC{
+  justify-content: center;
+}
+
+.tamañoCardListEjercicios{
+  display:inline-flex;
+  border-bottom: 2px #3a3a3a;
+  padding-top: 4px;
+  border-bottom-style: solid;
+}
+
+.filaListaEjercicios{
+  overflow-y: scroll;
+  max-height: 379px;
+}
+
+.inLFlex{
+  display:inline-flex;
+}
+
+.cardListEjercicios{
+  width:90%;
+  margin:auto;background-color: #5a5a5a;
+  border-radius: 4px;
+  color: white;
+  max-height: 450px;
+  font-weight: bold;
+}
+
+.cardListEjerciciosEnun{
+  width:90%;
+  margin:auto;
+  background-color: #5a5a5a;
+  -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+  border-radius: 4px;
+}
+
+.cardBloqueConsulta{
+  width:90%;
+  margin: auto;
+  -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+  border-radius: 4px;
+}
+
+.pEnunciado{
+  font-weight: bold;font-size: 14px;
+}
+
+.span-Enunciado{
+  color: darkmagenta;font-size: 15px;
+}
+
+
+
+.spanDificultadListaEjercicios{
+  font-size: 12px;
+  color: #928888;
+}
+
+.dificultadPrincipiante{
+  color:#00b900;
+}
+
+
+.dificultadIntermedio{
+  color:#ff9816;
+}
+
+.dificultadAvanzado{
+  color:red;
+}
+
+.permitirAccederEjercicio{
+  color: #6ead7f;
+  font-size: 23px;
+}
+
+.noPermitirAccederEjercicio{
+  color:grey;
+  font-size: 23px;
+}
+
+.completadoEjercicio{
+  font-size: 12px;
+  color: #13c100;
+}
+
+.sinCompletarEjercicio{
+  font-size: 12px;
+  color: #928888;
+}
+.structRankin{
+  margin-top: 0;
+  padding: 2.1px;
+}
+
+.textoRankin{
+  color: #10b93c;font-size: 15px;
+}
+
+#bloqueEjercicio{
+  background-color: #ece8e8;
+}
+
+#sideBar{
+  position: absolute;
+  top: 0;
+  left: -25px;
+  height: 36px;
+  cursor: pointer;
+  z-index: 500;
+}
+
+.burbujaS{
+  font-size: 30px;
+  top: 14px;
+  color: #0d6127;
+}
+
+.burbujaI{
+  font-size: 13px;
+  color: white;
+  height: 30px;
+}
+
+.height-45{
+  height:45%;
+}
+
+.height-50{
+  height:50%;
+}
+
+.cardBloqueRespuesta{
+  width:90%;
+  max-height: 370px;
+  margin:auto;
+  overflow-y: scroll;
+  -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+  border-radius: 4px;
+}
+
+.cardEstructuraTituloBloqueRespuesta{
+    border-bottom: 1px solid #e9ecef !important;
+    padding-bottom: 5px;
+}
+.tablaRespuesta{
+  text-align:center;
+  color:black;font-weight:bold
+}
+
+#bloqueIframe{
+  -webkit-box-shadow: 0px 9px 18px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 9px 18px -5px rgba(0,0,0,0.75);
+  box-shadow: 0px 9px 18px -5px rgba(0,0,0,0.75);
+}
+
+.structuraBotHeader{
+  padding-top: 0.3rem;
+  padding-top: 0.3rem;
+  background-color: white;
+  -webkit-box-shadow: 0px 9px 18px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 9px 18px -5px rgba(0,0,0,0.75);
+  box-shadow: 0px 9px 18px -5px rgba(0,0,0,0.75);
+  height: 8%;
+}
+
+.fotoIframe{
+  width: 25%;
+  height: 44.5px;
+  justify-content: center;
+  float: left;
+  display: inline-block;
+}
+
+#fotoAvatar{
+  width: 49px;
+  height: 47px;
+  display: block;
+  margin-left: auto;
+  margin-top: 0.3rem;
+  margin-right: auto;
+  border-radius: 50%;
+}
+
+.nombreIframe{
+  text-align: left;
+  width: 60%;
+  float: left;
+  height: 43.4px;
+  display: inline-block;
+  font-family: sans-serif !important;
+}
+
+.labelNombreBot{
+  text-align: left;
+  display: inline-block;
+  color: black;
+  line-height: 1.2;
+  font-size: 12px !important;
+  margin: 0px;
+  font-weight: bold !important;
+  padding-top: 13.5px;
+  letter-spacing: 0;
+}
+
+#nombreAsistente{
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.labelDisponibilidadBot{
+  font-size: 10px !important;
+  margin: 0px;
+  margin-bottom: 0px;
+  font-weight: normal;
+}
+
+.fuentePunto{
+  font-size: 11px;
+  color: #12c112;
+}
+
+.fuente-19{
+  font-size: 19px;
+}
+
+.cerrarIframe{
+  padding-top: 18px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bloqueChatbot{
+  height: 92%;
+  background-color: #dadada;
 }

@@ -3,18 +3,22 @@ var uuidIntento;
 var plataforma;
 var empiezo = 0;
 
+//Evento que se lanzará a cada mensaje de la plataforma a este servidor
 function displayMessage (evt) {
   plataforma = evt.origin;
+  //Detectar si el primer, de ser así comenzar el ejercicio
   if(empiezo === 0){
     uuidIntento = evt.data[2];
     ejercicio  = evt.data;
     ConversationPanel.init();
     empiezo++;
   }else{
+    //Ver si existe un error en la consulta, y responder en base a lo obtenido
     if(evt.data.indexOf("ErrorVialaravel") > -1){
       ConversationPanel.sendMessage(evt.data);
     }
     else{
+      //Ver si la consulta es solución
       if(evt.data.indexOf("finalConversacionCorrectolaravel") > -1){
         ConversationPanel.sendMessage(evt.data);
       }else{
@@ -245,6 +249,7 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
         }, res.time);
       }
     }
+    //algoritmo para guardar la conversación despues de cada mensaje de respuesta de IBM
     var respuestas = document.getElementsByClassName("mensajesConver");
     var conversacion = new Object();
     for (var i = 0; i < respuestas.length; i++) {

@@ -1,12 +1,9 @@
 <html>
 <head>
   <base href="/">
-  <title>Watson Assistant Chat App</title>
+  <title>Watson Assistant para plataforma de aprendizaje</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:image" content="conversation.svg" />
-  <meta property="og:title" content="Conversation Chat Simple" />
-  <meta property="og:description" content="Sample application that shows how to use the Watson Assistant API to identify user intents" />
   <link rel="shortcut icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="css/app.css">
 </head>
@@ -25,13 +22,12 @@
       </div>
     </div>
   </div>
-
   <script src="js/common.js"></script>
   <script src="js/api.js"></script>
   <script src="js/conversation.js"></script>
   <script src="js/payload.js"></script>
-
 <script>
+//Función que se lanzará tras pinchar en una imagen y le esto le enviará un mensaje a la plataforma para realizar esta función con la imagen correspondiente
 var parentWindow = window.parent;
 function agrandarFoto(img){
   parentWindow.postMessage(img.src, plataforma);

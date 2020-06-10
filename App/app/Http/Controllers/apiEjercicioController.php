@@ -16,26 +16,12 @@ class apiEjercicioController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+    public function __construct(){}
 
     /*
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function storeConversacion(Request $request)
     {
@@ -47,12 +33,6 @@ class apiEjercicioController extends Controller
         $exiteIntento->save();
       }
     }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
 
     /**
      * Display the specified resource.

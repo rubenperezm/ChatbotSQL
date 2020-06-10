@@ -73,11 +73,11 @@ div {
 }
 
 .chat-column {
-  height: 90%;
+  height: 95%;
   padding: 0.9375rem 0 0.625rem 0;
   margin: auto;
   text-align: left;
-  width: 90%;
+  width: 95%;
   min-width: 9.375rem;
 }
 
@@ -337,7 +337,7 @@ html{
   }
 
   .chat-column {
-    padding-top: 4rem;
+    padding-top: 1rem;
   }
 
   #payload-column {
