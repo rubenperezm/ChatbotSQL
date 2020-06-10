@@ -103,11 +103,9 @@ z-index: 0;
                              Acceder
                          </button>
 
-                         @if (Route::has('password.request'))
-                             <a class="btn btn-link" href="{{ route('password.request') }}" style="color:white;">
-                                 ¿Olvidaste la contraseña?
+                             <a class="btn btn-link" href="http://52.207.88.40/register" style="color:white;">
+                                 ¿Quieres registrarte?
                              </a>
-                         @endif
                      </div>
                  </div>
              </form>
