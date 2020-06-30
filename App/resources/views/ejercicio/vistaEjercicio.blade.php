@@ -655,26 +655,30 @@ function formularioQuery(){
         $("#queryContainer").html("");
         $("#elementos").html("");
         if(typeof data[0]['query'] === 'string'){
-          $.toast({
-            text: "Parece que tu consulta no es correcta", // Text that is to be shown in the toast
-            heading: 'Error', // Optional heading to be shown on the toast
-            icon: 'error', // Type of toast icon
-            showHideTransition: 'plain', // fade, slide or plain
-            allowToastClose: true, // Boolean value true or false
-            hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-            stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-            position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+          if(data[0]['conversacionBot'] === 'securityMess'){
+            $("#queryContainer").append(data[0]['query']);
+          }else{
+            $.toast({
+              text: "Parece que tu consulta no es correcta", // Text that is to be shown in the toast
+              heading: 'Error', // Optional heading to be shown on the toast
+              icon: 'error', // Type of toast icon
+              showHideTransition: 'plain', // fade, slide or plain
+              allowToastClose: true, // Boolean value true or false
+              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
 
 
 
-            textAlign: 'left',  // Text alignment i.e. left, right or center
-            loader: true,  // Whether to show loader or not. True by default
-            loaderBg: '#a20101'  // Background color of the toast loader
-          });
+              textAlign: 'left',  // Text alignment i.e. left, right or center
+              loader: true,  // Whether to show loader or not. True by default
+              loaderBg: '#a20101'  // Background color of the toast loader
+            });
 
-          var EjercicioBot = document.getElementById("iframe").contentWindow;
-          EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
-          $("#queryContainer").append(data[0]['query']);
+            var EjercicioBot = document.getElementById("iframe").contentWindow;
+            EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
+            $("#queryContainer").append(data[0]['query']);
+          }
         }
         else{
           if (data[0]['conversacionBot'] === "pasaSiguiente  laravel") {

@@ -155,13 +155,30 @@ class EjercicioController extends Controller
 
     public function ajaxFormularioQuery(Request $request)
     {
+
+
+
         $solucion = Ejercicio::find($request['id']);
         $solucionQuery = $solucion->solucionQuery;
         $stringUsuario = strtolower($request['query']);
         $stringUsuario   = trim($stringUsuario);
-        $this->solucionLugar = lugarSolucion($solucionQuery);
         $respuestaQuery = array();
         $mejoraConsulta = array();
+        $mensajeSec = "No se contemplan este tipo de consultas para realizar este ejercicio";
+        if(stripos($stringUsuario, 'show databases') !== false){
+          array_push($respuestaQuery ,array("query" => $mensajeSec,"conversacionBot" => "securityMess"));
+          return Response::json($respuestaQuery);
+        }
+        $SecPass = explode(' ', $stringUsuario);
+        if(stripos($SecPass[0], 'insert') !== false || stripos($SecPass[0], 'delete') !== false || stripos($SecPass[0], 'update') !== false
+        || stripos($SecPass[0], 'on') !== false || stripos($SecPass[0], 'drop') !== false || stripos($SecPass[0], 'add') !== false
+        || stripos($SecPass[0], 'alter') !== false || stripos($SecPass[0], 'rename') !== false || stripos($SecPass[0], 'truncate') !== false
+        || stripos($SecPass[0], 'replace') !== false || stripos($SecPass[0], 'create') !== false || stripos($SecPass[0], 'use') !== false){
+          array_push($respuestaQuery ,array("query" => $mensajeSec,"conversacionBot" => "securityMess"));
+          return Response::json($respuestaQuery);
+        }
+
+        $this->solucionLugar = lugarSolucion($solucionQuery);
         $logIntento = Logs::where("uuidIntento",$request['uuid'])->first();
         try {
          $users = DB::connection('mysql2')->select($stringUsuario);
