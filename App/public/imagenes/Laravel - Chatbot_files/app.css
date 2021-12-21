@@ -606,6 +606,7 @@ html{
   font-weight: 500;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'Helvetica Neue for IBM';
   src: url('../fonts/bold/h-n-bold.eot?') format('eot'),
@@ -615,6 +616,7 @@ html{
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Helvetica Neue for IBM';
   src: url('../fonts/bold-italic/h-n-bold-italic.eot?') format('eot'),

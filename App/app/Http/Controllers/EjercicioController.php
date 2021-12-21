@@ -648,6 +648,7 @@ function compruebaTabla($miString,$solucion,$tipoConsulta){
 
   $consultaSegmentada = explode($tipoConsulta, $miString);
   $consultaSeg = trim($consultaSegmentada[1]);
+  $consultaSeg = trim($consultaSeg, ";");
   $tablaConsulta = explode(' ', $consultaSeg);
 
 
@@ -655,11 +656,13 @@ function compruebaTabla($miString,$solucion,$tipoConsulta){
     case (stripos($solucion, 'describe') !== false):
       $solucionSegmentada = explode("describe", $solucion);
       $consultaSeg = trim($solucionSegmentada[1]);
+      $consultaSeg = trim($consultaSeg, ";");
       $tablaSolucion = explode(' ', $consultaSeg);
       break;
     case (stripos($solucion, 'from') !== false):
       $solucionSegmentada = explode("from", $solucion);
       $consultaSeg = trim($solucionSegmentada[1]);
+      $consultaSeg = trim($consultaSeg, ";");
       $tablaSolucion = explode(' ', $consultaSeg);
       break;
     default:
@@ -762,10 +765,20 @@ function compruebaCamposOrderby($miString,$solucion){
     $solucionSegmentada = explode("order by", $solucion);
     $consultaSolucionSeg = trim($solucionSegmentada[1]);
     $consultaSolucionSeg = explode(' ', $consultaSolucionSeg);
-
+    //Quitamos los asc para que no se tengan en cuenta al comparar
+    foreach ($consultaSolucionSeg as $key => $value) {
+      $consultaSolucionSeg[$key] = trim($consultaSolucionSeg[$key], ",");
+      if($consultaSolucionSeg[$key] === "asc") unset($consultaSolucionSeg[$key]);
+    }
+    $consultaSolucionSeg = array_values($consultaSolucionSeg);
     $miStringSegmentado = explode("order by", $miString);
     $consultaMiStringSeg = trim($miStringSegmentado[1]);
     $consultaMiStringSeg = explode(' ', $consultaMiStringSeg);
+    foreach ($consultaMiStringSeg as $key => $value) {
+      $consultaMiStringSeg[$key] = trim($consultaMiStringSeg[$key], ",");
+      if($consultaMiStringSeg[$key] === "asc") unset($consultaMiStringSeg[$key]);
+    }
+    $consultaMiStringSeg = array_values($consultaMiStringSeg);
     foreach ($consultaSolucionSeg as $key => $value) {
       if($consultaSolucionSeg[$key] !== $consultaMiStringSeg[$key]) $esIgual =  false;
     }

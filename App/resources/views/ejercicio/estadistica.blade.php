@@ -14,7 +14,7 @@
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
             <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-bars"></i> Menu principipal
+              <i class="fas fa-bars"></i> Menu principal
             </a>
           </button>
         </li>

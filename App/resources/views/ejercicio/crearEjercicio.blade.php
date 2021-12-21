@@ -22,7 +22,7 @@
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
           <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-            <i class="fas fa-bars"></i> Menu principipal
+            <i class="fas fa-bars"></i> Menu principal
           </a>
         </button>
       </div>
@@ -32,8 +32,6 @@
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from articulos">Artículos</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from pesos">Pesos</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from proveedores">Proveedores</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from suministro">Suministro</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tblUsuarios">TblUsuarios</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tiendas">Tiendas</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from ventas">Ventas</div>
         </div>
@@ -96,14 +94,14 @@
         </div>
         <div class="row d-none" id="cuerpoEnvio"style="padding-top: 2rem;">
           <div class="col-md-12">
-            <h5>Elemento de diseño de de respuesta</h5>
-            <span><em>Texto en cursiva</em> :  &lt;em&gt; texto/palalbra_en_cursiva &lt;/em&gt;</span>
+            <h5>Elemento de diseño de respuesta</h5>
+            <span><em>Texto en cursiva</em> :  &lt;em&gt; texto/palabra_en_cursiva &lt;/em&gt;</span>
             <br>
-            <span><strong>Texto en negrita</strong> :  &lt;strong&gt; texto/palalbra_en_negrita &lt;/strong&gt;</span>
+            <span><strong>Texto en negrita</strong> :  &lt;strong&gt; texto/palabra_en_negrita &lt;/strong&gt;</span>
             <br>
-            <span><u>Texto subrayado</u> :  &lt;u&gt; texto/palalbra_subrayada &lt;/u&gt;</span>
+            <span><u>Texto subrayado</u> :  &lt;u&gt; texto/palabra_subrayada &lt;/u&gt;</span>
             <br>
-            <span><span style="color:green;">Texto con un color específico</span> :  &lt;span sytle="color:color_en_hexadecimal"&gt; texto/palalbra_coloreada &lt;/span&gt;</span>
+            <span><span style="color:green;">Texto con un color específico</span> :  &lt;span sytle="color:color_en_hexadecimal"&gt; texto/palabra_coloreada &lt;/span&gt;</span>
             <br>
             <span>Añadir hiperenlace : &lt;a href='dirección_url' target='_blank'&gt; palabra_hipervínculo &lt;/a&gt; </span>
           </div>
@@ -116,7 +114,7 @@
             <div class="col-12 mb-4 form__group field d-none" id="describeEnun">
               <input type="input" class="form__field" placeholder="describeEnunciado" name="describeEnunciado" id='describeEnunciado'  />
               {!!$errors->first('describeEnunciado','<small class="errores">:message</small>')!!}
-              <label for="describeEnunciado" class="form__label">Enunciado de la cláusula desribe</label>
+              <label for="describeEnunciado" class="form__label">Enunciado de la cláusula describe</label>
             </div>
             <div class="col-12 mb-4 form__group field d-none" id="selectEnun">
               <input type="input" class="form__field" placeholder="selectEnunciado" name="selectEnunciado" id='selectEnunciado'  />
@@ -153,7 +151,7 @@
             <div class="col-12 mb-4 form__group field d-none" id="describePistas">
               <input type="input" class="form__field" placeholder="describePista" name="describePista" id='describePista' />
               {!!$errors->first('describePista','<small class="errores">:message</small>')!!}
-              <label for="describePista" class="form__label">Pista de la cláusula show</label>
+              <label for="describePista" class="form__label">Pista de la cláusula describe</label>
             </div>
             <div class="col-12 mb-4 form__group field d-none" id="selectPistas">
               <input type="input" class="form__field" placeholder="selectPista" name="selectPista" id='selectPista' />

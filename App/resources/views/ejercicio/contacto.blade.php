@@ -18,7 +18,7 @@ background: url('../imagenes/p2.jpg');
     <h5 class="mb-4" style="color:white;">Si has tenido alguna incidencia o crees que podemos mejorar en algún apartado, no dudes rellenar el formulario.</h5>
     <button type="button" class="btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
       <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-      <i class="fas fa-bars"></i> Menu principipal
+      <i class="fas fa-bars"></i> Menu principal
       </a>
     </button>
   </div>

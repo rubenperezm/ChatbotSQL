@@ -28,9 +28,9 @@
       <p style="font-size: 4rem;">Bienvenido {{ Auth::user()->name }}</p>
       <p style="font-size: 17PX;">
         Esta herramienta te ayudara aprender los conocimientos mas basicos del lenguaje de base datos
-         mysql y el que podras utilziar en imnumerables ocasiones. Esta herramienta esta acompañada
-         de la ayuda de nuestro bot dsifruten por su viaje en esta herramienta.Esta herramienta esta acompañada
-         de la ayuda de nuestro bot dsifruten por su viaje en esta herramienta
+         mysql y el que podras utilizar en imnumerables ocasiones. Esta herramienta esta acompañada
+         de la ayuda de nuestro bot disfruten por su viaje en esta herramienta.Esta herramienta esta acompañada
+         de la ayuda de nuestro bot disfruten por su viaje en esta herramienta
       </p>
       <button type="button" class="botonSugerencia" name="button">Enviar sugerencia</button>
     </div>

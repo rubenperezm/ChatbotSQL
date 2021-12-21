@@ -22,11 +22,11 @@
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
           <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-            <i class="fas fa-bars"></i> Menu principipal
+            <i class="fas fa-bars"></i> Menu principal
           </a>
         </button>
       </div>
-      <div class="row">
+      <div class="row" style="margin-top: 100px;">
         @foreach ($todosEjercicios as $i => $ejercicio)
         <div class="col-md-6 mt-2 mb-2">
           <div class="col-md-12 pt-2" style="background-color: #eaeaea;

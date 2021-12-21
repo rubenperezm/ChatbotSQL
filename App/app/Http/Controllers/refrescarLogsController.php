@@ -24,6 +24,7 @@ class refrescarLogsController extends Controller
     }
 
     public static function index(){
+      
       $ApiController = new botApiController;
       $api = $ApiController->index();
       //Recorremos cada log sacado de la api ya formateado
@@ -31,6 +32,7 @@ class refrescarLogsController extends Controller
         $id = Mensajes::select('log_id')->where('log_id' , $d['log_id'])->first();
         //Comprabamos que es que no se encuentra ya guardado.
         if(is_null($id)){
+          
           $numMensajes = Conversaciones::select('mensajes')->where('conversation_id' , $d['conversation_id'])->first();
           if(is_null($numMensajes)){
             $data = 0;

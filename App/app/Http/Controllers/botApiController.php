@@ -26,16 +26,17 @@ class botApiController extends Controller
         $logsArray = array();
         $problema = "";
         try{
-          $res = $client->request('GET','https://gateway-lon.watsonplatform.net/assistant/api/v1/workspaces/60b2b2fb-0c1b-45b0-a787-ee5f3e817e61/logs?version=2018-09-21&export=true&include_count=true&page_limit=5000&include_audit=true',[
-              'auth' => [env('API_USERNAME') , env('API_PASSWORD')]]);
+          $res = $client->request('GET','https://api.eu-gb.assistant.watson.cloud.ibm.com/v2/assistants/4a940d18-797a-4420-ab03-afef92ba43e4/logs?version=2020-09-29&export=true&include_count=true&page_limit=5000&include_audit=true',[
+              //'auth' => [env('API_USERNAME') , env('API_PASSWORD')]]);
+              'auth' => [env('ASSISTANT_IAM_APIKEY')]]);
           $res = json_decode($res->getBody(), true);
           //Recorremos el array para obtener cada log y lo guardarlo en nuestro array con el dato formateado listo para pasarselo al modelo
           foreach ($res['logs'] as $i => $d)  {
-            $logsArray[$i]['idWorkspace'] = $d['workspace_id'];
+            $logsArray[$i]['idWorkspace'] = $d['assistant_id'];
             $logsArray[$i]['request_timestamp'] = formatDate($d['request_timestamp']);
             $logsArray[$i]['response_timestamp'] = formatDate($d['response_timestamp']);
             $logsArray[$i]['log_id'] = $d['log_id'];
-            $logsArray[$i]['conversation_id'] = $d['response']['context']['conversation_id'];
+            $logsArray[$i]['conversation_id'] = $d['response']['session_id'];
 
             if(isset($d['request']['input']['text']))
                $logsArray[$i]['textoPregunta'] = $d['request']['input']['text'];
@@ -58,8 +59,8 @@ class botApiController extends Controller
               $logsArray[$i]['error'] = $d['response']['output']['error'];
             }else $logsArray[$i]['error'] = "";
 
-            if(isset($d['response']['output']['log_messages'][0])){
-              $logsArray[$i]['mensajeLog'] = $d['response']['output']['log_messages'][0]['level'];
+            if(isset($d['response']['output']['debug']['log_messages'][0])){
+              $logsArray[$i]['mensajeLog'] = $d['response']['output']['debug']['log_messages'][0]['level'];
             }else $logsArray[$i]['mensajeLog'] = "";
 
             $logsArray[$i]['jsonLog'] = json_encode($d);

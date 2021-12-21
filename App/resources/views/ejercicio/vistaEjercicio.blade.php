@@ -57,29 +57,7 @@
                 <i class="fas fa-code"></i></a>
               </div>
             </div>
-          </div>
-          <div class="col-md-12 filaTabla">
-            <div class="row">
-              <div class="col-8">
-                <span class="spanSugerencia pl-7">Suministro</span>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#" data-id="select * from suministros" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
-                  <i class="fas fa-code"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-12 filaTabla">
-              <div class="row">
-                <div class="col-8">
-                  <span class="spanSugerencia pl-7">TblUsuarios</span>
-                </div>
-                <div class="col-4 text-center">
-                  <a href="#" data-id="select * from tblUsuarios" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
-                    <i class="fas fa-code"></i></a>
-                  </div>
-                </div>
-              </div>
+          </div>          
               <div class="col-md-12 filaTabla">
                 <div class="row">
                   <div class="col-8">

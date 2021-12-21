@@ -28,10 +28,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-
-        $schedule->call(function () {
+        /* Lo de abajo no funciona para la v2 del chatbot -> necesario Enterprise plan
+            Archivos afectados: refrescarLogsController, botApiController
+        */
+        /*$schedule->call(function () {
           refrescarLogsController::index();
-        })->hourly();
+        })->hourly();*/
     }
 
     /**
