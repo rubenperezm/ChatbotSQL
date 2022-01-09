@@ -96,7 +96,7 @@
                     <div class="card-header cabeceraAdministracion rounded">
                       <h5 class="card-header-title mb-3 text-white">Ejercicios</h5>
                     </div>
-                    <div class="card-body px-0 text-center mb-2 pt-0 filaListaEjercicios">
+                    <div class="card-body px-0 text-center mb-2 pt-0 filaListaEjercicios" style="height:20rem">
                       <div class="col-md-12 px-0 selectedEjercicio tamañoCardListEjercicios">
                         <div class="col-md-10  px-0">
                           <div class="col-12  text-left">

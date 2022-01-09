@@ -32,7 +32,7 @@
 </head>
 <body>
 
-<div class="row" id="main" style="height: 100% !important; margin:0">
+<div class="row" id="main" style="height: 99% !important; margin:0">
     @yield('content')
 </div>
 @yield('scripts')
