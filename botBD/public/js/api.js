@@ -3,9 +3,9 @@
 var Api = (function() {
   var requestPayload;
   var responsePayload;
-  var messageEndpoint = '/api/message';
+  var messageEndpoint = '/watson/api/message';
 
-  var sessionEndpoint = '/api/session';
+  var sessionEndpoint = '/watson/api/session';
 
   var sessionId = null;
 

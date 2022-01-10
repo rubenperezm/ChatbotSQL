@@ -38,7 +38,7 @@ function displayMessage (evt) {
           });
           return promise;
         }
-        usandoPromesas("http://localhost/api/apiEjercicio/show/" + evt.data[3])
+        usandoPromesas("https://chatbotsql.uca.es/api/apiEjercicio/show/" + evt.data[3])
         .then( data =>{
           var enunciado = JSON.parse(data[0]['enunciado']);
           var ayuda = JSON.parse(data[0]['ayuda']);
@@ -106,7 +106,7 @@ var ConversationPanel = (function () {
       return promise;
     }
     if(ejercicio !== undefined)
-    usandoPromesas("http://localhost/api/apiEjercicio/show/" + ejercicio[1])
+    usandoPromesas("https://chatbotsql.uca.es/api/apiEjercicio/show/" + ejercicio[1])
       .then( data =>{
         var enunciado = JSON.parse(data[0]['enunciado']);
         var ayuda = JSON.parse(data[0]['ayuda']);
@@ -281,7 +281,7 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
       conversacion[i] = conver;
     }
     var xmlhttp = new XMLHttpRequest();
-    var theUrl = "http://localhost/api/apiEjercicio/storeConversacion";
+    var theUrl = "https://chatbotsql.uca.es/api/apiEjercicio/storeConversacion";
     xmlhttp.open("POST", theUrl, true);
     xmlhttp.setRequestHeader("Content-Type", "text/plain");
     xmlhttp.send(JSON.stringify({'conversacion': JSON.stringify(conversacion), 'mensajes': respuestas.length, 'uuidIntento': uuidIntento}));
