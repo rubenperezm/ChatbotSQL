@@ -9,12 +9,12 @@
           <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Intentos</a>
         </li>
         <li class="nav-item mr-4">
-          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estádisticas-ejercicios</a>
+          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estadísticas ejercicios</a>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
             <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-bars"></i> Menu principal
+              <i class="fas fa-bars"></i> Menú principal
             </a>
           </button>
         </li>
@@ -28,7 +28,7 @@
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
             <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-th-list"></i> Menu ejercicios
+              <i class="fas fa-th-list"></i> Menú ejercicios
             </a>
           </button>
         </li>
@@ -42,11 +42,11 @@
       </ul>
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="estadistica" role="tabpanel" aria-labelledby="estadistica-tab">
-          <div class="card temaAppTarjeta mb-4" style="width:90%;max-height: 300px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          <div class="card temaAppTarjeta mb-4" style="width:90%;max-height: 300px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
-          <div class="card-body">
+          <div class="card-body" style="overflow-y: auto">
             <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
             <form class="form-usuario form-horizontal" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
               <div class="row form-group col-md-12">
@@ -79,11 +79,11 @@
             </form>
           </div>
           </div>
-          <div class="card temaAppTarjeta" style="width:90%;max-height: 600px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          <div class="card temaAppTarjeta" style="width:90%;max-height: 600px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
-          <div class="card-body">
+          <div class="card-body" style="overflow-y: auto">
             <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Intentos</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
               <table class="table table-sm table-striped table-principal"style="color:black;">
@@ -139,11 +139,11 @@
             <canvas id="chartIntentos" style='height: 210px'></canvas>
           </div>
           <div class="col-md-6 m-auto">
-            <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+            <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
             -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
             box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
             border-radius: 4px;">
-            <div class="card-body">
+            <div class="card-body" style="overflow-y: auto">
               <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Abandono por ejercicio</h5>
               <div class="table-responsive mt-4" style="min-height:86%;" id="container">
                 <table class="table table-sm table-striped table-principal"style=" color:black;">
@@ -173,11 +173,11 @@
       </div>
       <div class="row mt-4">
         <div class="col-md-6 m-auto">
-          <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
-          <div class="card-body">
+          <div class="card-body" style="overflow-y: auto">
             <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Media de las consulta por intento</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
               <table class="table table-sm table-striped table-principal"style=" color:black;">
@@ -206,11 +206,11 @@
         </div>
       </div>
       <div class="col-md-6 m-auto">
-        <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;overflow-y: scroll;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+        <div class="card temaAppTarjeta" style="width:90%;max-height: 400px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
         box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
         border-radius: 4px;">
-        <div class="card-body">
+        <div class="card-body" style="overflow-y: auto">
           <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Media de los errores por intento</h5>
           <div class="table-responsive mt-4" style="min-height:86%;" id="container">
             <table class="table table-sm table-striped table-principal"style="color:black;">

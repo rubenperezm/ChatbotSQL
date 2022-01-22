@@ -331,7 +331,7 @@
         </div>
         <div class="mt-1 height-50">
           <div class="card temaAppTarjeta cardBloqueRespuesta">
-          <div class="card-body">
+          <div class="card-body" style="max-height: 22rem">
             <h5 class="card-title cardEstructura TituloBloqueRespuesta">Resultado Query</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
               <table class="table table-sm table-striped table-principal tablaRespuesta">
