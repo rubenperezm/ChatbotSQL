@@ -35,7 +35,7 @@
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tiendas">Tiendas</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from ventas">Ventas</div>
         </div>
-        <div class="col-8" id="bloqueTablaRespuesta" style="max-height:400px;overflow-y:scroll;">
+        <div class="col-8" id="bloqueTablaRespuesta" style="max-height:400px;overflow-y:auto;">
 
         </div>
       </div>
@@ -81,7 +81,7 @@
             </div>
 
           </div>
-          <div class="col-7" id="container" style="max-height:400px;overflow-y:scroll;">
+          <div class="col-7" id="container" style="max-height:400px;overflow-y:auto;">
             <table class="table table-sm table-striped table-principal"style="text-align:center; color:black;">
               <thead>
                 <tr id="queryContainer">

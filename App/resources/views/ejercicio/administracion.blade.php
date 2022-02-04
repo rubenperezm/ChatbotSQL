@@ -12,7 +12,7 @@ transform: translateX(-50%) translateY(-50%);
 z-index: 0;
 background: url('../imagenes/p2.jpg');
 "></div>
-<div class="adminBlock">
+<div class="adminBlock" style="height: auto">
   <div class="col-md-5 m-auto">
     <div style="
     margin: auto;
@@ -25,7 +25,7 @@ background: url('../imagenes/p2.jpg');
            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Estadística"><i class="fas fa-chart-line"></i></a>
            <a href="{{ env('APP_URLP') }}/editarEjercicio" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Menu ejercicios"><i class="fas fa-th-list"></i></a>
            @endif
-           <a href="{{ env('APP_URLP') }}/admin/contacto" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Contactos"><i class="fas fa-envelope"></i></a>
+           <a href="{{ env('APP_URLP') }}/admin/contacto" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Contacto"><i class="fas fa-envelope"></i></a>
            <a href="#" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir a twitter"><i style="font-size: 20px;" class="fab fa-twitter"></i></a>
            <a href="#" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir a instagram"><i style="font-size: 20px;"class="fab fa-instagram"></i></a>
     </div>
@@ -86,7 +86,7 @@ background: url('../imagenes/p2.jpg');
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Principiante</h5>
       </div>
-      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: scroll;
+      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: auto;
 max-height: 180px;">
         @foreach ($principiante as $i => $ejercicio)
         <div class="col-md-12 px-0" style="display:inline-flex;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
@@ -148,7 +148,7 @@ font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Intermedio</h5>
       </div>
-      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: scroll;
+      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: auto;
 max-height: 180px;">
         @foreach ($intermedios as $i => $ejercicio)
         <div class="col-md-12 px-0" style="display:inline-flex;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
@@ -219,7 +219,7 @@ max-height: 180px;">
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Avanzado</h5>
       </div>
-      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: scroll;
+      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: auto;
 max-height: 180px;">
         @foreach ($avanzao as $i => $ejercicio)
         <div class="col-md-12 px-0" style="display:inline-flex;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
