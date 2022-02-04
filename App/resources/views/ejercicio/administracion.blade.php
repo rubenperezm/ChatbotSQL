@@ -12,7 +12,7 @@ transform: translateX(-50%) translateY(-50%);
 z-index: 0;
 background: url('../imagenes/p2.jpg');
 "></div>
-<div class="adminBlock" style="height: auto">
+<div class="adminBlock" style="height: auto; min-height: 100%">
   <div class="col-md-5 m-auto">
     <div style="
     margin: auto;
