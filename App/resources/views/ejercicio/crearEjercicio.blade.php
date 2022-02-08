@@ -4,25 +4,30 @@
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Tablas</h5>
-      <div class="col-12 mb-1 float-right">
+      <div class="col-12 mb-3 float-right" style="margin-right: 5%">
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Crear ejercicio">
+          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="crear ejercicio">
             <i class="fas fa-edit"></i> Crear Ejercicio
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Crear ejercicio">
-            <i class="fas fa-th-list"></i> Menu ejercicios
+          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="ver ejercicios">
+            <i class="fas fa-th-list"></i> Menú Ejercicios
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="menu">
-            <i class="fas fa-chart-line"></i> Estadísticas
+          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="estadísticas ejercicios">
+            <i class="fas fa-chart-line"></i> Est. Ejercicios
+          </a>
+        </button>
+        <button type="button" data-toggle="tooltip" data-placement="top" title="intentos modo libre" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="estadísticas modo libre">
+            <i class="fas fa-chart-line"></i> Est. Modo Libre
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
-            <i class="fas fa-bars"></i> Menu principal
+          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="volver al menú">
+            <i class="fas fa-bars"></i> Menú Principal
           </a>
         </button>
       </div>

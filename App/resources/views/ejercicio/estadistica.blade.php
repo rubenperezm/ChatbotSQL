@@ -8,36 +8,40 @@
         <li class="nav-item" style="margin-left: 5%">
           <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Intentos</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estadísticas Ejercicios</a>
-        </li>
         <li class="nav-item mr-4">
-          <a class="nav-link" id="mlibre-tab" style="color:black;" data-toggle="pill" href="#mlibre" role="tab" aria-controls="mlibre" aria-selected="false">Modo Libre</a>
+          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estadísticas Ejercicios</a>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menu">
+            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menú">
               <i class="fas fa-bars"></i> Menú principal
             </a>
           </button>
         </li>
         <li class="nav-item">
-          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="menu">
-              <i class="fas fa-chart-line"></i> Estadísticas
+          <button type="button" data-toggle="tooltip" data-placement="top" title="intentos modo libre" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="estadísticas modo libre">
+              <i class="fas fa-chart-line"></i> Est. Modo Libre
             </a>
           </button>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="menu">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="estadísticas ejercicios">
+              <i class="fas fa-chart-line"></i> Est. Ejercicios
+            </a>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="ver ejercicios">
               <i class="fas fa-th-list"></i> Menú ejercicios
             </a>
           </button>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="menu">
+            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="crear ejercicios">
               <i class="fas fa-edit"></i> Crear ejercicios
             </a>
           </button>
@@ -51,7 +55,7 @@
           border-radius: 4px;">
           <div class="card-body" style="overflow-y: auto">
             <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
-            <form class="form-usuario form-horizontal" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
+            <form class="form-usuario form-horizontal" autocomplete="off" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
               <div class="row form-group col-md-12">
                 <div class="col-md-3">
                   <label for="nombre" class='font-weight-bold'>Nombre</label>
@@ -243,76 +247,7 @@
     </div>
   </div>
 </div>
-<div class="tab-pane fade" id="mlibre" role="tabpanel" aria-labelledby="mlibre-tab">
-          <div class="card temaAppTarjeta mb-4" style="width:90%;max-height: 300px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-          -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-          box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
-          border-radius: 4px;">
-          <div class="card-body" style="overflow-y: auto">
-            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
-            <form class="form-usuario form-horizontal" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
-              <div class="row form-group col-md-12">
-                <div class="col-md-3">
-                  <label for="nombre" class='font-weight-bold'>Nombre</label>
-                  <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="">
-                </div>
-                <div class="col-md-3">
-                  <label for="correo" class='font-weight-bold'>Correo</label>
-                  <input type="text" class="form-control" name="correo" placeholder="Correo" value="">
-                </div>
-              </div>
-              <div class='col-md-12'>
-                <button class='btn botonDegradao float-right' style="color:white;">
-                  <i class='fas fa-search'></i> Filtrar
-                </button>
-              </div>
-            </form>
-          </div>
-          </div>
-          <div class="card temaAppTarjeta" style="width:90%;max-height: 600px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-          -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-          box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
-          border-radius: 4px;">
-          <div class="card-body" style="overflow-y: auto">
-            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Intentos</h5>
-            <div class="table-responsive mt-4" style="min-height:86%;" id="container">
-              <table class="table table-sm table-striped table-principal"style="color:black;">
-                <thead class="thead-dark">
-                  <tr>
-                    <th class="">Usuario</th>
-                    <th class="">Tiempos del intento</th>
-                    <th class=""></th>
-                  </tr>
-                </thead>
-                @foreach ($intentosML as $i => $intento)
-                <tbody>
-                  <tr>
-                    <td style="padding-left: 8px">
-                      {{$intento['name']}}
-                      <br>
-                      {{$intento['email']}}
-                    </td>
-                    <td>
-                      Inicio intento: {{$intento['created_at']}}
-                      <br>
-                      Última Acción: {{$intento['updated_at']}}
-                    </td>
-                    <td>
-                      <a class="verIntentoML" data-id="{{$intento['id']}}" href="#"><i class="fas fa-comments" style="color: green;"></i></a>
-                    </td>
-                  </tr>
-                </tbody>
-                @endforeach
-              </table>
-              <div class="text-center mx-auto">
-                {{$intentosML->appends($_GET)->links()}}
-              </div>
-            </div>
-          </div>
-        </div>
-</div>
-</div>
-</div>
+
 
 </div>
 <!-- Pop Up para mostrar DATOS del INTENTO-->
@@ -481,50 +416,7 @@ $('.verIntento').click(function(){
       }
   });
 });
-$('.verIntentoML').click(function(){
-  var id= $(this).data("id");
-  $.ajax({
-      type:'get',
-      url:'./ajaxMostrarModoLibre',
-      data:{id:id},
-      dataType: 'json',
-      success:function(data){
-        $("#bloqueErrores").html("");
-        $("#bloqueConsulta").html("");
-        $("#bloqueConversacion").html("");
 
-        if(typeof data.conversacion === 'string'){
-            $("#bloqueConversacion").html("<span>"+data.conversacion+"</span>");
-        }else{
-          $.each(data.conversacion, function (index, value) {
-            if(typeof value['mensajeUsuario'] === 'undefined'){
-              $("#bloqueConversacion").append("<div align='left' style='color:#46646E;padding: 0.3rem;'>"+value['mensajeWatson']+"</div>");
-            }
-            else{
-              $("#bloqueConversacion").append("<div align='right' style='color:#0096A2;padding: 0.3rem;'>"+value['mensajeUsuario']+"</div>");
-            }
-          });
-        }
-
-        if(typeof data.consultas === 'string'){
-              $("#bloqueConsulta").html("<span>"+data.consultas+"</span>");
-        }else{
-          $.each(data.consultas, function (index, value) {
-              $("#bloqueConsulta").append("<div class='boderTitle'>"+value+"</div>");
-          });
-        }
-        if(typeof data.errores === 'string'){
-              $("#bloqueErrores").html("<span>"+data.errores+"</span>");
-        }else{
-          $.each(data.errores, function (index, value) {
-              $("#bloqueErrores").append("<div class='boderTitle'>"+value+"</div>");
-          });
-        }
-
-       $("#modalConversacion").modal();
-      }
-  });
-});
 $('.pagination').addClass("justify-content-center");
 
 </script>

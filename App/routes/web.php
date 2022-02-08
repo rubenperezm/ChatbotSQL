@@ -54,5 +54,6 @@ Route::get('/editarEjercicio/ajaxMostrarModoLibre', 'editarEjercicioController@a
 Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);
+Route::get('/editarEjercicio/estadisticamlibre', 'editarEjercicioController@estadisticamlibre')->middleware(esProfesor::class);
 //
 Auth::routes();

@@ -240,14 +240,7 @@ class editarEjercicioController extends Controller
           ->orderBy('logs.created_at','desc')
           ->paginate(10);
 
-    $intentosML = ModoLibreLogs::select("modolibrelogs.id","user_id","modolibrelogs.created_at","modolibrelogs.updated_at","mensajes","errores","name","email")
-        ->leftJoin('users','user_id', '=','users.id')
-        ->JoinName($nombre)
-        ->JoinEmail($correo)
-        ->orderBy('modolibrelogs.created_at','desc')
-        ->paginate(10);
-    $datos = array(
-        'intentosML'        => $intentosML,   
+    $datos = array(  
         'intentos'          => $intentos,
         'tasaAbandono'      => $tasaAbandono,
         'mediaErrores'      => $mediaErrores,
@@ -257,7 +250,22 @@ class editarEjercicioController extends Controller
     );
     return view('ejercicio.estadistica', $datos);
   }
+  public function estadisticamlibre(Request $request)
+  {
+    $nombre = $request->get('nombre');
+    $correo = $request->get('correo');
 
+    $intentosML = ModoLibreLogs::select("modolibrelogs.id","user_id","modolibrelogs.created_at","modolibrelogs.updated_at","mensajes","errores","name","email")
+        ->leftJoin('users','user_id', '=','users.id')
+        ->JoinName($nombre)
+        ->JoinEmail($correo)
+        ->orderBy('modolibrelogs.created_at','desc')
+        ->paginate(10);
+    $datos = array(
+        'intentosML'        => $intentosML,   
+    );
+    return view('ejercicio.estadisticamlibre', $datos);
+  }
   public function ajaxMostrarIntento(Request $request){
     $conversacion = Logs::select("consultas","errores","conversacion")->find($request->id);
 
