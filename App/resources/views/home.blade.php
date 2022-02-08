@@ -42,7 +42,7 @@
         </a>
       </div>
       <div class="cajaOpciones col-4">
-        <span class="m-auto">ejericicio</span>
+        <span class="m-auto">ejercicio</span>
         <a  class="m-auto" href="{{ action('EjercicioController@index', ['id' => 2]) }}">
           <i class="iconoHome fas fa-check"></i>
         </a>

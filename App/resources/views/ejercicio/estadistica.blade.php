@@ -4,12 +4,15 @@
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Estadística</h5>
-      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">  
+        <li class="nav-item" style="margin-left: 5%">
           <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Intentos</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estadísticas Ejercicios</a>
+        </li>
         <li class="nav-item mr-4">
-          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estadísticas ejercicios</a>
+          <a class="nav-link" id="mlibre-tab" style="color:black;" data-toggle="pill" href="#mlibre" role="tab" aria-controls="mlibre" aria-selected="false">Modo Libre</a>
         </li>
         <li class="nav-item">
           <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
@@ -133,6 +136,7 @@
           </div>
         </div>
       </div>
+      
       <div class="tab-pane fade" id="intentos" role="tabpanel" aria-labelledby="intentos-tab">
         <div class="row mb-4">
           <div class="col-md-6 p-3">
@@ -238,10 +242,74 @@
       </div>
     </div>
   </div>
-
-
-
 </div>
+<div class="tab-pane fade" id="mlibre" role="tabpanel" aria-labelledby="mlibre-tab">
+          <div class="card temaAppTarjeta mb-4" style="width:90%;max-height: 300px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+          border-radius: 4px;">
+          <div class="card-body" style="overflow-y: auto">
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
+            <form class="form-usuario form-horizontal" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
+              <div class="row form-group col-md-12">
+                <div class="col-md-3">
+                  <label for="nombre" class='font-weight-bold'>Nombre</label>
+                  <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="">
+                </div>
+                <div class="col-md-3">
+                  <label for="correo" class='font-weight-bold'>Correo</label>
+                  <input type="text" class="form-control" name="correo" placeholder="Correo" value="">
+                </div>
+              </div>
+              <div class='col-md-12'>
+                <button class='btn botonDegradao float-right' style="color:white;">
+                  <i class='fas fa-search'></i> Filtrar
+                </button>
+              </div>
+            </form>
+          </div>
+          </div>
+          <div class="card temaAppTarjeta" style="width:90%;max-height: 600px;margin:auto;-webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+          box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
+          border-radius: 4px;">
+          <div class="card-body" style="overflow-y: auto">
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Intentos</h5>
+            <div class="table-responsive mt-4" style="min-height:86%;" id="container">
+              <table class="table table-sm table-striped table-principal"style="color:black;">
+                <thead class="thead-dark">
+                  <tr>
+                    <th class="">Usuario</th>
+                    <th class="">Tiempos del intento</th>
+                    <th class=""></th>
+                  </tr>
+                </thead>
+                @foreach ($intentosML as $i => $intento)
+                <tbody>
+                  <tr>
+                    <td style="padding-left: 8px">
+                      {{$intento['name']}}
+                      <br>
+                      {{$intento['email']}}
+                    </td>
+                    <td>
+                      Inicio intento: {{$intento['created_at']}}
+                      <br>
+                      Última Acción: {{$intento['updated_at']}}
+                    </td>
+                    <td>
+                      <a class="verIntentoML" data-id="{{$intento['id']}}" href="#"><i class="fas fa-comments" style="color: green;"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+                @endforeach
+              </table>
+              <div class="text-center mx-auto">
+                {{$intentosML->appends($_GET)->links()}}
+              </div>
+            </div>
+          </div>
+        </div>
 </div>
 </div>
 </div>
@@ -374,6 +442,50 @@ $('.verIntento').click(function(){
   $.ajax({
       type:'get',
       url:'./ajaxMostrarIntento',
+      data:{id:id},
+      dataType: 'json',
+      success:function(data){
+        $("#bloqueErrores").html("");
+        $("#bloqueConsulta").html("");
+        $("#bloqueConversacion").html("");
+
+        if(typeof data.conversacion === 'string'){
+            $("#bloqueConversacion").html("<span>"+data.conversacion+"</span>");
+        }else{
+          $.each(data.conversacion, function (index, value) {
+            if(typeof value['mensajeUsuario'] === 'undefined'){
+              $("#bloqueConversacion").append("<div align='left' style='color:#46646E;padding: 0.3rem;'>"+value['mensajeWatson']+"</div>");
+            }
+            else{
+              $("#bloqueConversacion").append("<div align='right' style='color:#0096A2;padding: 0.3rem;'>"+value['mensajeUsuario']+"</div>");
+            }
+          });
+        }
+
+        if(typeof data.consultas === 'string'){
+              $("#bloqueConsulta").html("<span>"+data.consultas+"</span>");
+        }else{
+          $.each(data.consultas, function (index, value) {
+              $("#bloqueConsulta").append("<div class='boderTitle'>"+value+"</div>");
+          });
+        }
+        if(typeof data.errores === 'string'){
+              $("#bloqueErrores").html("<span>"+data.errores+"</span>");
+        }else{
+          $.each(data.errores, function (index, value) {
+              $("#bloqueErrores").append("<div class='boderTitle'>"+value+"</div>");
+          });
+        }
+
+       $("#modalConversacion").modal();
+      }
+  });
+});
+$('.verIntentoML').click(function(){
+  var id= $(this).data("id");
+  $.ajax({
+      type:'get',
+      url:'./ajaxMostrarModoLibre',
       data:{id:id},
       dataType: 'json',
       success:function(data){

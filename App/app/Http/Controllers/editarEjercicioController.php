@@ -9,6 +9,8 @@ use Debugbar;
 use Carbon\Carbon;
 use App\Ejercicio;
 use App\Logs;
+use App\ModoLibreLogs;
+use App\User;
 use Session;
 use Response;
 use DB;
@@ -134,6 +136,7 @@ class editarEjercicioController extends Controller
       //Buscamos la todos los intentos de cada ejercicio
       $ejercicioId = Logs::select("*")
             ->where("ejercicio_id","=",$ejercicio->ejercicio_id)
+            ->where("user_id", " not in ", User::select("id")->where("esProfesor", "=", 1))
             ->get();
       $totalIntentosEjercicio = count($ejercicioId);
       $arrayNumeroIntentos[$ejercicio->ejercicio_id] = 0;
@@ -157,8 +160,13 @@ class editarEjercicioController extends Controller
         $arrayNumeroIntentos[$ejercicio->ejercicio_id] = $arrayNumeroIntentos[$ejercicio->ejercicio_id] + $numeroI;
       }
       //Divimos el total de erroes y consultas por el total de intentos para obtener ambas medias
-      $arrayNumeroErrores[$ejercicio->ejercicio_id] = $arrayNumeroErrores[$ejercicio->ejercicio_id]/$totalIntentosEjercicio;
-      $arrayNumeroIntentos[$ejercicio->ejercicio_id] = $arrayNumeroIntentos[$ejercicio->ejercicio_id]/$totalIntentosEjercicio;
+      if($totalIntentosEjercicio != 0){
+        $arrayNumeroErrores[$ejercicio->ejercicio_id] = $arrayNumeroErrores[$ejercicio->ejercicio_id]/$totalIntentosEjercicio;
+        $arrayNumeroIntentos[$ejercicio->ejercicio_id] = $arrayNumeroIntentos[$ejercicio->ejercicio_id]/$totalIntentosEjercicio;
+      }else{
+        $arrayNumeroErrores[$ejercicio->ejercicio_id] = 0;
+        $arrayNumeroIntentos[$ejercicio->ejercicio_id] = 0;
+      }
     }
     arsort($arrayNumeroErrores);
     arsort($arrayNumeroIntentos);
@@ -231,7 +239,14 @@ class editarEjercicioController extends Controller
           ->orderBy('logs.created_at','desc')
           ->paginate(10);
 
+    $intentosML = ModoLibreLogs::select("modolibrelogs.id","user_id","modolibrelogs.created_at","modolibrelogs.updated_at","mensajes","errores","name","email")
+        ->leftJoin('users','user_id', '=','users.id')
+        ->JoinName($nombre)
+        ->JoinEmail($correo)
+        ->orderBy('modolibrelogs.created_at','desc')
+        ->paginate(10);
     $datos = array(
+        'intentosML'        => $intentosML,   
         'intentos'          => $intentos,
         'tasaAbandono'      => $tasaAbandono,
         'mediaErrores'      => $mediaErrores,
@@ -275,6 +290,38 @@ class editarEjercicioController extends Controller
     return Response::json($datos);
   }
 
+  public function ajaxMostrarModoLibre(Request $request){
+    $conversacion = ModoLibreLogs::select("consultas","errores","conversacion")->find($request->id);
+
+    if($conversacion->conversacion != null){
+      //Evitar etiquetas indeseadas
+      $parseo = array("script", "<?php", "?>", "php", "@php");
+      $intentoConversacion = str_replace($parseo, "", $conversacion->conversacion);
+      $intentoConversacion = json_decode($intentoConversacion,true);
+    }else{
+      $intentoConversacion = "No ha tenido conversación";
+    }
+    if($conversacion->consultas != null){
+      $consultas = json_decode($conversacion->consultas,true);
+    }else{
+      $consultas = "No ha tenido consultas";
+    }
+    if($conversacion->errores != null){
+      $errores = json_decode($conversacion->errores,true);
+    }else{
+      $errores = "No ha tenido errores";
+    }
+
+
+
+    $datos =  array(
+      "conversacion" => $intentoConversacion,
+      "consultas" => $consultas,
+      "errores" => $errores
+    );
+
+    return Response::json($datos);
+  }
 
   public function eliminarEjercicio(Request $request){
     $listaBots = Ejercicio::find($request->id)->delete();

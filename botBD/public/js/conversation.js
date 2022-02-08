@@ -38,17 +38,22 @@ function displayMessage (evt) {
           });
           return promise;
         }
-        usandoPromesas("https://chatbotsql.uca.es/api/apiEjercicio/show/" + evt.data[3])
-        .then( data =>{
-          var enunciado = JSON.parse(data[0]['enunciado']);
-          var ayuda = JSON.parse(data[0]['ayuda']);
-          if(typeof(enunciado[evt.data[0]]) !== "undefined" && typeof(ayuda[evt.data[0]-1]) !== "undefined"){
-            ConversationPanel.sendMessage(evt.data[1],enunciado[evt.data[0]]['texto'],ayuda[evt.data[0]-1]['texto'],evt.data[2]);
-          }else{
-            console.log("no existe");
-          }
-        })
-        .catch(error => console.error(error));
+        if(ejercicio[1] !== 0){
+          usandoPromesas("http://localhost/api/apiEjercicio/show/" + evt.data[3])
+          .then( data =>{
+            var enunciado = JSON.parse(data[0]['enunciado']);
+            var ayuda = JSON.parse(data[0]['ayuda']);
+            if(typeof(enunciado[evt.data[0]]) !== "undefined" && typeof(ayuda[evt.data[0]-1]) !== "undefined"){
+              ConversationPanel.sendMessage(evt.data[1],enunciado[evt.data[0]]['texto'],ayuda[evt.data[0]-1]['texto'],evt.data[2]);
+            }else{
+              console.log("no existe");
+            }
+          })
+          .catch(error => console.error(error));
+        }else{
+          Api.sendRequest(evt.data[1], {});
+        }
+        
       }
     }
   }
@@ -106,28 +111,37 @@ var ConversationPanel = (function () {
       return promise;
     }
     if(ejercicio !== undefined)
-    usandoPromesas("https://chatbotsql.uca.es/api/apiEjercicio/show/" + ejercicio[1])
-      .then( data =>{
-        var enunciado = JSON.parse(data[0]['enunciado']);
-        var ayuda = JSON.parse(data[0]['ayuda']);
-        chatUpdateSetup();
-        var context = {
-          'skills':{
-            'main skill':{
-              'user_defined':{
-                'enunciadoEjercicio' : enunciado[0]['texto'],
-                'enunciadoClausula' : enunciado[1]['texto'],
-                'ayudaClausula' : ayuda[0]['texto']
+      if(ejercicio[1] !== 0){
+        usandoPromesas("http://localhost/api/apiEjercicio/show/" + ejercicio[1])
+        .then( data =>{
+          var enunciado = JSON.parse(data[0]['enunciado']);
+          var ayuda = JSON.parse(data[0]['ayuda']);
+          chatUpdateSetup();
+          var context = {
+            'skills':{
+              'main skill':{
+                'user_defined':{
+                  'enunciadoEjercicio' : enunciado[0]['texto'],
+                  'enunciadoClausula' : enunciado[1]['texto'],
+                  'ayudaClausula' : ayuda[0]['texto']
+                }
               }
-            }
-          }  
-        };
+            }  
+          };
+          Api.getSessionId(function() {
+            Api.sendRequest(ejercicio[0], context);
+          });
+          setupInputBox();
+        })
+        .catch(error => console.error(error));
+      }else{
+        chatUpdateSetup();
         Api.getSessionId(function() {
-          Api.sendRequest(ejercicio[0], context);
+          Api.sendRequest(ejercicio[0], {}); //contexto vacio para el modo libre
         });
         setupInputBox();
-      })
-      .catch(error => console.error(error));
+      }
+    
   }
   // Set up callbacks on payload setters in Api module
   // This causes the displayMessage function to be called when messages are sent / received
@@ -220,7 +234,7 @@ var ConversationPanel = (function () {
 function displayMessage(newPayload, typeValue) {
   var isLaravel = true
   var isUser = isUserMessage(typeValue);
-  var textExists = (newPayload.output && newPayload.output.generic) ||  newPayload.input;
+  var textExists = (newPayload.output && newPayload.output.generic) ||  (newPayload.input && newPayload.input.text);
   if (isUser !== null && textExists) {
     // Create new message generic elements
     if(newPayload.input && newPayload.input.text.indexOf("laravel") > -1 && typeValue == settings.authorTypes.user) isLaravel = false;
@@ -281,7 +295,11 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
       conversacion[i] = conver;
     }
     var xmlhttp = new XMLHttpRequest();
-    var theUrl = "https://chatbotsql.uca.es/api/apiEjercicio/storeConversacion";
+    var theUrl;
+    if(ejercicio[1] !== 0) 
+      theUrl = "http://localhost/api/apiEjercicio/storeConversacion";
+    else
+    theUrl = "http://localhost/api/apiModoLibre/storeConversacion";
     xmlhttp.open("POST", theUrl, true);
     xmlhttp.setRequestHeader("Content-Type", "text/plain");
     xmlhttp.send(JSON.stringify({'conversacion': JSON.stringify(conversacion), 'mensajes': respuestas.length, 'uuidIntento': uuidIntento}));

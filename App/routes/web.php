@@ -33,6 +33,11 @@ Route::prefix('admin')->group(function () {
   Route::post('/editarPerfil', 'adminController@editarPerfil');
 });
 
+Route::prefix('modoLibre')->group(function(){
+  Route::get('/', 'modoLibreController@index');
+  Route::Post('ajaxFormularioQuery', 'modoLibreController@ajaxFormularioQuery');
+});
+
 
 
 Route::get('ajaxVerTabla', 'EjercicioController@ajaxVerTabla');
@@ -45,6 +50,7 @@ Route::get('/editarEjercicio/editar/{id}', 'editarEjercicioController@editar', f
 Route::get('/editarEjercicio', 'editarEjercicioController@index')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/estadistica', 'editarEjercicioController@estadistica')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/ajaxMostrarIntento', 'editarEjercicioController@ajaxMostrarIntento')->middleware(esProfesor::class);
+Route::get('/editarEjercicio/ajaxMostrarModoLibre', 'editarEjercicioController@ajaxMostrarModoLibre')->middleware(esProfesor::class);
 Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);

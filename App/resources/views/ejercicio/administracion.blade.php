@@ -76,7 +76,34 @@ background: url('../imagenes/p2.jpg');
       </div>
     </div>
   </div>
+  
   <div class="col-md-7 m-auto">
+  <div class="mt-4 mb-4 cardBodyEnun cardEnunciado rounded" style=" width: 90%;
+    margin: auto;
+    background-color: #1d1d1d;
+    -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
+    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7">
+      <div class="card-header cabeceraAdministracion rounded">
+          <h5 class="card-header-title mb-3 text-white">Modo libre</h5>
+      </div>
+      <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: auto; max-height: 180px;">
+        <div class="col-md-12 px-0" style="display:inline-flex;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
+          <div class="col-md-10  px-0">
+            <div class="col-12  text-left">
+              <span class="spanSugerencia text-white">Prueba nuestra base de datos de forma ilimitada</span>
+            </div>
+            <div class="col-12  text-left">
+              <span style="font-size: 12px;color: #ff8300;">NUEVO</span>
+            </div> 
+          </div>
+          <div class="col-md-2 m-auto">
+            <a href="{{ env('APP_URLP') }}/modoLibre" data-toggle="tooltip" data-placement="top" title="Ejecutar Modo Libre" class="añadirSugerencia" style="color: #6ead7f;
+font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
+        </div>
+        </div>
+      </div>
+    </div>
     <div class="mt-4 mb-4 cardBodyEnun cardEnunciado rounded" style=" width: 90%;
     margin: auto;
     background-color: #1d1d1d;

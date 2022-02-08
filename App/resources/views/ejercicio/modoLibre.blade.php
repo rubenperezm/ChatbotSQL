@@ -82,111 +82,19 @@
                   </div>
                 </div>
               </div>
-              <ul class="nav nav-pills mt-4 mb-3 justifyCenterC" id="pills-tab" role="tablist">
+              <!--<ul class="nav nav-pills mt-4 mb-3 justifyCenterC" id="pills-tab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active font-weight-bold" id="ListaEjercicios-tab" data-toggle="pill" href="#ListaEjercicios" role="tab" aria-controls="ListaEjercicios" aria-selected="true">Ejercicios</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="ranking-tab font-weight-bold" data-toggle="pill" href="#ranking" role="tab" aria-controls="ranking" aria-selected="false">Ranking</a>
-                </li>
-              </ul>
-              <div class="tab-content" id="pills-tabContent">
+              </ul>-->
+              <div class="tab-content" id="pills-tabContent" style="margin-top: 4rem">
                 <div class="tab-pane fade show active" id="ListaEjercicios" role="tabpanel" aria-labelledby="ListaEjercicios-tab" style="width: 100%;">
                   <div class="mt-2 mb-4 cardBodyEnun cardEnunciado rounded cardListEjercicios">
                     <div class="card-header cabeceraAdministracion rounded">
                       <h5 class="card-header-title mb-3 text-white">Ejercicios</h5>
                     </div>
                     <div class="card-body px-0 text-center mb-2 pt-0 filaListaEjercicios" style="height:18rem">
-                      <div class="col-md-12 px-0 selectedEjercicio tamañoCardListEjercicios">
-                        <div class="col-md-10  px-0">
-                          <div class="col-12  text-left">
-                            <span class="spanSugerencia">
-                              {{json_decode($solucion->enunciado,true)[0]["texto"]}}
-                            </span>
-                          </div>
-                          @if($ejerciciosResuelto != null)
-                          @if (in_array($solucion->id, $ejerciciosResuelto))
-                          <div class="col-12  text-left">
-                            <span  id="solucionBloque" class="completado">Completado - {{$solucion->solucionQuery}}</span>
-                          </div>
-                          @else
-                          <div class="col-12  text-left">
-                            <span id="solucionBloque" class="sinCompletar">Sin completar</span>
-                          </div>
-                          @endif
-                          @else
-                          <div class="col-12  text-left">
-                            <span id="solucionBloque" class="sinCompletar">Sin completar</span>
-                          </div>
-                          @endif
-                          <div class="col-12 text-left">
-                            @switch($solucion->dificultad)
-                            @case(1)
-                            <span class="dificultadPrincipiante">●</span>
-                            <span class="spanDificultadListaEjercicios"> Principiante</span>
-                            @break
-
-                            @case(2)
-                            <span class="dificultadIntermedio">●</span>
-                            <span class="spanDificultadListaEjercicios"> Intermedio</span>
-                            @break
-
-                            @case(3)
-                            <span class="dificultadAvanzado">●</span>
-                            <span class="spanDificultadListaEjercicios"> Avanzado</span>
-                            @break
-
-                            @default
-                            No tiene dificultad
-                            @endswitch
-                          </div>
-                        </div>
-                        <div class="col-md-2 m-auto">
-                          @if(auth()->user()->esProfesor ==  0)
-                          @switch($solucion->dificultad)
-                          @case(1)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
-                            <i class="fas fa-laptop-code"></i>
-                          </a>
-                          @break
-
-                          @case(2)
-                          @if($esPrincipiante)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
-                            <i class="fas fa-laptop-code"></i>
-                          </a>
-                          @else
-                          <a href="#" class="añadirSugerencia intermedioNoPermitir noPermitirAccederEjercicio">
-                            <i class="fas fa-lock"></i>
-                          </a>
-                          @endif
-                          @break
-
-                          @case(3)
-                          @if($esIntermedio)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
-                            <i class="fas fa-laptop-code"></i>
-                          </a>
-                          @else
-                          <a href="#" class="añadirSugerencia avanzadoNoPermitir noPermitirAccederEjercicio">
-                            <i class="fas fa-lock"></i>
-                          </a>
-                          @endif
-                          @break
-
-                          @default
-                          No tiene dificultad
-                          @endswitch
-                          @else
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
-                            <i class="fas fa-laptop-code"></i>
-                          </a>
-                          @endif
-                        </div>
-                      </div>
-
                       @foreach ($ejercicios as $i => $ejercicio)
-                      @if($ejercicio->id != $id)
                       <div class="col-md-12 px-0 tamañoCardListEjercicios">
                         <div class="col-md-10  px-0">
                           <div class="col-12  text-left">
@@ -274,35 +182,8 @@
                           @endif
                         </div>
                       </div>
-                      @endif
                       @endforeach
                     </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade cardBodyEnun cardEnunciado rounded cardListEjercicios" id="ranking" role="tabpanel" aria-labelledby="ranking-tab">
-                  <div class="card-header col-12 cabeceraAdministracion rounded inLFlex">
-                    <div class="col-12">
-                      <h5 class="card-header-title mb-3 text-white">Resueltos por</h5>
-                    </div>
-                  </div>
-                  <div class="card-body text-left mb-2 structRankin filaListaEjercicios">
-                    @forelse($completados as $i => $completado)
-                    <div class="col-md-12 filaTabla">
-                      <div class="row">
-                        <div class="col-12">
-                          <span class="spanSugerencia pl-7"><span class="pr-4 textoRankin">{{$i + 1}}</span>  {{$completado->alias}}</span>
-                        </div>
-                      </div>
-                    </div>
-                    @empty
-                    <div class="col-md-12 filaTabla">
-                      <div class="row">
-                        <div class="col-12">
-                          <span class="spanSugerencia pl-7">Ninguno de tus compañeros lo ha resuelto</span>
-                        </div>
-                      </div>
-                    </div>
-                    @endforelse
                   </div>
                 </div>
               </div>
@@ -316,7 +197,7 @@
               <div class="mt-2 mb-2 cardBodyEnun cardEnunciado rounded temaAppTarjeta cardListEjerciciosEnun">
               <div class="card-body text-left mb-2">
                 <p class="card-text text-black pEnunciado">
-                  <span class="span-Enunciado">Enunciado a resolver:</span> {{$enunciado}}
+                  <span class="span-Enunciado">Modo Libre
                 </p>
               </div>
             </div>
@@ -564,8 +445,8 @@ $('.verTabla').click(function(e) {
 
 window.onload=function() {
   var arrayInicio = new Array();
-  arrayInicio[0] = "ejercicio basico laravel";
-  arrayInicio[1] = <?php echo $id;?>;
+  arrayInicio[0] = "modoLibre laravel";
+  arrayInicio[1] = 0;
   arrayInicio[2] = uuidIntento;
   var EjercicioBot = document.getElementById("iframe").contentWindow;
   EjercicioBot.postMessage(arrayInicio , "{{ env('APP_BOT') }}");
@@ -581,37 +462,6 @@ $.ajaxSetup({
   }
 });
 
-function ejercicioTerminado(){
-  var id =  <?php echo $id ?>;
-  $.ajax({
-    type:'get',
-    url:"{{ env('APP_URLP') }}/ejercicioTerminado",
-    data:{id:id,uuid:uuidIntento},
-    dataType: 'json',
-    success:function(data){
-      $("#bloqueIframe").addClass("opacityTutorial");
-      var BloqueSolucion = document.createElement("div");
-      BloqueSolucion.className = "cardBodyEnun cardEnunciado rounded BloqueSolucion"
-      BloqueSolucion.setAttribute("id", "BloqueSolucion");
-      document.getElementById("main").appendChild(BloqueSolucion);
-
-      var headerBloqueSolucion = document.createElement("div");
-      headerBloqueSolucion.className = "card-header cabeceraAdministracion rounded"
-      headerBloqueSolucion.innerHTML = '<h5 class="card-header-title mb-3 text-white">Has resuelto el ejercicio</h5>';
-      document.getElementById("BloqueSolucion").appendChild(headerBloqueSolucion);
-
-      var bodyBloqueSolucion = document.createElement("div");
-      bodyBloqueSolucion.setAttribute("id", "bodyBloqueSolucion");
-      bodyBloqueSolucion.className = "card-body pb-0 text-center mb-2"
-      bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">¡Enhorabuena! Has resuelto el ejercicio, ¡vas por buen camino!</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Volver al menu</button></div>';
-      document.getElementById("BloqueSolucion").appendChild(bodyBloqueSolucion);
-      $('#solucionBloque').html("completado - " + data);
-      if($("#solucionBloque").hasClass("sinCompletar")) $('#solucionBloque').removeClass("sinCompletar");
-      $('#solucionBloque').addClass("completado");
-
-    }
-  });
-}
 
 //variable para no permitir dos query con la misma consulta
 var queryAnterior = "";
@@ -621,12 +471,12 @@ function formularioQuery(){
   query = query.split("\t").join(" ");
   query = query.trim()
   query = query.replace(/\s+/g, " ");
-  var id =  <?php echo $id ?>;
+  var id =  0;
   if(queryAnterior != query){
     queryAnterior = query;
     $.ajax({
       type:'POST',
-      url:'./ajaxFormularioQuery',
+      url:'modoLibre/ajaxFormularioQuery',
       data:{query:query,id:id,uuid:uuidIntento},
       dataType: 'json',
       success:function(data){
@@ -659,36 +509,7 @@ function formularioQuery(){
           }
         }
         else{
-          if (data[0]['conversacionBot'] === "pasaSiguiente laravel") {
-            $.toast({
-              text: "¡Enhorabuena, a por el siguiente paso!", // Text that is to be shown in the toast
-              heading: 'Correcto', // Optional heading to be shown on the toast
-              icon: 'success', // Type of toast icon
-              showHideTransition: 'slide', // fade, slide or plain
-              allowToastClose: true, // Boolean value true or false
-              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-              textAlign: 'left',  // Text alignment i.e. left, right or center
-              loader: true,  // Whether to show loader or not. True by default
-              loaderBg: '#25b516'  // Background color of the toast loader
-            });
-          }
-          if (data[0]['conversacionBot'] === "comprobacion_query laravel") {
-            $.toast({
-              text: "Es una consulta válida pero no es ni la solución al ejercicio ni a esta etapa", // Text that is to be shown in the toast
-              heading: '¡Casi lo tienes!', // Optional heading to be shown on the toast
-              icon: 'warning', // Type of toast icon
-              showHideTransition: 'slide', // fade, slide or plain
-              allowToastClose: true, // Boolean value true or false
-              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-              textAlign: 'left',  // Text alignment i.e. left, right or center
-              loader: true,  // Whether to show loader or not. True by default
-              loaderBg: '#b1611c'  // Background color of the toast loader
-            });
-          }
+          
           if(Object.entries(data[0]['query']).length !== 0){
             var keys = Object.keys(data[0]['query'][0]);
             $.each(keys, function (index, value) {
@@ -702,33 +523,6 @@ function formularioQuery(){
             });
           }else{
             $("#queryContainer").append("No se ha encontrado ningun registro con estas condiciones");
-          }
-
-          if(data[0]['conversacionBot'] == "finalConversacionCorrectolaravel"){
-            $.toast({
-              text: "¡Enhorabuena, has completado el ejercicio!", // Text that is to be shown in the toast
-              heading: 'Correcto', // Optional heading to be shown on the toast
-              icon: 'success', // Type of toast icon
-              showHideTransition: 'slide', // fade, slide or plain
-              allowToastClose: true, // Boolean value true or false
-              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-              textAlign: 'left',  // Text alignment i.e. left, right or center
-              loader: true,  // Whether to show loader or not. True by default
-              loaderBg: '#25b516'  // Background color of the toast loader
-            });
-            ejercicioTerminado();
-            var EjercicioBot = document.getElementById("iframe").contentWindow;
-            EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
-          }else{
-            var arrayBot = new Array();
-            arrayBot[0] = data[0]['lugarConversacion'];
-            arrayBot[1] = data[0]['conversacionBot'];
-            arrayBot[2] = data[1];
-            arrayBot[3] = <?php echo $id;?>;
-            var EjercicioBot = document.getElementById("iframe").contentWindow;
-            EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
           }
         }
       }

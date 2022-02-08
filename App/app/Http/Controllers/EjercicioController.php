@@ -144,7 +144,7 @@ class EjercicioController extends Controller
       $ejerciciosResuelto =  User::select("id","ejerciciosResueltos")->find(auth()->user()->id);
       $ejercicioRe =  json_decode($ejerciciosResuelto->ejerciciosResueltos,true);
       if($ejercicioRe == null) $ejercicioRe = array();
-      if (!in_array($request->idEjercicio, $ejercicioRe)) {
+      if (!in_array($request->id, $ejercicioRe)) {
         array_push($ejercicioRe,$request->id);
         $ejerciciosResuelto->ejerciciosResueltos = json_encode($ejercicioRe);
         $ejerciciosResuelto->save();
