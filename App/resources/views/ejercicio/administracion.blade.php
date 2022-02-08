@@ -88,7 +88,7 @@ background: url('../imagenes/p2.jpg');
           <h5 class="card-header-title mb-3 text-white">Modo libre</h5>
       </div>
       <div class="card-body pt-1 px-0 text-center mb-2" style="overflow-y: auto; max-height: 180px;">
-        <div class="col-md-12 px-0" style="display:inline-flex;min-height: 5rem;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
+        <div class="col-md-12 px-0" style="display:inline-flex;min-height: 4rem;border-bottom: 2px #3a3a3a;padding-top: 4px;border-bottom-style: solid;">
           <div class="col-md-10  px-0">
             <div class="col-12  text-left">
               <span class="spanSugerencia text-white">Prueba nuestra base de datos de forma ilimitada</span>
