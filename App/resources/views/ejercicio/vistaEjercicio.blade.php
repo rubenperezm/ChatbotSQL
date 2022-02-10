@@ -519,12 +519,7 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
   tabSize:2,
   matchBrackets : true,
   autofocus: true,
-  extraKeys: {
-    "Enter": function(instance) {
-      if(instance.getValue().indexOf(";") > -1)
-      formularioQuery();
-    }
-  }
+  lineWrapping: true
 });
 
 $('#bloqueTablass').on('click', '#volverATabla',function() {
