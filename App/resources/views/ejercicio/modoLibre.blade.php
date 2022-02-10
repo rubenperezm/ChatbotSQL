@@ -193,41 +193,41 @@
                 <i class="fas fa-circle fa-stack-2x burbujaS"></i>
                 <i class="fas fa-bars fa-stack-1x burbujaI"></i>
               </span>
-            <div class="mt-4 height-45">
-              <div class="mt-2 mb-2 cardBodyEnun cardEnunciado rounded temaAppTarjeta cardListEjerciciosEnun">
-              <div class="card-body text-left mb-2">
-                <p class="card-text text-black pEnunciado">
-                  <span class="span-Enunciado">Modo Libre
-                </p>
+              <div class="mt-4 height-100">
+                <div class="mt-2 mb-2 cardBodyEnun cardEnunciado rounded temaAppTarjeta cardListEjerciciosEnun">
+                  <div class="card-body text-left mb-2">
+                    <p class="card-text text-black pEnunciado">
+                      <span class="span-Enunciado">Modo Libre
+                    </p>
+                  </div>
+                </div>
+                <div class="card temaAppTarjeta cardBloqueConsulta">
+                  <div class="card-body" id="bloqueConsulta">
+                    <div class="col-12 mb-2 px-0" ><textarea name="queryForm" class="form-control" id="formularioQuery"></textarea></div>
+                      <div class="col-12 mt-2 px-0 text-right">
+                        <button type="button" class="btn-outline-secondary botonDegradao text-white" name="button" value="query" id="botonQuery" onclick="formularioQuery();"><i class="fas fa-code"></i> EJECUTAR</button>
+                      </div>
+                    </div>
+                  </div>
+                <div class="mt-2">
+                  <div class="card temaAppTarjeta cardBloqueRespuesta" style="overflow-y: auto; overflow-x: auto">
+                    <div class="card-body" style="max-height: 21rem">
+                      <h5 class="card-title cardEstructura TituloBloqueRespuesta">Resultado Query</h5>
+                      <div class="table-responsive mt-4" style="min-height:86%;overflow-x: visible" id="container">
+                        <table class="table table-sm table-striped table-principal tablaRespuesta">
+                          <thead>
+                            <tr id="queryContainer">
+                            </tr>
+                          </thead>
+                          <tbody id="elementos">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card temaAppTarjeta cardBloqueConsulta">
-            <div class="card-body" id="bloqueConsulta">
-              <div class="col-12 mb-2 px-0" ><textarea name="queryForm" class="form-control" id="formularioQuery"></textarea></div>
-              <div class="col-12 mt-2 px-0 text-right">
-                <button type="button" class="btn-outline-secondary botonDegradao text-white" name="button" value="query" id="botonQuery" onclick="formularioQuery();"><i class="fas fa-code"></i> EJECUTAR</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mt-1 height-50">
-          <div class="card temaAppTarjeta cardBloqueRespuesta" style="overflow-y: auto; overflow-x: auto">
-          <div class="card-body" style="max-height: 21rem">
-            <h5 class="card-title cardEstructura TituloBloqueRespuesta">Resultado Query</h5>
-            <div class="table-responsive mt-4" style="min-height:86%;overflow-x: visible" id="container">
-              <table class="table table-sm table-striped table-principal tablaRespuesta">
-                <thead>
-                  <tr id="queryContainer">
-                  </tr>
-                </thead>
-                <tbody id="elementos">
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="col-md-3 p-0" id="bloqueIframe">
     <div class="cotainer-fluid  w-100 structuraBotHeader">
     <div class="fotoIframe">
