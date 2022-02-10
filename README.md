@@ -31,7 +31,7 @@ añadir también las dos bases de datos aquí. A continuación se muestra un eje
   DB_PORT=3306
   DB_DATABASE_SECOND=pruebas
   DB_USERNAME_SECOND=root
-  DB_PASSWORD_SECOND= << contraseña del root del equipo en el que se trabaje >>
+  DB_PASSWORD_SECOND= <<contraseña del root del equipo en el que se trabaje>>
 
 
 Lo último que tendremos que hacer en esta parte será ejecutar el comando << php artisan key:generate >> (necesario haber hecho el paso anterior) y comprobar que los permisos de
@@ -41,7 +41,7 @@ para cambiar el grupo de los archivos a www-data (Cuidado que en el servidor est
 Para el servidor intermedio de Node.js (en la carpeta botBD), será necesario también crear un archivo .env. Disponemos de otro archivo .env.example, que podemos utilizar como
 base. Los cambios que hay que hacer son los siguientes:
   # Environment variables
-ASSISTANT_URL= <<url del asistente >> // Por lo general, https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/<<id_instancia>>
+ASSISTANT_URL= <<url del asistente>> // Por lo general, https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/<<id_instancia>>
 ASSISTANT_ID= <<id del asistente>>
 
 # IBM Cloud connection parameters
