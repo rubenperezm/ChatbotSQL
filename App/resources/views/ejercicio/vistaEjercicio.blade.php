@@ -331,7 +331,7 @@
                 </div>
                 <div class="mt-2">
                   <div class="card temaAppTarjeta cardBloqueRespuesta" style="overflow-y: auto; overflow-x: auto">
-                  <div class="card-body" style="max-height: 21rem">
+                  <div class="card-body" style="max-height: 20rem">
                     <h5 class="card-title cardEstructura TituloBloqueRespuesta">Resultado Query</h5>
                     <div class="table-responsive mt-4" style="min-height:86%;overflow-x: visible" id="container">
                       <table class="table table-sm table-striped table-principal tablaRespuesta">
