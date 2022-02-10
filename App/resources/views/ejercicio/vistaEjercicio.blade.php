@@ -285,7 +285,7 @@
                       <h5 class="card-header-title mb-3 text-white">Resueltos por</h5>
                     </div>
                   </div>
-                  <div class="card-body text-left mb-2 structRankin filaListaEjercicios">
+                  <div class="card-body text-left mb-2 structRankin filaListaEjercicios" style="overflow-y: auto">
                     @forelse($completados as $i => $completado)
                     <div class="col-md-12 filaTabla">
                       <div class="row">
