@@ -1,5 +1,6 @@
 # chatbotBD
 
+NOTA: CUANDO SE EXPLICA LA CONFIGURACIÓN DE LOS .env, POR SEGURIDAD GITHUB SUPRIME LOS PARÁMETROS. PARA VERLOS, PODÉIS LEER EL TEXTO RAW
 ## Introducción
 Este proyecto consiste en una plataforma de aprendizaje de SQL. Consta de dos partes: una parte hecha en PHP & Laravel, que constituye la plataforma en sí, y otra parte
 elaborada con Node.js, que sería la encargada de conectar la plataforma con un chatbot de IBM Watson Assistant (basado en https://github.com/watson-developer-cloud/assistant-simple).
