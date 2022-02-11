@@ -209,7 +209,8 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById('formularioQu
 		lineNumbers: true,
     tabSize:2,
 		matchBrackets : true,
-		autofocus: true
+		autofocus: true,
+    lineWrapping: true
 });
 
 
