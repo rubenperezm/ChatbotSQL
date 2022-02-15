@@ -23,7 +23,7 @@ background: url('../imagenes/p2.jpg');
     </button>
   </div>
   <div class="col-md-7"  style="justify-content:center;">
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf7B7dUL544R0Xlg5snaf3Rr-MbPuqKYRxrbPmp528Qmz9qKA/viewform?embedded=true" style="height: 90%; width: 100%;
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfo_qehHurhJdtihfs546DWXxRmAPibiAEvB6m9YzaYNGcffA/viewform?embedded=true" style="height: 90%; width: 100%;
   margin-top: 2rem;
   " frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
   </div>
