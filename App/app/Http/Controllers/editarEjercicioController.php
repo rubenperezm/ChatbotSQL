@@ -92,7 +92,6 @@ class editarEjercicioController extends Controller
       array_push($clausulaArray ,"from");
     }
     
-    //ANADIR AQUI CONSULTA ANIDADA
     
     if(!$esShow){
       if(stripos($Ejercicio->solucionQuery, 'describe') !== false){

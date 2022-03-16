@@ -341,14 +341,14 @@ if (value != ""){
     }
   });
 
-  if(!existeShow  && !existeDescribe){
+  /*if(!existeShow  && !existeDescribe){
     //$('#describeEnun').removeClass("d-none");
     //$('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
     //$('#describeEnunciado').prop('required',true);
     $('#describePistas').removeClass("d-none");
     $('#describePista').prop('required',true);
     $('#describePista').val("<?php if(isset($ayuda[1]["texto"])){echo($ayuda[1]["texto"]);} ?>");
-  }
+  }*/
 
   myCodeMirror.setValue("<?php if(isset($Ejercicio->solucionQuery)){echo($Ejercicio->solucionQuery);} ?>");
 
