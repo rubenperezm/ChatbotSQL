@@ -592,7 +592,7 @@ function formularioQueryCrear(){
               case "from":
               $('#fromPistas').removeClass("d-none");
               $('#fromPista').prop('required',true);
-              $('#fromPista').val("Selecciona las tablas necesarias en este ejercicio.");
+              $('#fromPista').val("Selecciona las tablas necesarias en este ejercicio");
               break;
               default:
               console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
