@@ -461,6 +461,13 @@ $.ajaxSetup({
 //variable para no permitir dos query con la misma consulta
 var queryAnterior = "";
 function formularioQuery(){
+  var doc = myCodeMirror.getDoc();
+  var cursor = doc.getCursor();
+  var line = doc.getLine(cursor.line);
+  var pos = { line: cursor.line};
+  if(!line.endsWith(';')){
+    doc.replaceRange(';', pos);
+  }
   var query = myCodeMirror.getValue();
   query = query.split("\n").join(" ");
   query = query.split("\t").join(" ");
@@ -517,7 +524,7 @@ function formularioQuery(){
               });
             });
           }else{
-            $("#queryContainer").append("No se ha encontrado ningun registro con estas condiciones");
+            $("#queryContainer").append("No se ha encontrado ningún registro con estas condiciones");
           }
         }
       }

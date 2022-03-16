@@ -41,13 +41,13 @@ function displayMessage (evt) {
         if(ejercicio[1] !== 0){
           usandoPromesas("http://localhost/api/apiEjercicio/show/" + evt.data[3])
           .then( data =>{
-            var enunciado = JSON.parse(data[0]['enunciado']);
+            //var enunciado = JSON.parse(data[0]['enunciado']);
             var ayuda = JSON.parse(data[0]['ayuda']);
-            if(typeof(enunciado[evt.data[0]]) !== "undefined" && typeof(ayuda[evt.data[0]-1]) !== "undefined"){
-              ConversationPanel.sendMessage(evt.data[1],enunciado[evt.data[0]]['texto'],ayuda[evt.data[0]-1]['texto'],evt.data[2]);
-            }else{
-              console.log("no existe");
-            }
+            //if(typeof(enunciado[evt.data[0]]) !== "undefined" && typeof(ayuda[evt.data[0]-1]) !== "undefined"){
+              ConversationPanel.sendMessage(evt.data[1],ayuda,evt.data[2]);
+            //}else{
+              //console.log("no existe");
+            //}
           })
           .catch(error => console.error(error));
         }else{
@@ -122,8 +122,8 @@ var ConversationPanel = (function () {
               'main skill':{
                 'user_defined':{
                   'enunciadoEjercicio' : enunciado[0]['texto'],
-                  'enunciadoClausula' : enunciado[1]['texto'],
-                  'ayudaClausula' : ayuda[0]['texto']
+                  //'enunciadoClausula' : enunciado[1]['texto'],
+                  'ayudaClausula' : ayuda
                 }
               }
             }  
@@ -458,17 +458,17 @@ function scrollToChatBottom() {
   scrollingChat.scrollTop = scrollingChat.scrollHeight;
 }
 
-function sendMessage(text, fromLaravelEnunciado = "", fromLaravelAyuda = "",fromLaravelComprobar = new Array()) {
+function sendMessage(text, fromLaravelAyuda = "",fromLaravelComprobar = new Array()) {
   // Retrieve the context from the previous server response
   var context;
   var latestResponse = Api.getResponsePayload();
   if (latestResponse) {
     context = latestResponse.context;
   }
-  if(fromLaravelEnunciado !== ""){
+  /*if(fromLaravelEnunciado !== ""){
     context['skills']['main skill']['user_defined']['enunciadoClausula'] = fromLaravelEnunciado;
     context['skills']['main skill']['user_defined']['ayudaClausula'] = fromLaravelAyuda;
-  }
+  }*/
   if(fromLaravelComprobar.length > 0){
     context['skills']['main skill']['user_defined'].comprobarClausula = "";
     for (var i = 0; i < fromLaravelComprobar.length; i++) {

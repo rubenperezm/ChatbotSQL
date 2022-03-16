@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,6 +9,7 @@ use App\User;
 use Session;
 use Response;
 use DB;
+use Illuminate\Support\Facades\Config;
 
 class EjercicioController extends Controller
 {
@@ -34,7 +34,7 @@ class EjercicioController extends Controller
      */
     public function index($id)
     {
-        Session::put('lugarConversacion',0);
+        //Session::put('lugarConversacion',0);
         $solucion = Ejercicio::find($id);
         $json = json_decode($solucion->enunciado);
         $enun = $json[0]->texto;
@@ -50,6 +50,7 @@ class EjercicioController extends Controller
           ->leftJoin('users','user_id', '=','users.id')
           ->where("completado",2)
           ->where("ejercicio_id",$id)
+          ->where("esProfesor", '=', 0)
           ->orderBy("logs.created_at")
           ->get();
        $unique = $completados->unique('user_id');
@@ -155,17 +156,17 @@ class EjercicioController extends Controller
 
     public function ajaxFormularioQuery(Request $request)
     {
-
-
-
         $solucion = Ejercicio::find($request['id']);
         $solucionQuery = $solucion->solucionQuery;
         $stringUsuario = strtolower($request['query']);
         $stringUsuario   = trim($stringUsuario);
         $respuestaQuery = array();
         $mejoraConsulta = array();
+        $stringUsuario = trim($stringUsuario, ';');
+        $solucionQuery = trim($solucionQuery, ';');
+
         $mensajeSec = "No se contemplan este tipo de consultas para realizar este ejercicio";
-        if(stripos($stringUsuario, 'show databases') !== false){
+        if(stripos($stringUsuario, 'show') !== false && stripos($stringUsuario,'show tables') === false){
           array_push($respuestaQuery ,array("query" => $mensajeSec,"conversacionBot" => "securityMess"));
           return Response::json($respuestaQuery);
         }
@@ -178,113 +179,67 @@ class EjercicioController extends Controller
           return Response::json($respuestaQuery);
         }
 
-        $this->solucionLugar = lugarSolucion($solucionQuery);
         $logIntento = Logs::where("uuidIntento",$request['uuid'])->first();
         try {
-         $users = DB::connection('mysql2')->select($stringUsuario);
-         if(esSolucionString($solucionQuery,$stringUsuario) || (soloFaltaOrderBy($solucionQuery,$stringUsuario) && Session::get('lugarConversacion') < 6)){
-           if(soloFaltaOrderBy($solucionQuery,$stringUsuario)){
-             //salto correcto having
-             Session::put('lugarConversacion',6);
-             array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-           }else{
-             array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "finalConversacionCorrectolaravel"));
-           }
-         }else{
-           if(compruebaPasoSiguiente($stringUsuario,$this->conversacion[Session::get('lugarConversacion')])){
-             if(comprueba($stringUsuario,$solucionQuery,$this->conversacion[Session::get('lugarConversacion')],$mejoraConsulta)){
-               //si avazamos a la siguiente pos de un select teniendo un groupby sin where tenemos que saltarnos el where
-               if(groupBySinWhere($solucionQuery) && $this->conversacion[Session::get('lugarConversacion')] == "select"){
-                 //lugar que ocupa tras ser un salto correcto de where
-                 Session::put('lugarConversacion',4);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }else{
-                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "pasaSiguiente  laravel","lugarConversacion" => Session::get('lugarConversacion')+1)); //el +1 en el lugarConversacion es porque en la base de datos el 0 es el enunciado
-               }
-             }else{
-               array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "comprobacion_query  laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-             }
-           }else{
-             if (stripos($stringUsuario, 'order by') !== false && Session::get('lugarConversacion') < 6 && 6 <= $this->solucionLugar) {
-               Session::put('lugarConversacion',6);
-               if(comprueba($stringUsuario,$solucionQuery,"order by",$mejoraConsulta)){
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "finalConversacionCorrectolaravel"));
-               }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_order_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }
-             }elseif(stripos($stringUsuario, 'where') === false && stripos($stringUsuario, 'select') !== false
-             && stripos($stringUsuario, 'group by') === false && stripos($stringUsuario, 'having') === false && Session::get('lugarConversacion') < 2 && 2 <= $this->solucionLugar){
-               Session::put('lugarConversacion',2);
-               if(comprueba($stringUsuario,$solucionQuery,"select",$mejoraConsulta)){
-                 if(groupBySinWhere($solucionQuery)){
-                   Session::put('lugarConversacion',4);
-                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-                 }else{
-                   if(orderBySolo($solucionQuery)){
-                     Session::put('lugarConversacion',6);
-                     array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-                   }else{
-                     Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                     array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_select_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-                   }
-                 }
-               }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_select_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }
-             }elseif (stripos($stringUsuario, 'show') !== false && Session::get('lugarConversacion') < 0 &&  0 <= $this->solucionLugar) {
-               Session::put('lugarConversacion',0);
-               array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_show_correcto","lugarConversacion" => Session::get('lugarConversacion')+1));
-               Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-             }elseif (stripos($stringUsuario, 'describe') !== false && Session::get('lugarConversacion') < 1 &&  1 <= $this->solucionLugar) {
-               Session::put('lugarConversacion',1);
-               if(comprueba($stringUsuario,$solucionQuery,"describe",$mejoraConsulta)){
-                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_describe_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }
-             }elseif (stripos($stringUsuario, 'select') !== false && stripos($stringUsuario, 'where') !== false && stripos($stringUsuario, 'group by') === false && stripos($stringUsuario, 'having') === false
-             && Session::get('lugarConversacion') < 3 && 3 <= $this->solucionLugar) {
-               Session::put('lugarConversacion',3);
-               if(comprueba($stringUsuario,$solucionQuery,"where",$mejoraConsulta)){
-                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_where_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }
-             }elseif (stripos($stringUsuario, 'group by') !== false && stripos($stringUsuario, 'having') === false && Session::get('lugarConversacion') < 4 && 4 <= $this->solucionLugar) {
-               Session::put('lugarConversacion',4);
-               $whereCase = "groupBySinWhere";
-               if(stripos($stringUsuario, 'where') !== false) $whereCase = "groupByConWhere";
-               if(comprueba($stringUsuario,$solucionQuery,$whereCase,$mejoraConsulta)){
-                 if(stripos($solucionQuery, 'having') !== false){
-                   Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-                 }else{
-                   //si no existe ira directo al order by
-                   Session::put('lugarConversacion',Session::get('lugarConversacion')+2);
-                   array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-                 }
-               }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_group_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }
-             }
-             elseif (stripos($stringUsuario, 'group by') !== false && stripos($stringUsuario, 'having') !== false && Session::get('lugarConversacion') < 5 && 5 <= $this->solucionLugar) {
-               Session::put('lugarConversacion',5);
-               $whereCase = "havingSinWhere";
-               if(stripos($stringUsuario, 'where') !== false) $whereCase = "havingConWhere";
-               if(comprueba($stringUsuario,$solucionQuery,$whereCase,$mejoraConsulta)){
-                 Session::put('lugarConversacion',Session::get('lugarConversacion')+1);
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_correcto laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }else{
-                 array_push($respuestaQuery ,array("query" => $users,"conversacionBot" => "salto_having_parcial laravel","lugarConversacion" => Session::get('lugarConversacion')+1));
-               }
-             }
-           }
+         $users1 = DB::connection('mysql2')->select($stringUsuario);
+         $sol1 = DB::connection('mysql2')->select($solucionQuery);
+         $users2 = DB::connection('mysql3')->select($stringUsuario);
+         $sol2 = DB::connection('mysql3')->select($solucionQuery);
 
-           if(empty($respuestaQuery))array_push($respuestaQuery ,array("query" => $users));
-         }
+          if($users1 == $sol1 && $users2 == $sol2){ //Consulta correcta
+            array_push($respuestaQuery ,array("query" => $users1,"conversacionBot" => "finalConversacionCorrectolaravel"));
+          }
+          else{
+            $arrayQueryUser = queryToArray($stringUsuario);
+            $arraySolucion = queryToArray($solucionQuery);
+            //Caso Solucion sea Describe
+            if(array_key_exists('describe', $arrayQueryUser[0])){
+              if(array_key_exists('describe', $arraySolucion[0])){
+                array_push($mejoraConsulta,"La tabla no es correcta.");
+                array_push($respuestaQuery ,array('query' => $users1,'conversacionBot' => 'comprobacion_query laravel'));
+              }
+              else{
+                array_push($respuestaQuery ,array("query" => $users1,"conversacionBot" => "nadaLaravel"));  
+              }
+            }
+          //Caso solucion sea show tables
+            elseif(array_key_exists('show', $arrayQueryUser[0])){
+                array_push($respuestaQuery ,array("query" => $users1,"conversacionBot" => "nadaLaravel"));  
+            }
+            else{//SELECT-------------------------------------------------------------------------
+              $mensaje = false;
+              array_push($respuestaQuery, array("query" => $users1, "conversacionBot" => "comprobacion_query laravel"));       
+              if(selectsEnDescribeOShow($arraySolucion[0], $mejoraConsulta)){$mensaje = true;}
+              elseif(comprobacionesUnion($stringUsuario, $solucionQuery, $arrayQueryUser, $arraySolucion, $mejoraConsulta)){$mensaje = true;}
+              else{
+                $selectUser = str_replace(" as ", "", $arrayQueryUser[0]["select"]);
+                $selectSol =  str_replace(" as ", "", $arraySolucion[0]["select"]);
+                $camposUser = getCampos($selectUser);
+                $camposSol = getCampos($selectSol);
+                if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,$mejoraConsulta)){$mensaje = true;}
+                elseif(comprobacionesFrom($arrayQueryUser[0]['from'], $arraySolucion[0]['from'], $mejoraConsulta)){$mensaje = true;}
+                elseif(array_key_exists('order by', $arraySolucion[0])){
+                  if(!array_key_exists('order by', $arrayQueryUser[0])){
+                    array_push($mejoraConsulta, "Recuerda ordenar tu consulta.");
+                    $mensaje = true;
+                  }
+                  elseif(comprobacionesOrderBy($arrayQueryUser[0]['order by'], $arraySolucion[0]['order by'], $camposUser, $camposSol, $mejoraConsulta)){$mensaje = true;}
+                }
+                elseif(!$mensaje && array_key_exists('group by', $arraySolucion[0])){
+                  if(!array_key_exists('group by', $arrayQueryUser[0])){
+                    array_push($mejoraConsulta, "Recuerda que debes utilizar la cláusula group by.");
+                    $mensaje = true;
+                  }
+                  elseif(comprobacionesGroupBy($arrayQueryUser[0]['group by'], $arraySolucion[0]['group by'], $camposUser, $camposSol, $mejoraConsulta)){$mensaje = true;}
+                }
+                if(!$mensaje && comprobacionesWhereHaving($users1, $users2, $sol1, $sol2, $mejoraConsulta)){$mensaje = true;}
+                elseif(!$mensaje){
+                  array_push($mejoraConsulta, "Tu consulta no es correcta. Revísala, e inténtalo de nuevo.");
+                  $mensaje = true;
+                }
+              }   
+            }  
+          }
         } catch(\Illuminate\Database\QueryException $ex){
           $respuestaQuery = array();
           $msg = "ErrorVialaravel";
@@ -355,7 +310,7 @@ class EjercicioController extends Controller
             $logIntento->consultas = $consultas;
             $logIntento->save();
           }
-          array_push($respuestaQuery ,array("query" => $ex->getMessage(),"conversacionBot" => $msg));
+          array_push($respuestaQuery ,array('query' => $ex->getMessage(),'conversacionBot' => $msg));
           return Response::json($respuestaQuery);
         }
         if($logIntento !== null){
@@ -384,550 +339,261 @@ class EjercicioController extends Controller
         }
         array_push($respuestaQuery,$mejoraConsulta);
         return Response::json($respuestaQuery);
-    }
-
-}
-
-function groupBySinWhere($solucion){
-  $solucion = strtolower($solucion);
-  if(stripos($solucion, 'where') === false && stripos($solucion, 'group by') !== false) return true;
-  else return false;
-}
-function orderBySolo($solucion){
-  $solucion = strtolower($solucion);
-  if(stripos($solucion, 'where') === false && stripos($solucion, 'group by') === false && stripos($solucion, 'order by') !== false) return true;
-  else return false;
-}
-
-function soloFaltaOrderBy($solucion,$miString){
-  $solucionRegister = DB::connection('mysql2')->select($solucion);
-  $miStringRegister = DB::connection('mysql2')->select($miString);
-  if(esSolucion($solucionRegister,$miStringRegister) && stripos($solucion, 'order by') !== false && stripos($miString, 'order by') === false) return true;
-  else return false;
-}
-
-function esSolucionString($solucion,$miString){
-  $solucionArray = DB::connection('mysql2')->select($solucion);
-  $miStringArray = DB::connection('mysql2')->select($miString);
-  if(stripos($solucion, 'order by') !== false){
-    if(esSolucion($solucionArray,$miStringArray)){
-      $mejoraConsulta = array();
-      if(comprueba($miString,$solucion,"order by",$mejoraConsulta))return true;
-      else return false;
-    }else return false;
-  }else return esSolucion($solucionArray,$miStringArray);
-}
-
-function esSolucion($solucion,$miString){
-  if(count($solucion) == count($miString)){
-    $esIgual = true;
-    foreach ($miString as $key => $value) {
-      if (!compruebaRegistro($value,$solucion)){
-         $esIgual = false;
-      }
-    }
-  }else{
-    return false;
-  }
-  if($esIgual) return true;
-  else return false;
-}
-
-function compruebaRegistro($registroAComparar,$solucion){
-  $existeCoincidencia = false;
-  foreach ($solucion as $key => $value) {
-    $diff = collect($value)->diffAssoc(collect($registroAComparar));
-    //tiene que tener el mismo numero de registro
-    if(empty($diff->all()) && collect($value)->count() == collect($registroAComparar)->count()) $existeCoincidencia = true;
-  }
-  if($existeCoincidencia) return true;
-  else return false;
-}
-
-
-function comprueba($miString,$solucion,$tipoConsulta,&$mejoraConsulta){
-    switch ($tipoConsulta) {
-      case 'select':
-        if(compruebaTabla($miString,$solucion,"from") && compruebaCampos($miString,$solucion)) return true;
-        else{
-          if (!compruebaTabla($miString,$solucion,"from")) {
-              array_push($mejoraConsulta,"Upps, parece que no has introducido el nombre de la tabla que es, repasa si estás buscando en la tabla correcta");
-          }
-          if (!compruebaCampos($miString,$solucion)) {
-            array_push($mejoraConsulta,"Debes repasar los campos introducido. Recuerda buscar solo en los campos que se piden, para no consumir recursos innecesarios");
-          }
-          return false;
-        }
-        break;
-      case 'show':
-        return true;
-        break;
-      case 'where':
-      if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion)) return true;
-      else{
-        if (!compruebaTabla($miString,$solucion,"from")) {
-          array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-        }
-        if (!compruebaCampos($miString,$solucion)) {
-          array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-        }
-        if (!compruebaFiltro($miString,$solucion)) {
-          array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
-        }
-        return false;
-      }
-        break;
-      case 'describe':
-        if(compruebaTabla($miString,$solucion,"describe")) return true;
-        else {
-          if (!compruebaTabla($miString,$solucion,"describe")) {
-            array_push($mejoraConsulta,"Parece ser que hay un error en la tabla seleccionada, repasa en que tabla estás consultando");
-          }
-          return false;
-        }
-        break;
-      case 'groupBySinWhere':
-        if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaCamposGroup($miString, $solucion)) return true;
-        else{
-          if (!compruebaTabla($miString,$solucion,"from")) {
-            array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-          }
-          if (!compruebaCampos($miString,$solucion)) {
-            array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-          }
-          if (!compruebaCamposGroup($miString,$solucion)) {
-            array_push($mejoraConsulta,"Deberías repasar la tabla seleccionada para agrupar ");
-          }
-          return false;
-        }
-        break;
-      case 'groupByConWhere':
-        if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion)) return true;
-        else{
-          if (!compruebaTabla($miString,$solucion,"from")) {
-            array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-          }
-          if (!compruebaCampos($miString,$solucion)) {
-            array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-          }
-          if (!compruebaFiltro($miString,$solucion)) {
-            array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
-          }
-          if (!compruebaCamposGroup($miString,$solucion)) {
-            array_push($mejoraConsulta,"Deberías repasar la tabla has decidido usar para agrupar");
-          }
-          return false;
-        }
-        break;
-      case 'group by':
-        if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion)) return true;
-        else{
-          if (!compruebaTabla($miString,$solucion,"from")) {
-            array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-          }
-          if (!compruebaCampos($miString,$solucion)) {
-            array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-          }
-          if (!compruebaFiltro($miString,$solucion)) {
-            array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
-          }
-          if (!compruebaCamposGroup($miString,$solucion)) {
-            array_push($mejoraConsulta,"Deberías repasar la tabla has decidido usar para agrupar");
-          }
-          return false;
-        }
-        break;
-    case 'having':
-    if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
-    else{
-      if (!compruebaTabla($miString,$solucion,"from")) {
-        array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-      }
-      if (!compruebaCampos($miString,$solucion)) {
-        array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-      }
-      if (!compruebaFiltro($miString,$solucion)) {
-        array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
-      }
-      if (!compruebaCamposGroup($miString,$solucion)) {
-        array_push($mejoraConsulta,"Deberías repasar la tabla has decidido usar para agrupar");
-      }
-      if (!compruebaFiltroHaving($miString,$solucion)) {
-        array_push($mejoraConsulta,"Upps veo que tiene un fallo en el filtro de grupos(having)");
-      }
-
-      return false;
-      }
-      break;
-      case 'havingConWhere':
-      if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
-      else{
-        if (!compruebaTabla($miString,$solucion,"from")) {
-          array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-        }
-        if (!compruebaCampos($miString,$solucion)) {
-          array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-        }
-        if (!compruebaFiltro($miString,$solucion)) {
-          array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
-        }
-        if (!compruebaCamposGroup($miString,$solucion)) {
-          array_push($mejoraConsulta,"Deberías repasar la tabla has decidido usar para agrupar");
-        }
-        if (!compruebaFiltroHaving($miString,$solucion)) {
-          array_push($mejoraConsulta,"Upps veo que tiene un fallo en el filtro de grupos(having)");
-        }
-
-        return false;
-        }
-        break;
-      case 'havingSinWhere':
-      if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion) && compruebaFiltroHaving($miString, $solucion)) return true;
-      else{
-        if (!compruebaTabla($miString,$solucion,"from")) {
-          array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-        }
-        if (!compruebaCampos($miString,$solucion)) {
-          array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-        }
-        if (!compruebaCamposGroup($miString,$solucion)) {
-          array_push($mejoraConsulta,"Parece ser que tienes que repasar que tablas estás usando para agrupar");
-        }
-        if (!compruebaFiltroHaving($miString,$solucion)) {
-          array_push($mejoraConsulta,"Upps veo que tiene un fallo en el filtro de grupos(having)");
-        }
-
-        return false;
-        }
-        break;
-        case 'order by':
-        if(compruebaCampos($miString,$solucion) && compruebaTabla($miString, $solucion,"from") && compruebaFiltro($miString, $solucion) && compruebaCamposGroup($miString, $solucion)
-         && compruebaFiltrohaving($miString, $solucion) && compruebaCamposOrderby($miString, $solucion)) return true;
-        else{
-          if (!compruebaTabla($miString,$solucion,"from")) {
-            array_push($mejoraConsulta,"Estás seguro de haber utilizado la tabla correcta?, repasa la tabla elegida.");
-          }
-          if (!compruebaCampos($miString,$solucion)) {
-            array_push($mejoraConsulta, "Parece ser que los campos que has utilizado no son los indicados. Recuerda buscar solo en los campos que te hayan pedido, para no consumir recursos innecesarios");
-          }
-          if (!compruebaFiltro($miString,$solucion)) {
-            array_push($mejoraConsulta,"Deberías repasar el filtro utilizado en el where. Ten en cuenta, que una errónea selección de campos podría afectar al filtro. Así que primero asegurate de seleccionar los campos correctamente");
-          }
-          if (!compruebaCamposGroup($miString,$solucion)) {
-            array_push($mejoraConsulta,"Parece ser que tienes que repasar que tablas estás usando para agrupar");
-          }
-          if (!compruebaFiltrohaving($miString,$solucion)) {
-            array_push($mejoraConsulta,"Upps veo que tiene un fallo en el filtro de grupos(having)");
-          }
-          if (!compruebaCamposOrderby($miString,$solucion)) {
-            array_push($mejoraConsulta,"Parece que hay un fallo en tu tabla elegida para ordenar");
-          }
-          return false;
-          }
-          break;
-
-      default:
-        return false;
-        break;
-    }
-}
-
-function compruebaPasoSiguiente($miString,$clausula){
-  if($clausula === "select"){
-    if(stripos($miString, 'where') === false && stripos($miString, 'select') !== false) return true;
-    else return false;
-  }else{
-    if(stripos($miString, $clausula)!== false) return true;
-    else return false;
   }
 }
+function queryToArray($query){
+  $espaciado = function ($coincidencias)
+  {
+  return trim($coincidencias[1])." ".trim($coincidencias[2])." ".trim($coincidencias[3]);
+  };
+  $query =  preg_replace_callback(
+    "/(\w|\s+|^|')([^\w&\s&^']+)(\s+|\w|'|$)/",
+    $espaciado,
+    $query);   
+  //Subdividir por la unión
+  $partesUnion = preg_split("/\sunion\s|\sunion\sall\s/i", $query);
+  $res = array(); //Array de cada subconsulta del union
+  $matches = array();
+  $inicios = array();
+  $finales = array();
+  foreach($partesUnion as $parte){
+    preg_match_all("/[^\^]\(\sselect/i", $parte, $matches, PREG_OFFSET_CAPTURE, 3);
+    foreach($matches[0] as $m){
+      $inicios[] = $m[1];
 
-function compruebaTabla($miString,$solucion,$tipoConsulta){
-  $solucion = strtolower($solucion);
-  $miString = strtolower($miString);
-
-  $consultaSegmentada = explode($tipoConsulta, $miString);
-  $consultaSeg = trim($consultaSegmentada[1]);
-  $consultaSeg = trim($consultaSeg, ";");
-  $tablaConsulta = explode(' ', $consultaSeg);
-
-
-  switch ($solucion) {
-    case (stripos($solucion, 'describe') !== false):
-      $solucionSegmentada = explode("describe", $solucion);
-      $consultaSeg = trim($solucionSegmentada[1]);
-      $consultaSeg = trim($consultaSeg, ";");
-      $tablaSolucion = explode(' ', $consultaSeg);
-      break;
-    case (stripos($solucion, 'from') !== false):
-      $solucionSegmentada = explode("from", $solucion);
-      $consultaSeg = trim($solucionSegmentada[1]);
-      $consultaSeg = trim($consultaSeg, ";");
-      $tablaSolucion = explode(' ', $consultaSeg);
-      break;
-    default:
-      return 99;
-      break;
-  }
-
-  if($tablaConsulta[0] == $tablaSolucion[0]) return true;
-  else return false;
-}
-
-function compruebaFiltroHaving($miString,$solucion){
-  $solucion = strtolower($solucion);
-  $miString = strtolower($miString);
-  if(stripos($solucion, 'having') !== false){
-
-    if(stripos($miString, 'having') === false){
-      return false;
     }
-
-    if(stripos($solucion, 'order by') !== false ){
-      $solucionSegmentada = explode("order by", $solucion);
-      $solucion = trim($solucionSegmentada[0]);
-    }
-
-    $miStringCollect = DB::connection('mysql2')->select($miString);
-    $solucionCollect = DB::connection('mysql2')->select($solucion);
-
-    if(count($solucionCollect) == count($miStringCollect)){
-      $esIgual = true;
-      foreach ($miStringCollect as $key => $value) {
-        if (!compruebaRegistro($value,$solucionCollect)){
-           $esIgual = false;
+      //Buscamos '(' y ')'
+      for($com = 0; $com < count($inicios); $com++){
+        $i = $inicios[$com] + 8; // AHORRAMOS EL '( SELECT'
+        $contParentesis = 1;
+        while($contParentesis !== 0){
+          if($parte[$i] === '(') $contParentesis++;
+          elseif($parte[$i] === ')') $contParentesis--;
+          $i++;
+        }
+        $finales[] = $i;
+        if($com !== count($inicios)-1 && $finales[count($finales)-1] > $inicios[$com + 1]){
+          unset($inicios[$com + 1]);
+          $inicios = array_values($inicios);
         }
       }
-    }else{
-      return false;
-    }
-
-
-    if($esIgual) return true;
-    else return false;
-  }else{
-    return true;
-  }
-}
-
-function compruebaFiltro($miString,$solucion){
-  $solucion = strtolower($solucion);
-  $miString = strtolower($miString);
-  if(stripos($solucion, 'where') !== false){
-
-    if(stripos($miString, 'where') === false){
-      return false;
-    }
-
-    if(stripos($solucion, 'group by') !== false ){
-      $solucionSegmentada = explode("group by", $solucion);
-      $solucion = trim($solucionSegmentada[0]);
-    }else{
-      if(stripos($solucion, 'order by') !== false ){
-        $solucionSegmentada = explode("order by", $solucion);
-        $solucion = trim($solucionSegmentada[0]);
+  
+  preg_match_all("/(\s|^)(describe|show|select|from|where|group\sby|having|order\sby)(\s)/i", $parte, $matches2, PREG_OFFSET_CAPTURE);
+  $particiones = array();
+  $matches2 = $matches2[0];
+  $a = 0;
+  $modified = false;
+  while($a < count($matches2)){
+  $modified = false;
+  for($i = 0; $i < count($inicios) && $matches2[$a][1] > $inicios[$i]; $i++){
+        if($matches2[$a][1] < $finales[$i]){
+          array_splice($matches2, $a, 1);
+          $modified = true;
       }
     }
-
-    $miStringCollect = DB::connection('mysql2')->select($miString);
-    $solucionCollect = DB::connection('mysql2')->select($solucion);
-    $miStringCollect = DB::connection('mysql2')->select($miString);
-
-    if(count($solucionCollect) == count($miStringCollect)){
-      $esIgual = true;
-      foreach ($miStringCollect as $key => $value) {
-        if (!compruebaRegistro($value,$solucionCollect)){
-           $esIgual = false;
-        }
-      }
-    }else{
-      return false;
-    }
-
-    if($esIgual) return true;
-    else return false;
-  }else{
-    return true;
+  if($modified === false){
+      $a++;
   }
+  }
+  for($it = 0; $it < count($matches2); $it++){
+  if($it+1 == count($matches2)){
+  $particiones[strtolower(trim($matches2[$it][0]))] = strtolower(substr($parte, $matches2[$it][1]));
+  }
+  else{
+  $particiones[strtolower(trim($matches2[$it][0]))] = strtolower(substr($parte, $matches2[$it][1], $matches2[$it+1][1]-$matches2[$it][1]));
+  }
+
+
+  }
+
+  $res[] = $particiones;
+  } 
+return $res;
+
 }
 
-function compruebaCamposOrderby($miString,$solucion){
-  $solucion = strtolower($solucion);
-  $miString = strtolower($miString);
-  $solucion = str_replace(";", "", $solucion);
-  $miString = str_replace(";", "", $miString);
-  if(stripos($solucion, 'order by') !== false){
-    if(stripos($miString, 'order by') === false){
-      return false;
-    }
 
-    $esIgual = true;
-    $solucionSegmentada = explode("order by", $solucion);
-    $consultaSolucionSeg = trim($solucionSegmentada[1]);
-    $consultaSolucionSeg = explode(' ', $consultaSolucionSeg);
-    //Quitamos los asc para que no se tengan en cuenta al comparar
-    foreach ($consultaSolucionSeg as $key => $value) {
-      $consultaSolucionSeg[$key] = trim($consultaSolucionSeg[$key], ",");
-      if($consultaSolucionSeg[$key] === "asc") unset($consultaSolucionSeg[$key]);
-    }
-    $consultaSolucionSeg = array_values($consultaSolucionSeg);
-    $miStringSegmentado = explode("order by", $miString);
-    $consultaMiStringSeg = trim($miStringSegmentado[1]);
-    $consultaMiStringSeg = explode(' ', $consultaMiStringSeg);
-    foreach ($consultaMiStringSeg as $key => $value) {
-      $consultaMiStringSeg[$key] = trim($consultaMiStringSeg[$key], ",");
-      if($consultaMiStringSeg[$key] === "asc") unset($consultaMiStringSeg[$key]);
-    }
-    $consultaMiStringSeg = array_values($consultaMiStringSeg);
-    foreach ($consultaSolucionSeg as $key => $value) {
-      if($consultaSolucionSeg[$key] !== $consultaMiStringSeg[$key]) $esIgual =  false;
-    }
-
-    if($esIgual){
-      $solucionCollect = DB::connection('mysql2')->select($solucion);
-      $miStringCollect = DB::connection('mysql2')->select($miString);
-      foreach ($solucionCollect as $i => $solu) {
-        $resultado = array_diff((array)$solu, (array)$miStringCollect[$i]);
-        if(!empty($resultado)){
-          return false;
-        }
-      }
-      return true;
-    }
-    else return false;
-
-  }else{
-    return true;
+function selectsEnDescribeOShow($arraySolucion, &$mejoraConsulta){
+  $v = false;
+  //Primero comprobamos que no estemos haciendo un select para consultas simples (show/describe)
+  if(array_key_exists('describe', $arraySolucion)||array_key_exists('show', $arraySolucion)){
+    $v = true;
+    array_push($mejoraConsulta, "Tienes ganas de consultas más complejas, pero este ejercicio es mucho más básico");              
   }
+  return $v;
 }
 
-function compruebaCamposGroup($miString,$solucion){
-  $solucion = strtolower($solucion);
-  $miString = strtolower($miString);
-  $solucion = str_replace(";", "", $solucion);
-  $miString = str_replace(";", "", $miString);
-  if(stripos($solucion, 'group by') !== false){
-
-    if(stripos($solucion, 'group by') === false){
-      return false;
-    }
-
-    $esIgual = true;
-
-    $solucionSegmentada = explode("group by", $solucion);
-    $consultaSolucionSeg = trim($solucionSegmentada[1]);
-    if(stripos($consultaSolucionSeg, 'having') === false && stripos($consultaSolucionSeg, 'order by') !== false){
-      $consultaSolucionSeg = explode("order by", $consultaSolucionSeg);
-      $consultaSolucionSeg = trim($consultaSolucionSeg[0]);
-      $consultaSolucionSeg = explode(' ', $consultaSolucionSeg);
-    }else{
-      if(stripos($consultaSolucionSeg, 'having') !== false ){
-        $consultaSolucionSeg = explode("having", $consultaSolucionSeg);
-        $consultaSolucionSeg = trim($consultaSolucionSeg[0]);
-        $consultaSolucionSeg = explode(' ', $consultaSolucionSeg);
+function comprobacionesUnion($stringUsuario, $solucionQuery, $arrayQueryUser, $arraySolucion, &$mejoraConsulta){
+  $v = false;
+  //Mismo numero de UNIONs
+  if(count($arrayQueryUser) != count($arraySolucion)){
+    $v = true;
+    if(count($arraySolucion) > 1){
+      if(count($arrayQueryUser) == 1){
+        array_push($mejoraConsulta, "Intenta resolver este ejercicio usando la cláusula union.");
       }else{
-        $consultaSolucionSeg = explode(' ', $consultaSolucionSeg);
+        array_push($mejoraConsulta, "Estás usando un número distinto de cláusulas union al que deberías estar usando.");
       }
-    }
-
-    $miStringSegmentado = explode("group by", $miString);
-    $consultaMiStringSeg = trim($miStringSegmentado[1]);
-    if(stripos($consultaMiStringSeg, 'having') === false && stripos($consultaMiStringSeg, 'order by') !== false){
-      $consultaMiStringSeg = explode("order by", $consultaMiStringSeg);
-      $consultaMiStringSeg = trim($consultaMiStringSeg[0]);
-      $consultaMiStringSeg = explode(' ', $consultaMiStringSeg);
     }else{
-      if(stripos($consultaMiStringSeg, 'having') !== false ){
-        $consultaMiStringSeg = explode("having", $consultaMiStringSeg);
-        $consultaMiStringSeg = trim($consultaMiStringSeg[0]);
-        $consultaMiStringSeg = explode(' ', $consultaMiStringSeg);
+      array_push($mejoraConsulta, "Intenta realizar este ejercicio sin usar la cláusula union.");
+    }
+  }
+  elseif(substr_count($stringUsuario, 'union all') !== substr_count($solucionQuery, 'union all')){
+    $v = true;
+    array_push($mejoraConsulta, "Deberías revisar qué hace la cláusula union all.");
+  }
+  return $v;
+}
+function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,&$mejoraConsulta){
+  $v = false;
+  if((stripos($selectSol, "distinct") !== false) !== (stripos($selectUser, "distinct") !== false)){
+    array_push($mejoraConsulta, "Consulta para qué sirve la cláusula DISTINCT, y decide si es necesaria para este ejercicio.");  
+    $v = true;
+  }
+  elseif($camposUser !== $camposSol){
+    array_push($mejoraConsulta, "No seleccionas los campos correctos. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
+    $v  = true;
+  }
+  elseif(stripos($selectSol, "'") !== false){
+    if(stripos($selectUser, "'") === false){
+      $v = true;
+      array_push($mejoraConsulta, "Recuerda renombrar los campos del select.");
+    }
+    elseif($selectUser === $selectSol){
+      $v = true;
+      array_push($mejoraConsulta, "No estás renombrando los campos correctamente. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
+    }
+  }elseif(stripos($selectUser, "'") !== false){
+      $v = true;
+      array_push($mejoraConsulta, "No debes renombrar los campos del select");
+  }
+   return $v;
+}
+
+function comprobacionesOrderBy($arrayQueryUser, $arraySolucion, $camposUser, $camposSol, &$mejoraConsulta){
+  $v = false;
+  $arr1 = trim(str_replace('order by ' , '', $arrayQueryUser));
+  $arr2 = trim(str_replace('order by ' , '', $arraySolucion));
+  $arr1 = preg_split('/\s+,\s+/', preg_replace_callback('/\sasc\s?$/', function($coincidencias){ return " ";},$arr1));
+  $arr2 = preg_split('/\s+,\s+/',preg_replace_callback('/\sasc\s?$/', function($coincidencias){ return " ";},$arr2));
+  if(count($arr1) !== count($arr2)){
+    $v = true;
+    array_push($mejoraConsulta, "Se pide ordenar la consulta por un número distinto de campos al introducido.");
+  }else{
+    for($i = 0; $i < count($arr1) && $v === false; $i++){
+      $arr1[$i] = trim($arr1[$i]);
+      $arr2[$i] = trim($arr2[$i]);
+      if(is_numeric($arr1[$i])){
+        $a = $camposUser[intval($arr1[$i])-1];
       }else{
-        $consultaMiStringSeg = explode(' ', $consultaMiStringSeg);
+        $a = $arr1[$i];
+      }
+      if(is_numeric($arr2[$i])){
+        $b = $camposSol[intval($arr2[$i])-1];
+      }else{
+        $b = $arr2[$i];
+      }
+      if($a !== $b){
+        $v = true;
+        array_push($mejoraConsulta, "Revisa los campos que usas para ordenar la consulta y comprueba si tienes que ordenar en orden ascendente o descendente con cada uno de ellos.");
       }
     }
+  }
+  return $v;
+}
 
-    if(sizeof($consultaSolucionSeg) == sizeof($consultaMiStringSeg)){
-      foreach ($consultaSolucionSeg as $key => $value) {
-        if($consultaSolucionSeg[$key] !== $consultaMiStringSeg[$key]) $esIgual =  false;
+function comprobacionesGroupBy($arrayQueryUser, $arraySolucion, $camposUser, $camposSol, &$mejoraConsulta){
+  $v = false;
+  $arr1 = trim(str_replace('group by ' , '', $arrayQueryUser));
+  $arr2 = trim(str_replace('group by ' , '', $arraySolucion));
+  $arr1 = preg_split('/\s+,\s+/', $arr1);
+  $arr2 = preg_split('/\s+,\s+/', $arr2);
+  if(count($arr1) !== count($arr2)){
+    $v = true;
+    array_push($mejoraConsulta, "Se pide agrupar la consulta por un número distinto de campos al introducido.");
+  }else{
+    for($i = 0; $i < count($arr1) && $v === false; $i++){
+      $arr1[$i] = trim($arr1[$i]);
+      $arr2[$i] = trim($arr2[$i]);
+      if(is_numeric($arr1[$i])){
+        $a = $camposUser[intval($arr1[$i])-1];
+      }else{
+        $a = $arr1[$i];
+      }
+      if(is_numeric($arr2[$i])){
+        $b = $camposSol[intval($arr2[$i])-1];
+      }else{
+        $b = $arr2[$i];
+      }
+      if($a !== $b){
+        $v = true;
+        array_push($mejoraConsulta, "Revisa los campos que usas para agrupar la consulta.");
       }
     }
-
-
-    if($esIgual) return true;
-    else return false;
-
-  }else{
-    return true;
   }
+  return $v;
 }
 
-function lugarSolucion($solucion){
-  switch ($solucion) {
-    case (stripos($solucion, 'show') !== false):
-      return 0;
-      break;
-    case (stripos($solucion, 'describe') !== false):
-      return 1;
-      break;
-    case (stripos($solucion, 'where') === false && stripos($solucion, 'group by') === false &&
-      stripos($solucion, 'having') === false && stripos($solucion, 'order by') === false && stripos($solucion, 'select') !== false):
-      return 2;
-      break;
-    case (stripos($solucion, 'select') !== false && stripos($solucion, 'group by') === false &&
-      stripos($solucion, 'having') === false && stripos($solucion, 'order by') === false && stripos($solucion, 'where') !== false):
-      return 3;
-      break;
-    case (stripos($solucion, 'select') !== false &&  stripos($solucion,'group by') !== false && stripos($solucion,'having') === false):
-      return 4;
-      break;
-    case (stripos($solucion, 'select') !== false &&  stripos($solucion,'group by') !== false && stripos($solucion,'having') !== false):
-      return 5;
-      break;
-    case (stripos($solucion, 'order by') !== false):
-      return 6;
-      break;
-
-    default:
-      return 99;
-      break;
+function comprobacionesWhereHaving($u1, $u2, $s1, $s2, &$mejoraConsulta){
+  $v = false;
+  if(count($u1) !== count($s1) || count($u2) !== count($s2)){
+    array_push($mejoraConsulta, "Hay un error a la hora de filtrar. Revisa las cláusulas relacionadas.");
+    $v = true;
   }
-
+  return $v;
 }
-
-
-function compruebaCampos($miString,$solucion){
-  $solucion = strtolower($solucion);
-  $miString = strtolower($miString);
-  if(stripos($miString, 'where') !== false){
-    $miString = explode("where", $miString);
-    $miString = trim($miString[0]);
+function comprobacionesFrom($arrayQueryUser, $arraySolucion, &$mejoraConsulta){
+  $v = false;
+  $a1 = getTablas($arrayQueryUser);
+  $a2 = getTablas($arraySolucion);
+  if(!empty(array_diff($a1, $a2)) || !empty(array_diff($a2, $a1))){
+    array_push($mejoraConsulta, "No has seleccionado las tablas correctas.");
+    $v = true;
   }else{
-    if(stripos($miString, 'having') !== false){
-      $miString = explode("having", $miString);
-      $miString = trim($miString[0]);
+    if(stripos($arraySolucion, 'full') !== false){
+      if(stripos($arrayQueryUser, 'full') === false){
+        array_push($mejoraConsulta, "Debes hacer un full outer join.");
+        $v = true;
+      }
     }else{
-      if(stripos($miString, 'order by') !== false){
-        $miString = explode("order by", $miString);
-        $miString = trim($miString[0]);
+      if(stripos($arrayQueryUser, 'full') !== false){
+        array_push($mejoraConsulta, "No hace falta que hagas un full outer join para este ejercicio.");
+        $v = true;
       }
     }
+    if(!$v && (stripos($arraySolucion, 'left') !== false)){
+      if(stripos($arrayQueryUser, 'left') === false){
+        array_push($mejoraConsulta, "Debes combinar los registros de las tablas mediante un left outer join.");
+        $v = true;
+      }
+    }
+    if(!$v && (stripos($arraySolucion, 'right') !== false)){
+      if(stripos($arrayQueryUser, 'right') === false){
+        array_push($mejoraConsulta, "Debes combinar los registros de las tablas mediante un right outer join.");
+        $v = true;
+      }
+    } 
+    if(!$v && (stripos($arrayQueryUser, 'left') !== false || stripos($arrayQueryUser, 'right') !== false) && 
+    (stripos($arraySolucion, 'left') === false || stripos($arraySolucion, 'right') === false)){
+        array_push($mejoraConsulta, "No hace falta que hagas un left outer join o right outer join para este ejercicio.");
+        $v = true;
+    }
   }
+  
 
+  return $v;
+}
 
-  $campos1 = DB::connection('mysql2')->select($miString);
-  $campos2 = DB::connection('mysql2')->select($solucion);
+function getTablas($str){
+  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas/', $str, $m);
+  return $m[0];
+}
 
-  if(empty((array)$campos1)) return false;
-  if(isset($campos1[0])){
-    $nCamposConsulta = (array)$campos1[0];
-    $NCamposConsulta = sizeof($nCamposConsulta);
-  }
-  if(isset($campos2[0])){
-    $nCamposSolucion = (array)$campos2[0];
-    $NCamposSolucion = sizeof($nCamposSolucion);
-  }
-  $diferentesCampos = array_diff_key($nCamposSolucion, $nCamposConsulta);
-  if($NCamposConsulta == $NCamposSolucion && empty($diferentesCampos)) return true;
-  else return false;
-
+function getCampos($str){
+  $res = str_replace('select ', '', $str);
+  $res = preg_replace_callback('/\s?\'.+\'\s?,\s?/', function($coincidencias){return ' ';}, $res);
+  $res = preg_replace_callback('/\s\'.+\'/', function($coincidencias){return '';}, $res);
+  $res = preg_replace_callback('/,/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
+  $res = preg_replace_callback('/\s+/', function($coincidencias){return ' ';}, $res);
+  return explode(' ', $res);
 }

@@ -34,7 +34,6 @@ class modoLibreController extends Controller
      */
     public function index()
     {
-        Session::put('lugarConversacion',0);
         $ejercicios = Ejercicio::select("*")->orderBy('dificultad')->get();
         $principiante = Ejercicio::where("dificultad",1)->get();
         $intermedios = Ejercicio::where("dificultad",2)->get();
@@ -79,43 +78,10 @@ class modoLibreController extends Controller
       }
       return $verTabla;
     }
-    /*
-    public function comprobarTutorial(Request $request)
-    {
-      $tutorial = User::select("id","tutorial")->find(auth()->user()->id);
-      if($tutorial->tutorial === 0 ){
-        $tutorial->tutorial = 1;
-        $tutorial->save();
-        return Response::json(true);
-      }
-      else return Response::json(false);
-
-    }
-
-    public function ejercicioTerminado(Request $request)
-    {
-      $logIntento = Logs::where("uuidIntento",$request['uuid'])->first();
-      $logIntento->completado = 2;
-      $logIntento->save();
-      $ejerciciosResuelto =  User::select("id","ejerciciosResueltos")->find(auth()->user()->id);
-      $ejercicioRe =  json_decode($ejerciciosResuelto->ejerciciosResueltos,true);
-      if($ejercicioRe == null) $ejercicioRe = array();
-      if (!in_array($request->idEjercicio, $ejercicioRe)) {
-        array_push($ejercicioRe,$request->id);
-        $ejerciciosResuelto->ejerciciosResueltos = json_encode($ejercicioRe);
-        $ejerciciosResuelto->save();
-      }
-      $solucion = Ejercicio::select("solucionQuery")->find($request->id);
-      return Response::json($solucion->solucionQuery);
-    }
-    */
+    
     public function ajaxFormularioQuery(Request $request)
     {
-
-      /*
-        $solucion = Ejercicio::find($request['id']);
-        $solucionQuery = $solucion->solucionQuery;*/
-        $stringUsuario = strtolower($request['query']);
+        $stringUsuario = $request['query'];
         $stringUsuario   = trim($stringUsuario);
         $respuestaQuery = array();
         $mejoraConsulta = array();

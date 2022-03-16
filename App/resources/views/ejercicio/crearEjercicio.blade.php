@@ -110,7 +110,7 @@
             <br>
             <span>Añadir hiperenlace : &lt;a href='dirección_url' target='_blank'&gt; palabra_hipervínculo &lt;/a&gt; </span>
           </div>
-          <div class="col-sm-6">
+          <!--<div class="col-sm-6">
             <div class="col-12 mb-4 form__group field d-none" id="showEnun">
               <input type="input" class="form__field" placeholder="showEnunciado" name="showEnunciado" id='showEnunciado'  />
               {!!$errors->first('showEnunciado','<small class="errores">:message</small>')!!}
@@ -146,8 +146,8 @@
               {!!$errors->first('orderEnunciado','<small class="errores">:message</small>')!!}
               <label for="orderEnunciado" class="form__label">Enunciado de la cláusula order by</label>
             </div>
-          </div>
-          <div class="col-sm-6">
+          </div>-->
+          <div class="col-sm-12">
             <div class="col-12 mb-4 form__group field d-none" id="showPistas">
               <input type="input" class="form__field" placeholder="showPista" name="showPista" id='showPista' />
               {!!$errors->first('showPista','<small class="errores">:message</small>')!!}
@@ -162,6 +162,11 @@
               <input type="input" class="form__field" placeholder="selectPista" name="selectPista" id='selectPista' />
               {!!$errors->first('selectPista','<small class="errores">:message</small>')!!}
               <label for="selectPista" class="form__label">Pista de la cláusula select</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="fromPistas">
+              <input type="input" class="form__field" placeholder="fromPista" name="fromPista" id='fromPista' />
+              {!!$errors->first('fromPista','<small class="errores">:message</small>')!!}
+              <label for="fromPista" class="form__label">Pista de la cláusula from</label>
             </div>
             <div class="col-12 mb-4 form__group field d-none" id="wherePistas">
               <input type="input" class="form__field" placeholder="wherePista" name="wherePista" id='wherePista' />
@@ -182,6 +187,21 @@
               <input type="input" class="form__field" placeholder="orderPista" name="orderPista" id='orderPista' />
               {!!$errors->first('orderPista','<small class="errores">:message</small>')!!}
               <label for="orderPista" class="form__label">Pista de la cláusula order by</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="joinPistas">
+              <input type="input" class="form__field" placeholder="joinPista" name="joinPista" id='joinPista' />
+              {!!$errors->first('joinPista','<small class="errores">:message</small>')!!}
+              <label for="joinPista" class="form__label">Pista de la cláusula join</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="unionPistas">
+              <input type="input" class="form__field" placeholder="unionPista" name="unionPista" id='unionPista' />
+              {!!$errors->first('unionPista','<small class="errores">:message</small>')!!}
+              <label for="unionPista" class="form__label">Pista de la cláusula union</label>
+            </div>
+            <div class="col-12 mb-4 form__group field d-none" id="anidadaPistas">
+              <input type="input" class="form__field" placeholder="anidadaPista" name="anidadaPista" id='anidadaPista' />
+              {!!$errors->first('anidadaPista','<small class="errores">:message</small>')!!}
+              <label for="anidadaPista" class="form__label">Pista de la consulta anidada</label>
             </div>
           </div>
         </div>
@@ -237,12 +257,12 @@ if (value != ""){
 
   clausulas = <?php if(isset($clausulas)){echo json_encode($clausulas);} ?>
 
-  $('#showEnun').removeClass("d-none");
-  $('#showEnunciado').val("<?php if(isset($enunciado[1]["texto"])){echo($enunciado[1]["texto"]);} ?>");
-  $('#showEnunciado').prop('required',true);
-  $('#showPistas').removeClass("d-none");
-  $('#showPista').prop('required',true);
-  $('#showPista').val("<?php if(isset($ayuda[0]["texto"])){echo($ayuda[0]["texto"]);} ?>");
+  //$('#showEnun').removeClass("d-none");
+  //$('#showEnunciado').val("<?php if(isset($enunciado[1]["texto"])){echo($enunciado[1]["texto"]);} ?>");
+  //$('#showEnunciado').prop('required',true);
+  //$('#showPistas').removeClass("d-none");
+  //$('#showPista').prop('required',true);
+  //$('#showPista').val("<?php if(isset($ayuda[0]["texto"])){echo($ayuda[0]["texto"]);} ?>");
   $.each(clausulas, function (index, value) {
     switch (value) {
       case "show":
@@ -250,61 +270,81 @@ if (value != ""){
       break;
       case "describe":
       existeDescribe = true;
-      $('#describeEnun').removeClass("d-none");
-      $('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
-      $('#describeEnunciado').prop('required',true);
+      //$('#describeEnun').removeClass("d-none");
+      //$('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
+      //$('#describeEnunciado').prop('required',true);
       $('#describePistas').removeClass("d-none");
       $('#describePista').prop('required',true);
       $('#describePista').val("<?php if(isset($ayuda[1]["texto"])){echo($ayuda[1]["texto"]);} ?>");
       break;
       case "select":
-      $('#selectEnun').removeClass("d-none");
-      $('#selectEnunciado').val("<?php if(isset($enunciado[3]["texto"])){echo($enunciado[3]["texto"]);} ?>");
-      $('#selectEnunciado').prop('required',true);
+      //$('#selectEnun').removeClass("d-none");
+      //$('#selectEnunciado').val("<?php if(isset($enunciado[3]["texto"])){echo($enunciado[3]["texto"]);} ?>");
+      //$('#selectEnunciado').prop('required',true);
       $('#selectPistas').removeClass("d-none");
       $('#selectPista').prop('required',true);
       $('#selectPista').val("<?php if(isset($ayuda[2]["texto"])){echo($ayuda[2]["texto"]);} ?>");
       break;
       case "where":
-      $('#whereEnun').removeClass("d-none");
-      $('#whereEnunciado').val("<?php if(isset($enunciado[4]["texto"])){echo($enunciado[4]["texto"]);} ?>");
-      $('#whereEnunciado').prop('required',true);
+      //$('#whereEnun').removeClass("d-none");
+      //$('#whereEnunciado').val("<?php if(isset($enunciado[4]["texto"])){echo($enunciado[4]["texto"]);} ?>");
+      //$('#whereEnunciado').prop('required',true);
       $('#wherePistas').removeClass("d-none");
       $('#wherePista').prop('required',true);
       $('#wherePista').val("<?php if(isset($ayuda[3]["texto"])){echo($ayuda[3]["texto"]);} ?>");
       break;
       case "group by":
-      $('#groupEnun').removeClass("d-none");
-      $('#groupEnunciado').val("<?php if(isset($enunciado[5]["texto"])){echo($enunciado[5]["texto"]);} ?>");
-      $('#groupEnunciado').prop('required',true);
+      //$('#groupEnun').removeClass("d-none");
+      //$('#groupEnunciado').val("<?php if(isset($enunciado[5]["texto"])){echo($enunciado[5]["texto"]);} ?>");
+      //$('#groupEnunciado').prop('required',true);
       $('#groupPistas').removeClass("d-none");
       $('#groupPista').prop('required',true);
       $('#groupPista').val("<?php if(isset($ayuda[4]["texto"])){echo($ayuda[4]["texto"]);} ?>");
       break;
       case "having":
-      $('#havingEnun').removeClass("d-none");
-      $('#havingEnunciado').val("<?php if(isset($enunciado[6]["texto"])){echo($enunciado[6]["texto"]);} ?>");
-      $('#havingEnunciado').prop('required',true);
+      //$('#havingEnun').removeClass("d-none");
+      //$('#havingEnunciado').val("<?php if(isset($enunciado[6]["texto"])){echo($enunciado[6]["texto"]);} ?>");
+      //$('#havingEnunciado').prop('required',true);
       $('#havingPistas').removeClass("d-none");
       $('#havingPista').prop('required',true);
       $('#havingPista').val("<?php if(isset($ayuda[5]["texto"])){echo($ayuda[5]["texto"]);} ?>");
       break;
       case "order by":
-      $('#orderEnun').removeClass("d-none");
-      $('#orderEnunciado').val("<?php if(isset($enunciado[7]["texto"])){echo($enunciado[7]["texto"]);} ?>");
-      $('#orderEnunciado').prop('required',true);
+      //$('#orderEnun').removeClass("d-none");
+      //$('#orderEnunciado').val("<?php if(isset($enunciado[7]["texto"])){echo($enunciado[7]["texto"]);} ?>");
+      //$('#orderEnunciado').prop('required',true);
       $('#orderPistas').removeClass("d-none");
       $('#orderPista').prop('required',true);
       $('#orderPista').val("<?php if(isset($ayuda[6]["texto"])){echo($ayuda[6]["texto"]);} ?>");
+      break;
+      case "union":
+      $('#unionPistas').removeClass("d-none");
+      $('#unionPista').prop('required',true);
+      $('#unionPista').val("<?php if(isset($ayuda[7]["texto"])){echo($ayuda[7]["texto"]);} ?>");
+      break;
+      case "anidada":
+      $('#anidadaPistas').removeClass("d-none");
+      $('#anidadaPista').prop('required',true);
+      $('#anidadaPista').val("<?php if(isset($ayuda[8]["texto"])){echo($ayuda[8]["texto"]);} ?>");
+      break;
+      case "join":
+      $('#joinPistas').removeClass("d-none");
+      $('#joinPista').prop('required',true);
+      $('#joinPista').val("<?php if(isset($ayuda[9]["texto"])){echo($ayuda[9]["texto"]);} ?>");
+      break;
+      case "from":
+      $('#fromPistas').removeClass("d-none");
+      $('#fromPista').prop('required',true);
+      $('#fromPista').val("<?php if(isset($ayuda[10]["texto"])){echo($ayuda[10]["texto"]);} ?>");
       break;
       default:
     }
   });
 
   if(!existeShow  && !existeDescribe){
-    $('#describeEnun').removeClass("d-none");
-    $('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
-    $('#describeEnunciado').prop('required',true);
+    //$('#describeEnun').removeClass("d-none");
+    //$('#describeEnunciado').val("<?php if(isset($enunciado[2]["texto"])){echo($enunciado[2]["texto"]);} ?>");
+    //$('#describeEnunciado').prop('required',true);
     $('#describePistas').removeClass("d-none");
     $('#describePista').prop('required',true);
     $('#describePista').val("<?php if(isset($ayuda[1]["texto"])){echo($ayuda[1]["texto"]);} ?>");
@@ -382,55 +422,71 @@ function formularioQueryCrear(){
         $('#formEnvio').addClass("d-none");
         $('#cuerpoEnvio').addClass("d-none");
 
-        $('#showEnun').addClass("d-none");
-        $('#showEnunciado').val("");
-        $('#showEnunciado').prop('required',false);
+        //$('#showEnun').addClass("d-none");
+        //$('#showEnunciado').val("");
+        //$('#showEnunciado').prop('required',false);
         $('#showPistas').addClass("d-none");
         $('#showPista').val("");
         $('#showPista').prop('required',false);
 
-        $('#describeEnun').addClass("d-none");
-        $('#describeEnunciado').val("");
-        $('#describeEnunciado').prop('required',false);
+        //$('#describeEnun').addClass("d-none");
+        //$('#describeEnunciado').val("");
+        //$('#describeEnunciado').prop('required',false);
         $('#describePistas').addClass("d-none");
         $('#describePista').val("");
         $('#describePista').prop('required',false);
 
-        $('#selectEnun').addClass("d-none");
-        $('#selectEnunciado').val("");
-        $('#selectEnunciado').prop('required',false);
+        //$('#selectEnun').addClass("d-none");
+        //$('#selectEnunciado').val("");
+        //$('#selectEnunciado').prop('required',false);
         $('#selectPistas').addClass("d-none");
         $('#selectPista').val("");
         $('#selectPista').prop('required',false);
 
 
-        $('#whereEnun').addClass("d-none");
-        $('#whereEnunciado').val("");
-        $('#whereEnunciado').prop('required',false);
+        //$('#whereEnun').addClass("d-none");
+        //$('#whereEnunciado').val("");
+        //$('#whereEnunciado').prop('required',false);
         $('#wherePistas').addClass("d-none");
         $('#wherePista').val("");
         $('#wherePista').prop('required',false);
 
-        $('#groupEnun').addClass("d-none");
-        $('#groupEnunciado').val("");
-        $('#groupEnunciado').prop('required',false);
+        //$('#groupEnun').addClass("d-none");
+        //$('#groupEnunciado').val("");
+        //$('#groupEnunciado').prop('required',false);
         $('#groupPistas').addClass("d-none");
         $('#groupPista').val("");
         $('#groupPista').prop('required',false);
 
-        $('#havingEnun').addClass("d-none");
-        $('#havingEnunciado').val("");
-        $('#havingEnunciado').prop('required',false);
+        //$('#havingEnun').addClass("d-none");
+        //$('#havingEnunciado').val("");
+        //$('#havingEnunciado').prop('required',false);
         $('#havingPistas').addClass("d-none");
         $('#havingPista').val("");
         $('#havingPista').prop('required',false);
 
-        $('#orderEnun').addClass("d-none");
-        $('#orderEnunciado').val("");
-        $('#orderEnunciado').prop('required',false);
+        //$('#orderEnun').addClass("d-none");
+        //$('#orderEnunciado').val("");
+        //$('#orderEnunciado').prop('required',false);
         $('#orderPistas').addClass("d-none");
         $('#orderPista').val("");
         $('#orderPista').prop('required',false);
+
+        $('#unionPistas').addClass("d-none");
+        $('#unionPista').val("");
+        $('#unionPista').prop('required',false);
+
+        $('#anidadaPistas').addClass("d-none");
+        $('#anidadaPista').val("");
+        $('#anidadaPista').prop('required',false);
+
+        $('#joinPistas').addClass("d-none");
+        $('#joinPista').val("");
+        $('#joinPista').prop('required',false);
+
+        $('#fromPistas').addClass("d-none");
+        $('#fromPista').val("");
+        $('#fromPista').prop('required',false);
 
         if(typeof data[0]['query'] === 'string'){
           $("#queryContainer").append(data[0]['query']);
@@ -454,79 +510,103 @@ function formularioQueryCrear(){
           var existeDescribe = false;
 
           //show siempre se muestra
-          $('#showEnun').removeClass("d-none");
-          $('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
-          $('#showEnunciado').prop('required',true);
-          $('#showPistas').removeClass("d-none");
-          $('#showPista').prop('required',true);
-          $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
+          //$('#showEnun').removeClass("d-none");
+          //$('#showEnunciado').val("Escribe la consulta necesaria para mostrar las diferentes tablas en nuestra base dato, e identificar la que estamos buscando");
+          //$('#showEnunciado').prop('required',true);
+          //$('#showPistas').removeClass("d-none");
+          //$('#showPista').prop('required',true);
+          //$('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
           $.each(data[0]['clausula'], function (index, value) {
             switch (value) {
               case "show":
               existeShow = true;
+              $('#showPistas').removeClass("d-none");
+              $('#showPista').prop('required',true);
+              $('#showPista').val("Debes escribir la consulta show seguido de tables para ver todas las tablas de la base de datos");
+              
               break;
               case "describe":
               existeDescribe = true;
-              $('#describeEnun').removeClass("d-none");
-              $('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
-              $('#describeEnunciado').prop('required',true);
+              //$('#describeEnun').removeClass("d-none");
+              //$('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
+              //$('#describeEnunciado').prop('required',true);
               $('#describePistas').removeClass("d-none");
               $('#describePista').prop('required',true);
-              $('#describePista').val("debes usar la clausula describe para conocer los campos de la tabla que buscas");
+              $('#describePista').val("Debes usar la clausula describe para conocer los campos de la tabla que buscas");
               break;
               case "select":
-              $('#selectEnun').removeClass("d-none");
-              $('#selectEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
-              $('#selectEnunciado').prop('required',true);
+              //$('#selectEnun').removeClass("d-none");
+              //$('#selectEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
+              //$('#selectEnunciado').prop('required',true);
               $('#selectPistas').removeClass("d-none");
               $('#selectPista').prop('required',true);
-              $('#selectPista').val("con la consulta select busca solo aquellos campos que necesites");
+              $('#selectPista').val("Con la consulta select busca solo aquellos campos que necesites");
               break;
               case "where":
-              $('#whereEnun').removeClass("d-none");
-              $('#whereEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
-              $('#whereEnunciado').prop('required',true);
+              //$('#whereEnun').removeClass("d-none");
+              //$('#whereEnunciado').val("Ahora que conocemos los campos de los que se componen nuestra tabla tenemos que escoger aquellos que necesitamos");
+              //$('#whereEnunciado').prop('required',true);
               $('#wherePistas').removeClass("d-none");
               $('#wherePista').prop('required',true);
               $('#wherePista').val("Deberías usar la cláusula where para poder filtrar");
               break;
               case "group by":
-              $('#groupEnun').removeClass("d-none");
-              $('#groupEnunciado').val("Ahora necesitas agrupar el resultado");
-              $('#groupEnunciado').prop('required',true);
+              //$('#groupEnun').removeClass("d-none");
+              //$('#groupEnunciado').val("Ahora necesitas agrupar el resultado");
+              //$('#groupEnunciado').prop('required',true);
               $('#groupPistas').removeClass("d-none");
               $('#groupPista').prop('required',true);
               $('#groupPista').val("Deberías usar la cláusula group by para poder agruparlos");
               break;
               case "having":
-              $('#havingEnun').removeClass("d-none");
-              $('#havingEnunciado').val("Ya lo tienes agrupados ahora necesitas aplicarle un filtro a esas agrupaciones");
-              $('#havingEnunciado').prop('required',true);
+              //$('#havingEnun').removeClass("d-none");
+              //$('#havingEnunciado').val("Ya lo tienes agrupados ahora necesitas aplicarle un filtro a esas agrupaciones");
+              //$('#havingEnunciado').prop('required',true);
               $('#havingPistas').removeClass("d-none");
               $('#havingPista').prop('required',true);
               $('#havingPista').val("Deberías usar la cláusula having para poder filtrar dentro de los grupos");
               break;
               case "order by":
-              $('#orderEnun').removeClass("d-none");
-              $('#orderEnunciado').val("Ahora tienes que ordenar el resultado obtenido");
-              $('#orderEnunciado').prop('required',true);
+              //$('#orderEnun').removeClass("d-none");
+              //$('#orderEnunciado').val("Ahora tienes que ordenar el resultado obtenido");
+              //$('#orderEnunciado').prop('required',true);
               $('#orderPistas').removeClass("d-none");
               $('#orderPista').prop('required',true);
               $('#orderPista').val("Deberías usar la cláusula order by para poder ordenar el resultado");
+              break;
+              case "union":
+              $('#unionPistas').removeClass("d-none");
+              $('#unionPista').prop('required',true);
+              $('#unionPista').val("Deberías usar la cláusula union para realizar este ejercicio.");
+              break;
+              case "anidada":
+              $('#anidadaPistas').removeClass("d-none");
+              $('#anidadaPista').prop('required',true);
+              $('#anidadaPista').val("Deberías usar una consulta anidada para este ejercicio.");
+              break;
+              case "join":
+              $('#joinPistas').removeClass("d-none");
+              $('#joinPista').prop('required',true);
+              $('#joinPista').val("Deberías usar la cláusula join para hacer la consulta a múltiples tablas.");
+              break;
+              case "from":
+              $('#fromPistas').removeClass("d-none");
+              $('#fromPista').prop('required',true);
+              $('#fromPista').val("Selecciona las tablas necesarias en este ejercicio.");
               break;
               default:
               console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
             }
           });
-
+          /*
           if(!existeShow  && !existeDescribe){
             $('#describeEnun').removeClass("d-none");
             $('#describeEnunciado').val("Ahora que sabemos las tablas de las que se componen nuestra base datos, tienes que ver como esta compuesta la tabla que buscamos");
             $('#describeEnunciado').prop('required',true);
             $('#describePistas').removeClass("d-none");
             $('#describePista').prop('required',true);
-            $('#describePista').val("debes usar la clausula describe para conocer los campos de la tabla que buscas");
-          }
+            $('#describePista').val("Debes usar la clausula describe para conocer los campos de la tabla que buscas");
+          }*/
         }
       }
   });

@@ -290,7 +290,7 @@
                     <div class="col-md-12 filaTabla">
                       <div class="row">
                         <div class="col-12">
-                          <span class="spanSugerencia pl-7"><span class="pr-4 textoRankin">{{$i + 1}}</span>  {{$completado->alias}}</span>
+                          <span class="spanSugerencia pl-7"><span class="pr-4 textoRankin">{{$loop->iteration}}</span>  {{$completado->alias}}</span>
                         </div>
                       </div>
                     </div>
@@ -611,6 +611,13 @@ function ejercicioTerminado(){
 //variable para no permitir dos query con la misma consulta
 var queryAnterior = "";
 function formularioQuery(){
+  var doc = myCodeMirror.getDoc();
+  var cursor = doc.getCursor();
+  var line = doc.getLine(cursor.line);
+  var pos = { line: cursor.line};
+  if(!line.endsWith(';')){
+    doc.replaceRange(';', pos);
+  }
   var query = myCodeMirror.getValue();
   query = query.split("\n").join(" ");
   query = query.split("\t").join(" ");
@@ -654,21 +661,6 @@ function formularioQuery(){
           }
         }
         else{
-          if (data[0]['conversacionBot'] === "pasaSiguiente laravel") {
-            $.toast({
-              text: "¡Enhorabuena, a por el siguiente paso!", // Text that is to be shown in the toast
-              heading: 'Correcto', // Optional heading to be shown on the toast
-              icon: 'success', // Type of toast icon
-              showHideTransition: 'slide', // fade, slide or plain
-              allowToastClose: true, // Boolean value true or false
-              hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-              stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-              position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-              textAlign: 'left',  // Text alignment i.e. left, right or center
-              loader: true,  // Whether to show loader or not. True by default
-              loaderBg: '#25b516'  // Background color of the toast loader
-            });
-          }
           if (data[0]['conversacionBot'] === "comprobacion_query laravel") {
             $.toast({
               text: "Es una consulta válida pero no es ni la solución al ejercicio ni a esta etapa", // Text that is to be shown in the toast
@@ -696,10 +688,10 @@ function formularioQuery(){
               });
             });
           }else{
-            $("#queryContainer").append("No se ha encontrado ningun registro con estas condiciones");
+            $("#queryContainer").append("No se ha encontrado ningún registro con estas condiciones");
           }
 
-          if(data[0]['conversacionBot'] == "finalConversacionCorrectolaravel"){
+          if(data[0]['conversacionBot'] === "finalConversacionCorrectolaravel"){
             $.toast({
               text: "¡Enhorabuena, has completado el ejercicio!", // Text that is to be shown in the toast
               heading: 'Correcto', // Optional heading to be shown on the toast
@@ -717,13 +709,15 @@ function formularioQuery(){
             var EjercicioBot = document.getElementById("iframe").contentWindow;
             EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
           }else{
-            var arrayBot = new Array();
-            arrayBot[0] = data[0]['lugarConversacion'];
-            arrayBot[1] = data[0]['conversacionBot'];
-            arrayBot[2] = data[1];
-            arrayBot[3] = <?php echo $id;?>;
-            var EjercicioBot = document.getElementById("iframe").contentWindow;
-            EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
+            if(data[0]['conversacionBot'] !== 'nadaLaravel'){
+              var arrayBot = new Array();
+              //arrayBot[0] = data[0]['lugarConversacion'];
+              arrayBot[1] = data[0]['conversacionBot'];
+              arrayBot[2] = data[1];
+              arrayBot[3] = <?php echo $id;?>;
+              var EjercicioBot = document.getElementById("iframe").contentWindow;
+              EjercicioBot.postMessage(arrayBot, "{{ env('APP_BOT') }}");
+            }
           }
         }
       }

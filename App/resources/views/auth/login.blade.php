@@ -53,16 +53,16 @@ z-index: 0;
              <form method="POST" action="{{ route('login') }}">
                  @csrf
                  <div class="form-group row">
-                     <label for="email" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
+                     <label for="name" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
     font-size: 16px;
     text-transform: capitalize;
-">Dirección de correo</label>
+">Nombre de Usuario</label>
                      <div class="col-md-11">
-                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                         <input id="name" type="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                         @if ($errors->has('email'))
+                         @if ($errors->has('name'))
                              <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $errors->first('email') }}</strong>
+                                 <strong>{{ $errors->first('name') }}</strong>
                              </span>
                          @endif
                      </div>
@@ -102,10 +102,11 @@ z-index: 0;
                          <button type="submit" class="btn btn-primary">
                              Acceder
                          </button>
-
-                             <a class="btn btn-link" href="http://aprendesql.duckdns.org/register" style="color:white;">
+                            <!--
+                             <a class="btn btn-link" href="/register" style="color:white;">
                                  ¿Quieres registrarte?
                              </a>
+                            -->
                      </div>
                  </div>
              </form>

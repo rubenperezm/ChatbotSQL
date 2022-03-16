@@ -11,6 +11,7 @@ use App\User;
 use Session;
 use Response;
 use DB;
+use Illuminate\Support\Facades\Config;
 
 class adminController extends Controller
 {
@@ -42,6 +43,8 @@ class adminController extends Controller
         $flag = false;
         $ejerciciosResuelto = json_decode(auth()->user()->ejerciciosResueltos,true);
         Debugbar::info($ejerciciosResuelto);
+    
+
         if($ejerciciosResuelto != null){
           foreach ($principiante as $key => $ejercicio) {
             if (!in_array($ejercicio->id, $ejerciciosResuelto)) {

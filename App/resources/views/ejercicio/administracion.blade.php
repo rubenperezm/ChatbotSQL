@@ -54,24 +54,26 @@ background: url('../imagenes/p2.jpg');
         <form id="editarPerfil" action="{{asset('admin/editarPerfil')}}" method="post">
           @csrf
           <div class="col-12 mb-4 form__group field text-left">
-            <input type="input" class="text-white form__field" value="{{$usuario->email}}"placeholder="email" name="email" id='email' required />
+            <input type="input" class="form__field" value="{{$usuario->email}}"placeholder="email" name="email" id='email' required disabled style ="color:#9b9b9b"/>
             {!!$errors->first('email','<small class="errores" style="color:red;">:message</small>')!!}
             <label for="email" class="form__label">Email</label>
           </div>
           <div class="col-12 mb-4 form__group field text-left">
-            <input type="input" class="text-white form__field" value="{{$usuario->name}}"placeholder="nombre" name="nombre" id='nombre' required />
+            <input type="input" class="form__field" value="{{$usuario->name}}"placeholder="nombre" name="nombre" id='nombre' required disabled style ="color:#9b9b9b"/>
             {!!$errors->first('nombre','<small class="errores"  style="color:red;">:message</small>')!!}
             <label for="nombre" class="form__label">Nombre del usuario</label>
           </div>
           <div class="col-12 mb-4 form__group field text-left">
-            <input type="input" class="text-white form__field" value="{{$usuario->alias}}"placeholder="alias" name="alias" id='alias' />
+            <!--Poner en class text-white para que vuelva a aparecer "activo"-->
+            <input type="input" class="form__field" value="{{$usuario->alias}}"placeholder="alias" name="alias" id='alias' disabled style="color:#9b9b9b"/>
             {!!$errors->first('alias','<small class="errores"  style="color:red;">:message</small>')!!}
             <label for="alias" class="form__label">Alias público con el que aparecerás en el ranking</label>
           </div>
+          <!--
           <div class="col-12 mt-2 px-0 text-right">
             <button type="button" onclick="
                 document.getElementById('editarPerfil').submit();" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="btn-outline-secondary text-white botonDegradao" name="button"><i class="fas fa-edit"></i> Editar</button>
-          </div>
+          </div>-->
         </form>
       </div>
     </div>

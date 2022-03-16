@@ -79,6 +79,21 @@ class editarEjercicioController extends Controller
     if(stripos($Ejercicio->solucionQuery, 'having') !== false){
       array_push($clausulaArray ,"having");
     }
+    if(stripos($Ejercicio->solucionQuery, 'union') !== false){
+      array_push($clausulaArray ,"union");
+    }
+    elseif(substr_count($Ejercicio->solucionQuery, 'select') > 1){
+      array_push($clausulaArray ,"anidada");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'join') !== false){
+      array_push($clausulaArray ,"join");
+    }
+    if(stripos($Ejercicio->solucionQuery, 'from') !== false){
+      array_push($clausulaArray ,"from");
+    }
+    
+    //ANADIR AQUI CONSULTA ANIDADA
+    
     if(!$esShow){
       if(stripos($Ejercicio->solucionQuery, 'describe') !== false){
         $tabla = compruebaTabla($Ejercicio->solucionQuery,"describe");
@@ -341,6 +356,7 @@ class editarEjercicioController extends Controller
   {
     Debugbar::info($request->get('idEjercicio'));
     $enunciados = array();
+    //BORRAR CUANDO LOS PASOS NO SE GUARDEN EN BD
     array_push($enunciados ,array("parte" => "enunciado","texto" => str_replace("\"", '\'', $request->get('enunciado'))));
     if($request->get('showEnunciado') != null){
       array_push($enunciados ,array("parte" => "show","texto" => str_replace("\"", '\'', $request->get('showEnunciado'))));
@@ -377,7 +393,6 @@ class editarEjercicioController extends Controller
     }else{
       array_push($enunciados ,array("parte" => "order","texto" => ""));
     }
-
     $pistas = array();
     if($request->get('showPista') != null){
       array_push($pistas ,array("parte" => "ayuda show","texto" => str_replace("\"", '\'', $request->get('showPista'))));
@@ -413,6 +428,26 @@ class editarEjercicioController extends Controller
       array_push($pistas ,array("parte" => "ayuda order by","texto" => str_replace("\"", '\'', $request->get('orderPista'))));
     }else{
       array_push($pistas ,array("parte" => "ayuda order by","texto" => ""));
+    }
+    if($request->get('unionPista') != null){
+      array_push($pistas ,array("parte" => "ayuda union","texto" => str_replace("\"", '\'', $request->get('unionPista'))));
+    }else{
+      array_push($pistas ,array("parte" => "ayuda union","texto" => ""));
+    }
+    if($request->get('anidadaPista') != null){
+      array_push($pistas ,array("parte" => "ayuda anidada","texto" => str_replace("\"", '\'', $request->get('anidadaPista'))));
+    }else{
+      array_push($pistas ,array("parte" => "ayuda anidada","texto" => ""));
+    }
+    if($request->get('joinPista') != null){
+      array_push($pistas ,array("parte" => "ayuda join","texto" => str_replace("\"", '\'', $request->get('joinPista'))));
+    }else{
+      array_push($pistas ,array("parte" => "ayuda join","texto" => ""));
+    }
+    if($request->get('fromPista') != null){
+      array_push($pistas ,array("parte" => "ayuda from","texto" => str_replace("\"", '\'', $request->get('fromPista'))));
+    }else{
+      array_push($pistas ,array("parte" => "ayuda from","texto" => ""));
     }
     if($request->get('idEjercicio') != -1){
       $nuevoEjercicio = Ejercicio::find($request->get('idEjercicio'));
@@ -457,6 +492,19 @@ class editarEjercicioController extends Controller
       if(stripos($request['query'], 'having') !== false){
         array_push($clausulaArray ,"having");
       }
+      if(stripos($request['query'], 'union') !== false){
+        array_push($clausulaArray ,"union");
+      }elseif(substr_count($request['query'], 'select') > 1){
+        array_push($clausulaArray ,"anidada");
+      }
+      if(stripos($request['query'], 'join') !== false){
+        array_push($clausulaArray ,"join");
+      }
+      if(stripos($request['query'], 'from') !== false){
+        array_push($clausulaArray ,"from");
+      }
+      
+      $tabla = '';
       if(!$esShow){
         if(stripos($request['query'], 'describe') !== false){
           $tabla = compruebaTabla($request['query'],"describe");
@@ -477,9 +525,7 @@ class editarEjercicioController extends Controller
 
 
 function compruebaTabla($miString,$tipoConsulta){
-  $consultaSegmentada = explode($tipoConsulta, $miString);
-  $consultaSeg = trim($consultaSegmentada[1]);
-  $tablaConsulta = explode(' ', $consultaSeg);
-  Debugbar::info($tablaConsulta);
-  return $tablaConsulta[0];
+  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas/', $miString, $m);
+  Debugbar::info($m);
+  return $m[0];
 }
