@@ -238,17 +238,20 @@ var value="<?php if(isset($enunciado[0]["texto"])){echo($enunciado[0]["texto"]);
 if (value != ""){
   query = <?php if(isset($query)){echo json_encode($query);} ?>;
 
-
-  var keys = Object.keys(query[0]);
-  $.each(keys, function (index, value) {
-    $("#queryContainer").append("<th>"+value+"</th>");
-  });
-  $.each(query, function (i, fila) {
-    $("#elementos").append("<tr>");
-    $.each(fila, function (j, campo) {
-      $("#elementos").append("<td>"+campo+"</td>");
+  if(Object.entries(query).length !== 0){
+    var keys = Object.keys(query[0]);
+    $.each(keys, function (index, value) {
+      $("#queryContainer").append("<th>"+value+"</th>");
     });
-  });
+    $.each(query, function (i, fila) {
+      $("#elementos").append("<tr>");
+      $.each(fila, function (j, campo) {
+        $("#elementos").append("<td>"+campo+"</td>");
+      });
+    });
+  }else{
+      $("#queryContainer").append("No se ha encontrado ningún registro con estas condiciones");
+  }
   $('#formEnvio').removeClass("d-none");
   $('#cuerpoEnvio').removeClass("d-none");
 

@@ -212,11 +212,11 @@ class EjercicioController extends Controller
               if(selectsEnDescribeOShow($arraySolucion[0], $mejoraConsulta)){$mensaje = true;}
               elseif(comprobacionesUnion($stringUsuario, $solucionQuery, $arrayQueryUser, $arraySolucion, $mejoraConsulta)){$mensaje = true;}
               else{
-                $selectUser = str_replace(" as ", "", $arrayQueryUser[0]["select"]);
-                $selectSol =  str_replace(" as ", "", $arraySolucion[0]["select"]);
+                $selectUser = str_replace(" as ", " ", $arrayQueryUser[0]["select"]);
+                $selectSol =  str_replace(" as ", " ", $arraySolucion[0]["select"]);
                 $camposUser = getCampos($selectUser);
                 $camposSol = getCampos($selectSol);
-                if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,$mejoraConsulta)){$mensaje = true;}
+                if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, $users1[0], $sol1[0], $mejoraConsulta)){$mensaje = true;}
                 elseif(comprobacionesFrom($arrayQueryUser[0]['from'], $arraySolucion[0]['from'], $mejoraConsulta)){$mensaje = true;}
                 elseif(array_key_exists('order by', $arraySolucion[0])){
                   if(!array_key_exists('order by', $arrayQueryUser[0])){
@@ -444,7 +444,7 @@ function comprobacionesUnion($stringUsuario, $solucionQuery, $arrayQueryUser, $a
   }
   return $v;
 }
-function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,&$mejoraConsulta){
+function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,$usersQ, $SolQ, &$mejoraConsulta){
   $v = false;
   if((stripos($selectSol, "distinct") !== false) !== (stripos($selectUser, "distinct") !== false)){
     array_push($mejoraConsulta, "Consulta para qué sirve la cláusula DISTINCT, y decide si es necesaria para este ejercicio.");  
@@ -459,9 +459,10 @@ function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,&$me
       $v = true;
       array_push($mejoraConsulta, "Recuerda renombrar los campos del select.");
     }
-    elseif($selectUser === $selectSol){
+    elseif($usersQ !== $SolQ){
       $v = true;
-      array_push($mejoraConsulta, "No estás renombrando los campos correctamente. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
+      //array_push($mejoraConsulta, "No estás renombrando los campos correctamente. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
+      array_push($mejoraConsulta, $selectUser." ".$selectSol);
     }
   }elseif(stripos($selectUser, "'") !== false){
       $v = true;
@@ -496,6 +497,7 @@ function comprobacionesOrderBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
       if($a !== $b){
         $v = true;
         array_push($mejoraConsulta, "Revisa los campos que usas para ordenar la consulta y comprueba si tienes que ordenar en orden ascendente o descendente con cada uno de ellos.");
+        //array_push($mejoraConsulta, $b);
       }
     }
   }
@@ -591,9 +593,10 @@ function getTablas($str){
 
 function getCampos($str){
   $res = str_replace('select ', '', $str);
-  $res = preg_replace_callback('/\s?\'.+\'\s?,\s?/', function($coincidencias){return ' ';}, $res);
-  $res = preg_replace_callback('/\s\'.+\'/', function($coincidencias){return '';}, $res);
+  $res = str_replace(' ', '', $str);
+  $res = preg_replace_callback('/\'.+\',/', function($coincidencias){return ' ';}, $res);
+  $res = preg_replace_callback('/\'.+\'/', function($coincidencias){return '';}, $res);
   $res = preg_replace_callback('/,/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
-  $res = preg_replace_callback('/\s+/', function($coincidencias){return ' ';}, $res);
+  //$res = preg_replace_callback('/\s+/', function($coincidencias){return ' ';}, $res);
   return explode(' ', $res);
 }

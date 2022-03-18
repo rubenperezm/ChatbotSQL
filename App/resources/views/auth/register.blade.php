@@ -48,17 +48,17 @@ z-index: 0;
        <div class="col-12 my-auto">
          <div class="masthead-content text-white py-5 py-md-0" style="padding-left: 3rem;
     padding-right: 10rem;">
-           <h1 class="mb-3" style="font-size: 3.5rem;">Accede a nuestra plataforma!</h1>
-           <h4 class="mb-4">Si estás buscando aprender el lenguaje de gestión de Bases de Datos más conocido, esta es tu plataforma. Además, es totalmente <strong>gratuito</strong>. ¡Solo necesitas ganas de aprender y de dedicarle un rato!</h4>
+           <h1 class="mb-3" style="font-size: 3rem;">Accede a nuestra plataforma!</h1>
+           <h4 class="mb-4" style="font-size: 1rem;">Si estás buscando aprender el lenguaje de gestión de Bases de Datos más conocido, esta es tu plataforma. Además, es totalmente <strong>gratuito</strong>. ¡Solo necesitas ganas de aprender y de dedicarle un rato!</h4>
              <form method="POST" action="{{ route('register') }}">
                  @csrf
                  <div class="form-group row">
                    <label for="name" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
-  font-size: 16px;
+  font-size: 1.1rem;
   text-transform: capitalize;
 ">Nombre usuario</label>
                      <div class="col-md-11">
-                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                         <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus style="max-height:2rem">
 
                          @if ($errors->has('name'))
                              <span class="invalid-feedback" role="alert">
@@ -69,11 +69,11 @@ z-index: 0;
                  </div>
                  <div class="form-group row">
                      <label for="email" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
-    font-size: 16px;
+    font-size: 1.1rem;
     text-transform: capitalize;
 ">Dirección de correo</label>
                      <div class="col-md-11">
-                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus style="max-height:2rem">
 
                          @if ($errors->has('email'))
                              <span class="invalid-feedback" role="alert">
@@ -85,12 +85,12 @@ z-index: 0;
 
                  <div class="form-group row">
                      <label for="password" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
-    font-size: 16px;
+    font-size: 1.1rem;
     text-transform: capitalize;
 }">Contraseña</label>
 
                      <div class="col-md-9">
-                         <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="current-password">
+                         <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="current-password" style="max-height:2rem">
 
                          @if ($errors->has('password'))
                              <span class="invalid-feedback" role="alert">
@@ -101,12 +101,12 @@ z-index: 0;
                  </div>
                  <div class="form-group row">
                    <label for="password-confirm" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
-  font-size: 16px;
+  font-size: 1.1rem;
   text-transform: capitalize;
 }">Confirmar contraseña</label>
 
                      <div class="col-md-9">
-                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" style="max-height:2rem">
                      </div>
                  </div>
 

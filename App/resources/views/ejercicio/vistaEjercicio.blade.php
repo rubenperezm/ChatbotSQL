@@ -663,7 +663,7 @@ function formularioQuery(){
         else{
           if (data[0]['conversacionBot'] === "comprobacion_query laravel") {
             $.toast({
-              text: "Es una consulta válida pero no es ni la solución al ejercicio ni a esta etapa", // Text that is to be shown in the toast
+              text: "Es una consulta válida pero no es la solución al ejercicio", // Text that is to be shown in the toast
               heading: '¡Casi lo tienes!', // Optional heading to be shown on the toast
               icon: 'warning', // Type of toast icon
               showHideTransition: 'slide', // fade, slide or plain
