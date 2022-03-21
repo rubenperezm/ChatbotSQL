@@ -434,7 +434,7 @@ function ComprobarTutorial() {
         var bodybloqueTutorial = document.createElement("div");
         bodybloqueTutorial.setAttribute("id", "bodybloqueTutorial");
         bodybloqueTutorial.className = "card-body text-center mb-2"
-        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación al maravilloso mundo de SQL. Voy a proceder a explicarte de forma rápida el funcionamiento de la plataforma aunque para cualquier duda que te surja, siempre puedes recurrir a nuestro bot de seguimiento disponible. En el panel alojado en la parte izquierda de la pantalla, podrás encontrar los ejercicios disponibles en la plataforma y el un ranking sobre los compañero que ya han resuelto este ejercicio.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
+        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación al maravilloso mundo de SQL. Voy a proceder a explicarte de forma rápida el funcionamiento de la plataforma aunque para cualquier duda que te surja, siempre puedes recurrir a nuestro bot de seguimiento disponible. En el panel alojado en la parte izquierda de la pantalla, podrás encontrar los ejercicios disponibles en la plataforma y un ranking sobre los compañeros que ya han resuelto este ejercicio.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
         document.getElementById("bloqueTutorial").appendChild(bodybloqueTutorial);
 
         $('#tutorialEjercicio').click(function(e) {
@@ -442,7 +442,7 @@ function ComprobarTutorial() {
           $("#bloqueEjercicio").removeClass("opacityTutorial");
           $("#bloqueSideBar").addClass("opacityTutorial");
           $("#bloqueTutorial").addClass("bloqueCenterTutorial");
-          $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Esta parte central de la herramienta es la más importante: en ella escribiremos las soluciones de nuestros ejercicios y comprobaremos las soluciones. Gran parte de las consultas SQL siguen un orden para formarse. Para todos los pasos de los ejercicios, nuestro amigo el Bot nos acompañará para formar la consulta. Si ves innecesarias todas estas aclaraciones, podrás saltarte los pasos que desees y pasar directamente a resolverlo.</p><div class="col-12 mt-2 px-0"><img src="{{ env("APP_URLP") }}/imagenes/fucionamiento.png" alt="" style="width: 450px;"></div><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="tutorialIframe();">Avanzar</button></div>');
+          $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Esta parte central de la herramienta es la más importante: en ella escribiremos las soluciones de nuestros ejercicios y comprobaremos las soluciones. En todos los ejercicios nuestro amigo el Bot nos acompañará para formar la consulta.</p><div class="col-12 mt-2 px-0"><img src="{{ env("APP_URLP") }}/imagenes/fucionamiento.png" alt="" style="width: 450px;"></div><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="tutorialIframe();">Avanzar</button></div>');
         });
       }
     }
@@ -455,7 +455,7 @@ function tutorialIframe(){
   $("#bloqueSideBar").addClass("opacityTutorial");
   $("#bloqueTutorial").removeClass("bloqueCenterTutorial");
   $("#bloqueTutorial").addClass("bloqueIframeTutorial");
-  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Os presento a vuestro compañero, que estará pendiente de cada movimiento para poder así ayudaros con los ejercicios. No dudes en preguntarle en lo que respecta al lenguaje. Si no puede ayudarte, no seas muy duro con él, ¡él también está en constante aprendizaje! Puedes empezar por preguntar a nuestro compañero:¿qué hago para empezar?.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Avanzar</button></div></p>');
+  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Os presento a vuestro compañero, que estará pendiente de cada movimiento para poder así ayudaros con los ejercicios. No dudes en preguntarle en lo que respecta al lenguaje, o pedirle alguna pista sobre el ejercicio. Si no puede ayudarte, no seas muy duro con él, ¡él también está en constante aprendizaje! Puedes empezar por preguntar a nuestro compañero:¿qué hago para empezar?.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Avanzar</button></div></p>');
 };
 
 function cerrarIframeTutorial(){
@@ -612,9 +612,8 @@ function ejercicioTerminado(){
 var queryAnterior = "";
 function formularioQuery(){
   var doc = myCodeMirror.getDoc();
-  var cursor = doc.getCursor();
-  var line = doc.getLine(cursor.line);
-  var pos = { line: cursor.line};
+  var line = doc.getLine(doc.lastLine());
+  var pos = { line: doc.lastLine()};
   if(!line.endsWith(';')){
     doc.replaceRange(';', pos);
   }
@@ -679,7 +678,7 @@ function formularioQuery(){
           if(Object.entries(data[0]['query']).length !== 0){
             var keys = Object.keys(data[0]['query'][0]);
             $.each(keys, function (index, value) {
-              $("#queryContainer").append("<th>"+value+"</th>");
+              $("#queryContainer").append("<th>"+value.toUpperCase()+"</th>");
             });
             $.each(data[0]['query'], function (i, fila) {
               $("#elementos").append("<tr>");

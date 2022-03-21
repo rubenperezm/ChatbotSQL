@@ -174,7 +174,8 @@ class EjercicioController extends Controller
         if(stripos($SecPass[0], 'insert') !== false || stripos($SecPass[0], 'delete') !== false || stripos($SecPass[0], 'update') !== false
         || stripos($SecPass[0], 'on') !== false || stripos($SecPass[0], 'drop') !== false || stripos($SecPass[0], 'add') !== false
         || stripos($SecPass[0], 'alter') !== false || stripos($SecPass[0], 'rename') !== false || stripos($SecPass[0], 'truncate') !== false
-        || stripos($SecPass[0], 'replace') !== false || stripos($SecPass[0], 'create') !== false || stripos($SecPass[0], 'use') !== false){
+        || stripos($SecPass[0], 'replace') !== false || stripos($SecPass[0], 'create') !== false || stripos($SecPass[0], 'use') !== false
+        || stripos($SecPass[0], 'explain') !== false){
           array_push($respuestaQuery ,array("query" => $mensajeSec,"conversacionBot" => "securityMess"));
           return Response::json($respuestaQuery);
         }
@@ -182,9 +183,25 @@ class EjercicioController extends Controller
         $logIntento = Logs::where("uuidIntento",$request['uuid'])->first();
         try {
          $users1 = DB::connection('mysql2')->select($stringUsuario);
+         if(count($users1) !== 0){
+           //array_push($mejoraConsulta, $users1);
+          //array_push($respuestaQuery ,array('query' => $users1,'conversacionBot' => 'comprobacion_query laravel'));
+          //array_push($respuestaQuery, $mejoraConsulta);
+          //return Response::json($respuestaQuery);
+          $users1 =cambiarCase($users1);
+         }
          $sol1 = DB::connection('mysql2')->select($solucionQuery);
+         if(count($sol1) !== 0){
+          $sol1 = cambiarCase($sol1);
+          }
          $users2 = DB::connection('mysql3')->select($stringUsuario);
+         if(count($users2) !== 0){
+          $users2 = cambiarCase($users2);
+          }
          $sol2 = DB::connection('mysql3')->select($solucionQuery);
+         if(count($sol2) !== 0){
+          $sol2 = cambiarCase($sol2);
+          }
 
           if($users1 == $sol1 && $users2 == $sol2){ //Consulta correcta
             array_push($respuestaQuery ,array("query" => $users1,"conversacionBot" => "finalConversacionCorrectolaravel"));
@@ -216,7 +233,7 @@ class EjercicioController extends Controller
                 $selectSol =  str_replace(" as ", " ", $arraySolucion[0]["select"]);
                 $camposUser = getCampos($selectUser);
                 $camposSol = getCampos($selectSol);
-                if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, $users1[0], $sol1[0], $mejoraConsulta)){$mensaje = true;}
+                if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, $mejoraConsulta)){$mensaje = true;}
                 elseif(comprobacionesFrom($arrayQueryUser[0]['from'], $arraySolucion[0]['from'], $mejoraConsulta)){$mensaje = true;}
                 elseif(array_key_exists('order by', $arraySolucion[0])){
                   if(!array_key_exists('order by', $arrayQueryUser[0])){
@@ -444,7 +461,7 @@ function comprobacionesUnion($stringUsuario, $solucionQuery, $arrayQueryUser, $a
   }
   return $v;
 }
-function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,$usersQ, $SolQ, &$mejoraConsulta){
+function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, &$mejoraConsulta){
   $v = false;
   if((stripos($selectSol, "distinct") !== false) !== (stripos($selectUser, "distinct") !== false)){
     array_push($mejoraConsulta, "Consulta para qué sirve la cláusula DISTINCT, y decide si es necesaria para este ejercicio.");  
@@ -459,10 +476,10 @@ function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol,$use
       $v = true;
       array_push($mejoraConsulta, "Recuerda renombrar los campos del select.");
     }
-    elseif($usersQ !== $SolQ){
+    elseif(getCampos($selectUser) !== getCampos($selectSol)){
       $v = true;
-      //array_push($mejoraConsulta, "No estás renombrando los campos correctamente. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
-      array_push($mejoraConsulta, $selectUser." ".$selectSol);
+      array_push($mejoraConsulta, "No estás renombrando los campos correctamente. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
+      //array_push($mejoraConsulta, $selectUser." ".$selectSol);
     }
   }elseif(stripos($selectUser, "'") !== false){
       $v = true;
@@ -497,7 +514,6 @@ function comprobacionesOrderBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
       if($a !== $b){
         $v = true;
         array_push($mejoraConsulta, "Revisa los campos que usas para ordenar la consulta y comprueba si tienes que ordenar en orden ascendente o descendente con cada uno de ellos.");
-        //array_push($mejoraConsulta, $b);
       }
     }
   }
@@ -599,4 +615,16 @@ function getCampos($str){
   $res = preg_replace_callback('/,/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
   //$res = preg_replace_callback('/\s+/', function($coincidencias){return ' ';}, $res);
   return explode(' ', $res);
+}
+
+
+function cambiarCase($q){
+  $i = 0;
+  $q2 = array();
+  foreach($q as $key => $value){
+    $aux = strtolower(json_encode($value, JSON_UNESCAPED_UNICODE));
+    $q2[$i] = json_decode($aux, true);
+    $i++;
+  }
+  return $q2;
 }
