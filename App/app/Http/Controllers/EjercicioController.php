@@ -470,48 +470,46 @@ function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, &$m
   elseif(stripos($selectSol, "'") !== false){
     if(stripos($selectUser, "'") === false){
       $v = true;
-      array_push($mejoraConsulta, "Recuerda renombrar los campos del select.");
+      array_push($mejoraConsulta, "Recuerda renombrar los campos del SELECT.");
     }
-    elseif(getCampos($selectUser) !== getCampos($selectSol)){
+    elseif($selectUser !== $selectSol){
       $v = true;
       array_push($mejoraConsulta, "El renombramiento debe coincidir literalmente con el especificado en el enunciado.");
     }
   }elseif(stripos($selectUser, "'") !== false){
       $v = true;
-      array_push($mejoraConsulta, "No debes renombrar los campos del select si el enunciado no lo dice explícitamente.");
-  }
-  else{
-    if(count($camposUser) !== count($camposSol)){
-      array_push($mejoraConsulta, "No seleccionas los campos correctos. Recuerda que deben de ir en el mismo orden que se pide en el enunciado.");
-      $v  = true;
-    }
-    
+      array_push($mejoraConsulta, "No debes renombrar los campos del SELECT si el enunciado no lo dice explícitamente.");
   }
    return $v;
 }
 
 function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
   $v = false;
-  for($i = 0; $i < count($camposSol) && !$v; $i++){
-    preg_match('/\w+_\w+\)/', $camposSol[$i], $match);
-    if(empty($match)){
-      $cSol = $camposSol[$i];
-    }else{
-      $cSol = trim($match[0], ')');
-    }
-    preg_match('/\w+_\w+\)/', $camposUser[$i], $match2);
-    if(empty($match2)){
-      $cUser = $camposUser[$i];
-    }else{
-      $cUser = trim($match2[0], ')');
-    }
-
-    if($cUser !== $cSol){
-      array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
-      $v = true;
-    }elseif($camposUser[$i] !== $camposSol[$i]){
-      array_push($mejoraConsulta, "Revisa las funciones usadas en el SELECT.");
-      $v = true;
+  if(count($camposSol) !== count($camposUser)){
+    array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
+    $v = true;
+  }else{
+    for($i = 0; $i < count($camposSol) && !$v; $i++){
+      preg_match('/\w+_\w+\)/', $camposSol[$i], $match);
+      if(empty($match)){
+        $cSol = $camposSol[$i];
+      }else{
+        $cSol = trim($match[0], ')');
+      }
+      preg_match('/\w+_\w+\)/', $camposUser[$i], $match2);
+      if(empty($match2)){
+        $cUser = $camposUser[$i];
+      }else{
+        $cUser = trim($match2[0], ')');
+      }
+  
+      if($cUser !== $cSol){
+        array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
+        $v = true;
+      }elseif($camposUser[$i] !== $camposSol[$i]){
+        array_push($mejoraConsulta, "Revisa las funciones usadas en el SELECT.");
+        $v = true;
+      }
     }
   }
   return $v;
