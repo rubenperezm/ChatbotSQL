@@ -507,8 +507,7 @@ function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
     }
 
     if($cUser !== $cSol){
-      //array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
-      array_push($mejoraConsulta, $cUser.$cSol);
+      array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
       $v = true;
     }elseif($camposUser[$i] !== $camposSol[$i]){
       array_push($mejoraConsulta, "Revisa las funciones usadas en el SELECT.");
@@ -641,7 +640,7 @@ function getCampos($str){
   $res = str_replace(' ', '', $str);
   $res = preg_replace_callback('/\'.+\',/', function($coincidencias){return ' ';}, $res);
   $res = preg_replace_callback('/\'.+\'/', function($coincidencias){return '';}, $res);
-  $res = preg_replace_callback('/,[^\(].+\)/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
+  $res = preg_replace_callback('/,(?![^\(]*\))/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
   //$res = preg_replace_callback('/\s+/', function($coincidencias){return ' ';}, $res);
   return explode(' ', $res);
 }
