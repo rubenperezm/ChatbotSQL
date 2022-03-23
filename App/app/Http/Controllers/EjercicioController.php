@@ -493,13 +493,13 @@ function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, &$m
 function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
   $v = false;
   for($i = 0; $i < count($camposSol) && !$v; $i++){
-    $cSol  = preg_match('/\w+_\w+\)/', $camposSol[$i], $match);
+    preg_match('/\w+_\w+\)/', $camposSol[$i], $match);
     if(empty($match)){
       $cSol = $camposSol[$i];
     }else{
       $cSol = trim($match[0], ')');
     }
-    $cUser = preg_match('/\w+_\w+\)/', $camposUser[$i], $match2);
+    preg_match('/\w+_\w+\)/', $camposUser[$i], $match2);
     if(empty($match2)){
       $cUser = $camposUser[$i];
     }else{
@@ -507,7 +507,8 @@ function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
     }
 
     if($cUser !== $cSol){
-      array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
+      //array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
+      array_push($mejoraConsulta, $cUser.$cSol);
       $v = true;
     }elseif($camposUser[$i] !== $camposSol[$i]){
       array_push($mejoraConsulta, "Revisa las funciones usadas en el SELECT.");
@@ -640,7 +641,7 @@ function getCampos($str){
   $res = str_replace(' ', '', $str);
   $res = preg_replace_callback('/\'.+\',/', function($coincidencias){return ' ';}, $res);
   $res = preg_replace_callback('/\'.+\'/', function($coincidencias){return '';}, $res);
-  $res = preg_replace_callback('/,/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
+  $res = preg_replace_callback('/,[^\(].+\)/',function($coincidencias){return ' ';}, $res); //En caso de que no haya renombres
   //$res = preg_replace_callback('/\s+/', function($coincidencias){return ' ';}, $res);
   return explode(' ', $res);
 }
