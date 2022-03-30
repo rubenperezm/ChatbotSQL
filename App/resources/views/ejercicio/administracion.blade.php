@@ -333,16 +333,23 @@ max-height: 180px;">
           <p>
             Este proyecto ha sido financiado en la convocatoria de 
             Innovación Docente de la Universidad de Cádiz 2021/22 “Proyecto 
-            de Innovación Docente de la UCA" (código sol-202100203360-tra). 
+            de Innovación Docente de la UCA" (código sol-202100203360-tra).<br>
+            Han participado en este proyecto:<br>
           </p>
           <p>
-          Han participado en este proyecto:<br>
-            <ul>
-              <li>Antonio Balderas</li>
-              <li>Manuel Palomo</li>
-              <li>Daniel Mejías</li>
-              <li>Rubén Pérez</li>
-            </ul>
+            <div class=Participantes style= "display:flex; justify-content:space-around">
+            
+            <div>
+              <ul>
+                <li>Antonio Balderas</li> 
+                <li>Daniel Mejías</li>
+              </ul>
+            </div>
+              <ul>
+                <li>Manuel Palomo</li>
+                <li>Rubén Pérez</li>
+              </ul>
+            </div>
           </p>
         </div> 
       </div>
