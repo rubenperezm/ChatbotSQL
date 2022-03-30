@@ -251,6 +251,7 @@ class editarEjercicioController extends Controller
           ->JoinName($nombre)
           ->JoinEmail($correo)
           ->Completado($completado)
+          ->where('users.esProfesor', "=", "0")
           ->orderBy('logs.created_at','desc')
           ->paginate(10);
 
@@ -273,6 +274,7 @@ class editarEjercicioController extends Controller
         ->leftJoin('users','user_id', '=','users.id')
         ->JoinName($nombre)
         ->JoinEmail($correo)
+        ->where('users.esProfesor', "=", "0")
         ->orderBy('modolibrelogs.created_at','desc')
         ->paginate(10);
     $datos = array(
