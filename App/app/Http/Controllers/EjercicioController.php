@@ -435,7 +435,7 @@ function selectsEnDescribeOShow($arraySolucion, &$mejoraConsulta){
   //Primero comprobamos que no estemos haciendo un select para consultas simples (show/describe)
   if(array_key_exists('describe', $arraySolucion)||array_key_exists('show', $arraySolucion)){
     $v = true;
-    array_push($mejoraConsulta, "Tienes ganas de consultas más complejas, pero este ejercicio es mucho más básico");              
+    array_push($mejoraConsulta, "Tienes ganas de consultas más complejas, pero este ejercicio es mucho más básico. No uses select.");              
   }
   return $v;
 }

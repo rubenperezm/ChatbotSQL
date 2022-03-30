@@ -57,5 +57,5 @@ Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middlew
 Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/estadisticamlibre', 'editarEjercicioController@estadisticamlibre')->middleware(esProfesor::class);
 //
-//Auth::routes(['register' => false]); //Dejamos el registro deshabilitado (grupo alumnos cerrado, para abrir a usuarios externos quitar lo que va entre [])
-Auth::routes();
+Auth::routes(['register' => false]); //Dejamos el registro deshabilitado (grupo alumnos cerrado, para abrir a usuarios externos quitar lo que va entre [])
+//Auth::routes();

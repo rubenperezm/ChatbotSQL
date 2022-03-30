@@ -11028,7 +11028,8 @@ a {
 .BloqueSolucion {
   position: absolute;
   z-index: 100000;
-  top: 10%;
+  top: 35%;
+  right: 32.5%;
   width: 35%;
   right: 5rem;
   background-color: #3b3b3b;
@@ -11149,7 +11150,7 @@ a:hover {
   max-height: 243px;
   font-weight: bold;
   margin-top: 1.6rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .pt-15 {

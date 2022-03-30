@@ -35,6 +35,8 @@
         <div class="col-4" id="tablas" role="tablist" aria-orientation="vertical">
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from clientes">Clientes</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from articulos">Artículos</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from empleados">Empleados</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from paises">Países</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from pesos">Pesos</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from proveedores">Proveedores</div>
           <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tiendas">Tiendas</div>

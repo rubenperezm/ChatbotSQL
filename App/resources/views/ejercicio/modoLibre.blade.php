@@ -39,6 +39,30 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
+            <span class="spanSugerencia pl-7">Empleados</span>
+          </div>
+          <div class="col-4 text-center">
+            <a href="#" data-id="select * from empleados" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+              <i class="fas fa-code"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 filaTabla">
+        <div class="row">
+          <div class="col-8">
+            <span class="spanSugerencia pl-7">Países</span>
+          </div>
+          <div class="col-4 text-center">
+            <a href="#" data-id="select * from paises" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+              <i class="fas fa-code"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 filaTabla">
+        <div class="row">
+          <div class="col-8">
             <span class="spanSugerencia pl-7">Pesos</span>
           </div>
           <div class="col-4 text-center">
@@ -235,7 +259,7 @@
   </div>
   <div class="nombreIframe">
   <label class="labelNombreBot">
-    <span id="nombreAsistente">Bot Ayuda</span>
+    <span id="nombreAsistente">Señor Datacio</span>
     <br>
     <span class="labelDisponibilidadBot">Disponible ahora</span>
     <span class="fuentePunto">●</span>

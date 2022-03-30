@@ -39,6 +39,30 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
+            <span class="spanSugerencia pl-7">Empleados</span>
+          </div>
+          <div class="col-4 text-center">
+            <a href="#" data-id="select * from empleados" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+              <i class="fas fa-code"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 filaTabla">
+        <div class="row">
+          <div class="col-8">
+            <span class="spanSugerencia pl-7">Países</span>
+          </div>
+          <div class="col-4 text-center">
+            <a href="#" data-id="select * from paises" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+              <i class="fas fa-code"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 filaTabla">
+        <div class="row">
+          <div class="col-8">
             <span class="spanSugerencia pl-7">Pesos</span>
           </div>
           <div class="col-4 text-center">
@@ -354,7 +378,7 @@
   </div>
   <div class="nombreIframe">
   <label class="labelNombreBot">
-    <span id="nombreAsistente">Bot Ayuda</span>
+    <span id="nombreAsistente">Señor Datacio</span>
     <br>
     <span class="labelDisponibilidadBot">Disponible ahora</span>
     <span class="fuentePunto">●</span>
@@ -455,7 +479,7 @@ function tutorialIframe(){
   $("#bloqueSideBar").addClass("opacityTutorial");
   $("#bloqueTutorial").removeClass("bloqueCenterTutorial");
   $("#bloqueTutorial").addClass("bloqueIframeTutorial");
-  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Os presento a vuestro compañero, que estará pendiente de cada movimiento para poder así ayudaros con los ejercicios. No dudes en preguntarle en lo que respecta al lenguaje, o pedirle alguna pista sobre el ejercicio. Si no puede ayudarte, no seas muy duro con él, ¡él también está en constante aprendizaje! Puedes empezar por preguntar a nuestro compañero:¿qué hago para empezar?.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Avanzar</button></div></p>');
+  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Os presento a vuestro compañero Datacio, que estará pendiente de cada movimiento para poder así ayudaros con los ejercicios. No dudes en preguntarle en lo que respecta al lenguaje, o pedirle alguna pista sobre el ejercicio. Si no puede ayudarte, no seas muy duro con él, ¡él también está en constante aprendizaje! Puedes empezar por preguntar a nuestro compañero:¿qué hago para empezar?.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Avanzar</button></div></p>');
 };
 
 function cerrarIframeTutorial(){
@@ -585,6 +609,11 @@ function ejercicioTerminado(){
     dataType: 'json',
     success:function(data){
       $("#bloqueIframe").addClass("opacityTutorial");
+      $("#bloqueEjercicio").addClass("opacityTutorial");
+      $("#bloqueTablass").addClass("opacityTutorial");
+      document.getElementById("bloqueIframe").style['pointer-events'] = "none";
+      document.getElementById("bloqueEjercicio").style['pointer-events'] = "none";
+      document.getElementById("bloqueTablass").style['pointer-events'] = "none";
       var BloqueSolucion = document.createElement("div");
       BloqueSolucion.className = "cardBodyEnun cardEnunciado rounded BloqueSolucion"
       BloqueSolucion.setAttribute("id", "BloqueSolucion");

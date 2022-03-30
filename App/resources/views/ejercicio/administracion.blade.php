@@ -26,15 +26,15 @@ background: url('../imagenes/p2.jpg');
            <a href="{{ env('APP_URLP') }}/editarEjercicio" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Menu ejercicios"><i class="fas fa-th-list"></i></a>
            @endif
            <a href="{{ env('APP_URLP') }}/admin/contacto" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Contacto"><i class="fas fa-envelope"></i></a>
-           <a href="#" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir a twitter"><i style="font-size: 20px;" class="fab fa-twitter"></i></a>
-           <a href="#" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir a instagram"><i style="font-size: 20px;"class="fab fa-instagram"></i></a>
+           <a href="https://github.com/rubenperezm/Chatbot" target="_blank" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Ir al repositorio del proyecto"><i class="fab fa-github"></i></a>
+           <a class="enlaceIcon infoProyecto" data-toggle="tooltip" data-placement="top" title="Información"><i class="fas fa-info"></i></a>
     </div>
     <div class="mt-4 mb-4 cardBodyEnun cardEnunciado rounded" style="width: 90%;
     margin: auto;
     background-color: #1d1d1d;
     -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7">
+    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7)">
       <div class="card-header col-12 cabeceraAdministracion rounded" style="display:inline-flex;">
         <div class="col-6">
           <h5 class="card-header-title mb-3 text-white">Mi perfil </h5>
@@ -85,7 +85,7 @@ background: url('../imagenes/p2.jpg');
     background-color: #1d1d1d;
     -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7">
+    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7)">
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Modo libre</h5>
       </div>
@@ -111,7 +111,7 @@ font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
     background-color: #1d1d1d;
     -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7">
+    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7)">
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Principiante</h5>
       </div>
@@ -173,7 +173,7 @@ font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
     background-color: #1d1d1d;
     -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7">
+    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7)">
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Intermedio</h5>
       </div>
@@ -244,7 +244,7 @@ max-height: 180px;">
     background-color: #1d1d1d;
     -webkit-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.75);
-    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7">
+    box-shadow: 1px 1px 9px -1px rgba(86, 84, 84, 0.7)">
       <div class="card-header cabeceraAdministracion rounded">
           <h5 class="card-header-title mb-3 text-white">Avanzado</h5>
       </div>
@@ -312,8 +312,50 @@ max-height: 180px;">
     </div>
   </div>
 </div>
+
+<!-- POP UP INFORMACION-->
+<div class="modal fade" id="informacion" tabindex="-1" role="dialog" aria-labelledby="informacion" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ChatbotSQL</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalConversacionBody">
+        <div class="imgs" style="display:flex; justify-content: space-around">
+          <img src="/imagenes/GNU.png" alt="By CoreUI - [1], CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=85767589" width="100" height="100">
+          <img src="/imagenes/UCA.png" alt="Logo Universidad de Cádiz" width="250" height="100">
+        </div>
+        <div class="parrafada" style="text-align: center">
+          <br>
+          <p>
+            Este proyecto ha sido financiado en la convocatoria de 
+            Innovación Docente de la Universidad de Cádiz 2021/22 “Proyecto 
+            de Innovación Docente de la UCA" (código sol-202100203360-tra). 
+          </p>
+          <p>
+          Han participado en este proyecto:<br>
+            <ul>
+              <li>Antonio Balderas</li>
+              <li>Manuel Palomo</li>
+              <li>Daniel Mejías</li>
+              <li>Rubén Pérez</li>
+            </ul>
+          </p>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
 @section('scripts')
 <script>
+$('.infoProyecto').click(function(){
+  document.getElementById("informacion").tabIndex = 0;
+  $('#informacion').modal();
+});
+
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()

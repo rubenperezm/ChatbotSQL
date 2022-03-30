@@ -117,7 +117,7 @@ class editarEjercicioController extends Controller
     $fechaFin = Carbon::now()->toDateTimeString();
     $intentosPorDia = Logs::select(DB::raw('count(*) AS intentos'),DB::raw('date(created_at) as dia'))
           ->CreatedAt($fechaInicio,$fechaFin)
-          ->where('user_id', ' not in ', User::select('id')->where('esProfesor', '=', 1))
+          ->whereIn('user_id', function($query){$query->select('id')->from(with(new User)->getTable())->where('esProfesor', '=', 0);})
           ->groupBy(DB::raw('date(created_at)'))
           ->get();
 
@@ -151,7 +151,7 @@ class editarEjercicioController extends Controller
       //Buscamos la todos los intentos de cada ejercicio
       $ejercicioId = Logs::select("*")
             ->where("ejercicio_id","=",$ejercicio->ejercicio_id)
-            ->where("user_id", " not in ", User::select("id")->where("esProfesor", "=", 1))
+            ->whereIn('user_id', function($query){$query->select('id')->from(with(new User)->getTable())->where('esProfesor', '=', 0);})
             ->get();
       $totalIntentosEjercicio = count($ejercicioId);
       $arrayNumeroIntentos[$ejercicio->ejercicio_id] = 0;
