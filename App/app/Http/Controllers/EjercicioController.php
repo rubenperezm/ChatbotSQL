@@ -629,7 +629,7 @@ function comprobacionesFrom($arrayQueryUser, $arraySolucion, &$mejoraConsulta){
 }
 
 function getTablas($str){
-  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas/', $str, $m);
+  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $str, $m);
   return $m[0];
 }
 

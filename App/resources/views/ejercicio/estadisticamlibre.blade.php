@@ -42,11 +42,19 @@
             <div class="row form-group col-md-12" style="justify-content: center">
               <div class="col-md-3">
                 <label for="nombre" class='font-weight-bold'>Nombre</label>
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="">
+                <input type="text" class="form-control" name="nombre" id="inputName" placeholder="Nombre" value="">
               </div>
               <div class="col-md-3">
                 <label for="correo" class='font-weight-bold'>Correo</label>
-                <input type="text" class="form-control" name="correo" placeholder="Correo" value="">
+                <input type="text" class="form-control" name="correo" id="inputEmail" placeholder="Correo" value="">
+              </div>
+              <div class="col-md-3">
+                <label for="fechaini" class='font-weight-bold mayuscula'>Fecha Inicio</label>
+                <input type="date" class="form-control redondeado" name="fechaInicio" id="inputFechI" placeholder="dd/mm/aaaa">
+              </div>
+              <div class="col-md-3">
+                <label for="fechafin" class='font-weight-bold mayuscula'>Fecha Fin</label>
+                <input type="date" class="form-control redondeado" name="fechaFin" id="inputFechF" placeholder="dd/mm/aaaa">
               </div>
             </div>
             <div class='col-md-12'>
@@ -184,6 +192,17 @@ $('.verIntentoML').click(function(){
 });
 $('.pagination').addClass("justify-content-center");
 
+</script>
+</script>
+<script>
+window.onload = function(event) {
+  const urlparams = new URLSearchParams(window.location.search);
+
+  $('#inputName').val(urlparams.get('nombre'));
+  $('#inputEmail').val(urlparams.get('correo'));
+  $('#inputFechI').val(urlparams.get('fechaInicio'));
+  $('#inputFechF').val(urlparams.get('fechaFin'));
+}
 </script>
 @endsection
 @endsection

@@ -241,15 +241,17 @@ class editarEjercicioController extends Controller
 
     $nombre = $request->get('nombre');
     $correo = $request->get('correo');
-    $solucion = $request->get('solucion');
+    $enunciado = $request->get('enunciado');
     $completado =  $request->get('completado');
-
+    $fechaInicio = $request->get('fechaInicio');
+    $fechaFin = $request->get('fechaFin');
     $intentos = Logs::select("logs.id","ejercicio_id","user_id","enunciado","solucionQuery","logs.created_at","logs.updated_at","mensajes","errores","completado","name","email")
           ->leftJoin('users','user_id', '=','users.id')
           ->leftJoin('ejercicio','ejercicio_id', '=','ejercicio.id')
-          ->JoinSolucion($solucion)
+          ->JoinEnunciado($enunciado)
           ->JoinName($nombre)
           ->JoinEmail($correo)
+          ->JoinFechas($fechaInicio, $fechaFin)
           ->Completado($completado)
           ->where('users.esProfesor', "=", "0")
           ->orderBy('logs.created_at','desc')
@@ -269,11 +271,14 @@ class editarEjercicioController extends Controller
   {
     $nombre = $request->get('nombre');
     $correo = $request->get('correo');
+    $fechaIni = $request->get('fechaInicio');
+    $fechaFin = $request->get('fechaFin');
 
     $intentosML = ModoLibreLogs::select("modolibrelogs.id","user_id","modolibrelogs.created_at","modolibrelogs.updated_at","mensajes","errores","name","email")
         ->leftJoin('users','user_id', '=','users.id')
         ->JoinName($nombre)
         ->JoinEmail($correo)
+        ->JoinFechasML($fechaIni, $fechaFin)
         ->where('users.esProfesor', "=", "0")
         ->orderBy('modolibrelogs.created_at','desc')
         ->paginate(10);
@@ -526,7 +531,7 @@ class editarEjercicioController extends Controller
 
 
 function compruebaTabla($miString,$tipoConsulta){
-  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas/', $miString, $m);
+  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $miString, $m);
   Debugbar::info($m);
   return $m[0];
 }

@@ -55,27 +55,37 @@
           border-radius: 4px;">
           <div class="card-body" style="overflow-y: auto">
             <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
-            <form class="form-usuario form-horizontal" autocomplete="off" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
-              <div class="row form-group col-md-12">
+            <form id="formBusq" class="form-usuario form-horizontal" autocomplete="off" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
+              <div class="row form-group col-md-12 mb-2" style="justify-content:center">
                 <div class="col-md-3">
                   <label for="nombre" class='font-weight-bold'>Nombre</label>
-                  <input type="text" class="form-control" name="nombre" placeholder="Nombre" value="">
+                  <input type="text" class="form-control" name="nombre" id='inputName' placeholder="Nombre" value="">
                 </div>
                 <div class="col-md-3">
                   <label for="correo" class='font-weight-bold'>Correo</label>
-                  <input type="text" class="form-control" name="correo" placeholder="Correo" value="">
+                  <input type="text" class="form-control" name="correo" id='inputEmail' placeholder="Correo" value="">
                 </div>
                 <div class="col-md-3">
-                  <label for="solucion" class='font-weight-bold mayuscula'>Solución</label>
-                  <input type="text" class="form-control redondeado" name="solucion" placeholder="Solución" value="">
+                  <label for="enunciado" class='font-weight-bold mayuscula'>Enunciado</label>
+                  <input type="text" class="form-control redondeado" name="enunciado" id='inputEnun' placeholder="Enunciado" value="">
                 </div>
+              </div>
+              <div class="row form-group col-md-12 mb-2" style="justify-content:center">
                 <div class="col-md-3">
                   <label for="completado" class='font-weight-bold'>Completado</label>
-                  <select name="completado" class="form-control mb-2 ">
+                  <select name="completado" id='inputCompl' class="form-control mb-2 ">
                     <option value="0" selected></option>
                     <option value="1">Abandonado</option>
                     <option value="2">Completado</option>
                   </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="fechaini" class='font-weight-bold mayuscula'>Fecha Inicio</label>
+                  <input type="date" class="form-control redondeado" name="fechaInicio" id='inputFechI' value="">
+                </div>
+                <div class="col-md-3">
+                  <label for="fechafin" class='font-weight-bold mayuscula'>Fecha Fin</label>
+                  <input type="date" class="form-control redondeado" name="fechaFin" id='inputFechF' value="">
                 </div>
               </div>
               <div class='col-md-12'>
@@ -287,6 +297,7 @@
 </div>
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
 <script>
 $(document).ready(function(){
   Chart.pluginService.register({
@@ -419,6 +430,18 @@ $('.verIntento').click(function(){
 
 $('.pagination').addClass("justify-content-center");
 
+</script>
+<script>
+window.onload = function(event) {
+  const urlparams = new URLSearchParams(window.location.search);
+
+  $('#inputName').val(urlparams.get('nombre'));
+  $('#inputEmail').val(urlparams.get('correo'));
+  $('#inputEnun').val(urlparams.get('enunciado'));
+  $('#inputCompl').val(urlparams.get('completado'));
+  $('#inputFechI').val(urlparams.get('fechaInicio'));
+  $('#inputFechF').val(urlparams.get('fechaFin'));
+}
 </script>
 @endsection
 @endsection

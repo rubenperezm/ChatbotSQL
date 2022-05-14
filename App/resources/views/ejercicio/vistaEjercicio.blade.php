@@ -356,7 +356,10 @@
                 <div class="mt-2">
                   <div class="card temaAppTarjeta cardBloqueRespuesta" style="overflow-y: auto; overflow-x: auto">
                   <div class="card-body" style="max-height: 20rem">
-                    <h5 class="card-title cardEstructura TituloBloqueRespuesta">Resultado Query</h5>
+                    <div class="card-title cardEstructura TituloBloqueRespuesta">
+                        <h5 style="display:inline">Resultado Query </h5>
+                        <span id="nRows"></span>
+                    </div>
                     <div class="table-responsive mt-4" style="min-height:86%;overflow-x: visible" id="container">
                       <table class="table table-sm table-striped table-principal tablaRespuesta">
                         <thead>
@@ -640,20 +643,22 @@ function ejercicioTerminado(){
 //variable para no permitir dos query con la misma consulta
 var queryAnterior = "";
 function formularioQuery(){
-  var doc = myCodeMirror.getDoc();
-  var line = doc.getLine(doc.lastLine());
-  var pos = { line: doc.lastLine()};
-  if(!line.endsWith(';')){
-    doc.replaceRange(';', pos);
-  }
   var query = myCodeMirror.getValue();
+  query = query.replace(/-- .*\n?/g,"");
+  query = query.replace(/\/\*.*\*\//g, "");
   query = query.split("\n").join(" ");
   query = query.split("\t").join(" ");
   query = query.trim()
   query = query.replace(/\s+/g, " ");
   var id =  <?php echo $id ?>;
-  if(queryAnterior != query){
+  if(queryAnterior != query && query != ""){
     queryAnterior = query;
+    var doc = myCodeMirror.getDoc();
+    var line = doc.getLine(doc.lastLine());
+    var pos = { line: doc.lastLine()};
+    if(!line.endsWith(';')){
+      doc.replaceRange(';', pos);
+    }
     $.ajax({
       type:'POST',
       url:'./ajaxFormularioQuery',
@@ -686,6 +691,8 @@ function formularioQuery(){
             var EjercicioBot = document.getElementById("iframe").contentWindow;
             EjercicioBot.postMessage(data[0]['conversacionBot'], "{{ env('APP_BOT') }}");
             $("#queryContainer").append(data[0]['query']);
+            $("#nRows").text("");
+            
           }
         }
         else{
@@ -706,6 +713,7 @@ function formularioQuery(){
           }
           if(Object.entries(data[0]['query']).length !== 0){
             var keys = Object.keys(data[0]['query'][0]);
+            $("#nRows").text("(" + Object.entries(data[0]['query']).length + " filas)");
             $.each(keys, function (index, value) {
               $("#queryContainer").append("<th>"+value.toUpperCase()+"</th>");
             });

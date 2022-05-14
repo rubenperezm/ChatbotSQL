@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Facades\DB;
 
 class ModoLibreLogs extends Model
 {
@@ -32,4 +32,16 @@ class ModoLibreLogs extends Model
        return $query->where('users.email','like',"%".$email."%");
   }
 
+  public function scopeJoinFechasML($query,$fechaInicio, $fechaFin){
+    $aux = $query;
+    $fechaInicioF = date("Y-m-d", strtotime($fechaInicio));
+    $fechaFinF = date("Y-m-d", strtotime($fechaFin));
+    if(isset($fechaInicio)){
+      $aux = $aux->where(DB::raw('date(modolibrelogs.created_at)'),'>=',$fechaInicioF);
+    }
+    if(isset($fechaFin)){
+      $aux = $aux->where(DB::raw('date(modolibrelogs.updated_at)'),'<=',$fechaFinF);
+    }
+    return $aux;
+  }
 }

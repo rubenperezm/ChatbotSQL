@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Facades\DB;
 
 class Logs extends Model
 {
@@ -33,8 +33,30 @@ class Logs extends Model
   }
 
   public function scopeJoinSolucion($query,$solucion){
-    if(isset($solucion))
-      return $query->where('ejercicio.solucionQuery','like',"%".$solucion."%");
+    if(isset($solucion)){
+      $aux = strtolower($solucion);
+      return $query->where(DB::raw('LOWER(ejercicio.solucionQuery)'),'like',"%".$aux."%");
+    }
+  }
+
+  public function scopeJoinEnunciado($query,$enunciado){
+    if(isset($enunciado)){
+      $aux = strtolower($enunciado);
+      return $query->where(DB::raw('LOWER(ejercicio.enunciado)'),'like',"%".$aux."%");
+    }
+  }
+
+  public function scopeJoinFechas($query,$fechaInicio, $fechaFin){
+    $aux = $query;
+    $fechaInicioF = date("Y-m-d", strtotime($fechaInicio));
+    $fechaFinF = date("Y-m-d", strtotime($fechaFin));
+    if(isset($fechaInicio)){
+      $aux = $aux->where(DB::raw('date(logs.created_at)'),'>=',$fechaInicioF);
+    }
+    if(isset($fechaFin)){
+      $aux = $aux->where(DB::raw('date(logs.updated_at)'),'<=',$fechaFinF);
+    }
+    return $aux;
   }
 
   public function scopeCompletado($query,$completado){
