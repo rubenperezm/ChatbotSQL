@@ -460,7 +460,7 @@ class editarEjercicioController extends Controller
     }else{
       $nuevoEjercicio = new Ejercicio;
     }
-    $nuevoEjercicio->solucionQuery = preg_replace('/\"/', '\'',strtolower($request->get('query')));
+    $nuevoEjercicio->solucionQuery = preg_replace('/\"/', "'",strtolower($request->get('query')));
     $nuevoEjercicio->dificultad = $request->get('dificultad');
     $nuevoEjercicio->enunciado = json_encode($enunciados);
     $nuevoEjercicio->ayuda = json_encode($pistas);
