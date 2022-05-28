@@ -52,6 +52,7 @@ class editarEjercicioController extends Controller
   public function editar($id)
   {
     $Ejercicio = Ejercicio::find($id);
+    preg_replace('/\"/', "'", $Ejercicio->solucionQuery);
     $esShow = false;
     $clausulaArray = array();
     Debugbar::info($Ejercicio);
@@ -362,7 +363,6 @@ class editarEjercicioController extends Controller
   {
     Debugbar::info($request->get('idEjercicio'));
     $enunciados = array();
-    //BORRAR CUANDO LOS PASOS NO SE GUARDEN EN BD
     array_push($enunciados ,array("parte" => "enunciado","texto" => str_replace("\"", '\'', $request->get('enunciado'))));
     if($request->get('showEnunciado') != null){
       array_push($enunciados ,array("parte" => "show","texto" => str_replace("\"", '\'', $request->get('showEnunciado'))));
@@ -461,6 +461,7 @@ class editarEjercicioController extends Controller
       $nuevoEjercicio = new Ejercicio;
     }
     $nuevoEjercicio->solucionQuery = preg_replace('/\"/', "'",strtolower($request->get('query')));
+    DebugBar::info($nuevoEjercicio->solucionQuery);
     $nuevoEjercicio->dificultad = $request->get('dificultad');
     $nuevoEjercicio->enunciado = json_encode($enunciados);
     $nuevoEjercicio->ayuda = json_encode($pistas);
