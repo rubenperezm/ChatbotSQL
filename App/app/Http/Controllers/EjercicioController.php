@@ -231,6 +231,8 @@ class EjercicioController extends Controller
               else{
                 $selectUser = str_replace(" as ", " ", $arrayQueryUser[0]["select"]);
                 $selectSol =  str_replace(" as ", " ", $arraySolucion[0]["select"]);
+                $selectUser = str_replace(" inner ", " ", $arrayQueryUser[0]["from"]);
+                $selectSol =  str_replace(" inner ", " ", $arraySolucion[0]["from"]);
                 $camposUser = getCampos($selectUser);
                 $camposSol = getCampos($selectSol);
                 if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, $mejoraConsulta)){$mensaje = true;}
