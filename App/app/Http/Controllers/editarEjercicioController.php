@@ -52,7 +52,6 @@ class editarEjercicioController extends Controller
   public function editar($id)
   {
     $Ejercicio = Ejercicio::find($id);
-    preg_replace('/\"/', "'", $Ejercicio->solucionQuery);
     $esShow = false;
     $clausulaArray = array();
     Debugbar::info($Ejercicio);
