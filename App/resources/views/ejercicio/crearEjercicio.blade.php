@@ -355,7 +355,7 @@ if (value != ""){
     $('#describePista').val("<?php if(isset($ayuda[1]["texto"])){echo($ayuda[1]["texto"]);} ?>");
   }*/
 
-  myCodeMirror.setValue("<?php if(isset($Ejercicio->solucionQuery)){echo($Ejercicio->solucionQuery);} ?>);
+  myCodeMirror.setValue("<?php if(isset($Ejercicio->solucionQuery)){echo($Ejercicio->solucionQuery);} ?>");
 
 }
 
