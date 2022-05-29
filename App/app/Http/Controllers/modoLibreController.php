@@ -118,6 +118,9 @@ class modoLibreController extends Controller
             case stripos($ex, '1064') !== false:
               $msg = $msg." 1064";
               break;
+            case stripos($ex, '1111') !== false:
+                $msg = $msg." 1111";
+              break;
             case stripos($ex, '1146') !== false:
               $msg = $msg." 1146";
               break;
