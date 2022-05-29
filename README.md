@@ -49,9 +49,9 @@ Han participado en este proyecto:
  
 ## Introduction
 
-ChatbotSQL is a educational platform to learn SQL by solving exercises. This app will be able to help students thanks to our virtual assistant, created with IBM Watson.
+ChatbotSQL is an educational platform to learn SQL by solving exercises. This app will be able to help students thanks to our virtual assistant, created with IBM Watson.
 
-With this plataform we try to improve the learning experience of Databases subject students at University of Cádiz, at the same time we analyze the most common mistakes and questions.
+With this platform, we try to improve the learning experience of Databases subject students at University of Cádiz, at the same time that we analyze the most common mistakes and questions.
 
 ## Description
 
@@ -59,7 +59,7 @@ With this plataform we try to improve the learning experience of Databases subje
 
 Once we log in, we can choose between doing exercises or trying the playground mode.
 
-- The exercises will test the user skills. There are three difficulty levels, which will be unlocked when we solve all the exercises from the previous level.
+- The exercises will test the user's skills. There are three difficulty levels, which will be unlocked when we solve all the exercises from the previous level.
 - The playground mode will allow users to perform some queries freely.
 
 ![Image text](./img/mainmenu.png)
@@ -67,9 +67,9 @@ Once we log in, we can choose between doing exercises or trying the playground m
 ### Game tab:
 
 When we select an exercise or the playground mode, we will see three panels: 
-- On the left, we can see the data stored in the database without performing a query. We can also select another exercise, and check the students that have completed the current exercise.
+- On the left, we can see the data stored in the database without performing a query. We can also select another problem, and check the students that have completed the current exercise.
 
-- In the middle we have the text area in which we have to write the query. The result of the query we will appear here too.
+- In the middle, we have the text area, in which we have to write the query. The result of the query will appear here too.
 
 - On the right, we have our virtual assistant. It will give us some information.
 
