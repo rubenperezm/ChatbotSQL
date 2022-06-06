@@ -87,5 +87,6 @@ This project has been funded in the call of Teaching Innovation of the Universit
 The following people have taken part in this project:
 - Antonio Balderas
 - Daniel Mejías
+- Andrés Muñoz
 - Manuel Palomo
 - Rubén Pérez
