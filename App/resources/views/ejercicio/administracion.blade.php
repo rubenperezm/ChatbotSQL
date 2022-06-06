@@ -342,10 +342,11 @@ max-height: 180px;">
             <div>
               <ul>
                 <li>Antonio Balderas</li> 
-                <li>Daniel Mejías</li>
+                <li>Andrés Muñoz</li>
               </ul>
             </div>
               <ul>
+                <li>Daniel Mejías</li>
                 <li>Manuel Palomo</li>
                 <li>Rubén Pérez</li>
               </ul>
