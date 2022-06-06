@@ -39,6 +39,7 @@ Este proyecto ha sido financiado en la convocatoria de Innovación Docente de la
 Han participado en este proyecto:
 - Antonio Balderas
 - Daniel Mejías
+- Andrés Muñoz
 - Manuel Palomo
 - Rubén Pérez
 
