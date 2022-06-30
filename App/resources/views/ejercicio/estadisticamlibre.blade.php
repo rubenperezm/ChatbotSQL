@@ -61,6 +61,11 @@
               <button class='btn botonDegradao float-right' style="color:white;">
                 <i class='fas fa-search'></i> Filtrar
               </button>
+              <button type="button" id="export" data-toggle="tooltip" data-placement="top" title="descargarCsv" class="btn botonDegradao float-right mr-2" style="color:white;" name="button2">
+                <a data-href="/editarEjercicio/tasksml" onclick="exportTasks(event.target);" data-toggle="tooltip" data-placement="top" title="Descargar CSV">
+                  <i class='fas fa-file-export'></i> Exportar
+                </a>
+              </button>
             </div>
           </form>
         </div>
@@ -202,6 +207,12 @@ window.onload = function(event) {
   $('#inputEmail').val(urlparams.get('correo'));
   $('#inputFechI').val(urlparams.get('fechaInicio'));
   $('#inputFechF').val(urlparams.get('fechaFin'));
+}
+
+function exportTasks(_this) {
+  console.log(_this)
+  let _url = $(_this).data('href');
+  window.location.href = _url + window.location.search;
 }
 </script>
 @endsection

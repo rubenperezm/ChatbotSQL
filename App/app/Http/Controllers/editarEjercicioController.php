@@ -11,6 +11,8 @@ use App\Ejercicio;
 use App\Logs;
 use App\ModoLibreLogs;
 use App\User;
+use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
+use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Session;
 use Response;
 use DB;
@@ -111,7 +113,6 @@ class editarEjercicioController extends Controller
 
   public function estadistica(Request $request)
   {
-
     //intentos por dia
     $fechaInicio = Carbon::now()->subDays(7)->toDateTimeString();
     $fechaFin = Carbon::now()->toDateTimeString();
@@ -245,6 +246,7 @@ class editarEjercicioController extends Controller
     $completado =  $request->get('completado');
     $fechaInicio = $request->get('fechaInicio');
     $fechaFin = $request->get('fechaFin');
+    
     $intentos = Logs::select("logs.id","ejercicio_id","user_id","enunciado","solucionQuery","logs.created_at","logs.updated_at","mensajes","errores","completado","name","email")
           ->leftJoin('users','user_id', '=','users.id')
           ->leftJoin('ejercicio','ejercicio_id', '=','ejercicio.id')
@@ -256,7 +258,6 @@ class editarEjercicioController extends Controller
           ->where('users.esProfesor', "=", "0")
           ->orderBy('logs.created_at','desc')
           ->paginate(10);
-
     $datos = array(  
         'intentos'          => $intentos,
         'tasaAbandono'      => $tasaAbandono,
@@ -295,6 +296,7 @@ class editarEjercicioController extends Controller
       $parseo = array("script", "<?php", "?>", "php", "@php");
       $intentoConversacion = str_replace($parseo, "", $conversacion->conversacion);
       $intentoConversacion = json_decode($intentoConversacion,true);
+      DebugBar::info($intentoConversacion);
     }else{
       $intentoConversacion = "No ha tenido conversación";
     }
@@ -527,8 +529,121 @@ class editarEjercicioController extends Controller
     return Response::json($respuestaQuery);
   }
 
-}
+public function exportCsv(Request $request){
+  $fileName = 'logs_ejercicios.csv';
+  $nombre = $request->input('nombre', null);
+  $correo = $request->input('correo', null);
+  $enunciado = $request->input('enunciado', null);
+  $completado =  $request->input('completado', null);
+  $fechaInicio = $request->input('fechaInicio', null);
+  $fechaFin = $request->input('fechaFin', null);
+   $tasks = Logs::select('name', 'email', 'logs.created_at', 'logs.updated_at', 'enunciado', 'solucionQuery', 'completado', 'consultas', 'errores', 'conversacion')
+   ->leftJoin('users','user_id', '=','users.id')
+   ->leftJoin('ejercicio','ejercicio_id', '=','ejercicio.id')
+   ->JoinEnunciado($enunciado)
+   ->JoinName($nombre)
+   ->JoinEmail($correo)
+   ->JoinFechas($fechaInicio, $fechaFin)
+   ->Completado($completado)
+   ->where('users.esProfesor', "=", "0")
+   ->orderBy('logs.created_at','desc')
+   ->get();
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
 
+        $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Completado', 'Intentos', 'Errores', 'Mensajes');
+
+        $callback = function() use($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($tasks as $task) {
+                $row['Nombre']  = $task->name;
+                $row['Correo']    = $task->email;
+                $row['FechaInicio']    = $task->created_at;
+                $row['FechaFin']  = $task->updated_at;
+                $row['Enunciado']  = json_decode($task->enunciado,true)[0]["texto"];
+                $row['Solucion']  = $task->solucionQuery;
+                $row['Completado']  = ($task->completado == 2)? "Completado" : "Abandono";
+                $row['Intentos']  = $task->consultas != null ? count(json_decode($task->consultas,true)) : 0;
+                $row['Errores']  = $task->errores != null ? count(json_decode($task->errores,true)) : 0;
+
+                if ($task->conversacion == null) $row['Mensajes'] = 0;
+                else{
+                  $UserMsg = 0;
+                  $msg = json_decode($task->conversacion,true);
+                  foreach($msg as $m){
+                    if(isset($m['mensajeUsuario'])) $UserMsg++;
+                  }
+                  $row['Mensajes'] = $UserMsg;
+                }
+                fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
+                    , $row['Enunciado'], $row['Solucion'], $row['Completado'], $row['Intentos'], $row['Errores'], $row['Mensajes']));
+            }
+
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }
+public function exportCsvMl(Request $request){
+    $fileName = 'logs_ml.csv';
+    $nombre = $request->input('nombre', null);
+    $correo = $request->input('correo', null);
+    $fechaInicio = $request->input('fechaInicio', null);
+    $fechaFin = $request->input('fechaFin', null);
+      $tasks = ModoLibreLogs::select('name', 'email', 'modolibrelogs.created_at', 'modolibrelogs.updated_at', 'consultas', 'errores', 'conversacion')
+      ->leftJoin('users','user_id', '=','users.id')
+      ->JoinName($nombre)
+      ->JoinEmail($correo)
+      ->JoinFechasML($fechaInicio, $fechaFin)
+      ->where('users.esProfesor', "=", "0")
+      ->orderBy('modolibrelogs.created_at','desc')
+      ->get();
+          $headers = array(
+              "Content-type"        => "text/csv",
+              "Content-Disposition" => "attachment; filename=$fileName",
+              "Pragma"              => "no-cache",
+              "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+              "Expires"             => "0"
+          );
+  
+          $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Intentos', 'Errores', 'Mensajes');
+  
+          $callback = function() use($tasks, $columns) {
+              $file = fopen('php://output', 'w');
+              fputcsv($file, $columns);
+  
+              foreach ($tasks as $task) {
+                  $row['Nombre']  = $task->name;
+                  $row['Correo']    = $task->email;
+                  $row['FechaInicio']    = $task->created_at;
+                  $row['FechaFin']  = $task->updated_at;
+                  $row['Intentos']  = $task->consultas != null ? count(json_decode($task->consultas,true)) : 0;
+                  $row['Errores']  = $task->errores != null ? count(json_decode($task->errores,true)) : 0;
+  
+                  if ($task->conversacion == null) $row['Mensajes'] = 0;
+                  else{
+                    $UserMsg = 0;
+                    $msg = json_decode($task->conversacion,true);
+                    foreach($msg as $m){
+                      if(isset($m['mensajeUsuario'])) $UserMsg++;
+                    }
+                    $row['Mensajes'] = $UserMsg;
+                  }
+                  fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
+                      , $row['Intentos'], $row['Errores'], $row['Mensajes']));
+              }
+  
+              fclose($file);
+          };
+          return response()->stream($callback, 200, $headers);
+      }
+}
 
 function compruebaTabla($miString,$tipoConsulta){
   preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $miString, $m);

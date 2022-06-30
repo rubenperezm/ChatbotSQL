@@ -40,7 +40,6 @@ Route::prefix('modoLibre')->group(function(){
 });
 
 
-
 Route::get('ajaxVerTabla', 'EjercicioController@ajaxVerTabla');
 Route::get('comprobarTutorial', 'EjercicioController@comprobarTutorial');
 Route::get('ejercicioTerminado', 'EjercicioController@ejercicioTerminado');
@@ -56,6 +55,9 @@ Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxV
 Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);
 Route::get('/editarEjercicio/estadisticamlibre', 'editarEjercicioController@estadisticamlibre')->middleware(esProfesor::class);
+Route::get('/editarEjercicio/tasks', 'editarEjercicioController@exportCsv')->middleware(esProfesor::class);;
+Route::get('/editarEjercicio/tasksml', 'editarEjercicioController@exportCsvMl')->middleware(esProfesor::class);;
+
 //
 Auth::routes(['register' => false]); //Dejamos el registro deshabilitado (grupo alumnos cerrado, para abrir a usuarios externos quitar lo que va entre [])
 //Auth::routes();
