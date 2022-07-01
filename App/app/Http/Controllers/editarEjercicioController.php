@@ -556,7 +556,7 @@ public function exportCsv(Request $request){
             "Expires"             => "0"
         );
 
-        $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Dificultad', 'Completado', 'Intentos', 'Errores', 'Mensajes');
+        $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Nivel', 'Estado', 'Intentos', 'Errores', 'Mensajes');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -569,8 +569,8 @@ public function exportCsv(Request $request){
                 $row['FechaFin']  = $task->updated_at;
                 $row['Enunciado']  = json_decode($task->enunciado,true)[0]["texto"];
                 $row['Solucion']  = $task->solucionQuery;
-                $row['Dificultad']  = $task->dificultad;
-                $row['Completado']  = ($task->completado == 2)? "Completado" : "Abandono";
+                $row['Nivel']  = $task->dificultad;
+                $row['Estado']  = ($task->completado == 2)? "Completado" : "Abandono";
                 $row['Intentos']  = $task->consultas != null ? count(json_decode($task->consultas,true)) : 0;
                 $row['Errores']  = $task->errores != null ? count(json_decode($task->errores,true)) : 0;
 
@@ -584,7 +584,7 @@ public function exportCsv(Request $request){
                   $row['Mensajes'] = $UserMsg;
                 }
                 fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
-                    , $row['Enunciado'], $row['Solucion'], $row['Completado'], $row['Dificultad'], $row['Intentos'], $row['Errores'], $row['Mensajes']));
+                    , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes']));
             }
 
             fclose($file);
