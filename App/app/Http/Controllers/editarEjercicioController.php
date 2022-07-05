@@ -556,7 +556,7 @@ public function exportCsv(Request $request){
             "Expires"             => "0"
         );
 
-        $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Nivel', 'Estado', 'Intentos', 'Errores', 'Mensajes');
+        $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Nivel', 'Estado', 'nIntentos', 'nErrores', 'nMensajes', 'Conversación');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -574,7 +574,10 @@ public function exportCsv(Request $request){
                 $row['Intentos']  = $task->consultas != null ? count(json_decode($task->consultas,true)) : 0;
                 $row['Errores']  = $task->errores != null ? count(json_decode($task->errores,true)) : 0;
 
-                if ($task->conversacion == null) $row['Mensajes'] = 0;
+                if ($task->conversacion == null){
+                  $row['Mensajes'] = 0;
+                  $row['Conversacion'] = null;
+                }
                 else{
                   $UserMsg = 0;
                   $msg = json_decode($task->conversacion,true);
@@ -582,9 +585,10 @@ public function exportCsv(Request $request){
                     if(isset($m['mensajeUsuario'])) $UserMsg++;
                   }
                   $row['Mensajes'] = $UserMsg;
+                  $row['Conversacion'] = $task->conversacion;
                 }
                 fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
-                    , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes']));
+                    , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
             }
 
             fclose($file);
@@ -613,7 +617,7 @@ public function exportCsvMl(Request $request){
               "Expires"             => "0"
           );
   
-          $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Intentos', 'Errores', 'Mensajes');
+          $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'nIntentos', 'nErrores', 'nMensajes', 'Conversación');
   
           $callback = function() use($tasks, $columns) {
               $file = fopen('php://output', 'w');
@@ -627,7 +631,10 @@ public function exportCsvMl(Request $request){
                   $row['Intentos']  = $task->consultas != null ? count(json_decode($task->consultas,true)) : 0;
                   $row['Errores']  = $task->errores != null ? count(json_decode($task->errores,true)) : 0;
   
-                  if ($task->conversacion == null) $row['Mensajes'] = 0;
+                  if ($task->conversacion == null){
+                    $row['Mensajes'] = 0;
+                    $row['Conversacion'] = null;
+                  }
                   else{
                     $UserMsg = 0;
                     $msg = json_decode($task->conversacion,true);
@@ -635,9 +642,10 @@ public function exportCsvMl(Request $request){
                       if(isset($m['mensajeUsuario'])) $UserMsg++;
                     }
                     $row['Mensajes'] = $UserMsg;
+                    $row['Conversacion'] = $task->conversacion;
                   }
                   fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
-                      , $row['Intentos'], $row['Errores'], $row['Mensajes']));
+                      , $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
               }
   
               fclose($file);

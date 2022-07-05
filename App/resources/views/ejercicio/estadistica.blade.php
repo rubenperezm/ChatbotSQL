@@ -449,9 +449,7 @@ window.onload = function(event) {
 }
 
 function exportTasks(_this) {
-      console.log(_this)
-      let _url = $(_this).data('href');
-      window.location.href = _url + window.location.search;
+      window.location.href = 'tasks' + window.location.search;
 }
 </script>
 @endsection
