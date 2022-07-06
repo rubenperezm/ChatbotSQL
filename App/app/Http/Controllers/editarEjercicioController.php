@@ -586,7 +586,7 @@ public function exportCsv(Request $request){
                     if(isset($m['mensajeUsuario'])) $UserMsg++;
                   }
                   $row['Mensajes'] = $UserMsg;
-                  $row['Conversacion'] = json_encode(json_decode($task->conversacion,true));
+                  $row['Conversacion'] = json_encode(json_decode($task->conversacion,true), JSON_UNESCAPED_UNICODE);
                 }
                 fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                     , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
@@ -644,7 +644,7 @@ public function exportCsvMl(Request $request){
                       if(isset($m['mensajeUsuario'])) $UserMsg++;
                     }
                     $row['Mensajes'] = $UserMsg;
-                    $row['Conversacion'] = json_encode(json_decode($task->conversacion,true));
+                    $row['Conversacion'] = json_encode(json_decode($task->conversacion,true), JSON_UNESCAPED_UNICODE);
                   }
                   fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                       , $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
