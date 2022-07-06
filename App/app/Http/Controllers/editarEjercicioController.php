@@ -296,7 +296,6 @@ class editarEjercicioController extends Controller
       $parseo = array("script", "<?php", "?>", "php", "@php");
       $intentoConversacion = str_replace($parseo, "", $conversacion->conversacion);
       $intentoConversacion = json_decode($intentoConversacion,true);
-      DebugBar::info($intentoConversacion);
     }else{
       $intentoConversacion = "No ha tenido conversación";
     }
@@ -310,7 +309,6 @@ class editarEjercicioController extends Controller
     }else{
       $errores = "No ha tenido errores";
     }
-
 
 
     $datos =  array(
@@ -586,7 +584,8 @@ public function exportCsv(Request $request){
                     if(isset($m['mensajeUsuario'])) $UserMsg++;
                   }
                   $row['Mensajes'] = $UserMsg;
-                  $row['Conversacion'] = json_encode(json_decode($task->conversacion,true), JSON_UNESCAPED_UNICODE);
+
+                  $row['Conversacion'] = '"'.$task->conversacion.'"';
                 }
                 fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                     , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
@@ -644,7 +643,7 @@ public function exportCsvMl(Request $request){
                       if(isset($m['mensajeUsuario'])) $UserMsg++;
                     }
                     $row['Mensajes'] = $UserMsg;
-                    $row['Conversacion'] = json_encode(json_decode($task->conversacion,true), JSON_UNESCAPED_UNICODE);
+                    $row['Conversacion'] = '"'.$task->conversacion.'"';
                   }
                   fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                       , $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
