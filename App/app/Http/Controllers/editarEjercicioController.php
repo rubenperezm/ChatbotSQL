@@ -584,8 +584,7 @@ public function exportCsv(Request $request){
                     if(isset($m['mensajeUsuario'])) $UserMsg++;
                   }
                   $row['Mensajes'] = $UserMsg;
-
-                  $row['Conversacion'] = '"'.$task->conversacion.'"';
+                  $row['Conversacion'] = preg_replace_callback('/\\\"/', function($coincidencias){return '"';}, $task->conversacion);
                 }
                 fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                     , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
@@ -643,7 +642,7 @@ public function exportCsvMl(Request $request){
                       if(isset($m['mensajeUsuario'])) $UserMsg++;
                     }
                     $row['Mensajes'] = $UserMsg;
-                    $row['Conversacion'] = '"'.$task->conversacion.'"';
+                    $row['Conversacion'] = preg_replace_callback('/\\\"/', function($coincidencias){return '"';}, $task->conversacion);
                   }
                   fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                       , $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
