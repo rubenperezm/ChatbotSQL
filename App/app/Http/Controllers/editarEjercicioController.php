@@ -537,7 +537,7 @@ public function exportCsv(Request $request){
   $completado =  $request->input('completado', null);
   $fechaInicio = $request->input('fechaInicio', null);
   $fechaFin = $request->input('fechaFin', null);
-   $tasks = Logs::select('name', 'email', 'logs.created_at', 'logs.updated_at', 'enunciado', 'solucionQuery', 'dificultad', 'completado', 'consultas', 'errores', 'conversacion')
+  $tasks = Logs::select('name', 'email', 'logs.created_at', 'logs.updated_at', 'enunciado', 'solucionQuery', 'dificultad', 'completado', 'consultas', 'errores', 'conversacion')
    ->leftJoin('users','user_id', '=','users.id')
    ->leftJoin('ejercicio','ejercicio_id', '=','ejercicio.id')
    ->JoinEnunciado($enunciado)
@@ -548,18 +548,19 @@ public function exportCsv(Request $request){
    ->where('users.esProfesor', "=", "0")
    ->orderBy('logs.created_at','desc')
    ->get();
-        $headers = array(
+  $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
             "Pragma"              => "no-cache",
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
             "Expires"             => "0"
-        );
+  );
 
         $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Nivel', 'Estado', 'nIntentos', 'nErrores', 'nMensajes', 'Conversación');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
             fputcsv($file, $columns);
 
             foreach ($tasks as $task) {
@@ -585,7 +586,7 @@ public function exportCsv(Request $request){
                     if(isset($m['mensajeUsuario'])) $UserMsg++;
                   }
                   $row['Mensajes'] = $UserMsg;
-                  $row['Conversacion'] = $task->conversacion;
+                  $row['Conversacion'] = json_encode(json_decode($task->conversacion,true));
                 }
                 fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                     , $row['Enunciado'], $row['Solucion'], $row['Nivel'], $row['Estado'], $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
@@ -621,6 +622,7 @@ public function exportCsvMl(Request $request){
   
           $callback = function() use($tasks, $columns) {
               $file = fopen('php://output', 'w');
+              fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
               fputcsv($file, $columns);
   
               foreach ($tasks as $task) {
@@ -642,7 +644,7 @@ public function exportCsvMl(Request $request){
                       if(isset($m['mensajeUsuario'])) $UserMsg++;
                     }
                     $row['Mensajes'] = $UserMsg;
-                    $row['Conversacion'] = $task->conversacion;
+                    $row['Conversacion'] = json_encode(json_decode($task->conversacion,true));
                   }
                   fputcsv($file, array($row['Nombre'], $row['Correo'], $row['FechaInicio'], $row['FechaFin']
                       , $row['Intentos'], $row['Errores'], $row['Mensajes'], $row['Conversacion']));
