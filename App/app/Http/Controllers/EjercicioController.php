@@ -54,7 +54,6 @@ class EjercicioController extends Controller
           ->orderBy("logs.created_at")
           ->get();
        $unique = $completados->unique('user_id');
-       Debugbar::info($unique->all());
 
         if($ejerciciosResuelto != null){
           foreach ($principiante as $key => $ejercicio) {
@@ -231,12 +230,12 @@ class EjercicioController extends Controller
               else{
                 $selectUser = str_replace(" as ", " ", $arrayQueryUser[0]["select"]);
                 $selectSol =  str_replace(" as ", " ", $arraySolucion[0]["select"]);
-                $selectUser = str_replace(" inner ", " ", $arrayQueryUser[0]["from"]);
-                $selectSol =  str_replace(" inner ", " ", $arraySolucion[0]["from"]);
+                $fromUser = str_replace(" inner ", " ", $arrayQueryUser[0]["from"]);
+                $fromSol =  str_replace(" inner ", " ", $arraySolucion[0]["from"]);
                 $camposUser = getCampos($selectUser);
                 $camposSol = getCampos($selectSol);
                 if(comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, $mejoraConsulta)){$mensaje = true;}
-                elseif(comprobacionesFrom($arrayQueryUser[0]['from'], $arraySolucion[0]['from'], $mejoraConsulta)){$mensaje = true;}
+                elseif(comprobacionesFrom($fromUser, $fromSol, $mejoraConsulta)){$mensaje = true;}
                 elseif(array_key_exists('order by', $arraySolucion[0])){
                   if(!array_key_exists('order by', $arrayQueryUser[0])){
                     array_push($mejoraConsulta, "Recuerda ordenar tu consulta.");
@@ -507,7 +506,6 @@ function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
       }else{
         $cUser = trim($match2[0], ')');
       }
-  
       if($cUser !== $cSol){
         array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
         $v = true;
