@@ -337,18 +337,16 @@ max-height: 180px;">
             Han participado en este proyecto:<br>
           </p>
           <p>
-            <div class=Participantes style= "display:flex; justify-content:space-around">
-            
-            <div>
-              <ul>
-                <li>Antonio Balderas</li> 
-                <li>Andrés Muñoz</li>
+          <div style= "display:inline-block; justify-content:space-around">
+              <ul style="display: flex; padding: 0 0; list-style: none;">
+                <li style="width: 250px;">Antonio Balderas</li> 
+                <li style="width: 250px;">Andrés Muñoz</li>
+                <li style="width: 250px;">Juan Francisco Cabrera</li>
               </ul>
-            </div>
-              <ul>
-                <li>Daniel Mejías</li>
-                <li>Manuel Palomo</li>
-                <li>Rubén Pérez</li>
+              <ul style="display: flex; padding: 0 0; list-style: none;">
+                <li style="width: 250px;">Daniel Mejías</li>
+                <li style="width: 250px;">Manuel Palomo</li>
+                <li style="width: 250px;">Rubén Pérez</li>
               </ul>
             </div>
           </p>

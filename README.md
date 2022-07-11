@@ -42,7 +42,7 @@ Han participado en este proyecto:
 - Andrés Muñoz
 - Manuel Palomo
 - Rubén Pérez
-
+- Juan Francisco Cabrera
 
 
 ---
@@ -91,3 +91,4 @@ The following people have taken part in this project:
 - Andrés Muñoz
 - Manuel Palomo
 - Rubén Pérez
+- Juan Francisco Cabrera
