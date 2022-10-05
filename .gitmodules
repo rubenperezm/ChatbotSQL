@@ -1,3 +1,0 @@
-[submodule "bot"]
-	path = botBD
-	url = https://github.com/watson-developer-cloud/assistant-simple.git
