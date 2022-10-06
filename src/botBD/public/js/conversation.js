@@ -1,3 +1,5 @@
+var app_url = "http://localhost";
+
 var ejercicio;
 var uuidIntento;
 var plataforma;
@@ -39,7 +41,7 @@ function displayMessage (evt) {
           return promise;
         }
         if(ejercicio[1] !== 0){
-          usandoPromesas("http://localhost/api/apiEjercicio/show/" + evt.data[3])
+          usandoPromesas(app_url + "/api/apiEjercicio/show/" + evt.data[3])
           .then( data =>{
             //var enunciado = JSON.parse(data[0]['enunciado']);
             var ayuda = JSON.parse(data[0]['ayuda']);
@@ -112,7 +114,7 @@ var ConversationPanel = (function () {
     }
     if(ejercicio !== undefined)
       if(ejercicio[1] !== 0){
-        usandoPromesas("http://localhost/api/apiEjercicio/show/" + ejercicio[1])
+        usandoPromesas(app_url + "/api/apiEjercicio/show/" + ejercicio[1])
         .then( data =>{
           var enunciado = JSON.parse(data[0]['enunciado']);
           var ayuda = JSON.parse(data[0]['ayuda']);
@@ -295,11 +297,10 @@ function setResponse(responses, isUser, chatBoxElement, index, isTop, isLaravel)
       conversacion[i] = conver;
     }
     var xmlhttp = new XMLHttpRequest();
-    var theUrl;
     if(ejercicio[1] !== 0) 
-      theUrl = "http://localhost/api/apiEjercicio/storeConversacion";
+      theUrl = app_url + "/api/apiEjercicio/storeConversacion";
     else
-    theUrl = "http://localhost/api/apiModoLibre/storeConversacion";
+    theUrl = app_url + "/api/apiModoLibre/storeConversacion";
     xmlhttp.open("POST", theUrl, true);
     xmlhttp.setRequestHeader("Content-Type", "text/plain");
     xmlhttp.send(JSON.stringify({'conversacion': JSON.stringify(conversacion), 'mensajes': respuestas.length, 'uuidIntento': uuidIntento}));
