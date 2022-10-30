@@ -48,15 +48,15 @@ z-index: 0;
        <div class="col-12 my-auto">
          <div class="masthead-content text-white py-5 py-md-0" style="padding-left: 3rem;
     padding-right: 10rem;">
-           <h1 class="mb-3" style="font-size: 3.4rem;">¡Accede a nuestra plataforma!</h1>
-           <h4 class="mb-4">Si estás buscando aprender el lenguaje de gestión de Bases de Datos más conocido, esta es tu plataforma. Además, es totalmente <strong>gratuito</strong>. ¡Solo necesitas ganas de aprender y de dedicarle un rato!</h4>
+           <h1 class="mb-3" style="font-size: 3.4rem;">Login</h1>
+           <h4 class="mb-4">Learn SQL with our platform. It's completely <strong>free</strong>!</h4>
              <form method="POST" action="{{ route('login') }}">
                  @csrf
                  <div class="form-group row">
                      <label for="name" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
     font-size: 16px;
     text-transform: capitalize;
-">Nombre de Usuario</label>
+">Username</label>
                      <div class="col-md-11">
                          <input id="name" type="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -72,7 +72,7 @@ z-index: 0;
                      <label for="password" class="col-md-12 col-form-label text-md-left" style="font-weight: bold;
     font-size: 16px;
     text-transform: capitalize;
-">Contraseña</label>
+">Password</label>
 
                      <div class="col-md-11">
                          <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="current-password">
@@ -91,7 +91,7 @@ z-index: 0;
                              <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                              <label class="form-check-label" for="remember">
-                                 Recuérdame
+                                 Remember me
                              </label>
                          </div>
                      </div>
@@ -100,10 +100,10 @@ z-index: 0;
                  <div class="form-group row mb-0">
                      <div class="col-md-8">
                         <button type="submit" class="btn btn-primary">
-                            Acceder
+                            Login
                         </button>
                         <a class="btn btn-link" href="/register" style="color:white;">
-                            ¿Quieres registrarte?
+                            Don't have an account? Register here
                         </a>
                      </div>
                  </div>

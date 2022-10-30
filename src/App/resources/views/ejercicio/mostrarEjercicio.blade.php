@@ -3,31 +3,31 @@
 <div class="container-fluid temaApp">
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
-      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Ejercicios</h5>
+      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Exercises</h5>
       <div class="col-12 mb-3 float-right" style="margin-right: 5%">
-        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="crear ejercicio">
-            <i class="fas fa-edit"></i> Crear Ejercicio
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Create exercises" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Create exercises">
+            <i class="fas fa-edit"></i> Create Exercise
           </a>
         </button>
-        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="ver ejercicios">
-            <i class="fas fa-th-list"></i> Menú Ejercicios
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Exercises" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
+            <i class="fas fa-th-list"></i> Exercises
           </a>
         </button>
-        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="estadísticas ejercicios">
-            <i class="fas fa-chart-line"></i> Est. Ejercicios
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
+            <i class="fas fa-chart-line"></i> Stats (Exercises)
           </a>
         </button>
-        <button type="button" data-toggle="tooltip" data-placement="top" title="intentos modo libre" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="estadísticas modo libre">
-            <i class="fas fa-chart-line"></i> Est. Modo Libre
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
+            <i class="fas fa-chart-line"></i> Stats (PG Mode)
           </a>
         </button>
-        <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="volver al menú">
-            <i class="fas fa-bars"></i> Menú Principal
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Menu" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="Menu">
+            <i class="fas fa-bars"></i> Main Menu
           </a>
         </button>
       </div>
@@ -49,31 +49,31 @@
             @switch($ejercicio->dificultad)
             @case(1)
             <span style="color:#00b900;">●</span>
-            <span style="font-size: 12px;color: #928888;"> Principiante</span>
+            <span style="font-size: 12px;color: #928888;"> Easy</span>
             @break
 
             @case(2)
             <span style="color:#ff9816;">●</span>
-            <span style="font-size: 12px;color: #928888;"> Intermedio</span>
+            <span style="font-size: 12px;color: #928888;"> Medium</span>
             @break
 
             @case(3)
             <span style="color:red;">●</span>
-            <span style="font-size: 12px;color: #928888;"> Avanzado</span>
+            <span style="font-size: 12px;color: #928888;"> Hard</span>
             @break
 
             @default
-            No tiene dificultad
+            Difficulty not defined
             @endswitch
           </div>
         </div>
         <div class="col-md-12 text-right" style="background-color: #eaeaea;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;">
-        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" class="m-1" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" style="color: #6ead7f;
+        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" class="m-1" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" style="color: #6ead7f;
         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
-        <a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Editar ejercicio" class="m-1"><i style="color: green;"class="fas fa-edit"></i></a>
-        <i  data-toggle="tooltip" data-placement="top" title="Eliminar ejercicio" class="fas fa-trash-alt borrarEsteEjercicio m-1" style="cursor: pointer;color: #9a0000;"data-id="{{$ejercicio->id}}"></i>
+        <a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Modify exercise" class="m-1"><i style="color: green;"class="fas fa-edit"></i></a>
+        <i  data-toggle="tooltip" data-placement="top" title="Delete exercise" class="fas fa-trash-alt borrarEsteEjercicio m-1" style="cursor: pointer;color: #9a0000;"data-id="{{$ejercicio->id}}"></i>
       </div>
     </div>
     @endforeach
@@ -95,12 +95,12 @@ const swalWithBootstrapButtons = Swal.mixin({
 $(document).on('click', '.borrarEsteEjercicio', function(){
   var id = $(this).data('id');
   swalWithBootstrapButtons.fire({
-    title: "¿Estás seguro?",
-    text: "No podrás revertir los cambios!",
+    title: "¿Are you sure?",
+    text: "You can't undo this action!",
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'Borrar!',
-    cancelButtonText: 'No, cancelar!',
+    confirmButtonText: 'Delete!',
+    cancelButtonText: 'No, cancel!',
     reverseButtons: true
   }).then((result) => {
     if (result.value) {
@@ -113,8 +113,8 @@ $(document).on('click', '.borrarEsteEjercicio', function(){
         success:function(data){
           ejercicioEliminado.remove();
           swalWithBootstrapButtons.fire(
-            'Borrado!',
-            'El ejercicio ha sido borrado',
+            'Deleted!',
+            'The exercise has been deleted',
             'success'
           )
         }
@@ -123,8 +123,8 @@ $(document).on('click', '.borrarEsteEjercicio', function(){
       result.dismiss === Swal.DismissReason.cancel
     ) {
       swalWithBootstrapButtons.fire(
-        'Cancelado',
-        'No se ha borrado nada',
+        'Canceled',
+        'Nothing has been deleted',
         'error'
       )
     }

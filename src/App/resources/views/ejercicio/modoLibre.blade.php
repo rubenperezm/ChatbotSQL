@@ -3,19 +3,19 @@
 <div class="navigation-wrapper">
   <div class="navigation-menu navSide" id="navSide">
     <ul class="listaNav">
-      <li class="liNav"><a href="{{ url('admin/administracion')}}">Menu Principal</a></li>
-      <li class="liNav"><a href="{{ url('admin/contacto')}}">Contacto</a></li>
+      <li class="liNav"><a href="{{ url('admin/administracion')}}">Main Menu</a></li>
+      <li class="liNav"><a href="{{ url('admin/contacto')}}">Contact</a></li>
     </ul>
   </div>
 </div>
 <div class="col-md-3 p-0" id="bloqueSideBar">
   <div id="bloqueTablass" class="{{!$mostrarTabla ? 'd-none' : ''}}">
     <div id="bloqueTablas" class="pt-15">
-      <h5 class="card-title tituloCardEjercicio" >Tablas disponibles</h5>
+      <h5 class="card-title tituloCardEjercicio" >Tables</h5>
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7" >Artículos</span>
+            <span class="spanSugerencia pl-7" >Articles</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from articulos" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -27,7 +27,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Clientes</span>
+            <span class="spanSugerencia pl-7">Customers</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from clientes" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -39,7 +39,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Empleados</span>
+            <span class="spanSugerencia pl-7">Employees</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from empleados" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -51,7 +51,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Países</span>
+            <span class="spanSugerencia pl-7">Countries</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from paises" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -63,7 +63,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Pesos</span>
+            <span class="spanSugerencia pl-7">Weights</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from pesos" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -74,7 +74,7 @@
         <div class="col-md-12 filaTabla">
           <div class="row">
             <div class="col-8">
-              <span class="spanSugerencia pl-7">Proveedores</span>
+              <span class="spanSugerencia pl-7">Providers</span>
             </div>
             <div class="col-4 text-center">
               <a href="#" data-id="select * from proveedores" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -85,7 +85,7 @@
               <div class="col-md-12 filaTabla">
                 <div class="row">
                   <div class="col-8">
-                    <span class="spanSugerencia pl-7">Tiendas</span>
+                    <span class="spanSugerencia pl-7">Stores</span>
                   </div>
                   <div class="col-4 text-center">
                     <a href="#" data-id="select * from tiendas" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -96,7 +96,7 @@
                 <div class="col-md-12 filaTabla">
                   <div class="row">
                     <div class="col-8">
-                      <span class="spanSugerencia pl-7">Ventas</span>
+                      <span class="spanSugerencia pl-7">Sales</span>
                     </div>
                     <div class="col-4 text-center">
                       <a href="#" data-id="select * from ventas" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -115,7 +115,7 @@
                 <div class="tab-pane fade show active" id="ListaEjercicios" role="tabpanel" aria-labelledby="ListaEjercicios-tab" style="width: 100%;">
                   <div class="mt-2 mb-4 cardBodyEnun cardEnunciado rounded cardListEjercicios">
                     <div class="card-header cabeceraAdministracion rounded">
-                      <h5 class="card-header-title mb-3 text-white">Ejercicios</h5>
+                      <h5 class="card-header-title mb-3 text-white">Exercises</h5>
                     </div>
                     <div class="card-body px-0 text-center mb-2 pt-0 filaListaEjercicios" style="height:18rem">
                       @foreach ($ejercicios as $i => $ejercicio)
@@ -129,37 +129,37 @@
                           @if($ejerciciosResuelto != null)
                           @if (in_array($ejercicio->id, $ejerciciosResuelto))
                           <div class="col-12  text-left">
-                            <span class="completadoEjercicio">Completado - {{$ejercicio->solucionQuery}}</span>
+                            <span class="completadoEjercicio">Solved - {{$ejercicio->solucionQuery}}</span>
                           </div>
                           @else
                           <div class="col-12  text-left">
-                            <span class="sinCompletarEjercicio">Sin completar</span>
+                            <span class="sinCompletarEjercicio">Not solved yet</span>
                           </div>
                           @endif
                           @else
                           <div class="col-12  text-left">
-                            <span class="sinCompletarEjercicio">Sin completar</span>
+                            <span class="sinCompletarEjercicio">Not solved yet</span>
                           </div>
                           @endif
                           <div class="col-12 text-left">
                             @switch($ejercicio->dificultad)
                             @case(1)
                             <span class="dificultadPrincipiante">●</span>
-                            <span class="spanDificultadListaEjercicios"> Principiante</span>
+                            <span class="spanDificultadListaEjercicios"> Easy</span>
                             @break
 
                             @case(2)
                             <span class="dificultadIntermedio">●</span>
-                            <span class="spanDificultadListaEjercicios"> Intermedio</span>
+                            <span class="spanDificultadListaEjercicios"> Medium</span>
                             @break
 
                             @case(3)
                             <span class="dificultadAvanzado">●</span>
-                            <span class="spanDificultadListaEjercicios"> Avanzado</span>
+                            <span class="spanDificultadListaEjercicios"> Hard</span>
                             @break
 
                             @default
-                            No tiene dificultad
+                            Difficulty not defined
                             @endswitch
                           </div>
                         </div>
@@ -167,14 +167,14 @@
                           @if(auth()->user()->esProfesor ==  0)
                           @switch($ejercicio->dificultad)
                           @case(1)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @break
 
                           @case(2)
                           @if($esPrincipiante)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -186,7 +186,7 @@
 
                           @case(3)
                           @if($esIntermedio)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -200,7 +200,7 @@
                           No tiene dificultad
                           @endswitch
                           @else
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @endif
@@ -221,7 +221,7 @@
                 <div class="mt-2 mb-2 cardBodyEnun cardEnunciado rounded temaAppTarjeta cardListEjerciciosEnun">
                   <div class="card-body text-left mb-2">
                     <p class="card-text text-black pEnunciado">
-                      <span class="span-Enunciado">Modo Libre
+                      <span class="span-Enunciado">Playground Mode
                     </p>
                   </div>
                 </div>
@@ -229,7 +229,7 @@
                   <div class="card-body" id="bloqueConsulta">
                     <div class="col-12 mb-2 px-0" ><textarea name="queryForm" class="form-control" id="formularioQuery"></textarea></div>
                       <div class="col-12 mt-2 px-0 text-right">
-                        <button type="button" class="btn-outline-secondary botonDegradao text-white" name="button" value="query" id="botonQuery" onclick="formularioQuery();"><i class="fas fa-code"></i> EJECUTAR</button>
+                        <button type="button" class="btn-outline-secondary botonDegradao text-white" name="button" value="query" id="botonQuery" onclick="formularioQuery();"><i class="fas fa-code"></i> RUN</button>
                       </div>
                     </div>
                   </div>
@@ -237,7 +237,7 @@
                   <div class="card temaAppTarjeta cardBloqueRespuesta" style="overflow-y: auto; overflow-x: auto">
                     <div class="card-body" style="max-height: 21rem">
                       <div class="card-title cardEstructura TituloBloqueRespuesta">
-                        <h5 style="display:inline">Resultado Query </h5>
+                        <h5 style="display:inline">Result-Set </h5>
                         <span id="nRows"></span>
                       </div>
                       <div class="table-responsive mt-4" style="min-height:86%;overflow-x: visible" id="container">
@@ -262,9 +262,9 @@
   </div>
   <div class="nombreIframe">
   <label class="labelNombreBot">
-    <span id="nombreAsistente">Señor Datacio</span>
+    <span id="nombreAsistente">Datatron</span>
     <br>
-    <span class="labelDisponibilidadBot">Disponible ahora</span>
+    <span class="labelDisponibilidadBot">Available</span>
     <span class="fuentePunto">●</span>
   </label>
 </div>
@@ -320,7 +320,7 @@ $(function () {
 $('.intermedioNoPermitir').click(function(e) {
   Swal.fire({
     icon: 'warning',
-    text: 'Para realizar los ejercicios de nivel intermedio deberás realizar todos los ejercicios de nivel principiante',
+    text: 'You must solve all easy exercises before you can solve medium exercises.',
     heightAuto: false
   })
 });
@@ -328,7 +328,7 @@ $('.intermedioNoPermitir').click(function(e) {
 $('.avanzadoNoPermitir').click(function(e) {
   Swal.fire({
     icon: 'warning',
-    text: 'Para realizar los ejercicios de nivel avanzado deberás realizar todos los ejercicios de nivel intermedio',
+    text: 'You must solve all medium exercises before you can solve hard exercises.',
     heightAuto: false
   })
 });
@@ -498,7 +498,7 @@ function formularioQuery(){
               });
             });
           }else{
-            $("#queryContainer").append("No se ha encontrado ningún registro con estas condiciones");
+            $("#queryContainer").append("Empty set");
           }
         }
       }

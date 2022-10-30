@@ -3,46 +3,46 @@
 <div class="container-fluid temaApp">
   <div class="card mt-4 mb-4" style="width:90%;margin:auto;background-color: white;">
     <div class="card-body">
-      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Estadística</h5>
+      <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Stats - Exercises</h5>
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">  
         <li class="nav-item" style="margin-left: 5%">
-          <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Intentos</a>
+          <a class="nav-link active" id="estadistica-tab" style="color:black;" data-toggle="pill" href="#estadistica" role="tab" aria-controls="estadistica" aria-selected="false">Logs</a>
         </li>
         <li class="nav-item mr-4">
-          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Estadísticas Ejercicios</a>
+          <a class="nav-link" id="intentos-tab" style="color:black;" data-toggle="pill" href="#intentos" role="tab" aria-controls="intentos" aria-selected="true">Stats (Exercises)</a>
         </li>
         <li class="nav-item">
-          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="menú">
-              <i class="fas fa-bars"></i> Menú principal
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Menu" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="Menu">
+              <i class="fas fa-bars"></i> Main Menu
             </a>
           </button>
         </li>
         <li class="nav-item">
-          <button type="button" data-toggle="tooltip" data-placement="top" title="intentos modo libre" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="estadísticas modo libre">
-              <i class="fas fa-chart-line"></i> Est. Modo Libre
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
+              <i class="fas fa-chart-line"></i> Stats (PG Mode)
             </a>
           </button>
         </li>
         <li class="nav-item">
-          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="estadísticas ejercicios">
-              <i class="fas fa-chart-line"></i> Est. Ejercicios
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Start (Exercises)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
+              <i class="fas fa-chart-line"></i> Stats (Exercises)
             </a>
           </button>
         </li>
         <li class="nav-item">
-          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="ver ejercicios">
-              <i class="fas fa-th-list"></i> Menú ejercicios
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Exercises" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ env('APP_URLP') }}/editarEjercicio" data-toggle="tooltip" data-placement="top" title="Exercises">
+              <i class="fas fa-th-list"></i> Exercises
             </a>
           </button>
         </li>
         <li class="nav-item">
-          <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="crear ejercicios">
-              <i class="fas fa-edit"></i> Crear ejercicios
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Create exercise" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
+            <a href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Create exercise">
+              <i class="fas fa-edit"></i> Create exercise
             </a>
           </button>
         </li>
@@ -54,47 +54,47 @@
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
           <div class="card-body" style="overflow-y: auto">
-            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filtro</h5>
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filters</h5>
             <form id="formBusq" class="form-usuario form-horizontal" autocomplete="off" action="{{ env('APP_URLP') }}/editarEjercicio/estadistica" method="get">
               <div class="row form-group col-md-12 mb-2" style="justify-content:center">
                 <div class="col-md-3">
-                  <label for="nombre" class='font-weight-bold'>Nombre</label>
-                  <input type="text" class="form-control" name="nombre" id='inputName' placeholder="Nombre" value="">
+                  <label for="nombre" class='font-weight-bold'>Name</label>
+                  <input type="text" class="form-control" name="nombre" id='inputName' placeholder="Name" value="">
                 </div>
                 <div class="col-md-3">
-                  <label for="correo" class='font-weight-bold'>Correo</label>
-                  <input type="text" class="form-control" name="correo" id='inputEmail' placeholder="Correo" value="">
+                  <label for="correo" class='font-weight-bold'>Email</label>
+                  <input type="text" class="form-control" name="correo" id='inputEmail' placeholder="Email" value="">
                 </div>
                 <div class="col-md-3">
-                  <label for="enunciado" class='font-weight-bold mayuscula'>Enunciado</label>
-                  <input type="text" class="form-control redondeado" name="enunciado" id='inputEnun' placeholder="Enunciado" value="">
+                  <label for="enunciado" class='font-weight-bold mayuscula'>Exercise</label>
+                  <input type="text" class="form-control redondeado" name="enunciado" id='inputEnun' placeholder="Exercise" value="">
                 </div>
               </div>
               <div class="row form-group col-md-12 mb-2" style="justify-content:center">
                 <div class="col-md-3">
-                  <label for="completado" class='font-weight-bold'>Completado</label>
+                  <label for="completado" class='font-weight-bold'>Status</label>
                   <select name="completado" id='inputCompl' class="form-control mb-2 ">
                     <option value="0" selected></option>
-                    <option value="1">Abandonado</option>
-                    <option value="2">Completado</option>
+                    <option value="1">Not solved</option>
+                    <option value="2">Solved</option>
                   </select>
                 </div>
                 <div class="col-md-3">
-                  <label for="fechaini" class='font-weight-bold mayuscula'>Fecha Inicio</label>
+                  <label for="fechaini" class='font-weight-bold mayuscula'>Start Date</label>
                   <input type="date" class="form-control redondeado" name="fechaInicio" id='inputFechI' value="">
                 </div>
                 <div class="col-md-3">
-                  <label for="fechafin" class='font-weight-bold mayuscula'>Fecha Fin</label>
+                  <label for="fechafin" class='font-weight-bold mayuscula'>End Date</label>
                   <input type="date" class="form-control redondeado" name="fechaFin" id='inputFechF' value="">
                 </div>
               </div>
               <div class='col-md-12'>
                 <button class='btn botonDegradao float-right' style="color:white;">
-                  <i class='fas fa-search'></i> Filtrar
+                  <i class='fas fa-search'></i> Filter
                 </button>
-                <button type="button" id="export" data-toggle="tooltip" data-placement="top" title="descargarCsv" class="btn botonDegradao float-right mr-2" style="color:white;" name="button2">
-                  <a data-href="/editarEjercicio/tasks" onclick="exportTasks(event.target);" data-toggle="tooltip" data-placement="top" title="Descargar CSV">
-                  <i class='fas fa-file-export'></i> Exportar
+                <button type="button" id="export" data-toggle="tooltip" data-placement="top" title="Download CSV" class="btn botonDegradao float-right mr-2" style="color:white;" name="button2">
+                  <a data-href="/editarEjercicio/tasks" onclick="exportTasks(event.target);" data-toggle="tooltip" data-placement="top" title="Download CSV">
+                  <i class='fas fa-file-export'></i> Export
                   </a>
                 </button>
               </div>
@@ -106,16 +106,16 @@
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
           <div class="card-body" style="overflow-y: auto">
-            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Intentos</h5>
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Logs</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
               <table class="table table-sm table-striped table-principal"style="color:black;">
                 <thead class="thead-dark">
                   <tr>
-                    <th class="">Usuario</th>
-                    <th class="">Ejercicio</th>
-                    <th class="">Solución</th>
-                    <th class="">Completado</th>
-                    <th class="">Tiempos del intento</th>
+                    <th class="">User</th>
+                    <th class="">Exercise</th>
+                    <th class="">Solution</th>
+                    <th class="">Status</th>
+                    <th class="">Time</th>
                     <th class=""></th>
                   </tr>
                 </thead>
@@ -131,15 +131,15 @@
                     <td>{{$intento['solucionQuery']}}</td>
                     <td>
                       @if($intento['completado'] == 1)
-                      Abandono
+                      Not solved
                       @else
-                      Completado
+                      Solved
                       @endif
                     </td>
                     <td>
-                      Inicio intento: {{$intento['created_at']}}
+                      Start Time: {{$intento['created_at']}}
                       <br>
-                      Última Acción: {{$intento['updated_at']}}
+                      Last Action: {{$intento['updated_at']}}
                     </td>
                     <td>
                       <a class="verIntento" data-id="{{$intento['id']}}" href="#"><i class="fas fa-comments" style="color: green;"></i></a>
@@ -167,14 +167,14 @@
             box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
             border-radius: 4px;">
             <div class="card-body" style="overflow-y: auto">
-              <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Abandono por ejercicio</h5>
+              <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Dropouts per exercise</h5>
               <div class="table-responsive mt-4" style="min-height:86%;" id="container">
                 <table class="table table-sm table-striped table-principal"style=" color:black;">
                   <thead class="thead-dark">
                     <tr>
-                      <th class="">Enunciados</th>
-                      <th class="">Solución</th>
-                      <th class="">Abandonos</th>
+                      <th class="">Exercise</th>
+                      <th class="">Solution</th>
+                      <th class="">No. Dropouts</th>
                       <th class=""></th>
                     </tr>
                   </thead>
@@ -201,14 +201,14 @@
           box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
           border-radius: 4px;">
           <div class="card-body" style="overflow-y: auto">
-            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Media de las consulta por intento</h5>
+            <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Avg. Queries per Exercise</h5>
             <div class="table-responsive mt-4" style="min-height:86%;" id="container">
               <table class="table table-sm table-striped table-principal"style=" color:black;">
                 <thead class="thead-dark">
                   <tr>
-                    <th class="">Enunciados</th>
-                    <th class="">Solución</th>
-                    <th class="">Consultas-media</th>
+                    <th class="">Exercise</th>
+                    <th class="">Solution</th>
+                    <th class="">Avg. Queries</th>
                     <th class=""></th>
                   </tr>
                 </thead>
@@ -234,14 +234,14 @@
         box-shadow: 1px 1px 9px -1px rgba(0,0,0,0.75);
         border-radius: 4px;">
         <div class="card-body" style="overflow-y: auto">
-          <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Media de los errores por intento</h5>
+          <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Avg. Errors per Exercise</h5>
           <div class="table-responsive mt-4" style="min-height:86%;" id="container">
             <table class="table table-sm table-striped table-principal"style="color:black;">
               <thead class="thead-dark">
                 <tr>
-                  <th class="">Enunciados</th>
-                  <th class="">Solución</th>
-                  <th class="">Errores-media</th>
+                  <th class="">Exercise</th>
+                  <th class="">Solution</th>
+                  <th class="">Avg. Errors</th>
                   <th class=""></th>
                 </tr>
               </thead>
@@ -270,7 +270,7 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">Datos del intento</h5>
+      <h5 class="modal-title">Logs</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -278,13 +278,13 @@
     <div class="modal-body" id="modalConversacionBody" style="display:inline-flex;">
       <div class="col-md-6">
         <div class="col-12 mb-4">
-          <h5 class="card-title boderTitle colorGreen">Consultas</h5>
+          <h5 class="card-title boderTitle colorGreen">Queries</h5>
           <div class="col-12" id="bloqueConsulta">
 
           </div>
         </div>
         <div class="col-12 mt-2">
-          <h5 class="card-title boderTitle colorGreen">Errores</h5>
+          <h5 class="card-title boderTitle colorGreen">Errors</h5>
           <div class="col-12" id="bloqueErrores">
 
           </div>
@@ -292,7 +292,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h5 class="card-title boderTitle colorGreen">Conversación</h5>
+        <h5 class="card-title boderTitle colorGreen">Conversation</h5>
         <div class="col-12" id="bloqueConversacion">
 
         </div>
@@ -337,7 +337,7 @@ $(document).ready(function(){
     }, options: {
       title: {
         display: true,
-        text: 'INTENTOS POR DÍA',
+        text: 'ATTEMPTS PER DAY',
         position: 'top',
         fontFamily: 'Roboto',
         fontStyle: 'bold',

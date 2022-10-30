@@ -164,7 +164,7 @@ class EjercicioController extends Controller
         $stringUsuario = trim($stringUsuario, ';');
         $solucionQuery = trim($solucionQuery, ';');
 
-        $mensajeSec = "No se contemplan este tipo de consultas para realizar este ejercicio";
+        $mensajeSec = "You are not allowed to run this query";
         if(stripos($stringUsuario, 'show') !== false && stripos($stringUsuario,'show tables') === false){
           array_push($respuestaQuery ,array("query" => $mensajeSec,"conversacionBot" => "securityMess"));
           return Response::json($respuestaQuery);
@@ -211,7 +211,7 @@ class EjercicioController extends Controller
             //Caso Solucion sea Describe
             if(array_key_exists('describe', $arrayQueryUser[0])){
               if(array_key_exists('describe', $arraySolucion[0])){
-                array_push($mejoraConsulta,"La tabla no es correcta.");
+                array_push($mejoraConsulta,"You should be using other table(s).");
                 array_push($respuestaQuery ,array('query' => $users1,'conversacionBot' => 'comprobacion_query laravel'));
               }
               else{
@@ -238,21 +238,21 @@ class EjercicioController extends Controller
                 elseif(comprobacionesFrom($fromUser, $fromSol, $mejoraConsulta)){$mensaje = true;}
                 elseif(array_key_exists('order by', $arraySolucion[0])){
                   if(!array_key_exists('order by', $arrayQueryUser[0])){
-                    array_push($mejoraConsulta, "Recuerda ordenar tu consulta.");
+                    array_push($mejoraConsulta, "Sort the query.");
                     $mensaje = true;
                   }
                   elseif(comprobacionesOrderBy($arrayQueryUser[0]['order by'], $arraySolucion[0]['order by'], $camposUser, $camposSol, $mejoraConsulta)){$mensaje = true;}
                 }
                 elseif(!$mensaje && array_key_exists('group by', $arraySolucion[0])){
                   if(!array_key_exists('group by', $arrayQueryUser[0])){
-                    array_push($mejoraConsulta, "Recuerda que debes utilizar la cláusula group by.");
+                    array_push($mejoraConsulta, "Remember you need to use the GROUP BY clause.");
                     $mensaje = true;
                   }
                   elseif(comprobacionesGroupBy($arrayQueryUser[0]['group by'], $arraySolucion[0]['group by'], $camposUser, $camposSol, $mejoraConsulta)){$mensaje = true;}
                 }
                 if(!$mensaje && comprobacionesWhereHaving($users1, $users2, $sol1, $sol2, $mejoraConsulta)){$mensaje = true;}
                 elseif(!$mensaje){
-                  array_push($mejoraConsulta, "Tu consulta no es correcta. Revísala, e inténtalo de nuevo.");
+                  array_push($mejoraConsulta, "Your query is incorrect. Please, try again.");
                   $mensaje = true;
                 }
               }   
@@ -439,7 +439,7 @@ function selectsEnDescribeOShow($arraySolucion, &$mejoraConsulta){
   //Primero comprobamos que no estemos haciendo un select para consultas simples (show/describe)
   if(array_key_exists('describe', $arraySolucion)||array_key_exists('show', $arraySolucion)){
     $v = true;
-    array_push($mejoraConsulta, "Tienes ganas de consultas más complejas, pero este ejercicio es mucho más básico. No uses select.");              
+    array_push($mejoraConsulta, "Your query is more complex than the solution. You only need the details of the table, so you should try to solve this exercise without using 'SELECT'.");              
   }
   return $v;
 }
@@ -451,38 +451,38 @@ function comprobacionesUnion($stringUsuario, $solucionQuery, $arrayQueryUser, $a
     $v = true;
     if(count($arraySolucion) > 1){
       if(count($arrayQueryUser) == 1){
-        array_push($mejoraConsulta, "Intenta resolver este ejercicio usando la cláusula union.");
+        array_push($mejoraConsulta, "Try to solve this exercise using the UNION clause");
       }else{
-        array_push($mejoraConsulta, "Estás usando un número distinto de cláusulas union al que deberías estar usando.");
+        array_push($mejoraConsulta, "You should be using a different number of 'UNION' statements.");
       }
     }else{
-      array_push($mejoraConsulta, "Intenta realizar este ejercicio sin usar la cláusula union.");
+      array_push($mejoraConsulta, "Try to solve this exercise without using 'UNION'");
     }
   }
   elseif(substr_count($stringUsuario, 'union all') !== substr_count($solucionQuery, 'union all')){
     $v = true;
-    array_push($mejoraConsulta, "Deberías revisar qué hace la cláusula union all.");
+    array_push($mejoraConsulta, "Do you know what's the difference between UNION and UNION ALL? If you don't, you can ask me.");
   }
   return $v;
 }
 function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, &$mejoraConsulta){
   $v = false;
   if((stripos($selectSol, "distinct") !== false) !== (stripos($selectUser, "distinct") !== false)){
-    array_push($mejoraConsulta, "Consulta para qué sirve la cláusula DISTINCT, y decide si es necesaria para este ejercicio.");  
+    array_push($mejoraConsulta, "Consider if you need to use the keyword DISTINCT for this exercise.");  
     $v = true;
   }elseif(compruebaFunciones($camposSol, $camposUser, $mejoraConsulta)){$v = true;}
   elseif(stripos($selectSol, "'") !== false){
     if(stripos($selectUser, "'") === false){
       $v = true;
-      array_push($mejoraConsulta, "Recuerda renombrar los campos del SELECT.");
+      array_push($mejoraConsulta, "Remember you need to rename the fields in the SELECT statement.");
     }
     elseif($selectUser !== $selectSol){
       $v = true;
-      array_push($mejoraConsulta, "El renombramiento debe coincidir literalmente con el especificado en el enunciado.");
+      array_push($mejoraConsulta, "You are not renaming the fields properly.");
     }
   }elseif(stripos($selectUser, "'") !== false){
       $v = true;
-      array_push($mejoraConsulta, "No debes renombrar los campos del SELECT si el enunciado no lo dice explícitamente.");
+      array_push($mejoraConsulta, "If it's not specified, don't rename the fields in the SELECT statement.");
   }
    return $v;
 }
@@ -490,7 +490,7 @@ function comprobacionesSelect($selectUser,$selectSol,$camposUser,$camposSol, &$m
 function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
   $v = false;
   if(count($camposSol) !== count($camposUser)){
-    array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
+    array_push($mejoraConsulta, "There's something wrong with the fields you are selecting.");
     $v = true;
   }else{
     for($i = 0; $i < count($camposSol) && !$v; $i++){
@@ -507,10 +507,10 @@ function compruebaFunciones($camposSol, $camposUser, &$mejoraConsulta){
         $cUser = trim($match2[0], ')');
       }
       if($cUser !== $cSol){
-        array_push($mejoraConsulta, "No has seleccionado los campos correctamente.");
+        array_push($mejoraConsulta, "There's something wrong with the fields you are selecting.");
         $v = true;
       }elseif($camposUser[$i] !== $camposSol[$i]){
-        array_push($mejoraConsulta, "Revisa las funciones usadas en el SELECT.");
+        array_push($mejoraConsulta, "Check the functions you are using in the SELECT statement.");
         $v = true;
       }
     }
@@ -525,7 +525,7 @@ function comprobacionesOrderBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
   $arr2 = preg_split('/\s+,\s+/',preg_replace_callback('/\sasc\s?$/', function($coincidencias){ return " ";},$arr2));
   if(count($arr1) !== count($arr2)){
     $v = true;
-    array_push($mejoraConsulta, "Se pide ordenar la consulta por un número distinto de campos al introducido.");
+    array_push($mejoraConsulta, "The result-set should be sorted by a different number of fields.");
   }else{
     for($i = 0; $i < count($arr1) && $v === false; $i++){
       $arr1[$i] = trim($arr1[$i]);
@@ -542,7 +542,7 @@ function comprobacionesOrderBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
       }
       if($a !== $b){
         $v = true;
-        array_push($mejoraConsulta, "Revisa los campos que usas para ordenar la consulta y comprueba si tienes que ordenar en orden ascendente o descendente con cada uno de ellos.");
+        array_push($mejoraConsulta, "Check if the fields used in the ORDER BY statement are right, and if you need to sort in ascending or descending order with each one.");
       }
     }
   }
@@ -557,7 +557,7 @@ function comprobacionesGroupBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
   $arr2 = preg_split('/\s+,\s+/', $arr2);
   if(count($arr1) !== count($arr2)){
     $v = true;
-    array_push($mejoraConsulta, "Se pide agrupar la consulta por un número distinto de campos al introducido.");
+    array_push($mejoraConsulta, "You need to group the rows by a different number of fields.");
   }else{
     for($i = 0; $i < count($arr1) && $v === false; $i++){
       $arr1[$i] = trim($arr1[$i]);
@@ -574,7 +574,7 @@ function comprobacionesGroupBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
       }
       if($a !== $b){
         $v = true;
-        array_push($mejoraConsulta, "Revisa los campos que usas para agrupar la consulta.");
+        array_push($mejoraConsulta, "There's something wrong with the fields you are using in the GROUP BY statement.");
       }
     }
   }
@@ -584,7 +584,7 @@ function comprobacionesGroupBy($arrayQueryUser, $arraySolucion, $camposUser, $ca
 function comprobacionesWhereHaving($u1, $u2, $s1, $s2, &$mejoraConsulta){
   $v = false;
   if(count($u1) !== count($s1) || count($u2) !== count($s2)){
-    array_push($mejoraConsulta, "Hay un error a la hora de filtrar. Revisa las cláusulas relacionadas.");
+    array_push($mejoraConsulta, "You are not filtering as you should. Please check what are you doing in WHERE/HAVING statements. ");
     $v = true;
   }
   return $v;
@@ -594,35 +594,35 @@ function comprobacionesFrom($arrayQueryUser, $arraySolucion, &$mejoraConsulta){
   $a1 = getTablas($arrayQueryUser);
   $a2 = getTablas($arraySolucion);
   if(!empty(array_diff($a1, $a2)) || !empty(array_diff($a2, $a1))){
-    array_push($mejoraConsulta, "No has seleccionado las tablas correctas.");
+    array_push($mejoraConsulta, "You are not using the right tables.");
     $v = true;
   }else{
     if(stripos($arraySolucion, 'full') !== false){
       if(stripos($arrayQueryUser, 'full') === false){
-        array_push($mejoraConsulta, "Debes hacer un full outer join.");
+        array_push($mejoraConsulta, "You need to use a full outer join.");
         $v = true;
       }
     }else{
       if(stripos($arrayQueryUser, 'full') !== false){
-        array_push($mejoraConsulta, "No hace falta que hagas un full outer join para este ejercicio.");
+        array_push($mejoraConsulta, "There's no need to use full outer join in this exercise.");
         $v = true;
       }
     }
     if(!$v && (stripos($arraySolucion, 'left') !== false)){
       if(stripos($arrayQueryUser, 'left') === false){
-        array_push($mejoraConsulta, "Debes combinar los registros de las tablas mediante un left outer join.");
+        array_push($mejoraConsulta, "Try using left outer join.");
         $v = true;
       }
     }
     if(!$v && (stripos($arraySolucion, 'right') !== false)){
       if(stripos($arrayQueryUser, 'right') === false){
-        array_push($mejoraConsulta, "Debes combinar los registros de las tablas mediante un right outer join.");
+        array_push($mejoraConsulta, "Try using right outer join.");
         $v = true;
       }
     } 
     if(!$v && (stripos($arrayQueryUser, 'left') !== false || stripos($arrayQueryUser, 'right') !== false) && 
     (stripos($arraySolucion, 'left') === false || stripos($arraySolucion, 'right') === false)){
-        array_push($mejoraConsulta, "No hace falta que hagas un left outer join o right outer join para este ejercicio.");
+        array_push($mejoraConsulta, "There's no need to use left outer join or right outer join in this exercise.");
         $v = true;
     }
   }
@@ -632,7 +632,7 @@ function comprobacionesFrom($arrayQueryUser, $arraySolucion, &$mejoraConsulta){
 }
 
 function getTablas($str){
-  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $str, $m);
+  preg_match_all('/customers|sales|articles|weights|providers|stores|countries|employees/', $str, $m);
   return $m[0];
 }
 

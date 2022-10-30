@@ -3,19 +3,19 @@
 <div class="navigation-wrapper">
   <div class="navigation-menu navSide" id="navSide">
     <ul class="listaNav">
-      <li class="liNav"><a href="{{ url('admin/administracion')}}">Menu Principal</a></li>
-      <li class="liNav"><a href="{{ url('admin/contacto')}}">Contacto</a></li>
+      <li class="liNav"><a href="{{ url('admin/administracion')}}">Main Menu</a></li>
+      <li class="liNav"><a href="{{ url('admin/contacto')}}">Contact</a></li>
     </ul>
   </div>
 </div>
 <div class="col-md-3 p-0" id="bloqueSideBar">
   <div id="bloqueTablass" class="{{!$mostrarTabla ? 'd-none' : ''}}">
     <div id="bloqueTablas" class="pt-15">
-      <h5 class="card-title tituloCardEjercicio" >Tablas disponibles</h5>
+      <h5 class="card-title tituloCardEjercicio" >Tables</h5>
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7" >Artículos</span>
+            <span class="spanSugerencia pl-7" >Articles</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from articulos" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -27,7 +27,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Clientes</span>
+            <span class="spanSugerencia pl-7">Customers</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from clientes" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -39,7 +39,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Empleados</span>
+            <span class="spanSugerencia pl-7">Employees</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from empleados" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -51,7 +51,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Países</span>
+            <span class="spanSugerencia pl-7">Countries</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from paises" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -63,7 +63,7 @@
       <div class="col-md-12 filaTabla">
         <div class="row">
           <div class="col-8">
-            <span class="spanSugerencia pl-7">Pesos</span>
+            <span class="spanSugerencia pl-7">Weights</span>
           </div>
           <div class="col-4 text-center">
             <a href="#" data-id="select * from pesos" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -74,7 +74,7 @@
         <div class="col-md-12 filaTabla">
           <div class="row">
             <div class="col-8">
-              <span class="spanSugerencia pl-7">Proveedores</span>
+              <span class="spanSugerencia pl-7">Providers</span>
             </div>
             <div class="col-4 text-center">
               <a href="#" data-id="select * from proveedores" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -85,7 +85,7 @@
               <div class="col-md-12 filaTabla">
                 <div class="row">
                   <div class="col-8">
-                    <span class="spanSugerencia pl-7">Tiendas</span>
+                    <span class="spanSugerencia pl-7">Stores</span>
                   </div>
                   <div class="col-4 text-center">
                     <a href="#" data-id="select * from tiendas" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -96,7 +96,7 @@
                 <div class="col-md-12 filaTabla">
                   <div class="row">
                     <div class="col-8">
-                      <span class="spanSugerencia pl-7">Ventas</span>
+                      <span class="spanSugerencia pl-7">Sales</span>
                     </div>
                     <div class="col-4 text-center">
                       <a href="#" data-id="select * from ventas" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
@@ -108,7 +108,7 @@
               </div>
               <ul class="nav nav-pills mt-4 mb-3 justifyCenterC" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active font-weight-bold" id="ListaEjercicios-tab" data-toggle="pill" href="#ListaEjercicios" role="tab" aria-controls="ListaEjercicios" aria-selected="true">Ejercicios</a>
+                  <a class="nav-link active font-weight-bold" id="ListaEjercicios-tab" data-toggle="pill" href="#ListaEjercicios" role="tab" aria-controls="ListaEjercicios" aria-selected="true">Exercises</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="ranking-tab font-weight-bold" data-toggle="pill" href="#ranking" role="tab" aria-controls="ranking" aria-selected="false">Ranking</a>
@@ -118,7 +118,7 @@
                 <div class="tab-pane fade show active" id="ListaEjercicios" role="tabpanel" aria-labelledby="ListaEjercicios-tab" style="width: 100%;">
                   <div class="mt-2 mb-4 cardBodyEnun cardEnunciado rounded cardListEjercicios">
                     <div class="card-header cabeceraAdministracion rounded">
-                      <h5 class="card-header-title mb-3 text-white">Ejercicios</h5>
+                      <h5 class="card-header-title mb-3 text-white">Exercises</h5>
                     </div>
                     <div class="card-body px-0 text-center mb-2 pt-0 filaListaEjercicios" style="height:18rem">
                       <div class="col-md-12 px-0 selectedEjercicio tamañoCardListEjercicios">
@@ -131,37 +131,37 @@
                           @if($ejerciciosResuelto != null)
                           @if (in_array($solucion->id, $ejerciciosResuelto))
                           <div class="col-12  text-left">
-                            <span  id="solucionBloque" class="completado">Completado - {{$solucion->solucionQuery}}</span>
+                            <span  id="solucionBloque" class="completado">Solved - {{$solucion->solucionQuery}}</span>
                           </div>
                           @else
                           <div class="col-12  text-left">
-                            <span id="solucionBloque" class="sinCompletar">Sin completar</span>
+                            <span id="solucionBloque" class="sinCompletar">Not Solved Yet</span>
                           </div>
                           @endif
                           @else
                           <div class="col-12  text-left">
-                            <span id="solucionBloque" class="sinCompletar">Sin completar</span>
+                            <span id="solucionBloque" class="sinCompletar">Not solved yet</span>
                           </div>
                           @endif
                           <div class="col-12 text-left">
                             @switch($solucion->dificultad)
                             @case(1)
                             <span class="dificultadPrincipiante">●</span>
-                            <span class="spanDificultadListaEjercicios"> Principiante</span>
+                            <span class="spanDificultadListaEjercicios"> Easy</span>
                             @break
 
                             @case(2)
                             <span class="dificultadIntermedio">●</span>
-                            <span class="spanDificultadListaEjercicios"> Intermedio</span>
+                            <span class="spanDificultadListaEjercicios"> Medium</span>
                             @break
 
                             @case(3)
                             <span class="dificultadAvanzado">●</span>
-                            <span class="spanDificultadListaEjercicios"> Avanzado</span>
+                            <span class="spanDificultadListaEjercicios"> Hard</span>
                             @break
 
                             @default
-                            No tiene dificultad
+                            Difficulty not defined
                             @endswitch
                           </div>
                         </div>
@@ -169,14 +169,14 @@
                           @if(auth()->user()->esProfesor ==  0)
                           @switch($solucion->dificultad)
                           @case(1)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @break
 
                           @case(2)
                           @if($esPrincipiante)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -188,7 +188,7 @@
 
                           @case(3)
                           @if($esIntermedio)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve Exercise" data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -199,10 +199,10 @@
                           @break
 
                           @default
-                          No tiene dificultad
+                          Difficulty not defined
                           @endswitch
                           @else
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @endif
@@ -221,37 +221,37 @@
                           @if($ejerciciosResuelto != null)
                           @if (in_array($ejercicio->id, $ejerciciosResuelto))
                           <div class="col-12  text-left">
-                            <span class="completadoEjercicio">Completado - {{$ejercicio->solucionQuery}}</span>
+                            <span class="completadoEjercicio">Solved - {{$ejercicio->solucionQuery}}</span>
                           </div>
                           @else
                           <div class="col-12  text-left">
-                            <span class="sinCompletarEjercicio">Sin completar</span>
+                            <span class="sinCompletarEjercicio">Not solved yet</span>
                           </div>
                           @endif
                           @else
                           <div class="col-12  text-left">
-                            <span class="sinCompletarEjercicio">Sin completar</span>
+                            <span class="sinCompletarEjercicio">Not solved yet</span>
                           </div>
                           @endif
                           <div class="col-12 text-left">
                             @switch($ejercicio->dificultad)
                             @case(1)
                             <span class="dificultadPrincipiante">●</span>
-                            <span class="spanDificultadListaEjercicios"> Principiante</span>
+                            <span class="spanDificultadListaEjercicios"> Easy</span>
                             @break
 
                             @case(2)
                             <span class="dificultadIntermedio">●</span>
-                            <span class="spanDificultadListaEjercicios"> Intermedio</span>
+                            <span class="spanDificultadListaEjercicios"> Medium</span>
                             @break
 
                             @case(3)
                             <span class="dificultadAvanzado">●</span>
-                            <span class="spanDificultadListaEjercicios"> Avanzado</span>
+                            <span class="spanDificultadListaEjercicios"> Hard</span>
                             @break
 
                             @default
-                            No tiene dificultad
+                            Difficulty not defined
                             @endswitch
                           </div>
                         </div>
@@ -259,14 +259,14 @@
                           @if(auth()->user()->esProfesor ==  0)
                           @switch($ejercicio->dificultad)
                           @case(1)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @break
 
                           @case(2)
                           @if($esPrincipiante)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -278,7 +278,7 @@
 
                           @case(3)
                           @if($esIntermedio)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio" data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -292,7 +292,7 @@
                           No tiene dificultad
                           @endswitch
                           @else
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Ejecutar Ejercicio"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @endif
@@ -306,7 +306,7 @@
                 <div class="tab-pane fade cardBodyEnun cardEnunciado rounded cardListEjercicios" id="ranking" role="tabpanel" aria-labelledby="ranking-tab">
                   <div class="card-header col-12 cabeceraAdministracion rounded inLFlex">
                     <div class="col-12">
-                      <h5 class="card-header-title mb-3 text-white">Resueltos por</h5>
+                      <h5 class="card-header-title mb-3 text-white">Solved by</h5>
                     </div>
                   </div>
                   <div class="card-body text-left mb-2 structRankin filaListaEjercicios" style="overflow-y: auto">
@@ -322,7 +322,7 @@
                     <div class="col-md-12 filaTabla">
                       <div class="row">
                         <div class="col-12">
-                          <span class="spanSugerencia pl-7">Ninguno de tus compañeros lo ha resuelto</span>
+                          <span class="spanSugerencia pl-7">Nobody has solved this exercise yet.</span>
                         </div>
                       </div>
                     </div>
@@ -340,7 +340,7 @@
                 <div class="mt-2 mb-2 cardBodyEnun cardEnunciado rounded temaAppTarjeta cardListEjerciciosEnun">
                   <div class="card-body text-left mb-2">
                     <p class="card-text text-black pEnunciado">
-                      <span class="span-Enunciado">Enunciado a resolver:</span> {{$enunciado}}
+                      <span class="span-Enunciado">Task to solve:</span> {{$enunciado}}
                     </p>
                   </div>
                 </div>
@@ -357,7 +357,7 @@
                   <div class="card temaAppTarjeta cardBloqueRespuesta" style="overflow-y: auto; overflow-x: auto">
                   <div class="card-body" style="max-height: 20rem">
                     <div class="card-title cardEstructura TituloBloqueRespuesta">
-                        <h5 style="display:inline">Resultado Query </h5>
+                        <h5 style="display:inline">Result-Set </h5>
                         <span id="nRows"></span>
                     </div>
                     <div class="table-responsive mt-4" style="min-height:86%;overflow-x: visible" id="container">
@@ -381,9 +381,9 @@
   </div>
   <div class="nombreIframe">
   <label class="labelNombreBot">
-    <span id="nombreAsistente">Señor Datacio</span>
+    <span id="nombreAsistente">Datatron</span>
     <br>
-    <span class="labelDisponibilidadBot">Disponible ahora</span>
+    <span class="labelDisponibilidadBot">Available</span>
     <span class="fuentePunto">●</span>
   </label>
 </div>
@@ -461,7 +461,7 @@ function ComprobarTutorial() {
         var bodybloqueTutorial = document.createElement("div");
         bodybloqueTutorial.setAttribute("id", "bodybloqueTutorial");
         bodybloqueTutorial.className = "card-body text-center mb-2"
-        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Bienvenido a esta herramienta de iniciación al maravilloso mundo de SQL. Voy a proceder a explicarte de forma rápida el funcionamiento de la plataforma aunque para cualquier duda que te surja, siempre puedes recurrir a nuestro bot de seguimiento disponible. En el panel alojado en la parte izquierda de la pantalla, podrás encontrar los ejercicios disponibles en la plataforma y un ranking sobre los compañeros que ya han resuelto este ejercicio.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Avanzar</button></div></p>';
+        bodybloqueTutorial.innerHTML = '<p class="card-text text-white" id="parrafoTutorial">Welcome to ChatbotSQL. I\'m going to explain you how this tool works. On the left, you can find all the exercises to solve, and a ranking of other users that have solved this exercise.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" id="tutorialEjercicio">Next</button></div></p>';
         document.getElementById("bloqueTutorial").appendChild(bodybloqueTutorial);
 
         $('#tutorialEjercicio').click(function(e) {
@@ -469,7 +469,7 @@ function ComprobarTutorial() {
           $("#bloqueEjercicio").removeClass("opacityTutorial");
           $("#bloqueSideBar").addClass("opacityTutorial");
           $("#bloqueTutorial").addClass("bloqueCenterTutorial");
-          $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Esta parte central de la herramienta es la más importante: en ella escribiremos las soluciones de nuestros ejercicios y comprobaremos las soluciones. En todos los ejercicios nuestro amigo el Bot nos acompañará para formar la consulta.</p><div class="col-12 mt-2 px-0"><img src="{{ env("APP_URLP") }}/imagenes/fucionamiento.png" alt="" style="width: 450px;"></div><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="tutorialIframe();">Avanzar</button></div>');
+          $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">This is the most important part. Here we have to write our queries to solve the exercises. If you run the query, you will see the result-set of that query. In every exercise, our friend Datatron will help us.</p><div class="col-12 mt-2 px-0"><img src="{{ env("APP_URLP") }}/imagenes/fucionamiento.png" alt="" style="width: 450px;"></div><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="tutorialIframe();">Next</button></div>');
         });
       }
     }
@@ -482,7 +482,7 @@ function tutorialIframe(){
   $("#bloqueSideBar").addClass("opacityTutorial");
   $("#bloqueTutorial").removeClass("bloqueCenterTutorial");
   $("#bloqueTutorial").addClass("bloqueIframeTutorial");
-  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">Os presento a vuestro compañero Datacio, que estará pendiente de cada movimiento para poder así ayudaros con los ejercicios. No dudes en preguntarle en lo que respecta al lenguaje, o pedirle alguna pista sobre el ejercicio. Si no puede ayudarte, no seas muy duro con él, ¡él también está en constante aprendizaje! Puedes empezar por preguntar a nuestro compañero:¿qué hago para empezar?.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Avanzar</button></div></p>');
+  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">This is Datacio. He will check our queries to give us some feedback. Moreover, if you need help, you can ask him for information or hints. If he\'s not able to help you, don\'t be hard with him, he\'s also learning every day! Try to start a conversation with him: Write "How do I start?" in the box.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Next</button></div></p>');
 };
 
 function cerrarIframeTutorial(){
@@ -495,7 +495,7 @@ function cerrarIframeTutorial(){
 $('.intermedioNoPermitir').click(function(e) {
   Swal.fire({
     icon: 'warning',
-    text: 'Para realizar los ejercicios de nivel intermedio deberás realizar todos los ejercicios de nivel principiante',
+    text: 'You must solve all easy exercises before you can solve medium exercises.',
     heightAuto: false
   })
 });
@@ -503,7 +503,7 @@ $('.intermedioNoPermitir').click(function(e) {
 $('.avanzadoNoPermitir').click(function(e) {
   Swal.fire({
     icon: 'warning',
-    text: 'Para realizar los ejercicios de nivel avanzado deberás realizar todos los ejercicios de nivel intermedio',
+    text: 'You must solve all medium exercises before you can solve hard exercises.',
     heightAuto: false
   })
 });
@@ -624,13 +624,13 @@ function ejercicioTerminado(){
 
       var headerBloqueSolucion = document.createElement("div");
       headerBloqueSolucion.className = "card-header cabeceraAdministracion rounded"
-      headerBloqueSolucion.innerHTML = '<h5 class="card-header-title mb-3 text-white">Has resuelto el ejercicio</h5>';
+      headerBloqueSolucion.innerHTML = '<h5 class="card-header-title mb-3 text-white">Exercise solved</h5>';
       document.getElementById("BloqueSolucion").appendChild(headerBloqueSolucion);
 
       var bodyBloqueSolucion = document.createElement("div");
       bodyBloqueSolucion.setAttribute("id", "bodyBloqueSolucion");
       bodyBloqueSolucion.className = "card-body pb-0 text-center mb-2"
-      bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">¡Enhorabuena! Has resuelto el ejercicio, ¡vas por buen camino!</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Volver al menu</button></div>';
+      bodyBloqueSolucion.innerHTML = '<h5 class="card-text text-white" id="parrafoTutorial">Congratulations! You have solved the exercise.</h5><div class="col-12 mt-4 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="vueltaMenu()" style="width: 125px;">Main Menu</button></div>';
       document.getElementById("BloqueSolucion").appendChild(bodyBloqueSolucion);
       $('#solucionBloque').html("completado - " + data);
       if($("#solucionBloque").hasClass("sinCompletar")) $('#solucionBloque').removeClass("sinCompletar");
@@ -672,7 +672,7 @@ function formularioQuery(){
             $("#queryContainer").append(data[0]['query']);
           }else{
             $.toast({
-              text: "Parece que tu consulta no es correcta", // Text that is to be shown in the toast
+              text: "You have an error in your query", // Text that is to be shown in the toast
               heading: 'Error', // Optional heading to be shown on the toast
               icon: 'error', // Type of toast icon
               showHideTransition: 'plain', // fade, slide or plain
@@ -698,8 +698,8 @@ function formularioQuery(){
         else{
           if (data[0]['conversacionBot'] === "comprobacion_query laravel") {
             $.toast({
-              text: "Es una consulta válida pero no es la solución al ejercicio", // Text that is to be shown in the toast
-              heading: '¡Casi lo tienes!', // Optional heading to be shown on the toast
+              text: "This is a valid query, but it's not the solution for this exercise", // Text that is to be shown in the toast
+              heading: 'Keep going!', // Optional heading to be shown on the toast
               icon: 'warning', // Type of toast icon
               showHideTransition: 'slide', // fade, slide or plain
               allowToastClose: true, // Boolean value true or false
@@ -713,7 +713,7 @@ function formularioQuery(){
           }
           if(Object.entries(data[0]['query']).length !== 0){
             var keys = Object.keys(data[0]['query'][0]);
-            $("#nRows").text("(" + Object.entries(data[0]['query']).length + " filas)");
+            $("#nRows").text("(" + Object.entries(data[0]['query']).length + " rows)");
             $.each(keys, function (index, value) {
               $("#queryContainer").append("<th>"+value.toUpperCase()+"</th>");
             });
@@ -724,13 +724,13 @@ function formularioQuery(){
               });
             });
           }else{
-            $("#queryContainer").append("No se ha encontrado ningún registro con estas condiciones");
+            $("#queryContainer").append("Empty set");
           }
 
           if(data[0]['conversacionBot'] === "finalConversacionCorrectolaravel"){
             $.toast({
-              text: "¡Enhorabuena, has completado el ejercicio!", // Text that is to be shown in the toast
-              heading: 'Correcto', // Optional heading to be shown on the toast
+              text: "Congratulations, you have solved the exercise!", // Text that is to be shown in the toast
+              heading: 'Correct!', // Optional heading to be shown on the toast
               icon: 'success', // Type of toast icon
               showHideTransition: 'slide', // fade, slide or plain
               allowToastClose: true, // Boolean value true or false

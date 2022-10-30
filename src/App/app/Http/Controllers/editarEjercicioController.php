@@ -297,17 +297,17 @@ class editarEjercicioController extends Controller
       $intentoConversacion = str_replace($parseo, "", $conversacion->conversacion);
       $intentoConversacion = json_decode($intentoConversacion,true);
     }else{
-      $intentoConversacion = "No ha tenido conversación";
+      $intentoConversacion = "No conversation";
     }
     if($conversacion->consultas != null){
       $consultas = json_decode($conversacion->consultas,true);
     }else{
-      $consultas = "No ha tenido consultas";
+      $consultas = "No queries";
     }
     if($conversacion->errores != null){
       $errores = json_decode($conversacion->errores,true);
     }else{
-      $errores = "No ha tenido errores";
+      $errores = "No errors";
     }
 
 
@@ -329,17 +329,17 @@ class editarEjercicioController extends Controller
       $intentoConversacion = str_replace($parseo, "", $conversacion->conversacion);
       $intentoConversacion = json_decode($intentoConversacion,true);
     }else{
-      $intentoConversacion = "No ha tenido conversación";
+      $intentoConversacion = "No conversation";
     }
     if($conversacion->consultas != null){
       $consultas = json_decode($conversacion->consultas,true);
     }else{
-      $consultas = "No ha tenido consultas";
+      $consultas = "No queries";
     }
     if($conversacion->errores != null){
       $errores = json_decode($conversacion->errores,true);
     }else{
-      $errores = "No ha tenido errores";
+      $errores = "No errors";
     }
 
 
@@ -554,7 +554,7 @@ public function exportCsv(Request $request){
             "Expires"             => "0"
   );
 
-        $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'Enunciado', 'Solucion', 'Nivel', 'Estado', 'nIntentos', 'nErrores', 'nMensajes', 'Conversación');
+        $columns = array('Name', 'Email', 'StartDate', 'EndDate', 'Exercise', 'Solution', 'Difficulty', 'Status', 'nAttempts', 'nErrors', 'nMessages', 'Conversation');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -569,7 +569,7 @@ public function exportCsv(Request $request){
                 $row['Enunciado']  = json_decode($task->enunciado,true)[0]["texto"];
                 $row['Solucion']  = $task->solucionQuery;
                 $row['Nivel']  = $task->dificultad;
-                $row['Estado']  = ($task->completado == 2)? "Completado" : "Abandono";
+                $row['Estado']  = ($task->completado == 2)? "Solved" : "Not Solved";
                 $row['Intentos']  = $task->consultas != null ? count(json_decode($task->consultas,true)) : 0;
                 $row['Errores']  = $task->errores != null ? count(json_decode($task->errores,true)) : 0;
 
@@ -616,7 +616,7 @@ public function exportCsvMl(Request $request){
               "Expires"             => "0"
           );
   
-          $columns = array('Nombre', 'Correo', 'FechaInicio', 'FechaFin', 'nIntentos', 'nErrores', 'nMensajes', 'Conversación');
+          $columns = array('Name', 'Email', 'StartDate', 'EndDate', 'nAttempts', 'nErrors', 'nMessages', 'Conversation');
   
           $callback = function() use($tasks, $columns) {
               $file = fopen('php://output', 'w');
@@ -655,6 +655,7 @@ public function exportCsvMl(Request $request){
 }
 
 function compruebaTabla($miString,$tipoConsulta){
+  # preg_match_all('/customers|sales|articles|weights|providers|stores|countries|employees/', $miString, $m);
   preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $miString, $m);
   Debugbar::info($m);
   return $m[0];

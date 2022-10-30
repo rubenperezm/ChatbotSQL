@@ -85,7 +85,7 @@ class modoLibreController extends Controller
         $stringUsuario   = trim($stringUsuario);
         $respuestaQuery = array();
         $mejoraConsulta = array();
-        $mensajeSec = "No se contemplan este tipo de consultas para realizar este ejercicio";
+        $mensajeSec = "You are not allowed to run this query";
         if(stripos($stringUsuario, 'show databases') !== false){
           array_push($respuestaQuery ,array("query" => $mensajeSec,"conversacionBot" => "securityMess"));
           return Response::json($respuestaQuery);

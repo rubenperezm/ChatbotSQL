@@ -82,7 +82,7 @@ class adminController extends Controller
         ]);
 
         if($request->alias == ""){
-          $alias = "Usuario anónimo";
+          $alias = "Anonymous User";
         }else{
           $alias = $request->alias;
         }
