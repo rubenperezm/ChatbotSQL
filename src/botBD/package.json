@@ -37,7 +37,7 @@
     "casperjs": "^1.1.4",
     "codecov": "^3.8.3",
     "eslint": "^5.16.0",
-    "jest": "^24.9.0",
+    "jest": "^29.2.2",
     "phantomjs-prebuilt": "^2.1.16",
     "supertest": "^4.0.2"
   },
