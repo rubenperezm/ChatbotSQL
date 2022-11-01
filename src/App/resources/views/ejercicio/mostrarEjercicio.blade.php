@@ -6,27 +6,27 @@
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Exercises</h5>
       <div class="col-12 mb-3 float-right" style="margin-right: 5%">
         <button type="button" data-toggle="tooltip" data-placement="top" title="Create exercises" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Create exercises">
+          <a  href="{{ url('prof/create') }}" data-toggle="tooltip" data-placement="top" title="Create exercises">
             <i class="fas fa-edit"></i> Create Exercise
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Exercises" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
+          <a  href="{{ url('prof') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
             <i class="fas fa-th-list"></i> Exercises
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
+          <a href="{{ env('APP_URLP') }}/prof/statsExercises" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
             <i class="fas fa-chart-line"></i> Stats (Exercises)
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
+          <a href="{{ env('APP_URLP') }}/prof/statsPlayground" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
             <i class="fas fa-chart-line"></i> Stats (PG Mode)
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Menu" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="Menu">
+          <a href="{{ env('APP_URLP') }}/admin" data-toggle="tooltip" data-placement="top" title="Menu">
             <i class="fas fa-bars"></i> Main Menu
           </a>
         </button>
@@ -70,9 +70,9 @@
         <div class="col-md-12 text-right" style="background-color: #eaeaea;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;">
-        <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" class="m-1" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" style="color: #6ead7f;
+        <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" class="m-1" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" style="color: #6ead7f;
         font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
-        <a href="{{ env('APP_URLP') }}/editarEjercicio/editar/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Modify exercise" class="m-1"><i style="color: green;"class="fas fa-edit"></i></a>
+        <a href="{{ env('APP_URLP') }}/prof/edit/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Modify exercise" class="m-1"><i style="color: green;"class="fas fa-edit"></i></a>
         <i  data-toggle="tooltip" data-placement="top" title="Delete exercise" class="fas fa-trash-alt borrarEsteEjercicio m-1" style="cursor: pointer;color: #9a0000;"data-id="{{$ejercicio->id}}"></i>
       </div>
     </div>
@@ -107,7 +107,7 @@ $(document).on('click', '.borrarEsteEjercicio', function(){
       var ejercicioEliminado = $(this).parent().parent();
       $.ajax({
         type:'get',
-        url:'./editarEjercicio/eliminarEjercicio',
+        url:'./prof/delete',
         data:{id:id},
         dataType: 'json',
         success:function(data){

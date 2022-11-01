@@ -93,7 +93,7 @@ class adminController extends Controller
         $usuario->alias = $alias;
         $usuario->update();
 
-        return redirect('admin/administracion');
+        return redirect('admin');
     }
 
 }

@@ -76,10 +76,10 @@ class EjercicioController extends Controller
         if(auth()->user()->esProfesor ==  0){
           switch ($solucion->dificultad) {
             case 2:
-              if(!$todosPrincipiantes) return redirect('admin/administracion');
+              if(!$todosPrincipiantes) return redirect('admin');
               break;
             case 3:
-              if(!$todosIntermedios) return redirect('admin/administracion');
+              if(!$todosIntermedios) return redirect('admin');
               break;
 
             default:

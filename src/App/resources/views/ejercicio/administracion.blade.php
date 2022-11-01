@@ -22,10 +22,10 @@ background: url('../imagenes/p2.jpg');
 "><h1 class="mb-3" style="font-size: 2.5rem;">Welcome @if(auth()->user()->esProfesor ==  1) Professor @endif {{auth()->user()->name}}!</h1>
            <h4 class="mb-4">Here you will find your profile data and the list of available exercises with which you will be able to learn how to solve <strong>SQL</strong> queries, always with my help..</h4>
            @if(auth()->user()->esProfesor ==  1)
-           <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Stats"><i class="fas fa-chart-line"></i></a>
-           <a href="{{ env('APP_URLP') }}/editarEjercicio" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Exercises"><i class="fas fa-th-list"></i></a>
+           <a href="{{ env('APP_URLP') }}/prof/statsExercises" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Stats"><i class="fas fa-chart-line"></i></a>
+           <a href="{{ env('APP_URLP') }}/prof" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Exercises"><i class="fas fa-th-list"></i></a>
            @endif
-           <a href="{{ env('APP_URLP') }}/admin/contacto" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Contact"><i class="fas fa-envelope"></i></a>
+           <a href="{{ env('APP_URLP') }}/admin/contact" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Contact"><i class="fas fa-envelope"></i></a>
            <a href="https://github.com/rubenperezm/ChatbotSQL" target="_blank" class="enlaceIcon"data-toggle="tooltip" data-placement="top" title="Github Repository"><i class="fab fa-github"></i></a>
            <a class="enlaceIcon infoProyecto" data-toggle="tooltip" data-placement="top" title="Info"><i class="fas fa-info"></i></a>
     </div>
@@ -51,7 +51,7 @@ background: url('../imagenes/p2.jpg');
         </div>
       </div>
       <div class="card-body text-center mb-2">
-        <form id="editarPerfil" action="{{asset('admin/editarPerfil')}}" method="post">
+        <form id="editarPerfil" action="{{asset('admin/editProfile')}}" method="post">
           @csrf
           <div class="col-12 mb-4 form__group field text-left">
             <input type="input" class="form__field text-white" value="{{$usuario->email}}"placeholder="email" name="email" id='email' required/>
@@ -98,7 +98,7 @@ background: url('../imagenes/p2.jpg');
             </div> 
           </div>
           <div class="col-md-2 m-auto">
-            <a href="{{ env('APP_URLP') }}/modoLibre" data-toggle="tooltip" data-placement="top" title="Play" class="añadirSugerencia" style="color: #6ead7f;
+            <a href="{{ env('APP_URLP') }}/playground" data-toggle="tooltip" data-placement="top" title="Play" class="añadirSugerencia" style="color: #6ead7f;
 font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
         </div>
         </div>
@@ -159,7 +159,7 @@ max-height: 180px;">
              </div>
           </div>
           <div class="col-md-2 m-auto">
-            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play" class="añadirSugerencia" style="color: #6ead7f;
+            <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play" class="añadirSugerencia" style="color: #6ead7f;
 font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
           </div>
         </div>
@@ -223,13 +223,13 @@ max-height: 180px;">
           <div class="col-md-2 m-auto">
             @if(auth()->user()->esProfesor ==  0)
               @if($esPrincipiante)
-                <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play" class="añadirSugerencia" style="color: #6ead7f;
+                <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play" class="añadirSugerencia" style="color: #6ead7f;
                 font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
               @else
                 <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
               @endif
             @else
-              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play"  class="añadirSugerencia" style="color: #6ead7f;
+              <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play"  class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @endif
 
@@ -294,13 +294,13 @@ max-height: 180px;">
           <div class="col-md-2 m-auto">
           @if(auth()->user()->esProfesor ==  0)
             @if($esIntermedio)
-              <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
+              <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play" data-id="{{$ejercicio->id}}" class="añadirSugerencia" style="color: #6ead7f;
               font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
             @else
               <a href="#" class="añadirSugerencia intermedioNoPermitir" style="color:grey; font-size: 23px;"><i class="fas fa-lock"></i></a>
             @endif
           @else
-            <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play"  class="añadirSugerencia" style="color: #6ead7f;
+            <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Play"  class="añadirSugerencia" style="color: #6ead7f;
             font-size: 23px;"><i class="fas fa-laptop-code"></i></a>
           @endif
           </div>

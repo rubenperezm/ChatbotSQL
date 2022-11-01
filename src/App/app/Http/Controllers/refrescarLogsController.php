@@ -81,7 +81,7 @@ class refrescarLogsController extends Controller
       }
 
 
-     return redirect('editarEjercicio');
+     return redirect('prof');
 
 
     }

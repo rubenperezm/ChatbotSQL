@@ -3,8 +3,8 @@
 <div class="navigation-wrapper">
   <div class="navigation-menu navSide" id="navSide">
     <ul class="listaNav">
-      <li class="liNav"><a href="{{ url('admin/administracion')}}">Main Menu</a></li>
-      <li class="liNav"><a href="{{ url('admin/contacto')}}">Contact</a></li>
+      <li class="liNav"><a href="{{ url('admin')}}">Main Menu</a></li>
+      <li class="liNav"><a href="{{ url('admin/contact')}}">Contact</a></li>
     </ul>
   </div>
 </div>
@@ -169,14 +169,14 @@
                           @if(auth()->user()->esProfesor ==  0)
                           @switch($solucion->dificultad)
                           @case(1)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @break
 
                           @case(2)
                           @if($esPrincipiante)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -188,7 +188,7 @@
 
                           @case(3)
                           @if($esIntermedio)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve Exercise" data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve Exercise" data-id="{{$solucion->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -202,7 +202,7 @@
                           Difficulty not defined
                           @endswitch
                           @else
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$solucion->id}}" data-id="{{$solucion->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @endif
@@ -259,14 +259,14 @@
                           @if(auth()->user()->esProfesor ==  0)
                           @switch($ejercicio->dificultad)
                           @case(1)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @break
 
                           @case(2)
                           @if($esPrincipiante)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -278,7 +278,7 @@
 
                           @case(3)
                           @if($esIntermedio)
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise" data-id="{{$ejercicio->id}}" class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @else
@@ -292,7 +292,7 @@
                           No tiene dificultad
                           @endswitch
                           @else
-                          <a href="{{ env('APP_URLP') }}/ejercicio/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
+                          <a href="{{ env('APP_URLP') }}/exercise/{{$ejercicio->id}}" data-id="{{$ejercicio->id}}" data-toggle="tooltip" data-placement="top" title="Solve exercise"  class="añadirSugerencia permitirAccederEjercicio">
                             <i class="fas fa-laptop-code"></i>
                           </a>
                           @endif
@@ -442,7 +442,7 @@ ComprobarTutorial();
 function ComprobarTutorial() {
   $.ajax({
     type:'get',
-    url:"../comprobarTutorial",
+    url:"../tutorial",
     dataType: 'json',
     success:function(data){
       if(data == true){
@@ -558,7 +558,7 @@ $('.verTabla').click(function(e) {
   var consulta = $(this).data('id');
   $.ajax({
     type:'get',
-    url:"../ajaxVerTabla",
+    url:"../ajaxTable",
     data:{consulta:consulta},
     dataType: 'json',
     success:function(data){
@@ -594,7 +594,7 @@ window.onload=function() {
 }
 
 function vueltaMenu() {
-  window.location.href = "{{ env('APP_URLP') }}/admin/administracion";
+  window.location.href = "{{ env('APP_URLP') }}/admin";
 }
 
 $.ajaxSetup({
@@ -607,7 +607,7 @@ function ejercicioTerminado(){
   var id =  <?php echo $id ?>;
   $.ajax({
     type:'get',
-    url:"{{ env('APP_URLP') }}/ejercicioTerminado",
+    url:"{{ env('APP_URLP') }}/finished",
     data:{id:id,uuid:uuidIntento},
     dataType: 'json',
     success:function(data){
@@ -661,7 +661,7 @@ function formularioQuery(){
     }
     $.ajax({
       type:'POST',
-      url:'./ajaxFormularioQuery',
+      url:'./ajaxFormQuery',
       data:{query:query,id:id,uuid:uuidIntento},
       dataType: 'json',
       success:function(data){

@@ -6,27 +6,27 @@
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Tables</h5>
       <div class="col-12 mb-3 float-right" style="margin-right: 5%">
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Create exercise">
+          <a  href="{{ url('prof/create') }}" data-toggle="tooltip" data-placement="top" title="Create exercise">
             <i class="fas fa-edit"></i> Create exercise
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
+          <a  href="{{ url('prof') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
             <i class="fas fa-th-list"></i> Exercises
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
+          <a href="{{ env('APP_URLP') }}/prof/statsExercises" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
             <i class="fas fa-chart-line"></i> Stats (Exercises)
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="intentos modo libre" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
+          <a href="{{ env('APP_URLP') }}/prof/statsPlayground" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
             <i class="fas fa-chart-line"></i> Stats (PG Mode)
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Editar perfil" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="Menu">
+          <a href="{{ env('APP_URLP') }}/admin" data-toggle="tooltip" data-placement="top" title="Menu">
             <i class="fas fa-bars"></i> Main Menu
           </a>
         </button>
@@ -374,7 +374,7 @@ $('.botonVerTabla').click(function(e) {
   var consulta = $(this).data('id');
   $.ajax({
     type:'get',
-    url:"{{ env('APP_URLP') }}/ajaxVerTabla",
+    url:"{{ env('APP_URLP') }}/ajaxTable",
     data:{consulta:consulta},
     dataType: 'json',
     success:function(data){

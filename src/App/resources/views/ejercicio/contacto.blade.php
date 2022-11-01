@@ -17,7 +17,7 @@ background: url('../imagenes/p2.jpg');
     <h1 class="mb-3" style="font-size: 2.5rem;color:white;">Suggestions!</h1>
     <h5 class="mb-4" style="color:white;">By completing this form, you will help us to improve.</h5>
     <button type="button" class="btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-      <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="Menu">
+      <a href="{{ env('APP_URLP') }}/admin" data-toggle="tooltip" data-placement="top" title="Menu">
       <i class="fas fa-bars"></i> Main menu
       </a>
     </button>

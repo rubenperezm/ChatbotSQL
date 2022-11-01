@@ -6,27 +6,27 @@
       <h5 class="card-title" style="font-weight: bold;border-bottom: 1px solid #5aaf70; padding-bottom: 5px;">Stats - Playground Mode</h5>
       <div class="col-12 mb-3 float-right" style="margin-right: 5%">
         <button type="button" data-toggle="tooltip" data-placement="top" title="Create exercise" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio/crear') }}" data-toggle="tooltip" data-placement="top" title="Create exercise">
+          <a  href="{{ url('prof/create') }}" data-toggle="tooltip" data-placement="top" title="Create exercise">
             <i class="fas fa-edit"></i> Create Exercise
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Exercises" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a  href="{{ url('editarEjercicio') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
+          <a  href="{{ url('prof') }}" data-toggle="tooltip" data-placement="top" title="Exercises">
             <i class="fas fa-th-list"></i> Exercises
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadistica" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
+          <a href="{{ env('APP_URLP') }}/prof/statsExercises" data-toggle="tooltip" data-placement="top" title="Stats (Exercises)">
             <i class="fas fa-chart-line"></i> Stats (Exercises)
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
+          <a href="{{ env('APP_URLP') }}/prof/statsPlayground" data-toggle="tooltip" data-placement="top" title="Stats (Playground Mode)">
             <i class="fas fa-chart-line"></i> Stats (PG Mode)
           </a>
         </button>
         <button type="button" data-toggle="tooltip" data-placement="top" title="Menu" class="m-1 float-right btn-outline-secondary text-white botonDegradao botonMenuContacto" name="button">
-          <a href="{{ env('APP_URLP') }}/admin/administracion" data-toggle="tooltip" data-placement="top" title="Menu">
+          <a href="{{ env('APP_URLP') }}/admin" data-toggle="tooltip" data-placement="top" title="Menu">
             <i class="fas fa-bars"></i> Main Menu
           </a>
         </button>
@@ -38,7 +38,7 @@
         border-radius: 4px;">
         <div class="card-body" style="overflow-y: auto">
           <h5 class="card-title" style="    border-bottom: 1px solid #e9ecef !important;    padding-bottom: 5px;">Filters</h5>
-          <form class="form-usuario form-horizontal" autocomplete="off" action="{{ env('APP_URLP') }}/editarEjercicio/estadisticamlibre" method="get">
+          <form class="form-usuario form-horizontal" autocomplete="off" action="{{ env('APP_URLP') }}/prof/statsPlayground" method="get">
             <div class="row form-group col-md-12" style="justify-content: center">
               <div class="col-md-3">
                 <label for="nombre" class='font-weight-bold'>Name</label>
@@ -62,7 +62,7 @@
                 <i class='fas fa-search'></i> Filter
               </button>
               <button type="button" id="export" data-toggle="tooltip" data-placement="top" title="Download CSV" class="btn botonDegradao float-right mr-2" style="color:white;" name="button2">
-                <a data-href="/editarEjercicio/tasksml" onclick="exportTasks(event.target);" data-toggle="tooltip" data-placement="top" title="Download CSV">
+                <a data-href="/prof/tasksml" onclick="exportTasks(event.target);" data-toggle="tooltip" data-placement="top" title="Download CSV">
                   <i class='fas fa-file-export'></i> Export
                 </a>
               </button>
@@ -155,7 +155,7 @@ $('.verIntentoML').click(function(){
   var id= $(this).data("id");
   $.ajax({
       type:'get',
-      url:'./ajaxMostrarModoLibre',
+      url:'./ajaxPlayground',
       data:{id:id},
       dataType: 'json',
       success:function(data){

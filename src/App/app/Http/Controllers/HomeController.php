@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      return redirect('admin/administracion');
+      return redirect('admin');
 
     //    return view('ejercicio.administracion');
     }

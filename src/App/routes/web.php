@@ -22,41 +22,41 @@ Route::prefix('home')->group(function () {
 });
 
 
-Route::prefix('ejercicio')->group(function () {
+Route::prefix('exercise')->group(function () {
   Route::get('/{id}', 'EjercicioController@index', function ($id) {});
-  Route::Post('ajaxFormularioQuery', 'EjercicioController@ajaxFormularioQuery');
+  Route::Post('ajaxFormQuery', 'EjercicioController@ajaxFormularioQuery');
 });
 
 
 Route::prefix('admin')->group(function () {
-  Route::get('/administracion', 'adminController@administracion');
-  Route::get('/contacto', 'adminController@contacto');
-  Route::post('/editarPerfil', 'adminController@editarPerfil');
+  Route::get('/', 'adminController@administracion');
+  Route::get('/contact', 'adminController@contacto');
+  Route::post('/editProfile', 'adminController@editarPerfil');
 });
 
-Route::prefix('modoLibre')->group(function(){
+Route::prefix('playground')->group(function(){
   Route::get('/', 'modoLibreController@index');
-  Route::Post('ajaxFormularioQuery', 'modoLibreController@ajaxFormularioQuery');
+  Route::Post('ajaxFormQuery', 'modoLibreController@ajaxFormularioQuery');
 });
 
 
-Route::get('ajaxVerTabla', 'EjercicioController@ajaxVerTabla');
-Route::get('comprobarTutorial', 'EjercicioController@comprobarTutorial');
-Route::get('ejercicioTerminado', 'EjercicioController@ejercicioTerminado');
+Route::get('ajaxTable', 'EjercicioController@ajaxVerTabla');
+Route::get('tutorial', 'EjercicioController@comprobarTutorial');
+Route::get('finished', 'EjercicioController@ejercicioTerminado');
 
 //Url para profesores
-Route::get('/editarEjercicio/eliminarEjercicio', 'editarEjercicioController@eliminarEjercicio', function ($id) {});
-Route::get('/editarEjercicio/editar/{id}', 'editarEjercicioController@editar', function ($id) {});
-Route::get('/editarEjercicio', 'editarEjercicioController@index')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/estadistica', 'editarEjercicioController@estadistica')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/ajaxMostrarIntento', 'editarEjercicioController@ajaxMostrarIntento')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/ajaxMostrarModoLibre', 'editarEjercicioController@ajaxMostrarModoLibre')->middleware(esProfesor::class);
-Route::Post('/editarEjercicio/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/crear', 'editarEjercicioController@crear')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/crearJsonEjercicio', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/estadisticamlibre', 'editarEjercicioController@estadisticamlibre')->middleware(esProfesor::class);
-Route::get('/editarEjercicio/tasks', 'editarEjercicioController@exportCsv')->middleware(esProfesor::class);;
-Route::get('/editarEjercicio/tasksml', 'editarEjercicioController@exportCsvMl')->middleware(esProfesor::class);;
+Route::get('/prof/delete', 'editarEjercicioController@eliminarEjercicio', function ($id) {});
+Route::get('/prof/edit/{id}', 'editarEjercicioController@editar', function ($id) {});
+Route::get('/prof', 'editarEjercicioController@index')->middleware(esProfesor::class);
+Route::get('/prof/statsExercises', 'editarEjercicioController@estadistica')->middleware(esProfesor::class);
+Route::get('/prof/ajaxExercise', 'editarEjercicioController@ajaxMostrarIntento')->middleware(esProfesor::class);
+Route::get('/prof/ajaxPlayground', 'editarEjercicioController@ajaxMostrarModoLibre')->middleware(esProfesor::class);
+Route::Post('/prof/ajaxValidaQuery', 'editarEjercicioController@ajaxValidaQuery')->middleware(esProfesor::class);
+Route::get('/prof/create', 'editarEjercicioController@crear')->middleware(esProfesor::class);
+Route::get('/prof/createJsonExercise', 'editarEjercicioController@crearJsonEjercicio')->middleware(esProfesor::class);
+Route::get('/prof/statsPlayground', 'editarEjercicioController@estadisticamlibre')->middleware(esProfesor::class);
+Route::get('/prof/tasks', 'editarEjercicioController@exportCsv')->middleware(esProfesor::class);;
+Route::get('/prof/tasksml', 'editarEjercicioController@exportCsvMl')->middleware(esProfesor::class);;
 
 //
 //Auth::routes(['register' => false]); //Dejamos el registro deshabilitado (grupo alumnos cerrado, para abrir a usuarios externos quitar lo que va entre [])
