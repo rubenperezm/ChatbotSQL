@@ -32,7 +32,7 @@ CREATE TABLE `articles` (
   `ART_PRV` int DEFAULT NULL,
   PRIMARY KEY (`ART_NUM`),
   KEY `ART_PRV` (`ART_PRV`),
-  CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`ART_PRV`) REFERENCES `proveedores` (`PRV_NUM`)
+  CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`ART_PRV`) REFERENCES `providers` (`PRV_NUM`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -161,7 +161,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `paises` (
+CREATE TABLE `countries` (
   `COU_ID` int NOT NULL AUTO_INCREMENT,
   `COU_ISO` char(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `COU_NAME` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
@@ -187,7 +187,7 @@ DROP TABLE IF EXISTS `weights`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `weights` (
-  `WEI_NAME` varchar(9) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `WEI_NAME` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `WEI_MIN` int NOT NULL,
   `WEI_MAX` int NOT NULL,
   PRIMARY KEY (`WEI_NAME`)
@@ -200,18 +200,18 @@ CREATE TABLE `weights` (
 
 LOCK TABLES `weights` WRITE;
 /*!40000 ALTER TABLE `weights` DISABLE KEYS */;
-INSERT INTO `pesos` VALUES ('extremely light', 1, 100),('light', 101, 500),('medium', 501, 2500),('heavy', 2501, 5000),('weightless', 0, 0);
+INSERT INTO `weights` VALUES ('extremely light', 1, 100),('light', 101, 500),('medium', 501, 2500),('heavy', 2501, 5000),('weightless', 0, 0);
 /*!40000 ALTER TABLE `weights` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `proveedores`
+-- Table structure for table `providers`
 --
 
-DROP TABLE IF EXISTS `proveedores`;
+DROP TABLE IF EXISTS `providers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `proveedores` (
+CREATE TABLE `providers` (
   `PRV_NUM` int NOT NULL,
   `PRV_NAME` varchar(25) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`PRV_NUM`)
@@ -278,11 +278,10 @@ CREATE TABLE `sales` (
   `SAL_STO` int NOT NULL,
   `SAL_ART` int NOT NULL,
   `SAL_QUA` int DEFAULT NULL,
-  `SAL_PRI` int DEFAULT NULL,
-  `SAL_DATE` varchar(6) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
-  KEY `SAL_CUS` (`VNT_CUS`),
-  KEY `SAL_STO` (`VNT_STO`),
-  KEY `SAL_ART` (`VNT_ART`),
+  `SAL_DATE` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  KEY `SAL_CUS` (`SAL_CUS`),
+  KEY `SAL_STO` (`SAL_STO`),
+  KEY `SAL_ART` (`SAL_ART`),
   CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`SAL_CUS`) REFERENCES `customers` (`CUS_NUM`),
   CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`SAL_STO`) REFERENCES `stores` (`STO_NUM`),
   CONSTRAINT `sales_ibfk_3` FOREIGN KEY (`SAL_ART`) REFERENCES `articles` (`ART_NUM`)
@@ -296,39 +295,39 @@ CREATE TABLE `sales` (
 LOCK TABLES `sales` WRITE;
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
 INSERT INTO `sales` VALUES
-(22, 10, 17, 1,  '20191006'),
-(5, 4, 4, 1, '20191015'), 
-(7, 3, 10, 1, '20191015'),
-(7, 3, 11, 2, '20191015'),
-(7, 3, 14, 3, '20191016'),
-(8, 11, 2, 1, '20191025'),
-(6, 12, 3, 2, '20191030'),
-(6, 12, 15, 2, '20191102'),
-(13, 1, 4, 1, '20191102'),
-(13, 1, 3, 1, '20191105'),
-(1, 2, 2, 1, '20191109'),
-(1, 2, 12, 1, '20191202'),
-(1, 2, 13, 10, '20191212'),
-(4, 11, 1, 8, '20191222'),
-(4, 11, 10, 7, '20191223'),
-(3, 7, 6, 1, '20200111'),
-(3, 7, 9, 2, '20200111'),
-(1, 2, 3, 3, '20200120'),
-(7, 8, 3, 1, '20200203'),
-(4, 5, 3, 6, '20200204'),
-(10, 11, 3, 1, '20200206'),
-(6, 7, 3, 1, '20200211'),
-(3, 4, 3, 2, '20200216'),
-(9, 10, 3, 1, '20200221'),
-(2, 3, 3, 4, '20200222'),
-(8, 9, 3, 1, '20200229'),
-(5, 6, 3, 3, '20200229'),
-(26, 4, 17, 2, '20200302'),
-(19, 7, 3, 1, '20220703'),
-(17, 4, 3, 10, '20200303'),
-(18, 1, 3, 1, '20200303'),
-(10, 4, 2, NULL, '20210403'),
-(3, 13, 3, NULL, '20200303');
+(22, 10, 17, 1, '2019-10-06'),
+(5, 4, 4, 1, '2019-10-15'), 
+(7, 3, 10, 1, '2019-10-15'),
+(7, 3, 11, 2, '2019-10-15'),
+(7, 3, 14, 3, '2019-10-16'),
+(8, 11, 2, 1, '2019-10-25'),
+(6, 12, 3, 2, '2019-10-30'),
+(6, 12, 15, 2, '2019-11-02'),
+(13, 1, 4, 1, '2019-11-02'),
+(13, 1, 3, 1, '2019-11-05'),
+(1, 2, 2, 1, '2019-11-09'),
+(1, 2, 12, 1, '2019-12-02'),
+(1, 2, 13, 10, '2019-12-12'),
+(4, 11, 1, 8, '2019-12-22'),
+(4, 11, 10, 7, '2019-12-23'),
+(3, 7, 6, 1, '2020-01-11'),
+(3, 7, 9, 2, '2020-01-11'),
+(1, 2, 3, 3, '2020-01-20'),
+(7, 8, 3, 1, '2020-02-03'),
+(4, 5, 3, 6, '2020-02-04'),
+(10, 11, 3, 1, '2020-02-06'),
+(6, 7, 3, 1, '2020-02-11'),
+(3, 4, 3, 2, '2020-02-16'),
+(9, 10, 3, 1, '2020-02-21'),
+(2, 3, 3, 4, '2020-02-22'),
+(8, 9, 3, 1, '2020-02-29'),
+(5, 6, 3, 3, '2020-02-29'),
+(26, 4, 17, 2, '2020-03-02'),
+(19, 7, 3, 1, '2022-07-03'),
+(17, 4, 3, 10, '2020-03-03'),
+(18, 1, 3, 1, '2020-03-03'),
+(10, 4, 2, NULL, '2021-04-03'),
+(3, 13, 3, NULL, '2020-03-03');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
