@@ -41,8 +41,9 @@ In this tab we can report the errors we may find. We can also rate the app.
 - Composer v2.1.9
 - Node v16.13.1
 - NPM v8.1.2
-- IBM Cloud account
 - MySQL 8.0
+- Apache2 Server
+- IBM Cloud account
 
 
 Import this repo:
@@ -57,9 +58,9 @@ are the databases used in the exercises.
 ### App
 Go to `src/App` and run these commands:
 ```
+sudo apt-get install -y php7.4-{xml,bcmath,gd,mbstring,xsl,zip,curl,mysql}
 composer update
 cp .env.example .env
-
 ```
 We created a .env file. Edit this file to include the databases previously created. You can also modify the URL of the platform, and the URL of the chatbot if needed.
 
@@ -84,6 +85,8 @@ cp .env.example .env
 ```
 
 Now you need to complete `ASSISTANT_URL`, `ASSISTANT_ID` and `ASSISTANT_IAM_APIKEY` fields with the information of your assistant. You can find this information in your assistant settings.
+
+Before you run the server, please change the first of `botBD/public/js/conversation.js` and include the current URL of the Laravel platform.
 
 Once you have done this, run these commands to install all the dependencies and run the NodeJS server:
 ```
