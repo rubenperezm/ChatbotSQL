@@ -18,7 +18,7 @@
             <span class="spanSugerencia pl-7" >Articles</span>
           </div>
           <div class="col-4 text-center">
-            <a href="#" data-id="select * from articulos" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+            <a href="#" data-id="select * from articles" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
               <i class="fas fa-code"></i>
             </a>
           </div>
@@ -30,7 +30,7 @@
             <span class="spanSugerencia pl-7">Customers</span>
           </div>
           <div class="col-4 text-center">
-            <a href="#" data-id="select * from clientes" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+            <a href="#" data-id="select * from customers" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
               <i class="fas fa-code"></i>
             </a>
           </div>
@@ -42,7 +42,7 @@
             <span class="spanSugerencia pl-7">Employees</span>
           </div>
           <div class="col-4 text-center">
-            <a href="#" data-id="select * from empleados" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+            <a href="#" data-id="select * from employees" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
               <i class="fas fa-code"></i>
             </a>
           </div>
@@ -54,7 +54,7 @@
             <span class="spanSugerencia pl-7">Countries</span>
           </div>
           <div class="col-4 text-center">
-            <a href="#" data-id="select * from paises" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+            <a href="#" data-id="select * from countries" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
               <i class="fas fa-code"></i>
             </a>
           </div>
@@ -66,7 +66,7 @@
             <span class="spanSugerencia pl-7">Weights</span>
           </div>
           <div class="col-4 text-center">
-            <a href="#" data-id="select * from pesos" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+            <a href="#" data-id="select * from weights" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
               <i class="fas fa-code"></i></a>
             </div>
           </div>
@@ -77,7 +77,7 @@
               <span class="spanSugerencia pl-7">Providers</span>
             </div>
             <div class="col-4 text-center">
-              <a href="#" data-id="select * from proveedores" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+              <a href="#" data-id="select * from providers" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
                 <i class="fas fa-code"></i></a>
               </div>
             </div>
@@ -88,7 +88,7 @@
                     <span class="spanSugerencia pl-7">Stores</span>
                   </div>
                   <div class="col-4 text-center">
-                    <a href="#" data-id="select * from tiendas" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+                    <a href="#" data-id="select * from stores" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
                       <i class="fas fa-code"></i></a>
                     </div>
                   </div>
@@ -99,7 +99,7 @@
                       <span class="spanSugerencia pl-7">Sales</span>
                     </div>
                     <div class="col-4 text-center">
-                      <a href="#" data-id="select * from ventas" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
+                      <a href="#" data-id="select * from sales" class="filaTablaBd verTabla {{!$mostrarDatosTabla ? 'd-none' : ''}}">
                         <i class="fas fa-code"></i></a>
                       </div>
                     </div>
@@ -482,7 +482,7 @@ function tutorialIframe(){
   $("#bloqueSideBar").addClass("opacityTutorial");
   $("#bloqueTutorial").removeClass("bloqueCenterTutorial");
   $("#bloqueTutorial").addClass("bloqueIframeTutorial");
-  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">This is Datacio. He will check our queries to give us some feedback. Moreover, if you need help, you can ask him for information or hints. If he\'s not able to help you, don\'t be hard with him, he\'s also learning every day! Try to start a conversation with him: Write "How do I start?" in the box.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Next</button></div></p>');
+  $("#bodybloqueTutorial").html('<p class="card-text text-white" id="parrafoTutorial">This is Datatron. He will check our queries to give us some feedback. Moreover, if you need help, you can ask him for information or hints. If he\'s not able to help you, don\'t be hard with him, he\'s also learning every day! Try to start a conversation with him: Write "How do I start?" in the box.<div class="col-12 mt-2 px-0 text-right"><button type="button" class="btn-outline-secondary botonDegradao text-white" onclick="cerrarIframeTutorial();">Next</button></div></p>');
 };
 
 function cerrarIframeTutorial(){

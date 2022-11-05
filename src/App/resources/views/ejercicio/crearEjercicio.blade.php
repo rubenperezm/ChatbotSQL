@@ -33,14 +33,14 @@
       </div>
       <div class="col-12" style="display:inline-flex;">
         <div class="col-4" id="tablas" role="tablist" aria-orientation="vertical">
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from clientes">Customers</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from articulos">Articles</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from empleados">Employees</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from paises">Countries</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from pesos">Weights</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from proveedores">Providers</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from tiendas">Stores</div>
-          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from ventas">Sales</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from customers">Customers</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from articles">Articles</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from employees">Employees</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from countries">Countries</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from weights">Weights</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from providers">Providers</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from stores">Stores</div>
+          <div class="col-9 mt-2 mb-2 botonVerTabla" data-id="select * from sales">Sales</div>
         </div>
         <div class="col-8" id="bloqueTablaRespuesta" style="max-height:400px;overflow-y:auto;">
 

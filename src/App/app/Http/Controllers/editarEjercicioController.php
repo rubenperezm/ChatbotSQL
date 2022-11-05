@@ -655,8 +655,8 @@ public function exportCsvMl(Request $request){
 }
 
 function compruebaTabla($miString,$tipoConsulta){
-  # preg_match_all('/customers|sales|articles|weights|providers|stores|countries|employees/', $miString, $m);
-  preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $miString, $m);
+  preg_match_all('/customers|sales|articles|weights|providers|stores|countries|employees/', $miString, $m);
+  # preg_match_all('/clientes|ventas|articulos|pesos|proveedores|tiendas|paises|empleados/', $miString, $m);
   Debugbar::info($m);
   return $m[0];
 }
