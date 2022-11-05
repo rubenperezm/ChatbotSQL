@@ -1,0 +1,2889 @@
+{
+  "intents": [
+    {
+      "intent": "AskForHint",
+      "examples": [
+        {
+          "text": "HintsForBeginners laravel"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "EndDialog",
+      "examples": [
+        {
+          "text": "FinalConversacionCorrectolaravel"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Finished",
+      "examples": [
+        {
+          "text": "Have I completed the exercise?"
+        },
+        {
+          "text": "Have I finished?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Goodbye",
+      "examples": [
+        {
+          "text": "Adios"
+        },
+        {
+          "text": "Au revoir"
+        },
+        {
+          "text": "Bye"
+        },
+        {
+          "text": "Ciao"
+        },
+        {
+          "text": "Goodbye"
+        },
+        {
+          "text": "Hasta la vista, baby"
+        },
+        {
+          "text": "See ya!"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Gratitude",
+      "examples": [
+        {
+          "text": "Eternally grateful"
+        },
+        {
+          "text": "I appreciate it"
+        },
+        {
+          "text": "Thanks"
+        },
+        {
+          "text": "Thank you"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Greetings",
+      "examples": [
+        {
+          "text": "Good afternoon"
+        },
+        {
+          "text": "Good morning"
+        },
+        {
+          "text": "Hello"
+        },
+        {
+          "text": "Hey"
+        },
+        {
+          "text": "Hi"
+        },
+        {
+          "text": "How are you?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Help",
+      "examples": [
+        {
+          "text": "Can you help me?"
+        },
+        {
+          "text": "filtering"
+        },
+        {
+          "text": "Give me a hand"
+        },
+        {
+          "text": "group by clause"
+        },
+        {
+          "text": "help"
+        },
+        {
+          "text": "How do I continue?"
+        },
+        {
+          "text": "How do I do this?"
+        },
+        {
+          "text": "I do not know what to do"
+        },
+        {
+          "text": "I don't know how to do this exercise"
+        },
+        {
+          "text": "I need help"
+        },
+        {
+          "text": "I need your advice"
+        },
+        {
+          "text": "nested queries"
+        },
+        {
+          "text": "select"
+        },
+        {
+          "text": "SOS"
+        },
+        {
+          "text": "what are the logical operations in mysql"
+        },
+        {
+          "text": "what do I have to do"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Hints",
+      "examples": [
+        {
+          "text": "Could you give me a hint?"
+        },
+        {
+          "text": "Hint filtering"
+        },
+        {
+          "text": "Hint join clause"
+        },
+        {
+          "text": "Hint ordering results"
+        },
+        {
+          "text": "Hint select"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "PlaygroundMode",
+      "examples": [
+        {
+          "text": "modoLibre"
+        },
+        {
+          "text": "playgroundMode"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Start",
+      "examples": [
+        {
+          "text": "How does this platform work?"
+        },
+        {
+          "text": "how do i complete this exercise?"
+        },
+        {
+          "text": "how to start"
+        },
+        {
+          "text": "I am lost"
+        },
+        {
+          "text": "What do I need to do?"
+        },
+        {
+          "text": "What should I do?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Start_exercises",
+      "examples": [
+        {
+          "text": "ejercicio"
+        },
+        {
+          "text": "Exercise"
+        },
+        {
+          "text": "I want to start"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "syntax_error",
+      "examples": [
+        {
+          "text": "1054select"
+        },
+        {
+          "text": "1054where"
+        },
+        {
+          "text": "error 1064"
+        },
+        {
+          "text": "ErrorVialaravel"
+        },
+        {
+          "text": "General error: 1111"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "WhatCanYouDo",
+      "examples": [
+        {
+          "text": "How can you help me?"
+        },
+        {
+          "text": "What are you useful for?"
+        },
+        {
+          "text": "What can you do?"
+        },
+        {
+          "text": "What is your role here?"
+        },
+        {
+          "text": "Why are you important?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "WrongQuery",
+      "examples": [
+        {
+          "text": "comprobacion_query"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Clause",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "all",
+          "synonyms": [
+            "All the results",
+            "For all"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "any",
+          "synonyms": [
+            "in"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "as",
+          "synonyms": [
+            "alias",
+            "change name column",
+            "format",
+            "rename column"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "avg",
+          "synonyms": [
+            "average"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "between",
+          "synonyms": [
+            "range"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "concat",
+          "synonyms": [
+            "concatenate",
+            "concatenation"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "count",
+          "synonyms": [
+            "number of rows"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "curdate",
+          "synonyms": [
+            "current date",
+            "today"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "day",
+          "synonyms": [
+            "date"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "dayname",
+          "synonyms": [
+            "day of the week"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "describe",
+          "synonyms": [
+            "describe",
+            "fields of the tables",
+            "list columns of tables",
+            "visualize fields"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "distinct",
+          "synonyms": [
+            "distinct",
+            "unique"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "exists",
+          "synonyms": [
+            "exist",
+            "existence"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "from",
+          "synonyms": [
+            "choose tables",
+            "use tables"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "full",
+          "synonyms": [
+            "full join",
+            "full outer join"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "group by",
+          "synonyms": [
+            "classify",
+            "group"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "having",
+          "synonyms": [
+            "filter group by",
+            "having"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "ifnull",
+          "synonyms": [
+            "if null"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "join",
+          "synonyms": [
+            "inner join",
+            "join tables"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "left",
+          "synonyms": [
+            "left join",
+            "left outer join",
+            "right",
+            "right join",
+            "right outer join"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "length",
+          "synonyms": [
+            "character_length",
+            "char_length",
+            "count characters",
+            "count chars",
+            "string",
+            "string size"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "like",
+          "synonyms": [
+            "Like",
+            "pattern"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "lower",
+          "synonyms": [
+            "lcase",
+            "lowercase"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "max",
+          "synonyms": [
+            "highest",
+            "maximum"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "min",
+          "synonyms": [
+            "lowest",
+            "minimum"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "month",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Nested",
+          "synonyms": [
+            "nested query",
+            "subquery"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "null",
+          "synonyms": [
+            "empty",
+            "Null"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "order by",
+          "synonyms": [
+            "alphabetically",
+            "ascending",
+            "descending",
+            "order",
+            "order by",
+            "sort"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "round",
+          "synonyms": [
+            "rounding",
+            "truncate",
+            "truncation"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "select",
+          "synonyms": [
+            "content of a table",
+            "get elements",
+            "list",
+            "listing",
+            "list rows",
+            "see data",
+            "select",
+            "selection"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "show",
+          "synonyms": [
+            "list all tables",
+            "show",
+            "show tables",
+            "visualize tablas"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "substr",
+          "synonyms": [
+            "substring"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "sum",
+          "synonyms": [
+            "add a column",
+            "summation",
+            "total quantity"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "union",
+          "synonyms": [
+            "combine queries"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "upper",
+          "synonyms": [
+            "ucase",
+            "uppercase"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "where",
+          "synonyms": [
+            "conditions",
+            "filter",
+            "filtering",
+            "requirements",
+            "where"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "year",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "DBJargon",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "AggregateFunction",
+          "synonyms": [
+            "add",
+            "aggregate",
+            "Aggregate Function",
+            "average",
+            "avg",
+            "count",
+            "max",
+            "maximum",
+            "min",
+            "minimum",
+            "sum",
+            "summation"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Comparison",
+          "synonyms": [
+            "compare",
+            "Comparison Operators",
+            "different",
+            "equal",
+            "greater or equal",
+            "greater than",
+            "less or equal",
+            "less than",
+            "not equal"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "ForeignKey",
+          "synonyms": [
+            "FK",
+            "foreign",
+            "Foreign Key",
+            "Foreign Keys"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Logical",
+          "synonyms": [
+            "&&",
+            "||",
+            "and",
+            "logical operators",
+            "not",
+            "or",
+            "xor"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "mysql",
+          "synonyms": [
+            "SQL"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "PrimaryKey",
+          "synonyms": [
+            "PK",
+            "Primary Key",
+            "Primary Keys"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "relations tables",
+          "synonyms": [
+            "relations",
+            "schema",
+            "structure"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "ErrorCode",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "1054Order",
+          "synonyms": [
+            "1054",
+            "order 1054"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "1054Select",
+          "synonyms": [
+            "1054",
+            "select 1054"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "1054Where",
+          "synonyms": [
+            "1054",
+            "where 1054"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "1055",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "1064",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "1096",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "1111",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "1140",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "1146",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Exercises",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "basic",
+          "synonyms": [
+            "basico"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Mood",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "BadMood",
+          "synonyms": [
+            "awful",
+            "bad",
+            "could be better",
+            "horrible",
+            "so so"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "GoodMood",
+          "synonyms": [
+            "Doing Well",
+            "Fine",
+            "in my lane",
+            "nice",
+            "perfect",
+            "Really good"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "YesNo",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "No",
+          "synonyms": [
+            "don't think so",
+            "nope"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Yes",
+          "synonyms": [
+            "go ahead",
+            "ok"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "folder",
+      "title": "Info",
+      "conditions": "",
+      "digress_in": "returns",
+      "dialog_node": "node_10_1614464650478",
+      "previous_sibling": "node_1_1644083499584"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ART_NUM is the PK of 'articles'"
+              },
+              {
+                "text": "CUS_NUM is the PK of 'customers'"
+              },
+              {
+                "text": "STO_NUM is the PK of 'stores'"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1614468966404",
+      "conditions": "@YesNo:Yes",
+      "dialog_node": "node_10_1614469101456"
+    },
+    {
+      "type": "standard",
+      "title": "1054Where",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You have an unknown column in your WHERE clause."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1054Where",
+      "dialog_node": "node_10_1614471706139"
+    },
+    {
+      "type": "standard",
+      "title": "1054Select",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You have an unknown column in your SELECT clause."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1054Select",
+      "dialog_node": "node_10_1614471793700",
+      "previous_sibling": "node_10_1614471706139"
+    },
+    {
+      "type": "standard",
+      "title": "Help",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "How may I assist you?"
+              },
+              {
+                "text": "Tell me what you need:"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "How do I see the tables?",
+                "value": {
+                  "input": {
+                    "text": "show tables"
+                  }
+                }
+              },
+              {
+                "label": "What is SELECT clause used for?",
+                "value": {
+                  "input": {
+                    "text": "help select"
+                  }
+                }
+              },
+              {
+                "label": "How can I see the filds of a table?",
+                "value": {
+                  "input": {
+                    "text": "describe tables"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "#Help && NOT @DBJargon && NOT @Clause && NOT @ErrorCode",
+      "dialog_node": "node_10_1644083938527"
+    },
+    {
+      "type": "standard",
+      "title": "Union",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.union"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:union && $ayudaClausula.union",
+      "dialog_node": "node_10_1647425916687",
+      "previous_sibling": "node_8_1647425904193"
+    },
+    {
+      "type": "standard",
+      "title": "No Hint About That",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I don't have any hints of what you are asking for."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "anything_else",
+      "dialog_node": "node_10_1647426070093",
+      "previous_sibling": "node_9_1647425914143"
+    },
+    {
+      "type": "standard",
+      "title": "String Functions",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "There are some functions in MySQL that will help us to work with strings:\n<ul>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_char-length\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">CHAR_LENGTH or CHARACTER_LENGTH</a>: String length in characters</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_length\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">LENGTH</a>: String length in bytes. If the string has characters like 'ñ', it will return a different number than CHAR_LENGTH.</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_upper\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">UPPER or UCASE</a>: String to uppercase</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_lower\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">LOWER or LCASE</a>: String to lowercase</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_substr\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">SUBSTR or SUBSTRING</a>: Get a substring of a given string</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_concat\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">CONCAT</a>: Concatenate two strings </li>\n</ul>\nClick on the names of the functions for more information.\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:length || @Clause:upper || @Clause:lower || @Clause:substr || @Clause:concat",
+      "dialog_node": "node_10_1648246381584",
+      "previous_sibling": "node_7_1648244926862"
+    },
+    {
+      "type": "standard",
+      "title": "select",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The SELECT clause is used to select data from a database. We can choose which columns we want to see with this clause."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/select.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:select",
+      "dialog_node": "node_1_1614469457976",
+      "previous_sibling": "node_13_1647427622416"
+    },
+    {
+      "type": "standard",
+      "title": "show",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "We can use the SHOW statement to list the non-TEMPORARY tables in a given database. <em>Syntax: \"show tables\"</em>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:show",
+      "dialog_node": "node_1_1614470540706",
+      "previous_sibling": "node_5_1614470381198"
+    },
+    {
+      "type": "standard",
+      "title": "Not Finished Yet",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "No, we have not finished yet. If you need help, just ask me."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Help",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_1_1648233634237",
+      "conditions": "#Finished && NOT $modoLibre",
+      "dialog_node": "node_1_1614471562644",
+      "previous_sibling": "node_7_1614466000163"
+    },
+    {
+      "type": "folder",
+      "title": "PlaygroundMode",
+      "conditions": "NOT $Modoejercicios",
+      "digress_in": "not_available",
+      "dialog_node": "node_1_1644083499584",
+      "previous_sibling": "node_1_1647423800224"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand you. Could you repeat that with other words?\n<br><a href = \"https://dev.mysql.com/doc/refman/8.0/en\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">MySQL Reference</a>."
+              },
+              {
+                "text": "I can't help you this time. Could you ask me that question again in a different way?\n<br><a href = \"https://dev.mysql.com/doc/refman/8.0/en\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">MySQL Reference</a>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "How do I see the tables?",
+                "value": {
+                  "input": {
+                    "text": "show tables"
+                  }
+                }
+              },
+              {
+                "label": "What is SELECT statement used for?",
+                "value": {
+                  "input": {
+                    "text": "help select"
+                  }
+                }
+              },
+              {
+                "label": "How do I see the fields of a table?",
+                "value": {
+                  "input": {
+                    "text": "describe table"
+                  }
+                }
+              },
+              {
+                "label": "Help",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "digress_in": "returns",
+      "dialog_node": "node_1_1644089360910",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_2_1614472514814"
+    },
+    {
+      "type": "folder",
+      "title": "Hints",
+      "conditions": "$ayudaClausula && #Hints && NOT $modoLibre",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_1_1647423800224",
+      "previous_sibling": "node_5_1647902404600"
+    },
+    {
+      "type": "standard",
+      "title": "From",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.from"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:from && $ayudaClausula.from",
+      "dialog_node": "node_1_1647424488243",
+      "previous_sibling": "node_2_1647424490288"
+    },
+    {
+      "type": "folder",
+      "title": "Other",
+      "dialog_node": "node_1_1648233634237",
+      "previous_sibling": "node_10_1614464650478"
+    },
+    {
+      "type": "standard",
+      "title": "All",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The word ALL, which must follow a comparison operator, means <em>“return TRUE if the comparison is TRUE for ALL of the values in the column that the subquery returns.”</em> . Choose carefully the fields of the subquery, as they will be used in the comparison. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/all-subqueries.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">ALL</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:all",
+      "dialog_node": "node_1_1648243120595",
+      "previous_sibling": "node_7_1614470618285"
+    },
+    {
+      "type": "standard",
+      "title": "Any",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The ANY keyword, which must follow a comparison operator, means <em>“return TRUE if the comparison is TRUE for ANY of the values in the column that the subquery returns.”</em>. Choose carefully the fields of the subquery, as they will be used in the comparison. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/any-in-some-subqueries.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">ANY & IN</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:any",
+      "dialog_node": "node_1_1648243451861",
+      "previous_sibling": "node_1_1648243120595"
+    },
+    {
+      "type": "standard",
+      "title": "comparison operators",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "These are the logical operators in MySQL:\n<ul>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_equal\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">=</a>: Equal than</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_not-equal\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">!= or <></a>: Not Equal to</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_less-than-or-equal\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\"><</a>: Less than</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_less-than\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\"><=</a>: Less or equal to</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_greater-than-or-equal\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">></a>: Greater than</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_greater-than\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">>=</a>: Greater or equal to</li>\n</ul>\nClick on the operators if you need more information."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:Comparison",
+      "dialog_node": "node_1_1648336446527",
+      "previous_sibling": "node_12_1648246941973"
+    },
+    {
+      "type": "standard",
+      "title": "Empty",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You have to tell me in which part of the exercise you need a hint.<br><span style=\"font-weight: bold; font-size:12px;\">Use cases:</span><br><span style=\"color:darkmagenta;font-weight: bold; font-size:12px;\"><em>Hint of the nested query<br>Hint where</em></span>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "input.text.toLowerCase() == 'hint'",
+      "dialog_node": "node_1_1648572734816"
+    },
+    {
+      "type": "standard",
+      "title": "mysql",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "MySQL is an open-source relational database management system."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:mysql",
+      "dialog_node": "node_1_1648677169061",
+      "previous_sibling": "node_1_1648243451861"
+    },
+    {
+      "type": "standard",
+      "title": "1111",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You can't use aggregate functions in a WHERE clause. You need to use a HAVING clause. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "Need more help?",
+            "options": [
+              {
+                "label": "Help having",
+                "value": {
+                  "input": {
+                    "text": "Help having"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1111",
+      "dialog_node": "node_1_1653839970211",
+      "previous_sibling": "node_2_1614472041824"
+    },
+    {
+      "type": "standard",
+      "title": "join",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The JOIN clause is used to combine rows from two or more tables, based on a related column between them.<em>Syntax: \" ... FROM table1 JOIN table2 ON field1 = field2 ...\".</em><br> We can also write the same query like this: <em>\" ... FROM table1, table2 WHERE field1 = field2 ... \".</em><br>If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/join.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">JOIN</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:join",
+      "dialog_node": "node_12_1647427619393",
+      "previous_sibling": "node_1_1614470540706"
+    },
+    {
+      "type": "standard",
+      "title": "Round",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ROUND in MySQL is used to round a number to a specified number of decimal places. If no specified number of decimal places is provided, it rounds off the number to the nearest integer. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/mathematical-functions.html#function_round\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">ROUND</a>\n\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:round",
+      "dialog_node": "node_12_1648246941973",
+      "previous_sibling": "node_8_1648245516815"
+    },
+    {
+      "type": "standard",
+      "title": "union",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "UNION combines the result from multiple SELECT statements into a single result set. Each SELECT statement within the UNION operator must have the same number of fields in the result sets with similar data types. <em>Example: \"(query1) Union (query2)\"</em>. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/union.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">UNION</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:union",
+      "dialog_node": "node_13_1647427622416",
+      "previous_sibling": "node_2_1614469292810"
+    },
+    {
+      "type": "standard",
+      "title": "from",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The FROM clause specifies the tables or queries that contain the data that the SELECT clause will use."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/select.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:from",
+      "dialog_node": "node_14_1647428163449",
+      "previous_sibling": "node_1_1614469457976"
+    },
+    {
+      "type": "standard",
+      "title": "Nested Queries",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "A Subquery or Inner query or Nested query is a query within another SQL query. A subquery is used to return data that will be used in the main query as a condition to further restrict the data to be retrieved. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/subqueries.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">Nested Queries</a>\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:Nested",
+      "dialog_node": "node_15_1647428483066",
+      "previous_sibling": "node_12_1647427619393"
+    },
+    {
+      "type": "standard",
+      "title": "Start Exercise",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<span style=\"font-weight: bold; font-size: 12px;\">Let's solve this exercise:</span><br><span style=\"color: darkmagenta;font-weight: bold; font-size:12px;\">$enunciadoEjercicio</span>"
+              },
+              {
+                "text": ""
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_7_1614454823971",
+      "context": {
+        "Modoejercicios": true
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "#Start_exercises && @Exercises:basic && NOT $Modoejercicios",
+      "dialog_node": "node_2_1614454847661"
+    },
+    {
+      "type": "standard",
+      "title": "Primary Key",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "A primary key (PK) is a specific choice of a minimal set of attributes that uniquely specify a tuple in a relation. They have to be unique, so we can identify any of the records."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "¿Do you want an example?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:PrimaryKey",
+      "dialog_node": "node_2_1614468966404",
+      "previous_sibling": "node_4_1614468684331"
+    },
+    {
+      "type": "standard",
+      "title": "where",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "WHERE clause is used to specify a condition while fetching the data from a single table or multiple tables. It will return the records of the table that satisfies the conditions. You should use the WHERE clause to filter the records and fetch only the necessary records. WHERE clause and HAVING clause are not the same, as HAVING is used for filtering with aggregate functions."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/where.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:where",
+      "dialog_node": "node_2_1614469292810",
+      "previous_sibling": "node_2_1614468966404"
+    },
+    {
+      "type": "standard",
+      "title": "as",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "SQL aliases are used to give a table, or a column in a table, a temporary name. They are often used to make column names more readable. An alias only exists for the duration of that query.\nAn alias is created with the AS keyword."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/as.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:as",
+      "dialog_node": "node_2_1614470786578",
+      "previous_sibling": "node_15_1647428483066"
+    },
+    {
+      "type": "standard",
+      "title": "distinct",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The SELECT DISTINCT statement is used to return only distinct (different) values.\n\nInside a table, a column often contains many duplicate values; and sometimes you only want to list the different (distinct) values."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/distinct.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:distinct",
+      "dialog_node": "node_2_1614471281894",
+      "previous_sibling": "node_6_1614471146622"
+    },
+    {
+      "type": "standard",
+      "title": "1146",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are using an unknown table. Run \"show tables\" to see the names of the tables."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1146",
+      "dialog_node": "node_2_1614472041824",
+      "previous_sibling": "node_8_1614471923548"
+    },
+    {
+      "type": "standard",
+      "title": "Solved Exercise",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Correct!"
+              },
+              {
+                "text": "Yes, that's right."
+              },
+              {
+                "text": "You nailed it!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#EndDialog && NOT $modoLibre",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_2_1614472514814",
+      "digress_out": "allow_all",
+      "previous_sibling": "node_4_1614472422021"
+    },
+    {
+      "type": "standard",
+      "title": "Select ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.select"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:select && $ayudaClausula.select",
+      "dialog_node": "node_2_1647424490288",
+      "previous_sibling": "node_3_1647424492096"
+    },
+    {
+      "type": "standard",
+      "title": "Left & Right Join",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The SQL LEFT JOIN joins two tables based on a common column, and selects records that have matching values in these columns and remaining rows from the left table. The RIGHT JOIN keyword returns all records from the right table, and the matching records from the left table. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/join.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">JOIN</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:left",
+      "dialog_node": "node_2_1648243704166",
+      "previous_sibling": "node_2_1614471281894"
+    },
+    {
+      "type": "standard",
+      "title": "having",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The HAVING clause enables you to specify conditions that filter which group results appear in the results. The WHERE clause is not equivalent, as the HAVING clause places conditions on groups created by the GROUP BY clause."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/having.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:having",
+      "dialog_node": "node_3_1614470230061",
+      "previous_sibling": "node_8_1614469950398"
+    },
+    {
+      "type": "standard",
+      "title": "Start Playground Mode",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<span style=\"color: darkmagenta;font-weight: bold; font-size:12px;\"><strong>Welcome to the playground mode. Here you can use our database to test your queries.</span>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1644083499584",
+      "context": {
+        "modoLibre": true
+      },
+      "conditions": "#PlaygroundMode && NOT $modoLibre",
+      "dialog_node": "node_3_1644083566343",
+      "digress_out": "allow_all_never_return"
+    },
+    {
+      "type": "standard",
+      "title": "Describe",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.describe"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:describe && $ayudaClausula.describe",
+      "dialog_node": "node_3_1647424492096",
+      "previous_sibling": "node_4_1647423829913"
+    },
+    {
+      "type": "standard",
+      "title": "Exists",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The EXISTS operator is used to test for the existence of any record in a subquery. It returns TRUE if the subquery returns one or more records. MySQL ignores the SELECT list in the subquery. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/exists-and-not-exists-subqueries.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">EXISTS</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:exists",
+      "dialog_node": "node_3_1648244018349",
+      "previous_sibling": "node_5_1648244622470"
+    },
+    {
+      "type": "standard",
+      "title": "Aggregate Functions",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "An aggregate function or aggregation function in MySQL is a function where the values of multiple rows are grouped to form a single summary value. These are the most common ones:\n<ul>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_count\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">COUNT</a>: Returns the number of rows</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_sum\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">SUM</a>: Returns the summation of the quantities of the field passed as an argument</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_avg\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">AVG</a>: Average of the quantities of the field passed as an argument</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_max\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">MAX</a>: Maximum value in the column passed as an argument</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_min\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">MIN</a>: Minimum value of the column passed as an argument</li>\n</ul>\nClick the names of the functions if you need more information.\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/agregados.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:AggregateFunction || @Clause:count || @Clause:max || @Clause:min || @Clause:avg || @Clause:sum",
+      "dialog_node": "node_4_1614468684331",
+      "previous_sibling": "node_6_1614468348674"
+    },
+    {
+      "type": "standard",
+      "title": "orderBy",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The ORDER BY keyword is used to sort the result-set in ascending or descending order.\nIt sorts the records in ascending order by default. If you need more information, you can visit the Reference Manual : <a href = \"https://dev.mysql.com/doc/refman/8.0/en/sorting-rows.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">ORDER BY</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/order.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:(order by)",
+      "dialog_node": "node_4_1614469787637",
+      "previous_sibling": "node_14_1647428163449"
+    },
+    {
+      "type": "folder",
+      "title": "Check Query",
+      "conditions": "NOT $modoLibre",
+      "digress_in": "returns",
+      "dialog_node": "node_4_1614472422021",
+      "previous_sibling": "node_9_1614471691775"
+    },
+    {
+      "type": "standard",
+      "title": "Gratitude",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "No problem."
+              },
+              {
+                "text": "You're welcome."
+              },
+              {
+                "text": "<span style=\"color:red;font-weight: bold; font-size:12px;\"><em><3</em></span>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1648233634237",
+      "conditions": "#Gratitude",
+      "dialog_node": "node_4_1643911315478",
+      "previous_sibling": "node_7_1614465813758"
+    },
+    {
+      "type": "standard",
+      "title": "Show",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.show"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:show && $ayudaClausula.show",
+      "dialog_node": "node_4_1647423829913",
+      "previous_sibling": "node_1_1648572734816"
+    },
+    {
+      "type": "standard",
+      "title": "Group By",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.group"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:(group by) && $ayudaClausula.group",
+      "dialog_node": "node_4_1647425750056",
+      "previous_sibling": "node_5_1647425752024"
+    },
+    {
+      "type": "standard",
+      "title": "Between",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The BETWEEN operator selects values within a given range. The values can be numbers, text, or dates. This operator is inclusive: begin and end values are included. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#operator_between\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">BETWEEN</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:between",
+      "dialog_node": "node_4_1648244332133",
+      "previous_sibling": "node_3_1648244018349"
+    },
+    {
+      "type": "standard",
+      "title": "What Can You Do",
+      "parent": "node_1_1648233634237",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#WhatCanYouDo",
+      "dialog_node": "node_5_1614465127001"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK. I'll be right here if you need more information."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1614468348674",
+      "conditions": "@YesNo:No",
+      "dialog_node": "node_5_1614468607744",
+      "previous_sibling": "node_8_1614468516740"
+    },
+    {
+      "type": "standard",
+      "title": "describe",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "DESCRIBE  is a SQL statement that is accountable for telling something about a specific table in the database.  <em>Syntax: \"describe table1\"</em>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:describe",
+      "dialog_node": "node_5_1614470381198",
+      "previous_sibling": "node_3_1614470230061"
+    },
+    {
+      "type": "standard",
+      "title": "1055",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You are listing fields in the SELECT statement that are not included in the GROUP BY clause."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1055",
+      "dialog_node": "node_5_1614472131347",
+      "previous_sibling": "node_1_1653839970211"
+    },
+    {
+      "type": "standard",
+      "title": "1140",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Have you used the GROUP BY clause?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1140",
+      "dialog_node": "node_5_1614472203846",
+      "previous_sibling": "node_5_1614472131347"
+    },
+    {
+      "type": "standard",
+      "title": "syntax error",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "There's an error in your query. If you need help, you can ask me."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error",
+      "dialog_node": "node_5_1614472331015",
+      "previous_sibling": "node_7_1614472283595"
+    },
+    {
+      "type": "standard",
+      "title": "Having",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.having"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:having && $ayudaClausula.having",
+      "dialog_node": "node_5_1647425752024",
+      "previous_sibling": "node_6_1647425754655"
+    },
+    {
+      "type": "standard",
+      "title": "How to ask for a hint",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "To ask for a hint, you have to text me 'hint' followed by the clause or the part of the exercise in which you have problems. Each exercise has its own hints, but if you need general information you can text me without using that word. <br><span style=\"font-weight: bold; font-size:12px;\">Use Cases:</span><br><span style=\"color:darkmagenta;font-weight: bold; font-size:12px;\"><em>hint of the nested query<br>hint where</em></span>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#AskForHint && NOT $modoLibre",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_5_1647902404600",
+      "previous_sibling": "node_7_1614454823971"
+    },
+    {
+      "type": "standard",
+      "title": "Full Join",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The FULL JOIN keyword returns all matching records from both tables whether the other table matches or not. If it doesn't match, the fields of the second table will have NULL values in that record. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/join.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">JOIN</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:full",
+      "dialog_node": "node_5_1648244622470",
+      "previous_sibling": "node_2_1648243704166"
+    },
+    {
+      "type": "standard",
+      "title": "FK",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "A foreign key (FK) is a set of attributes in a table that refers to the primary key (PK) of another table. The foreign key links these two tables."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "¿Do you want an example?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:ForeignKey",
+      "dialog_node": "node_6_1614468348674",
+      "previous_sibling": "node_8_1614466434381"
+    },
+    {
+      "type": "standard",
+      "title": "null",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "A field with a NULL value is a field with no value (it's different from 0 or '').\nWe cannot used NULL values with comparison operations like '=', '<' or '>='. We need to use IS NULL and IS NOT NULL instead. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/working-with-null.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">NULL</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/null.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:null",
+      "dialog_node": "node_6_1614471146622",
+      "previous_sibling": "node_7_1614470994344"
+    },
+    {
+      "type": "standard",
+      "title": "Where",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.where"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:where && $ayudaClausula.where",
+      "dialog_node": "node_6_1647425754655",
+      "previous_sibling": "node_7_1647425756343"
+    },
+    {
+      "type": "standard",
+      "title": "Ifnull",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "With IFNULL, we can show null fields with a specific value passed as an argument.  If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/flow-control-functions.html#function_ifnull\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">IFNULL</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:ifnull",
+      "dialog_node": "node_6_1648244729141",
+      "previous_sibling": "node_4_1648244332133"
+    },
+    {
+      "type": "folder",
+      "title": "Exercise",
+      "conditions": "NOT $modoLibre",
+      "digress_in": "not_available",
+      "dialog_node": "node_7_1614454823971"
+    },
+    {
+      "type": "standard",
+      "title": "Greetings",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi, my friend. This is Don Datatron, and I am here to help you. If you need something, feel free to ask."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Help",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              },
+              {
+                "label": "How do I start?",
+                "value": {
+                  "input": {
+                    "text": "How to start"
+                  }
+                }
+              },
+              {
+                "label": "What is MySQL?",
+                "value": {
+                  "input": {
+                    "text": "What is MySQL"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_1_1648233634237",
+      "conditions": "#Greetings",
+      "dialog_node": "node_7_1614465813758",
+      "previous_sibling": "node_5_1614465127001"
+    },
+    {
+      "type": "standard",
+      "title": "Start",
+      "parent": "node_1_1648233634237",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Start",
+      "dialog_node": "node_7_1614466000163",
+      "previous_sibling": "node_4_1643911315478"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "OK. I'll be right here if you need more information."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1614468966404",
+      "conditions": "@YesNo:No",
+      "dialog_node": "node_7_1614469195469",
+      "previous_sibling": "node_10_1614469101456"
+    },
+    {
+      "type": "standard",
+      "title": "Logical Operators",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "In SQL, all logical operators evaluate to TRUE, FALSE, or NULL (UNKNOWN). In MySQL, these are implemented as 1 (TRUE), 0 (FALSE), and NULL. These are the logical operators in MySQL:\n<ul>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/logical-operators.html#operator_and\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">AND or '&&'</a>: logical 'and'</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/logical-operators.html#operator_or\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">OR or '||'</a>: logical 'or' </li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/logical-operators.html#operator_xor\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">XOR</a>: logical 'exclusive or'. If both conditions are true, it returns false</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/logical-operators.html#operator_not\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">NOT or '!'</a>: logical 'not'</li>\n</ul>\nClick on the names of the operators for more information."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/logico.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:Logical",
+      "dialog_node": "node_7_1614470618285",
+      "previous_sibling": "node_1_1648336446527"
+    },
+    {
+      "type": "standard",
+      "title": "like",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The LIKE operator is used in a WHERE clause to search for a specified pattern in a column. There are two wildcards often used in conjunction with the LIKE operator:<br>\n<ul>\n<li>The percent sign (%) represents zero or more characters</li>\n<li>The underscore sign (_) represents a single character</li>\n</ul>\nIf you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/pattern-matching.html\" target=\"_blank\"  style=\" text-decoration: none; color: green;;font-weight: bold; font-size:12px\">LIKE</a>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/like.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:like",
+      "dialog_node": "node_7_1614470994344",
+      "previous_sibling": "node_2_1614470786578"
+    },
+    {
+      "type": "standard",
+      "title": "1054Order",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You have an unknown column in your ORDER BY clause."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1054Order",
+      "dialog_node": "node_7_1614471862017",
+      "previous_sibling": "node_10_1614471793700"
+    },
+    {
+      "type": "standard",
+      "title": "1096",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You need to retrieve data from a table. Does your query include the FROM clause?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1096",
+      "dialog_node": "node_7_1614472283595",
+      "previous_sibling": "node_5_1614472203846"
+    },
+    {
+      "type": "standard",
+      "title": "Join",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.join"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:join && $ayudaClausula.join",
+      "dialog_node": "node_7_1647425756343",
+      "previous_sibling": "node_1_1647424488243"
+    },
+    {
+      "type": "standard",
+      "title": "Minitutorial",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You can talk to me if you need help, or ask me for a hint."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "How to ask or a hint",
+                "value": {
+                  "input": {
+                    "text": "HintsForBeginners laravel"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_2_1614454847661",
+      "conditions": "true",
+      "dialog_node": "node_7_1647902078094"
+    },
+    {
+      "type": "standard",
+      "title": "Date Functions",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "There are some functions in MySQL that will help us to work with dates:\n<ul>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_day\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">DAY</a>: Day of a date (1-31)</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_dayname\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">DAYNAME</a>: Day of the week (Monday - Sunday)</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_month\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">MONTH</a>: Month of a date (1-12)</li>\n<li><a href = \"https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_year\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">YEAR</a>: Year of a date</li>\n</ul>\nClick on the names of the functions for more information.\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:year || @Clause:month || @Clause:day || @Clause:dayname",
+      "dialog_node": "node_7_1648244926862",
+      "previous_sibling": "node_6_1648244729141"
+    },
+    {
+      "type": "standard",
+      "title": "Relations",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "This is the database structure:"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/relaciones.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@DBJargon:(relations tables)",
+      "dialog_node": "node_8_1614466434381",
+      "previous_sibling": "node_10_1644083938527"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "ART_PRV is FK of PRV_NUM"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1614468348674",
+      "conditions": "@YesNo:Yes",
+      "dialog_node": "node_8_1614468516740"
+    },
+    {
+      "type": "standard",
+      "title": "groupBy",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The GROUP BY clause is used to get the summary data based on one or more groups. The groups can be formed on one or more columns.\n\nYou must use aggregate functions such as COUNT(), MAX(), MIN(), SUM(), AVG(), etc., in the SELECT query. The result of the GROUP BY clause returns a single row for each value of the GROUP BY column."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/group.png",
+            "response_type": "image"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "aggregate functions",
+                "value": {
+                  "input": {
+                    "text": "aggregate functions"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:(group by)",
+      "dialog_node": "node_8_1614469950398",
+      "previous_sibling": "node_4_1614469787637"
+    },
+    {
+      "type": "standard",
+      "title": "1064",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "You have an error in your SQL syntax. Maybe you have misspelt something."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1614471691775",
+      "conditions": "#syntax_error && @ErrorCode:1064",
+      "dialog_node": "node_8_1614471923548",
+      "previous_sibling": "node_7_1614471862017"
+    },
+    {
+      "type": "standard",
+      "title": "Check Query",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$comprobarClausula"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1614472422021",
+      "conditions": "#WrongQuery",
+      "dialog_node": "node_8_1614472451701"
+    },
+    {
+      "type": "standard",
+      "title": "Order By",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.order"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:(order by) && $ayudaClausula.order",
+      "dialog_node": "node_8_1647425904193",
+      "previous_sibling": "node_4_1647425750056"
+    },
+    {
+      "type": "standard",
+      "title": "Curdate",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "CURDATE returns the current date. If you need more information: <a href = \"https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_curdate\" target=\"_blank\"  style=\" text-decoration: none; color: green;font-weight: bold; font-size:12px\">CURDATE</a>\n\n"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1614464650478",
+      "conditions": "@Clause:curdate",
+      "dialog_node": "node_8_1648245516815",
+      "previous_sibling": "node_10_1648246381584"
+    },
+    {
+      "type": "folder",
+      "title": "Errors",
+      "digress_in": "returns",
+      "dialog_node": "node_9_1614471691775",
+      "previous_sibling": "node_1_1648233634237"
+    },
+    {
+      "type": "standard",
+      "title": "Nested Query",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$ayudaClausula.anidada"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1647423800224",
+      "conditions": "@Clause:Nested && $ayudaClausula.anidada",
+      "dialog_node": "node_9_1647425914143",
+      "previous_sibling": "node_10_1647425916687"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "My main objective is to help you while you try to solve the exercises. I will also give you some advice if your query is wrong."
+              },
+              {
+                "text": "As I told you before, my main objective is to help you while you try to solve the exercises. I will also give you some advice if your query is wrong."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Help",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              },
+              {
+                "label": "How do I start?",
+                "value": {
+                  "input": {
+                    "text": "How Do I Start?"
+                  }
+                }
+              },
+              {
+                "label": "What is MySQL?",
+                "value": {
+                  "input": {
+                    "text": "what is mysql"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_5_1614465127001",
+      "dialog_node": "response_10_1614465289641",
+      "previous_sibling": "response_5_1614465285008"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "If you don't know how to continue, you can ask me."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Help",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              },
+              {
+                "label": "How do I select a table?",
+                "value": {
+                  "input": {
+                    "text": "How do I select a table?"
+                  }
+                }
+              },
+              {
+                "label": "Show all the tables of the database",
+                "value": {
+                  "input": {
+                    "text": "Show tables"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_5_1614465127001",
+      "conditions": "@YesNo:No",
+      "dialog_node": "response_5_1614465285008"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I recommend you make the query step by step. Start with the easy parts, and I will tell you what's left. If you get stuck, you can ask me for help."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "source": "https://chatbotsql.uca.es/imagenes/fucionamiento.png",
+            "response_type": "image"
+          }
+        ]
+      },
+      "parent": "node_7_1614466000163",
+      "dialog_node": "response_8_1614466056350",
+      "previous_sibling": "response_9_1614466052358"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "If you don't know how to start, you can ask me."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Help",
+                "value": {
+                  "input": {
+                    "text": "Help"
+                  }
+                }
+              },
+              {
+                "label": "How do I start?",
+                "value": {
+                  "input": {
+                    "text": "how do i start"
+                  }
+                }
+              },
+              {
+                "label": "How do I use select",
+                "value": {
+                  "input": {
+                    "text": "How to use select"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_7_1614466000163",
+      "conditions": "@YesNo:No",
+      "dialog_node": "response_9_1614466052358"
+    }
+  ],
+  "counterexamples": [
+    {
+      "text": "a que sabe el agua"
+    },
+    {
+      "text": "Como muestro las tablas"
+    },
+    {
+      "text": "como ordeno de mayor a menor"
+    },
+    {
+      "text": "Cómo selecciono las columnas"
+    },
+    {
+      "text": "cual es el error 1054?"
+    },
+    {
+      "text": "delete rows"
+    },
+    {
+      "text": "delete tables"
+    },
+    {
+      "text": "erase rows"
+    },
+    {
+      "text": "insert elements"
+    },
+    {
+      "text": "labela con la papaya"
+    },
+    {
+      "text": "no"
+    },
+    {
+      "text": "pesa mas un pollo o una jirafa?"
+    },
+    {
+      "text": "update elements"
+    },
+    {
+      "text": "Ver campos de las tablas"
+    },
+    {
+      "text": "what is mysql"
+    }
+  ],
+  "system_settings": {
+    "nlp": {
+      "model": "latest"
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": false,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    }
+  },
+  "learning_opt_out": false,
+  "name": "ChatbotBD ENG",
+  "language": "en",
+  "description": ""
+}
