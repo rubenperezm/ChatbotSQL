@@ -76,7 +76,7 @@ php artisan ser
 At this point, the platform should be visible at `http://localhost:8000`
 
 ### IBM Watson Assistant:
-Log in to IBM Cloud and reate a Lite Plan for IBM Watson Assistant service. Import the assistant included in misc/IBMWatson.
+Log in to IBM Cloud and create an IBM Watson Assistant service instance. Import the assistant included in misc/IBMWatson.
 
 ### BotBD
 Go to `src/botBD`, and create a `.env` file:
