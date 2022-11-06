@@ -51,7 +51,7 @@ Import this repo:
 git clone https://github.com/rubenperezm/ChatbotSQL.git
 ```
 
-Create 3 databases in MySQL and run the scripts included in misc/data. `ChatbotEN.sql` includes some exercises, `db1EN.sql` and `db2.SQL`
+Create 3 databases in MySQL and run the scripts included in misc/data. `ChatbotEN.sql` includes some exercises, `db1EN.sql` and `db2EN.SQL`
 are the databases used in the exercises.
 
 
@@ -86,7 +86,7 @@ cp .env.example .env
 
 Now you need to complete `ASSISTANT_URL`, `ASSISTANT_ID` and `ASSISTANT_IAM_APIKEY` fields with the information of your assistant. You can find this information in your assistant settings.
 
-Before you run the server, please change the first of `botBD/public/js/conversation.js` and include the current URL of the Laravel platform.
+Before you run the server, please change the first line of `botBD/public/js/conversation.js` to include the current URL of the Laravel platform.
 
 Once you have done this, run these commands to install all the dependencies and run the NodeJS server:
 ```
