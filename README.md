@@ -92,7 +92,7 @@ Entities are used for identifying interesting parts of the user's utterance, suc
 - `ErrorCode`: The error codes of the most common MySQL errors.
 
 #### Dialog
-A dialog skill uses Watson natural language processing and machine learning technologies to understand user questions and requests, and respond to them with answers that are authored by you. The message that the skill returns depends on the intent and entities of the user's message.
+A dialog skill uses Watson natural language processing and machine learning technologies to understand user questions and requests, and respond to them with answers that are authored by you. The message the skill returns depends on the intent and entities indetified in the user's message.
 
 ![Image text](./img/dialog.jpg)
 
