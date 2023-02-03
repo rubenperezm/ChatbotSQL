@@ -348,7 +348,7 @@
                   <div class="card-body" id="bloqueConsulta">
                     <div class="col-12 mb-2 px-0" ><textarea name="queryForm" class="form-control" id="formularioQuery"></textarea></div>
                       <div class="col-12 mt-2 px-0 text-right">
-                        <button type="button" class="btn-outline-secondary botonDegradao text-white" name="button" value="query" id="botonQuery" onclick="formularioQuery();"><i class="fas fa-code"></i> EJECUTAR</button>
+                        <button type="button" class="btn-outline-secondary botonDegradao text-white" name="button" value="query" id="botonQuery" onclick="formularioQuery();"><i class="fas fa-code"></i> RUN</button>
                       </div>
                     </div>
                   </div>
