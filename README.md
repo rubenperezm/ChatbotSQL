@@ -116,14 +116,10 @@ npm start &
 ```
 The chatbot will be running on port 3000.
 
-## About the project
+## About the project funding
 
-This project has been funded in the call of Teaching Innovation of the University of Cádiz 2021/22 “Proyecto de Innovación Docente de la UCA" (code sol-202100203360-tra).
+This research & development is part of the project CRÊPES (ref. PID2020-115844RB-I00), funded by MCIN/AEI/10.13039/501100011033/.
 
-Participants in this project:
-- Antonio Balderas
-- Daniel Mejías
-- Andrés Muñoz
-- Manuel Palomo
-- Rubén Pérez
-- Juan Francisco Cabrera
+It is also partially granted by the EMERGIA programme, funded by the Junta de Andalucía through the grant EMC21_004171.
+
+This project has been also funded in the call of Teaching Innovation of the University of Cádiz 2021/22 “Proyecto de Innovación Docente de la UCA" (code sol-202100203360-tra).
